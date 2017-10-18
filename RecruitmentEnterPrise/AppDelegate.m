@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "IQKeyboardManager.h"
+#import "LoginVC.h"
+#import "NavigationController.h"
 
 
 @interface AppDelegate ()
@@ -33,10 +35,14 @@
     
 //    [NSThread sleepForTimeInterval:1];
     
-    TabBarController *tabVC = [[TabBarController alloc] init];
-    self.tabVC = tabVC;
-    self.window.rootViewController = tabVC;
+//    TabBarController *tabVC = [[TabBarController alloc] init];
+//    self.tabVC = tabVC;
     
+    LoginVC *vc = [[LoginVC alloc] init];
+//    vc.title = @"发布新职位";
+    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:vc];
+    self.window.rootViewController = nav;
+
     // 键盘遮盖处理第三方库
     IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
     manager.enable = YES;

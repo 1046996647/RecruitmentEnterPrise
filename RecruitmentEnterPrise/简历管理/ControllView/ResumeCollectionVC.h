@@ -1,5 +1,5 @@
 //
-//  ResumeManageVC.h
+//  ResumeCollectionVC.h
 //  RecruitmentEnterPrise
 //
 //  Created by ZhangWeiLiang on 2017/10/17.
@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface ResumeManageVC : BaseViewController
+@interface ResumeCollectionVC : BaseViewController
 
 @end

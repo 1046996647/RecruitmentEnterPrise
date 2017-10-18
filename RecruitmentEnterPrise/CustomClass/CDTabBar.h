@@ -10,5 +10,5 @@
 
 @interface CDTabBar : UITabBar
 
-@property (nonatomic,copy) void(^didSecBtn)(void);
+@property (nonatomic,copy) void(^didSecBtn)(NSInteger tag);
 @end

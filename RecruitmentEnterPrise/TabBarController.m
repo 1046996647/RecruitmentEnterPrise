@@ -14,7 +14,9 @@
 #import "ResumeManageVC.h"
 #import "ReleaseJobVC.h"
 #import "ChatVC.h"
+
 #import "ReleaseJob1VC.h"
+#import "ResumeManage1VC.h"
 
 
 @interface TabBarController ()<UITabBarControllerDelegate,UINavigationControllerDelegate>
@@ -61,11 +63,21 @@
     
     CDTabBar *tabBar = [[CDTabBar alloc] init];
     [self setValue:tabBar forKey:@"tabBar"];
-    [tabBar setDidSecBtn:^{
-        ReleaseJob1VC *vc = [[ReleaseJob1VC alloc] init];
-        vc.title = @"发布新职位";
-        NavigationController *nav = [[NavigationController alloc] initWithRootViewController:vc];
-        [self presentViewController:nav animated:YES completion:nil];
+    [tabBar setDidSecBtn:^(NSInteger tag) {
+        
+        if (tag == 0) {
+            ReleaseJob1VC *vc = [[ReleaseJob1VC alloc] init];
+            vc.title = @"发布新职位";
+            NavigationController *nav = [[NavigationController alloc] initWithRootViewController:vc];
+            [self presentViewController:nav animated:YES completion:nil];
+        }
+        else {
+            ResumeManage1VC *vc = [[ResumeManage1VC alloc] init];
+            vc.title = @"简历管理";
+            NavigationController *nav = [[NavigationController alloc] initWithRootViewController:vc];
+            [self presentViewController:nav animated:YES completion:nil];
+        }
+        
     }];
 
     

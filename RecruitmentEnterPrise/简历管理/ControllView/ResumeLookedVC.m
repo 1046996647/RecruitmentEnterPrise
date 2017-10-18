@@ -1,18 +1,18 @@
 //
-//  ResumeManageVC.m
+//  ResumeLookedVC.m
 //  RecruitmentEnterPrise
 //
 //  Created by ZhangWeiLiang on 2017/10/17.
 //  Copyright © 2017年 ZhangWeiLiang. All rights reserved.
 //
 
-#import "ResumeManageVC.h"
+#import "ResumeLookedVC.h"
 
-@interface ResumeManageVC ()
+@interface ResumeLookedVC ()
 
 @end
 
-@implementation ResumeManageVC
+@implementation ResumeLookedVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];

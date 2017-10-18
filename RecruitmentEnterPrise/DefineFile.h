@@ -41,10 +41,15 @@
 //设备屏幕尺寸 屏幕Size
 #define kStatusBarHeight [[UIApplication sharedApplication] statusBarFrame].size.height
 #define kNavBarHeight 44.0
+#define kXBarHeight 34.0
 #define kTabBarHeight (kStatusBarHeight > 20 ? 83 : 49)
 #define kTopHeight (kStatusBarHeight + kNavBarHeight)
 
-#define kScreenHeight ([UIScreen mainScreen].bounds.size.height)
+//-------------------获取设备大小尺寸-------------------------
+//设备屏幕尺寸 屏幕Size
+//#define kScreenHeight ([UIScreen mainScreen].bounds.size.height)
+#define kScreenHeight (Device_Is_iPhoneX ? ([UIScreen mainScreen].bounds.size.height - kXBarHeight) : ([UIScreen mainScreen].bounds.size.height))
+
 #define kScreenWidth ([UIScreen mainScreen].bounds.size.width)
 
 

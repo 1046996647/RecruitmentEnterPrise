@@ -28,6 +28,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     // 右上角按钮
     UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24+13+24, 24)];
@@ -45,8 +46,24 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
     
     // 底部按钮
-    UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24+13+24, 24)];
+    UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight-52-kTopHeight, kScreenWidth, 52)];
+    baseView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:baseView];
+    
+    UIView *baseView1 = [[UIView alloc] initWithFrame:CGRectMake((kScreenWidth-(105+5+222))/2, 6, 105+5+222, 40)];
+    [baseView addSubview:baseView1];
+    
+    UIButton *delBtn = [UIButton buttonWithframe:CGRectMake(0, 0, 105, 40) text:@"删除选中" font:SystemFont(16) textColor:@"#D0021B" backgroundColor:nil normal:@"" selected:nil];
+    delBtn.layer.cornerRadius = 7;
+    delBtn.layer.masksToBounds = YES;
+    delBtn.layer.borderColor = [UIColor colorWithHexString:@"#CB4F5E"].CGColor;
+    delBtn.layer.borderWidth = 1;
+    [baseView1 addSubview:delBtn];
+    
+    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(delBtn.right+5, 0, 222, 40) text:@"发布新职位" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#CB4F5E" normal:@"" selected:nil];
+    releseBtn.layer.cornerRadius = 7;
+    releseBtn.layer.masksToBounds = YES;
+    [baseView1 addSubview:releseBtn];
 }
 
 - (void)didReceiveMemoryWarning {
