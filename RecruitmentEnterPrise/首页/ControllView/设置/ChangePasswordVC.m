@@ -1,32 +1,30 @@
 //
-//  AddContactVC.m
+//  ChangePasswordVC.m
 //  RecruitmentEnterPrise
 //
 //  Created by ZhangWeiLiang on 2017/10/20.
 //  Copyright © 2017年 ZhangWeiLiang. All rights reserved.
 //
 
-#import "AddContactVC.h"
+#import "ChangePasswordVC.h"
 #import "AddContactCell.h"
 
-@interface AddContactVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface ChangePasswordVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) NSArray *dataArr;
 @property(nonatomic,strong) UITableView *tableView;
 
 @end
 
-@implementation AddContactVC
+@implementation ChangePasswordVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.dataArr = @[@{@"title":@"姓名",@"placeTitle":@"请填写姓名",@"text":@"",@"key":@"key"},
-                     @{@"title":@"E-mail（选填）",@"placeTitle":@"请填写E-mail",@"text":@"",@"key":@"key"},
-                     @{@"title":@"电话",@"placeTitle":@"请填写联系电话",@"text":@"",@"key":@"key"},
-                     @{@"title":@"传真（选填）",@"placeTitle":@"请填写传真号码",@"text":@"",@"key":@"key"},
-                     @{@"title":@"公司地址",@"placeTitle":@"请填写公司地址",@"text":@"",@"key":@"key"}
+    self.dataArr = @[@{@"title":@"旧密码",@"placeTitle":@"请填写原密码",@"text":@"",@"key":@"key"},
+                     @{@"title":@"新密码",@"placeTitle":@"请填写新密码",@"text":@"",@"key":@"key"},
+                     @{@"title":@"确认密码",@"placeTitle":@"请确认新密码",@"text":@"",@"key":@"key"}
                      
                      ];
     
@@ -47,18 +45,26 @@
     //    _tableView.backgroundColor = [UIColor redColor];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    // 尾视图
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 87+40+83)];
+    // 头视图
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 32)];
+
+    UILabel *nameLab = [UILabel labelWithframe:CGRectMake(22, 15, 58, 17) text:@"用户名：" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
+    [headerView addSubview:nameLab];
     
-    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(25, 87, kScreenWidth-50, 40) text:@"增加" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
+    UILabel *nameLab1 = [UILabel labelWithframe:CGRectMake(nameLab.right+5, 15, 58, 17) text:@"dayday" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
+    [headerView addSubview:nameLab1];
+    _tableView.tableHeaderView = headerView;
+
+    
+    // 尾视图
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 46+40+46)];
+    
+    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(25, 46, kScreenWidth-50, 40) text:@"修改" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
     releseBtn.layer.cornerRadius = 7;
     releseBtn.layer.masksToBounds = YES;
     [footerView addSubview:releseBtn];
     _tableView.tableFooterView = footerView;
     
-    if ([self.title isEqualToString:@"修改联系人"]) {
-        [releseBtn setTitle:@"修改" forState:UIControlStateNormal];
-    }
     
 }
 
@@ -78,7 +84,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.dataArr count];
-//    return 2;
+    //    return 2;
     
     
 }
@@ -100,7 +106,7 @@
     if (cell == nil) {
         
         cell = [[AddContactCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     AddContactModel *model = self.dataArr[indexPath.row];
     cell.model = model;

@@ -8,6 +8,8 @@
 
 #import "SettingVC.h"
 #import "OtherVC.h"
+#import "CountMessageVC.h"
+#import "BaseMessageVC.h"
 
 @interface SettingVC ()
 
@@ -96,16 +98,16 @@
 
 - (void)btnAction:(UIButton *)btn
 {
-//    if (btn.tag == 0) {
-//        JobManageVC *vc = [[JobManageVC alloc] init];
-//        vc.title = @"职位管理";
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }
-//    if (btn.tag == 1) {
-//        ResumeSearchVC *vc = [[ResumeSearchVC alloc] init];
-//        //        vc.title = @"职位管理";
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }
+    if (btn.tag == 0) {
+        CountMessageVC *vc = [[CountMessageVC alloc] init];
+        vc.title = @"账号信息";
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if (btn.tag == 1) {
+        BaseMessageVC *vc = [[BaseMessageVC alloc] init];
+        vc.title = @"编辑基本信息";
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 //    if (btn.tag == 2) {
 //        InviteInterviewVC *vc = [[InviteInterviewVC alloc] init];
 //        vc.title = @"邀请面试记录";

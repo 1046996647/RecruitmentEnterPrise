@@ -8,6 +8,7 @@
 
 #import "ContactManageVC.h"
 #import "ContactManageCell.h"
+#import "AddContactVC.h"
 
 @interface ContactManageVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -35,11 +36,19 @@
     UIButton *viewBtn = [UIButton buttonWithframe:rightView.bounds text:@"" font:SystemFont(14) textColor:@"#FFFFFF" backgroundColor:nil normal:@"32" selected:nil];
     [rightView addSubview:viewBtn];
     viewBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [viewBtn addTarget:self action:@selector(addAction) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
     
     
     
+}
+
+- (void)addAction
+{
+    AddContactVC *vc = [[AddContactVC alloc] init];
+    vc.title = @"增加联系人";
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,6 +93,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    AddContactVC *vc = [[AddContactVC alloc] init];
+    vc.title = @"修改联系人";
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 

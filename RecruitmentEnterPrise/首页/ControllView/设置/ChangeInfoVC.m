@@ -8,6 +8,7 @@
 
 #import "ChangeInfoVC.h"
 #import "ContactManageVC.h"
+#import "ChangePasswordVC.h"
 
 @interface ChangeInfoVC ()
 
@@ -59,9 +60,9 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (btn.tag == 1) {
-//        ResumeSearchVC *vc = [[ResumeSearchVC alloc] init];
-//        //        vc.title = @"职位管理";
-//        [self.navigationController pushViewController:vc animated:YES];
+        ChangePasswordVC *vc = [[ChangePasswordVC alloc] init];
+        vc.title = @"修改密码";
+        [self.navigationController pushViewController:vc animated:YES];
     }
 
     

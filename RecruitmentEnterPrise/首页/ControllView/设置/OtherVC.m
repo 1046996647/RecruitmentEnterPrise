@@ -58,11 +58,15 @@
         vc.title = @"修改资料";
         [self.navigationController pushViewController:vc animated:YES];
     }
-    //    if (btn.tag == 1) {
-    //        ResumeSearchVC *vc = [[ResumeSearchVC alloc] init];
-    //        //        vc.title = @"职位管理";
-    //        [self.navigationController pushViewController:vc animated:YES];
-    //    }
+    if (btn.tag == 1) {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确定要退出登录吗" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:cancelAction];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
     
     
 }

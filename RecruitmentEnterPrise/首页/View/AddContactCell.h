@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddContactModel.h"
+
 
 @interface AddContactCell : UITableViewCell
 
+
 @property(nonatomic,strong) UILabel *nameLab;
 @property(nonatomic,strong) UITextField *tf1;
+@property(nonatomic,strong) UIButton *selectBtn;
 
+@property(nonatomic,strong) AddContactModel *model;
 
 @end

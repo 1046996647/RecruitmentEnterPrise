@@ -14,6 +14,7 @@
 #import "ResumeSearchVC.h"
 #import "ChatWantedVC.h"
 #import "SettingVC.h"
+#import "CompanyDetailVC.h"
 
 @interface HomeVC ()
 
@@ -191,13 +192,15 @@
 
 - (void)viewAction
 {
-    
+    CompanyDetailVC *vc = [[CompanyDetailVC alloc] init];
+    vc.title = @"首页预览";
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)setAction
 {
     SettingVC *vc = [[SettingVC alloc] init];
-//    vc.title = @"邀请面试记录";
+    vc.title = @"设置";
     [self.navigationController pushViewController:vc animated:YES];
 }
 
