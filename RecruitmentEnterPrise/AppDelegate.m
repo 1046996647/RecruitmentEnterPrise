@@ -35,13 +35,15 @@
     
 //    [NSThread sleepForTimeInterval:1];
     
-//    TabBarController *tabVC = [[TabBarController alloc] init];
-//    self.tabVC = tabVC;
+    TabBarController *tabVC = [[TabBarController alloc] init];
+    self.tabVC = tabVC;
+    self.window.rootViewController = tabVC;
+
     
-    LoginVC *vc = [[LoginVC alloc] init];
-//    vc.title = @"发布新职位";
-    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:vc];
-    self.window.rootViewController = nav;
+//    LoginVC *vc = [[LoginVC alloc] init];
+////    vc.title = @"发布新职位";
+//    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:vc];
+//    self.window.rootViewController = nav;
 
     // 键盘遮盖处理第三方库
     IQKeyboardManager *manager = [IQKeyboardManager sharedManager];

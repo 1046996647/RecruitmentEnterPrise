@@ -43,7 +43,7 @@ CGRect  CGRectMoveToCenter(CGRect rect, CGPoint center);
 + (UITextField *)textFieldWithframe:(CGRect)frame placeholder:(NSString *)placeholder font:(UIFont *)font leftView:(UIView *)leftView backgroundColor:(NSString *)backColor;
 
 // UITableView
-+ (UITableView *)tableViewWithframe:(CGRect)frame;
++ (UITableView *)tableViewWithframe:(CGRect)frame style:(UITableViewStyle)style;
 
 
 // 在view中获取viewController

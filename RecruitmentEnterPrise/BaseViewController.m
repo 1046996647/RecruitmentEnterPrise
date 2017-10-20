@@ -31,7 +31,7 @@
         CGRect frame = button.frame;
         frame.size = CGSizeMake(30, 20);
         button.frame = frame;
-        
+//        button.backgroundColor = [UIColor greenColor]
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         //        button.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
 //        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];

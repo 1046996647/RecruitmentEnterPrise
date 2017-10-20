@@ -19,4 +19,11 @@
 @property(nonatomic,strong) ReleaseJobModel *model;
 
 
+//
+@property(nonatomic,strong) UIView *baseView;
+@property(nonatomic,strong) UITextField *tf1;
+@property(nonatomic,strong) UITextField *tf2;
+@property(nonatomic,strong) UILabel *label1;
+@property(nonatomic,strong) UILabel *label2;
+
 @end

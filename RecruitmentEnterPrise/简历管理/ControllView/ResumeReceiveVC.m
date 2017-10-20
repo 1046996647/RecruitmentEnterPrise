@@ -23,12 +23,29 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    _tableView = [UITableView tableViewWithframe:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kTopHeight-37)];
+    _tableView = [UITableView tableViewWithframe:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kTopHeight-37-40) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
 //    _tableView.backgroundColor = [UIColor redColor];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    
+    // 底部按钮
+    UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(0, _tableView.bottom, kScreenWidth, 40)];
+    baseView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:baseView];
+    
+    UIButton *selectBtn = [UIButton buttonWithframe:CGRectMake(0, 0, 100, 40) text:@"全选" font:SystemFont(14) textColor:@"#333333" backgroundColor:nil normal:@"" selected:nil];
+    [baseView addSubview:selectBtn];
+    
+    CGFloat aWidth = (kScreenWidth-selectBtn.width)/2;
+    UIButton *delBtn = [UIButton buttonWithframe:CGRectMake(selectBtn.right, 0, aWidth, selectBtn.height) text:@"删除选中" font:SystemFont(14) textColor:@"#FFFFFF" backgroundColor:@"#999999" normal:@"" selected:nil];
+    [baseView addSubview:delBtn];
+    
+    UIButton *inviteBtn = [UIButton buttonWithframe:CGRectMake(delBtn.right, 0, aWidth, selectBtn.height) text:@"批量邀请面试" font:SystemFont(14) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
+    [baseView addSubview:inviteBtn];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,7 +87,7 @@
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
     //    view.backgroundColor = [UIColor colorWithHexString:@"#FAE5E8"];
     UILabel *label = [UILabel labelWithframe:CGRectMake(19, 7, kScreenWidth-19, 17) text:@"2017-08-24" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
     [view addSubview:label];
@@ -78,7 +95,18 @@
     return view;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.0001;// 为0无效
+    
+}
 
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0.0001)];
+//    view.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+    return view;
+}
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -247,12 +247,16 @@ CGRect CGRectMoveToCenter(CGRect rect, CGPoint center)
 }
 
 // UITableView
-+ (UITableView *)tableViewWithframe:(CGRect)frame 
++ (UITableView *)tableViewWithframe:(CGRect)frame style:(UITableViewStyle)style
 {
-    UITableView *tableView = [[self alloc] initWithFrame:frame style:UITableViewStylePlain];
+    UITableView *tableView = [[self alloc] initWithFrame:frame style:style];
     //        _tableView.scrollEnabled = NO;
     tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;// 滑动时收起键盘
-    tableView.tableFooterView = [[UIView alloc] init];
+    // UITableViewStyleGrouped：会影响第一headerSection的高度
+    if (style == UITableViewStylePlain) {
+        tableView.tableFooterView = [[UIView alloc] init];
+
+    }
     tableView.backgroundColor = [UIColor clearColor];
     
     return tableView;

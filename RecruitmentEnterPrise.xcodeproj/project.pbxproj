@@ -12,6 +12,13 @@
 		F705A7DD1F9488EE00298D57 /* ReleaseJobCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F705A7DC1F9488EE00298D57 /* ReleaseJobCell.m */; };
 		F705A7E01F948EC200298D57 /* ReleaseJobModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F705A7DF1F948EC200298D57 /* ReleaseJobModel.m */; };
 		F705A7E31F94985500298D57 /* BasePresentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F705A7E21F94985500298D57 /* BasePresentViewController.m */; };
+		F71C04291F9839690024C1EC /* ChatWantedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F71C04281F9839690024C1EC /* ChatWantedVC.m */; };
+		F71C042C1F983ABD0024C1EC /* ChatWantedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F71C042B1F983ABD0024C1EC /* ChatWantedCell.m */; };
+		F71C043A1F98793C0024C1EC /* SettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F71C04391F98793C0024C1EC /* SettingVC.m */; };
+		F71C043D1F988C450024C1EC /* OtherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F71C043C1F988C450024C1EC /* OtherVC.m */; };
+		F71C04461F98A5A80024C1EC /* ChangeInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F71C04451F98A5A80024C1EC /* ChangeInfoVC.m */; };
+		F71C04491F98A8790024C1EC /* ContactManageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F71C04481F98A8790024C1EC /* ContactManageVC.m */; };
+		F71C044C1F98A8AB0024C1EC /* ContactManageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F71C044B1F98A8AB0024C1EC /* ContactManageCell.m */; };
 		F74820491F91FCCA00F072CD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F74820481F91FCCA00F072CD /* AppDelegate.m */; };
 		F748204F1F91FCCA00F072CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F748204D1F91FCCA00F072CD /* Main.storyboard */; };
 		F74820511F91FCCA00F072CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F74820501F91FCCA00F072CD /* Assets.xcassets */; };
@@ -36,8 +43,17 @@
 		F74820DC1F91FE8B00F072CD /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = F74820B91F91FE8A00F072CD /* UIViewExt.m */; };
 		F74820DD1F91FE8B00F072CD /* UIColor+Expend.m in Sources */ = {isa = PBXBuildFile; fileRef = F74820BC1F91FE8A00F072CD /* UIColor+Expend.m */; };
 		F74820DE1F91FE8B00F072CD /* ZXPUnicode.m in Sources */ = {isa = PBXBuildFile; fileRef = F74820BF1F91FE8A00F072CD /* ZXPUnicode.m */; };
+		F756477F1F9986460060E744 /* AddContactVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F756477E1F9986460060E744 /* AddContactVC.m */; };
+		F75647821F99865A0060E744 /* AddContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75647811F99865A0060E744 /* AddContactCell.m */; };
 		F75BD65C1F947F2B00433133 /* CDTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BD65B1F947F2A00433133 /* CDTabBar.m */; };
 		F75BD65F1F94866800433133 /* ReleaseJob1VC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BD65E1F94866800433133 /* ReleaseJob1VC.m */; };
+		F75EB6761F96E94C00CBCA7C /* InviteInterviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75EB6751F96E94C00CBCA7C /* InviteInterviewVC.m */; };
+		F75EB6791F96EC2200CBCA7C /* WordsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75EB6781F96EC2200CBCA7C /* WordsVC.m */; };
+		F75EB67C1F96F61500CBCA7C /* MyMailboxVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75EB67B1F96F61500CBCA7C /* MyMailboxVC.m */; };
+		F75EB67F1F96F62E00CBCA7C /* ReceiveMsgVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75EB67E1F96F62E00CBCA7C /* ReceiveMsgVC.m */; };
+		F75EB6821F96F64100CBCA7C /* SendMsgVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75EB6811F96F64100CBCA7C /* SendMsgVC.m */; };
+		F75EB6851F96F9A100CBCA7C /* ReceiveMsgCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75EB6841F96F9A100CBCA7C /* ReceiveMsgCell.m */; };
+		F75EB6881F9722CC00CBCA7C /* ResumeSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75EB6871F9722CC00CBCA7C /* ResumeSearchVC.m */; };
 		F766D8ED1F958D43004C74F0 /* JobCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F766D8EC1F958D43004C74F0 /* JobCell.m */; };
 		F766D8FE1F95A111004C74F0 /* JobManageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F766D8FD1F95A111004C74F0 /* JobManageVC.m */; };
 		F766D91A1F95AA99004C74F0 /* MJCChildMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = F766D9021F95AA98004C74F0 /* MJCChildMainView.m */; };
@@ -62,6 +78,11 @@
 		F766D9471F95E413004C74F0 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F766D9461F95E413004C74F0 /* LoginVC.m */; };
 		F766D94A1F95F597004C74F0 /* PersonalMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F766D9481F95F597004C74F0 /* PersonalMessageCell.m */; };
 		F766D94D1F95F9C4004C74F0 /* PersonalMessageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F766D94C1F95F9C4004C74F0 /* PersonalMessageVC.m */; };
+		F76AD85D1F973E9E00BA88D3 /* HotJobCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F76AD85B1F973E9E00BA88D3 /* HotJobCell.m */; };
+		F76AD8601F97403400BA88D3 /* PlaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = F76AD85F1F97403400BA88D3 /* PlaceView.m */; };
+		F76AD8631F97452500BA88D3 /* SearchUITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F76AD8621F97452500BA88D3 /* SearchUITableView.m */; };
+		F76AD8661F97515700BA88D3 /* ResumeSearchResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F76AD8651F97515700BA88D3 /* ResumeSearchResultVC.m */; };
+		F76AD8691F97520500BA88D3 /* ResumeSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F76AD8681F97520500BA88D3 /* ResumeSearchResultCell.m */; };
 		F78D93751F9204B800E0DCA9 /* AFNetworking_RequestData.m in Sources */ = {isa = PBXBuildFile; fileRef = F78D93741F9204B800E0DCA9 /* AFNetworking_RequestData.m */; };
 		F78D93781F9204F400E0DCA9 /* PersonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F78D93761F9204F200E0DCA9 /* PersonModel.m */; };
 		F78D93861F92064A00E0DCA9 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = F78D93801F92064400E0DCA9 /* NavigationController.m */; };
@@ -101,6 +122,20 @@
 		F705A7DF1F948EC200298D57 /* ReleaseJobModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReleaseJobModel.m; sourceTree = "<group>"; };
 		F705A7E11F94985500298D57 /* BasePresentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BasePresentViewController.h; sourceTree = "<group>"; };
 		F705A7E21F94985500298D57 /* BasePresentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BasePresentViewController.m; sourceTree = "<group>"; };
+		F71C04271F9839690024C1EC /* ChatWantedVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatWantedVC.h; sourceTree = "<group>"; };
+		F71C04281F9839690024C1EC /* ChatWantedVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatWantedVC.m; sourceTree = "<group>"; };
+		F71C042A1F983ABD0024C1EC /* ChatWantedCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatWantedCell.h; sourceTree = "<group>"; };
+		F71C042B1F983ABD0024C1EC /* ChatWantedCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatWantedCell.m; sourceTree = "<group>"; };
+		F71C04381F98793C0024C1EC /* SettingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingVC.h; sourceTree = "<group>"; };
+		F71C04391F98793C0024C1EC /* SettingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingVC.m; sourceTree = "<group>"; };
+		F71C043B1F988C450024C1EC /* OtherVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OtherVC.h; sourceTree = "<group>"; };
+		F71C043C1F988C450024C1EC /* OtherVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OtherVC.m; sourceTree = "<group>"; };
+		F71C04441F98A5A80024C1EC /* ChangeInfoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeInfoVC.h; sourceTree = "<group>"; };
+		F71C04451F98A5A80024C1EC /* ChangeInfoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeInfoVC.m; sourceTree = "<group>"; };
+		F71C04471F98A8790024C1EC /* ContactManageVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactManageVC.h; sourceTree = "<group>"; };
+		F71C04481F98A8790024C1EC /* ContactManageVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactManageVC.m; sourceTree = "<group>"; };
+		F71C044A1F98A8AB0024C1EC /* ContactManageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactManageCell.h; sourceTree = "<group>"; };
+		F71C044B1F98A8AB0024C1EC /* ContactManageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactManageCell.m; sourceTree = "<group>"; };
 		F74820441F91FCCA00F072CD /* RecruitmentEnterPrise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecruitmentEnterPrise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F74820471F91FCCA00F072CD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F74820481F91FCCA00F072CD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -152,10 +187,28 @@
 		F74820E01F9202CE00F072CD /* DefineFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefineFile.h; sourceTree = "<group>"; };
 		F74820E11F9202E100F072CD /* UrlFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UrlFile.h; sourceTree = "<group>"; };
 		F74820E21F9202F400F072CD /* RecruitmentEnterPrise.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecruitmentEnterPrise.pch; sourceTree = "<group>"; };
+		F756477D1F9986460060E744 /* AddContactVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddContactVC.h; sourceTree = "<group>"; };
+		F756477E1F9986460060E744 /* AddContactVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddContactVC.m; sourceTree = "<group>"; };
+		F75647801F99865A0060E744 /* AddContactCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddContactCell.h; sourceTree = "<group>"; };
+		F75647811F99865A0060E744 /* AddContactCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddContactCell.m; sourceTree = "<group>"; };
 		F75BD65A1F947F2A00433133 /* CDTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDTabBar.h; sourceTree = "<group>"; };
 		F75BD65B1F947F2A00433133 /* CDTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDTabBar.m; sourceTree = "<group>"; };
 		F75BD65D1F94866800433133 /* ReleaseJob1VC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReleaseJob1VC.h; sourceTree = "<group>"; };
 		F75BD65E1F94866800433133 /* ReleaseJob1VC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReleaseJob1VC.m; sourceTree = "<group>"; };
+		F75EB6741F96E94C00CBCA7C /* InviteInterviewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InviteInterviewVC.h; sourceTree = "<group>"; };
+		F75EB6751F96E94C00CBCA7C /* InviteInterviewVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InviteInterviewVC.m; sourceTree = "<group>"; };
+		F75EB6771F96EC2200CBCA7C /* WordsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WordsVC.h; sourceTree = "<group>"; };
+		F75EB6781F96EC2200CBCA7C /* WordsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WordsVC.m; sourceTree = "<group>"; };
+		F75EB67A1F96F61500CBCA7C /* MyMailboxVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyMailboxVC.h; sourceTree = "<group>"; };
+		F75EB67B1F96F61500CBCA7C /* MyMailboxVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyMailboxVC.m; sourceTree = "<group>"; };
+		F75EB67D1F96F62E00CBCA7C /* ReceiveMsgVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReceiveMsgVC.h; sourceTree = "<group>"; };
+		F75EB67E1F96F62E00CBCA7C /* ReceiveMsgVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReceiveMsgVC.m; sourceTree = "<group>"; };
+		F75EB6801F96F64100CBCA7C /* SendMsgVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendMsgVC.h; sourceTree = "<group>"; };
+		F75EB6811F96F64100CBCA7C /* SendMsgVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendMsgVC.m; sourceTree = "<group>"; };
+		F75EB6831F96F9A100CBCA7C /* ReceiveMsgCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReceiveMsgCell.h; sourceTree = "<group>"; };
+		F75EB6841F96F9A100CBCA7C /* ReceiveMsgCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReceiveMsgCell.m; sourceTree = "<group>"; };
+		F75EB6861F9722CC00CBCA7C /* ResumeSearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResumeSearchVC.h; sourceTree = "<group>"; };
+		F75EB6871F9722CC00CBCA7C /* ResumeSearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResumeSearchVC.m; sourceTree = "<group>"; };
 		F766D8EB1F958D41004C74F0 /* JobCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobCell.h; sourceTree = "<group>"; };
 		F766D8EC1F958D43004C74F0 /* JobCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobCell.m; sourceTree = "<group>"; };
 		F766D8FC1F95A110004C74F0 /* JobManageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobManageVC.h; sourceTree = "<group>"; };
@@ -204,6 +257,16 @@
 		F766D9491F95F597004C74F0 /* PersonalMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalMessageCell.h; sourceTree = "<group>"; };
 		F766D94B1F95F9C4004C74F0 /* PersonalMessageVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalMessageVC.h; sourceTree = "<group>"; };
 		F766D94C1F95F9C4004C74F0 /* PersonalMessageVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalMessageVC.m; sourceTree = "<group>"; };
+		F76AD85B1F973E9E00BA88D3 /* HotJobCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HotJobCell.m; sourceTree = "<group>"; };
+		F76AD85C1F973E9E00BA88D3 /* HotJobCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HotJobCell.h; sourceTree = "<group>"; };
+		F76AD85E1F97403400BA88D3 /* PlaceView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceView.h; sourceTree = "<group>"; };
+		F76AD85F1F97403400BA88D3 /* PlaceView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceView.m; sourceTree = "<group>"; };
+		F76AD8611F97452400BA88D3 /* SearchUITableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchUITableView.h; sourceTree = "<group>"; };
+		F76AD8621F97452500BA88D3 /* SearchUITableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchUITableView.m; sourceTree = "<group>"; };
+		F76AD8641F97515700BA88D3 /* ResumeSearchResultVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResumeSearchResultVC.h; sourceTree = "<group>"; };
+		F76AD8651F97515700BA88D3 /* ResumeSearchResultVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResumeSearchResultVC.m; sourceTree = "<group>"; };
+		F76AD8671F97520500BA88D3 /* ResumeSearchResultCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResumeSearchResultCell.h; sourceTree = "<group>"; };
+		F76AD8681F97520500BA88D3 /* ResumeSearchResultCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResumeSearchResultCell.m; sourceTree = "<group>"; };
 		F78D93731F9204B800E0DCA9 /* AFNetworking_RequestData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking_RequestData.h; sourceTree = "<group>"; };
 		F78D93741F9204B800E0DCA9 /* AFNetworking_RequestData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworking_RequestData.m; sourceTree = "<group>"; };
 		F78D93761F9204F200E0DCA9 /* PersonModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonModel.m; sourceTree = "<group>"; };
@@ -284,6 +347,23 @@
 			path = ControllView;
 			sourceTree = "<group>";
 		};
+		F71C04371F9879140024C1EC /* 设置 */ = {
+			isa = PBXGroup;
+			children = (
+				F71C04381F98793C0024C1EC /* SettingVC.h */,
+				F71C04391F98793C0024C1EC /* SettingVC.m */,
+				F71C043B1F988C450024C1EC /* OtherVC.h */,
+				F71C043C1F988C450024C1EC /* OtherVC.m */,
+				F71C04441F98A5A80024C1EC /* ChangeInfoVC.h */,
+				F71C04451F98A5A80024C1EC /* ChangeInfoVC.m */,
+				F71C04471F98A8790024C1EC /* ContactManageVC.h */,
+				F71C04481F98A8790024C1EC /* ContactManageVC.m */,
+				F756477D1F9986460060E744 /* AddContactVC.h */,
+				F756477E1F9986460060E744 /* AddContactVC.m */,
+			);
+			path = "设置";
+			sourceTree = "<group>";
+		};
 		F748203B1F91FCCA00F072CD = {
 			isa = PBXGroup;
 			children = (
@@ -309,7 +389,6 @@
 		F74820461F91FCCA00F072CD /* RecruitmentEnterPrise */ = {
 			isa = PBXGroup;
 			children = (
-				F766D8FF1F95AA98004C74F0 /* MJCSlideInterface */,
 				F78D93721F9204B800E0DCA9 /* AFNetworking_RequestData */,
 				F74820791F91FE8A00F072CD /* Thirdparty */,
 				F75BD6591F947F2A00433133 /* CustomClass */,
@@ -498,6 +577,7 @@
 		F75BD6591F947F2A00433133 /* CustomClass */ = {
 			isa = PBXGroup;
 			children = (
+				F766D8FF1F95AA98004C74F0 /* MJCSlideInterface */,
 				F75BD65A1F947F2A00433133 /* CDTabBar.h */,
 				F75BD65B1F947F2A00433133 /* CDTabBar.m */,
 			);
@@ -551,6 +631,23 @@
 				F78D938A1F92067900E0DCA9 /* HomeVC.m */,
 				F766D8FC1F95A110004C74F0 /* JobManageVC.h */,
 				F766D8FD1F95A111004C74F0 /* JobManageVC.m */,
+				F75EB6741F96E94C00CBCA7C /* InviteInterviewVC.h */,
+				F75EB6751F96E94C00CBCA7C /* InviteInterviewVC.m */,
+				F75EB6771F96EC2200CBCA7C /* WordsVC.h */,
+				F75EB6781F96EC2200CBCA7C /* WordsVC.m */,
+				F75EB67A1F96F61500CBCA7C /* MyMailboxVC.h */,
+				F75EB67B1F96F61500CBCA7C /* MyMailboxVC.m */,
+				F75EB67D1F96F62E00CBCA7C /* ReceiveMsgVC.h */,
+				F75EB67E1F96F62E00CBCA7C /* ReceiveMsgVC.m */,
+				F75EB6801F96F64100CBCA7C /* SendMsgVC.h */,
+				F75EB6811F96F64100CBCA7C /* SendMsgVC.m */,
+				F75EB6861F9722CC00CBCA7C /* ResumeSearchVC.h */,
+				F75EB6871F9722CC00CBCA7C /* ResumeSearchVC.m */,
+				F76AD8641F97515700BA88D3 /* ResumeSearchResultVC.h */,
+				F76AD8651F97515700BA88D3 /* ResumeSearchResultVC.m */,
+				F71C04271F9839690024C1EC /* ChatWantedVC.h */,
+				F71C04281F9839690024C1EC /* ChatWantedVC.m */,
+				F71C04371F9879140024C1EC /* 设置 */,
 			);
 			path = ControllView;
 			sourceTree = "<group>";
@@ -565,6 +662,22 @@
 		F766D8F81F959F86004C74F0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F75EB6831F96F9A100CBCA7C /* ReceiveMsgCell.h */,
+				F75EB6841F96F9A100CBCA7C /* ReceiveMsgCell.m */,
+				F76AD85C1F973E9E00BA88D3 /* HotJobCell.h */,
+				F76AD85B1F973E9E00BA88D3 /* HotJobCell.m */,
+				F76AD85E1F97403400BA88D3 /* PlaceView.h */,
+				F76AD85F1F97403400BA88D3 /* PlaceView.m */,
+				F76AD8611F97452400BA88D3 /* SearchUITableView.h */,
+				F76AD8621F97452500BA88D3 /* SearchUITableView.m */,
+				F76AD8671F97520500BA88D3 /* ResumeSearchResultCell.h */,
+				F76AD8681F97520500BA88D3 /* ResumeSearchResultCell.m */,
+				F71C042A1F983ABD0024C1EC /* ChatWantedCell.h */,
+				F71C042B1F983ABD0024C1EC /* ChatWantedCell.m */,
+				F71C044A1F98A8AB0024C1EC /* ContactManageCell.h */,
+				F71C044B1F98A8AB0024C1EC /* ContactManageCell.m */,
+				F75647801F99865A0060E744 /* AddContactCell.h */,
+				F75647811F99865A0060E744 /* AddContactCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -656,9 +769,9 @@
 		F78D937C1F92056600E0DCA9 /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
-				F766D8F71F959F86004C74F0 /* Model */,
-				F766D8F81F959F86004C74F0 /* View */,
 				F766D8F31F959820004C74F0 /* ControllView */,
+				F766D8F81F959F86004C74F0 /* View */,
+				F766D8F71F959F86004C74F0 /* Model */,
 			);
 			path = "首页";
 			sourceTree = "<group>";
@@ -873,14 +986,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F71C042C1F983ABD0024C1EC /* ChatWantedCell.m in Sources */,
 				F74820CA1F91FE8B00F072CD /* InfoCache.m in Sources */,
 				F766D9241F95AA99004C74F0 /* UIView+MJCClassExtension.m in Sources */,
 				F766D9471F95E413004C74F0 /* LoginVC.m in Sources */,
 				F766D9441F95E405004C74F0 /* RegisterVC.m in Sources */,
 				F78D93881F92064A00E0DCA9 /* BaseViewController.m in Sources */,
 				F766D8ED1F958D43004C74F0 /* JobCell.m in Sources */,
+				F75647821F99865A0060E744 /* AddContactCell.m in Sources */,
 				F766D91B1F95AA99004C74F0 /* MJCIndicatorView.m in Sources */,
 				F766D9221F95AA99004C74F0 /* UIColor+MJCClassExtension.m in Sources */,
+				F71C044C1F98A8AB0024C1EC /* ContactManageCell.m in Sources */,
 				F74820C81F91FE8B00F072CD /* NSDate+BRAdd.m in Sources */,
 				F705A7E01F948EC200298D57 /* ReleaseJobModel.m in Sources */,
 				F74820DB1F91FE8B00F072CD /* UIViewController+UIViewControllerExt.m in Sources */,
@@ -888,10 +1004,14 @@
 				F74820DA1F91FE8B00F072CD /* UIImage+UIImageExt.m in Sources */,
 				F766D91A1F95AA99004C74F0 /* MJCChildMainView.m in Sources */,
 				F78D93911F92069D00E0DCA9 /* ResumeManage1VC.m in Sources */,
+				F75EB6821F96F64100CBCA7C /* SendMsgVC.m in Sources */,
 				F705A7DD1F9488EE00298D57 /* ReleaseJobCell.m in Sources */,
+				F71C04291F9839690024C1EC /* ChatWantedVC.m in Sources */,
 				F766D91D1F95AA99004C74F0 /* MJCTitlesView.m in Sources */,
 				F766D9231F95AA99004C74F0 /* UILabel+MJCClassExtension.m in Sources */,
 				F74820571F91FCCA00F072CD /* main.m in Sources */,
+				F75EB6881F9722CC00CBCA7C /* ResumeSearchVC.m in Sources */,
+				F71C043D1F988C450024C1EC /* OtherVC.m in Sources */,
 				F78D93781F9204F400E0DCA9 /* PersonModel.m in Sources */,
 				F74820DE1F91FE8B00F072CD /* ZXPUnicode.m in Sources */,
 				F74820C91F91FE8B00F072CD /* BRStringPickerView.m in Sources */,
@@ -904,24 +1024,38 @@
 				F74820DD1F91FE8B00F072CD /* UIColor+Expend.m in Sources */,
 				F766D91F1F95AA99004C74F0 /* MJCCommonTools.m in Sources */,
 				F766D91E1F95AA99004C74F0 /* MJCAlertMessage.m in Sources */,
+				F76AD8691F97520500BA88D3 /* ResumeSearchResultCell.m in Sources */,
 				F74820C31F91FE8B00F072CD /* BRAddressModel.m in Sources */,
 				F75BD65C1F947F2B00433133 /* CDTabBar.m in Sources */,
 				F705A7DA1F9488C500298D57 /* ReleaseJobVC.m in Sources */,
+				F76AD8601F97403400BA88D3 /* PlaceView.m in Sources */,
+				F76AD8631F97452500BA88D3 /* SearchUITableView.m in Sources */,
 				F74820CE1F91FE8B00F072CD /* RegexTool.m in Sources */,
 				F74820C41F91FE8B00F072CD /* BRAddressPickerView.m in Sources */,
+				F75EB6791F96EC2200CBCA7C /* WordsVC.m in Sources */,
 				F766D9311F95AB2C004C74F0 /* ResumeCollectionVC.m in Sources */,
 				F74820491F91FCCA00F072CD /* AppDelegate.m in Sources */,
+				F75EB6761F96E94C00CBCA7C /* InviteInterviewVC.m in Sources */,
+				F71C04461F98A5A80024C1EC /* ChangeInfoVC.m in Sources */,
 				F78D93941F9206A700E0DCA9 /* ChatVC.m in Sources */,
+				F71C04491F98A8790024C1EC /* ContactManageVC.m in Sources */,
 				F74820DC1F91FE8B00F072CD /* UIViewExt.m in Sources */,
 				F766D9201F95AA99004C74F0 /* MJCOrdinaryLayout.m in Sources */,
+				F76AD85D1F973E9E00BA88D3 /* HotJobCell.m in Sources */,
+				F75EB67C1F96F61500CBCA7C /* MyMailboxVC.m in Sources */,
 				F766D93A1F95C880004C74F0 /* ResumeManageVC.m in Sources */,
 				F766D92B1F95AB02004C74F0 /* ResumeCheckedVC.m in Sources */,
 				F78D93861F92064A00E0DCA9 /* NavigationController.m in Sources */,
 				F78D938B1F92067900E0DCA9 /* HomeVC.m in Sources */,
+				F71C043A1F98793C0024C1EC /* SettingVC.m in Sources */,
+				F76AD8661F97515700BA88D3 /* ResumeSearchResultVC.m in Sources */,
+				F75EB6851F96F9A100CBCA7C /* ReceiveMsgCell.m in Sources */,
 				F74820D61F91FE8B00F072CD /* UIView+Toast.m in Sources */,
 				F766D94A1F95F597004C74F0 /* PersonalMessageCell.m in Sources */,
 				F766D9281F95AABF004C74F0 /* ResumeReceiveVC.m in Sources */,
 				F766D93D1F95CBE2004C74F0 /* ResumeReceiveCell.m in Sources */,
+				F756477F1F9986460060E744 /* AddContactVC.m in Sources */,
+				F75EB67F1F96F62E00CBCA7C /* ReceiveMsgVC.m in Sources */,
 				F705A7E31F94985500298D57 /* BasePresentViewController.m in Sources */,
 				F766D92E1F95AB1D004C74F0 /* ResumeLookedVC.m in Sources */,
 				F75BD65F1F94866800433133 /* ReleaseJob1VC.m in Sources */,

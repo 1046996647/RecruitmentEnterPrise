@@ -45,7 +45,7 @@
     lala.itemTextSelectedColor = colorWithHexStr(@"#D0021B");;
     lala.selectedSegmentIndex = 0;
     lala.indicatorColor = colorWithHexStr(@"#D0021B");
-    //    lala.isIndicatorFollow = YES;
+    lala.isIndicatorsAnimals = YES;
     lala.itemTextFontSize = 12;
     lala.isChildScollEnabled = NO;
 //    lala.selectedSegmentIndex = 2;
@@ -53,6 +53,14 @@
     [lala intoTitlesArray:titlesArr hostController:self];
     [self.view addSubview:lala];
     [lala intoChildControllerArray:vcarrr];
+    
+    // 右上角按钮
+    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 58, 17)];
+    
+    UIButton *viewBtn = [UIButton buttonWithframe:rightView.bounds text:@"职位分类" font:SystemFont(14) textColor:@"#FFFFFF" backgroundColor:nil normal:nil selected:nil];
+    [rightView addSubview:viewBtn];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
 }
 
 - (void)didReceiveMemoryWarning {

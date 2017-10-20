@@ -8,6 +8,12 @@
 
 #import "HomeVC.h"
 #import "JobManageVC.h"
+#import "InviteInterviewVC.h"
+#import "WordsVC.h"
+#import "MyMailboxVC.h"
+#import "ResumeSearchVC.h"
+#import "ChatWantedVC.h"
+#import "SettingVC.h"
 
 @interface HomeVC ()
 
@@ -126,7 +132,6 @@
     
     // 右上角按钮
     UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20+22+20, 20)];
-    [self.view addSubview:rightView];
     
     UIButton *viewBtn = [UIButton buttonWithframe:CGRectMake(0, 0, 20, rightView.height) text:nil font:nil textColor:nil backgroundColor:nil normal:@"66" selected:nil];
     [rightView addSubview:viewBtn];
@@ -157,6 +162,31 @@
         vc.title = @"职位管理";
         [self.navigationController pushViewController:vc animated:YES];
     }
+    if (btn.tag == 1) {
+        ResumeSearchVC *vc = [[ResumeSearchVC alloc] init];
+//        vc.title = @"职位管理";
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if (btn.tag == 2) {
+        InviteInterviewVC *vc = [[InviteInterviewVC alloc] init];
+        vc.title = @"邀请面试记录";
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if (btn.tag == 3) {
+        ChatWantedVC *vc = [[ChatWantedVC alloc] init];
+        vc.title = @"约聊招聘";
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if (btn.tag == 4) {
+        MyMailboxVC *vc = [[MyMailboxVC alloc] init];
+        vc.title = @"我的信箱";
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if (btn.tag == 5) {
+        WordsVC *vc = [[WordsVC alloc] init];
+        vc.title = @"在线投诉留言";
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (void)viewAction
@@ -166,7 +196,9 @@
 
 - (void)setAction
 {
-    
+    SettingVC *vc = [[SettingVC alloc] init];
+//    vc.title = @"邀请面试记录";
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
