@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZFTableViewCell.h"
 
-@interface JobCell : UITableViewCell
+
+@interface JobCell : ZFTableViewCell
 
 @property(nonatomic,strong) UIButton *selectBtn;
 @property(nonatomic,strong) UIButton *viewBtn;

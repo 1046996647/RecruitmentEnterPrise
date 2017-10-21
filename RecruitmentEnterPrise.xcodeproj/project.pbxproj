@@ -53,6 +53,8 @@
 		F75647941F99C2C40060E744 /* CompanyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75647921F99C2C40060E744 /* CompanyDetailVC.m */; };
 		F75647971F99C3060060E744 /* JobDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75647951F99C3060060E744 /* JobDetailCell.m */; };
 		F756479A1F99C3920060E744 /* JobModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75647981F99C3920060E744 /* JobModel.m */; };
+		F75BA9301F9AD1B00083E448 /* ZFShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA92D1F9AD1B00083E448 /* ZFShareView.m */; };
+		F75BA9311F9AD1B00083E448 /* ZFTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA92F1F9AD1B00083E448 /* ZFTableViewCell.m */; };
 		F75BD65C1F947F2B00433133 /* CDTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BD65B1F947F2A00433133 /* CDTabBar.m */; };
 		F75BD65F1F94866800433133 /* ReleaseJob1VC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BD65E1F94866800433133 /* ReleaseJob1VC.m */; };
 		F75EB6761F96E94C00CBCA7C /* InviteInterviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75EB6751F96E94C00CBCA7C /* InviteInterviewVC.m */; };
@@ -215,6 +217,10 @@
 		F75647961F99C3060060E744 /* JobDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobDetailCell.h; sourceTree = "<group>"; };
 		F75647981F99C3920060E744 /* JobModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobModel.m; sourceTree = "<group>"; };
 		F75647991F99C3920060E744 /* JobModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobModel.h; sourceTree = "<group>"; };
+		F75BA92C1F9AD1B00083E448 /* ZFShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFShareView.h; sourceTree = "<group>"; };
+		F75BA92D1F9AD1B00083E448 /* ZFShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFShareView.m; sourceTree = "<group>"; };
+		F75BA92E1F9AD1B00083E448 /* ZFTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFTableViewCell.h; sourceTree = "<group>"; };
+		F75BA92F1F9AD1B00083E448 /* ZFTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFTableViewCell.m; sourceTree = "<group>"; };
 		F75BD65A1F947F2A00433133 /* CDTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDTabBar.h; sourceTree = "<group>"; };
 		F75BD65B1F947F2A00433133 /* CDTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDTabBar.m; sourceTree = "<group>"; };
 		F75BD65D1F94866800433133 /* ReleaseJob1VC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReleaseJob1VC.h; sourceTree = "<group>"; };
@@ -606,9 +612,21 @@
 			path = ZXPUnicode;
 			sourceTree = "<group>";
 		};
+		F75BA92B1F9AD1B00083E448 /* ZFTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				F75BA92C1F9AD1B00083E448 /* ZFShareView.h */,
+				F75BA92D1F9AD1B00083E448 /* ZFShareView.m */,
+				F75BA92E1F9AD1B00083E448 /* ZFTableViewCell.h */,
+				F75BA92F1F9AD1B00083E448 /* ZFTableViewCell.m */,
+			);
+			path = ZFTableViewCell;
+			sourceTree = "<group>";
+		};
 		F75BD6591F947F2A00433133 /* CustomClass */ = {
 			isa = PBXGroup;
 			children = (
+				F75BA92B1F9AD1B00083E448 /* ZFTableViewCell */,
 				F766D8FF1F95AA98004C74F0 /* MJCSlideInterface */,
 				F75BD65A1F947F2A00433133 /* CDTabBar.h */,
 				F75BD65B1F947F2A00433133 /* CDTabBar.m */,
@@ -648,8 +666,6 @@
 		F766D8EA1F958D30004C74F0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F766D8EB1F958D41004C74F0 /* JobCell.h */,
-				F766D8EC1F958D43004C74F0 /* JobCell.m */,
 				F766D93B1F95CBE2004C74F0 /* ResumeReceiveCell.h */,
 				F766D93C1F95CBE2004C74F0 /* ResumeReceiveCell.m */,
 			);
@@ -700,6 +716,8 @@
 		F766D8F81F959F86004C74F0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F766D8EB1F958D41004C74F0 /* JobCell.h */,
+				F766D8EC1F958D43004C74F0 /* JobCell.m */,
 				F75EB6831F96F9A100CBCA7C /* ReceiveMsgCell.h */,
 				F75EB6841F96F9A100CBCA7C /* ReceiveMsgCell.m */,
 				F76AD85C1F973E9E00BA88D3 /* HotJobCell.h */,
@@ -1056,6 +1074,7 @@
 				F756479A1F99C3920060E744 /* JobModel.m in Sources */,
 				F71C043D1F988C450024C1EC /* OtherVC.m in Sources */,
 				F78D93781F9204F400E0DCA9 /* PersonModel.m in Sources */,
+				F75BA9301F9AD1B00083E448 /* ZFShareView.m in Sources */,
 				F74820DE1F91FE8B00F072CD /* ZXPUnicode.m in Sources */,
 				F74820C91F91FE8B00F072CD /* BRStringPickerView.m in Sources */,
 				F74820C71F91FE8B00F072CD /* BRDatePickerView.m in Sources */,
@@ -1096,6 +1115,7 @@
 				F78D938B1F92067900E0DCA9 /* HomeVC.m in Sources */,
 				F71C043A1F98793C0024C1EC /* SettingVC.m in Sources */,
 				F76AD8661F97515700BA88D3 /* ResumeSearchResultVC.m in Sources */,
+				F75BA9311F9AD1B00083E448 /* ZFTableViewCell.m in Sources */,
 				F75EB6851F96F9A100CBCA7C /* ReceiveMsgCell.m in Sources */,
 				F756478B1F9997F40060E744 /* CountMessageVC.m in Sources */,
 				F74820D61F91FE8B00F072CD /* UIView+Toast.m in Sources */,

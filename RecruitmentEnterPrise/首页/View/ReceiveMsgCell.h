@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZFTableViewCell.h"
 
-@interface ReceiveMsgCell : UITableViewCell
+
+@interface ReceiveMsgCell : ZFTableViewCell
 
 @property(nonatomic,strong) UIButton *selectBtn;
 @property(nonatomic,strong) UILabel *timeLab;

@@ -47,7 +47,7 @@
     lala.indicatorColor = colorWithHexStr(@"#D0021B");
     lala.isIndicatorsAnimals = YES;
     lala.itemTextFontSize = 12;
-    lala.isChildScollEnabled = NO;
+//    lala.isChildScollEnabled = YES;
 //    lala.selectedSegmentIndex = 2;
     lala.indicatorStyles = MJCIndicatorItemTextStyle;
     [lala intoTitlesArray:titlesArr hostController:self];

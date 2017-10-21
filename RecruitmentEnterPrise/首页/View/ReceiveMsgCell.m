@@ -10,21 +10,36 @@
 
 @implementation ReceiveMsgCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype)initWithStyle:(UITableViewCellStyle)style
+              reuseIdentifier:(NSString *)reuseIdentifier
+                     delegate:(id<ZFTableViewCellDelegate>)delegate
+                  inTableView:(UITableView *)tableView
+        withRightButtonTitles:(NSArray *)rightButtonTitles
+        withRightButtonColors:(NSArray *)rightButtonColors type:(ZFTableViewCellType)type
+                    rowHeight:(NSInteger)rowHeight
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
+    self = [super initWithStyle:style
+                reuseIdentifier:reuseIdentifier
+                       delegate:delegate
+                    inTableView:tableView
+          withRightButtonTitles:rightButtonTitles
+          withRightButtonColors:rightButtonColors
+                           type:type
+                      rowHeight:(NSInteger)rowHeight];
+    
+    if (self){
         
-        self.backgroundColor = [UIColor clearColor];
+        self.scrollView.backgroundColor = [UIColor colorWithHexString:@"#FAE5E8"];
+        self.cellContentView.backgroundColor = [UIColor clearColor];
         
         _selectBtn = [UIButton buttonWithframe:CGRectMake(0, 0, 35, 100) text:@"" font:nil textColor:nil backgroundColor:nil normal:@"Rectangle 11" selected:@"Rectangle 12"];
-        [self.contentView addSubview:_selectBtn];
+        [self.cellContentView addSubview:_selectBtn];
         
         UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(_selectBtn.right, 0, kScreenWidth-_selectBtn.right-10, 100)];
         //        baseView.layer.cornerRadius = 10;
         //        baseView.layer.masksToBounds = YES;
         baseView.backgroundColor = [UIColor whiteColor];
-        [self.contentView addSubview:baseView];
+        [self.cellContentView addSubview:baseView];
         
         
         _timeLab = [UILabel labelWithframe:CGRectMake(baseView.width-50-8, 8, 50, 13) text:@"12:18:30" font:[UIFont systemFontOfSize:11] textAlignment:NSTextAlignmentRight textColor:@"#999999"];

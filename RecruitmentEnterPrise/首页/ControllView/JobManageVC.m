@@ -8,9 +8,9 @@
 
 #import "JobManageVC.h"
 #import "JobCell.h"
+#import "ZFTableViewCell.h"
 
-
-@interface JobManageVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface JobManageVC ()<UITableViewDelegate,UITableViewDataSource,ZFTableViewCellDelegate>
 
 //@property (nonatomic,strong) NSArray *dataArr;
 @property(nonatomic,strong) UITableView *tableView;
@@ -128,10 +128,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    JobCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    static NSString* identity = @"FDFeedCell";
+
+    JobCell *cell = [tableView dequeueReusableCellWithIdentifier:identity];
     if (cell == nil) {
         
-        cell = [[JobCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell = [[JobCell alloc]initWithStyle:UITableViewCellStyleDefault
+                                       reuseIdentifier:identity
+                                              delegate:self
+                                           inTableView:tableView
+                                 withRightButtonTitles:@[@""]
+                                 withRightButtonColors:@[[UIColor clearColor]]
+                                                  type:ZFTableViewCellTypeOne
+                                             rowHeight:60];
         
     }
     //    ReleaseJobModel *model = self.dataArr[indexPath.section][indexPath.row];
@@ -139,6 +148,22 @@
     //    cell.selectArr = _selectArr;
     //    cell.selectJobArr = _selectJobArr;
     return cell;
+}
+
+#pragma mark - ZFTableViewCellDelegate
+-(void)buttonTouchedOnCell:(ZFTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath atButtonIndex:(NSInteger)buttonIndex{
+    NSLog(@"row:%ld,buttonIndex:%ld",(long)indexPath.row,(long)buttonIndex);
+    
+    // 编辑
+    if (buttonIndex == 0){
+        NSLog(@"编辑");
+    }
+    else if (buttonIndex == 1){
+        NSLog(@"删除");
+
+    }
+    //把cell复原
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZFTableViewCellNotificationChangeToUnexpanded object:nil];
 }
 
 @end
