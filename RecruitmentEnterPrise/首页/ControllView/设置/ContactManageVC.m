@@ -10,7 +10,9 @@
 #import "ContactManageCell.h"
 #import "AddContactVC.h"
 
-@interface ContactManageVC ()<UITableViewDelegate,UITableViewDataSource>
+#import "ZFTableViewCell.h"
+
+@interface ContactManageVC ()<UITableViewDelegate,UITableViewDataSource,ZFTableViewCellDelegate>
 
 //@property (nonatomic,strong) NSArray *dataArr;
 @property(nonatomic,strong) UITableView *tableView;
@@ -116,10 +118,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    ContactManageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    static NSString* identity = @"FDFeedCell";
+    
+    ContactManageCell *cell = [tableView dequeueReusableCellWithIdentifier:identity];
     if (cell == nil) {
         
-        cell = [[ContactManageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell = [[ContactManageCell alloc]initWithStyle:UITableViewCellStyleDefault
+                                    reuseIdentifier:identity
+                                           delegate:self
+                                        inTableView:tableView
+                              withRightButtonTitles:@[@""]
+                              withRightButtonColors:@[[UIColor clearColor]]
+                                               type:ZFTableViewCellTypeFive
+                                          rowHeight:100];
         
     }
     //    ReleaseJobModel *model = self.dataArr[indexPath.section][indexPath.row];
@@ -127,6 +138,29 @@
     //    cell.selectArr = _selectArr;
     //    cell.selectJobArr = _selectJobArr;
     return cell;
+}
+
+#pragma mark - ZFTableViewCellDelegate
+-(void)buttonTouchedOnCell:(ZFTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath atButtonIndex:(NSInteger)buttonIndex{
+    NSLog(@"row:%ld,buttonIndex:%ld",(long)indexPath.row,(long)buttonIndex);
+    
+    // 删除
+    if (buttonIndex == 0){
+        //        NSLog(@"编辑");
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确定删除该联系人吗" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:cancelAction];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    else if (buttonIndex == 1){
+        //        NSLog(@"删除");
+
+        
+    }
+    //把cell复原
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZFTableViewCellNotificationChangeToUnexpanded object:nil];
 }
 
 @end

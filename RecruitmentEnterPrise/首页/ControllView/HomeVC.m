@@ -8,7 +8,7 @@
 
 #import "HomeVC.h"
 #import "JobManageVC.h"
-#import "InviteInterviewVC.h"
+#import "InviteInterviewRecordVC.h"
 #import "WordsVC.h"
 #import "MyMailboxVC.h"
 #import "ResumeSearchVC.h"
@@ -74,7 +74,7 @@
         [scrollView addSubview:forgetBtn];
         self.forgetBtn = forgetBtn;
         forgetBtn.tag = i;
-        [forgetBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+//        [forgetBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
         
         UILabel *label1 = [UILabel labelWithframe:CGRectMake(0, 10, forgetBtn.width, 28) text:@"0" font:[UIFont systemFontOfSize:18] textAlignment:NSTextAlignmentCenter textColor:@"#333333"];
         [forgetBtn addSubview:label1];
@@ -95,7 +95,7 @@
         [scrollView addSubview:forgetBtn];
         self.forgetBtn1 = forgetBtn;
         forgetBtn.tag = i;
-        [forgetBtn addTarget:self action:@selector(btnAction1:) forControlEvents:UIControlEventTouchUpInside];
+//        [forgetBtn addTarget:self action:@selector(btnAction1:) forControlEvents:UIControlEventTouchUpInside];
         
         UILabel *label1 = [UILabel labelWithframe:CGRectMake(0, 10, forgetBtn.width, 28) text:@"0" font:[UIFont systemFontOfSize:18] textAlignment:NSTextAlignmentCenter textColor:@"#333333"];
         [forgetBtn addSubview:label1];
@@ -146,15 +146,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
 }
 
-- (void)btnAction:(UIButton *)btn
-{
-    
-}
-
-- (void)btnAction1:(UIButton *)btn
-{
-    
-}
 
 - (void)btnAction2:(UIButton *)btn
 {
@@ -169,7 +160,7 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (btn.tag == 2) {
-        InviteInterviewVC *vc = [[InviteInterviewVC alloc] init];
+        InviteInterviewRecordVC *vc = [[InviteInterviewRecordVC alloc] init];
         vc.title = @"邀请面试记录";
         [self.navigationController pushViewController:vc animated:YES];
     }

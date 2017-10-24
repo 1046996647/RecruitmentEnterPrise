@@ -79,7 +79,7 @@ static CGFloat const animalTime= 0.25;
 -(void)setupContenSizeWithTitlesArr:(NSArray *)titlesArr mainView:(UIView*)mainView;
 {
     _titlesArr = titlesArr;
-//    self.contentSize = CGSizeMake(titlesArr.count * mainView.frame.size.width,0);
+    self.contentSize = CGSizeMake(titlesArr.count * mainView.frame.size.width,0);
 }
 -(void)setIsChildScollAnimal:(BOOL)isChildScollAnimal
 {

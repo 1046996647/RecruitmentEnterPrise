@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZFTableViewCell.h"
 
-@interface ContactManageCell : UITableViewCell
+
+@interface ContactManageCell : ZFTableViewCell
 
 @property(nonatomic,strong) UIButton *chatBtn;
 @property(nonatomic,strong) UIButton *bodyBtn;

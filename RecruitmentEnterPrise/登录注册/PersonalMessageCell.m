@@ -10,6 +10,7 @@
 #import "NSStringExt.h"
 //#import "ChangePhoneVC.h"
 #import "NSDate+BRAdd.h"
+#import "CompanyAddressVC.h"
 
 
 @implementation PersonalMessageCell
@@ -51,7 +52,7 @@
     
     if ([_model.title isEqualToString:@"公司名称"] ||
         [_model.title isEqualToString:@"招聘负责人"]||
-        [_model.title isEqualToString:@"点击获取公司地址"]||
+//        [_model.title isEqualToString:@"点击获取公司地址"]||
 //        [_model.title isEqualToString:@"专业名称"]||
 //        [_model.title isEqualToString:@"姓名"]||
 //        [_model.title isEqualToString:@"意向岗位"]||
@@ -74,17 +75,21 @@
         self.saveBtn.hidden = YES;
         self.imgView.hidden = YES;
 
-        if ([_model.title isEqualToString:@"点击获取公司地址"]) {
-            [_tf setValue:[UIColor colorWithHexString:@"#D0021B"] forKeyPath:@"_placeholderLabel.textColor"];
-            
-        }
+
     }
     else {
         
         self.saveBtn.hidden = NO;
-        self.imgView.hidden = NO;
         
-        
+        if ([_model.title isEqualToString:@"点击获取公司地址"]) {
+            [_tf setValue:[UIColor colorWithHexString:@"#D0021B"] forKeyPath:@"_placeholderLabel.textColor"];
+            self.imgView.hidden = YES;
+
+        }
+        else {
+            self.imgView.hidden = NO;
+
+        }
 
     }
 }
@@ -94,10 +99,10 @@
     // 收起键盘有效
     [self.viewController.view endEditing:YES];
     
-    if ([_model.title isEqualToString:@"手机"]) {
-//        ChangePhoneVC *vc = [[ChangePhoneVC alloc] init];
-//        vc.title = @"修改手机";
-//        [self.viewController.navigationController pushViewController:vc animated:YES];
+    if ([_model.title isEqualToString:@"点击获取公司地址"]) {
+        CompanyAddressVC *vc = [[CompanyAddressVC alloc] init];
+        vc.title = @"公司地址";
+        [self.viewController.navigationController pushViewController:vc animated:YES];
     }
     else {
         if ([_model.title isEqualToString:@"入职时间"]||

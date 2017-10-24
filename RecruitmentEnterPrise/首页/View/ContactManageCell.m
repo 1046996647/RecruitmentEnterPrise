@@ -11,18 +11,33 @@
 @implementation ContactManageCell
 
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype)initWithStyle:(UITableViewCellStyle)style
+              reuseIdentifier:(NSString *)reuseIdentifier
+                     delegate:(id<ZFTableViewCellDelegate>)delegate
+                  inTableView:(UITableView *)tableView
+        withRightButtonTitles:(NSArray *)rightButtonTitles
+        withRightButtonColors:(NSArray *)rightButtonColors type:(ZFTableViewCellType)type
+                    rowHeight:(NSInteger)rowHeight
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
+    self = [super initWithStyle:style
+                reuseIdentifier:reuseIdentifier
+                       delegate:delegate
+                    inTableView:tableView
+          withRightButtonTitles:rightButtonTitles
+          withRightButtonColors:rightButtonColors
+                           type:type
+                      rowHeight:(NSInteger)rowHeight];
+    
+    if (self){
         
-        self.backgroundColor = [UIColor clearColor];
+        self.scrollView.backgroundColor = [UIColor colorWithHexString:@"#FAE5E8"];
+        self.cellContentView.backgroundColor = [UIColor clearColor];
         
         UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(10, 0, kScreenWidth-20, 100)];
         //        baseView.layer.cornerRadius = 10;
         //        baseView.layer.masksToBounds = YES;
         baseView.backgroundColor = [UIColor whiteColor];
-        [self.contentView addSubview:baseView];
+        [self.cellContentView addSubview:baseView];
         
         
         _timeLab = [UILabel labelWithframe:CGRectMake(baseView.width-68-8, 44, 68, 13) text:@"2015-08-29" font:[UIFont systemFontOfSize:11] textAlignment:NSTextAlignmentRight textColor:@"#999999"];

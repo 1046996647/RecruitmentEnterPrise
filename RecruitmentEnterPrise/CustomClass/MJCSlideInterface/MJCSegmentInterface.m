@@ -68,7 +68,7 @@ static CGFloat const defaultTitlesViewH = 50;
         }
     }];
     _childMainView = [[MJCChildMainView alloc]init];
-//    _childMainView.delegate = self;
+    _childMainView.delegate = self;
     [self addSubview:_childMainView];
     [self addSubview:_titlesView];
 }

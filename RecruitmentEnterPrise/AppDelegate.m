@@ -10,9 +10,12 @@
 #import "IQKeyboardManager.h"
 #import "LoginVC.h"
 #import "NavigationController.h"
+#import <BaiduMapAPI_Base/BMKBaseComponent.h>//引入base相关所有的头文件
 
+@interface AppDelegate ()<BMKGeneralDelegate>
 
-@interface AppDelegate ()
+@property (strong, nonatomic) BMKMapManager *mapManager;
+
 
 @end
 
@@ -35,15 +38,15 @@
     
 //    [NSThread sleepForTimeInterval:1];
     
-    TabBarController *tabVC = [[TabBarController alloc] init];
-    self.tabVC = tabVC;
-    self.window.rootViewController = tabVC;
+//    TabBarController *tabVC = [[TabBarController alloc] init];
+//    self.tabVC = tabVC;
+//    self.window.rootViewController = tabVC;
 
     
-//    LoginVC *vc = [[LoginVC alloc] init];
-////    vc.title = @"发布新职位";
-//    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:vc];
-//    self.window.rootViewController = nav;
+    LoginVC *vc = [[LoginVC alloc] init];
+//    vc.title = @"发布新职位";
+    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:vc];
+    self.window.rootViewController = nav;
 
     // 键盘遮盖处理第三方库
     IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
@@ -51,6 +54,14 @@
     manager.shouldResignOnTouchOutside = YES;
     manager.shouldToolbarUsesTextFieldTintColor = YES;
     manager.enableAutoToolbar = NO;
+    
+    // 要使用百度地图，请先启动BaiduMapManager
+    _mapManager = [[BMKMapManager alloc]init];
+    // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
+    BOOL ret = [_mapManager start:@"dGYZTiv81Sat6jmIuGZidVbP62li7hWj"  generalDelegate:self];
+    if (!ret) {
+        NSLog(@"manager start failed!");
+    }
     
     return YES;
 }
@@ -82,5 +93,26 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark - BMKGeneralDelegate
+- (void)onGetNetworkState:(int)iError
+{
+    if (0 == iError) {
+        NSLog(@"联网成功");
+    }
+    else{
+        NSLog(@"onGetNetworkState %d",iError);
+    }
+    
+}
+
+- (void)onGetPermissionState:(int)iError
+{
+    if (0 == iError) {
+        NSLog(@"授权成功");
+    }
+    else {
+        NSLog(@"onGetPermissionState %d",iError);
+    }
+}
 
 @end

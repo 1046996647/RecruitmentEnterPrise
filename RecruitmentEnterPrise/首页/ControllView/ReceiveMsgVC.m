@@ -120,7 +120,7 @@
                                  inTableView:tableView
                        withRightButtonTitles:@[@""]
                        withRightButtonColors:@[[UIColor clearColor]]
-                                        type:ZFTableViewCellTypeTwo
+                                        type:ZFTableViewCellTypeThree
                                    rowHeight:100];
         
     }

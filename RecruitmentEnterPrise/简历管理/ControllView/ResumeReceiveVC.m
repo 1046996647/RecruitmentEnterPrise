@@ -8,9 +8,11 @@
 
 #import "ResumeReceiveVC.h"
 #import "ResumeReceiveCell.h"
+#import "ZFTableViewCell.h"
+#import "InviteInterviewVC.h"
 
 
-@interface ResumeReceiveVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface ResumeReceiveVC ()<UITableViewDelegate,UITableViewDataSource,ZFTableViewCellDelegate>
 
 //@property (nonatomic,strong) NSArray *dataArr;
 @property(nonatomic,strong) UITableView *tableView;
@@ -111,10 +113,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    ResumeReceiveCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    static NSString* identity = @"FDFeedCell";
+    
+    ResumeReceiveCell *cell = [tableView dequeueReusableCellWithIdentifier:identity];
     if (cell == nil) {
         
-        cell = [[ResumeReceiveCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell = [[ResumeReceiveCell alloc]initWithStyle:UITableViewCellStyleDefault
+                             reuseIdentifier:identity
+                                    delegate:self
+                                 inTableView:tableView
+                       withRightButtonTitles:@[@""]
+                       withRightButtonColors:@[[UIColor clearColor]]
+                                        type:ZFTableViewCellTypeTwo
+                                   rowHeight:100];
         
     }
     //    ReleaseJobModel *model = self.dataArr[indexPath.section][indexPath.row];
@@ -122,6 +133,23 @@
     //    cell.selectArr = _selectArr;
     //    cell.selectJobArr = _selectJobArr;
     return cell;
+}
+
+#pragma mark - ZFTableViewCellDelegate
+-(void)buttonTouchedOnCell:(ZFTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath atButtonIndex:(NSInteger)buttonIndex{
+    NSLog(@"row:%ld,buttonIndex:%ld",(long)indexPath.row,(long)buttonIndex);
+    
+    // 删除简历
+    if (buttonIndex == 0){
+        NSLog(@"编辑");
+    }
+    else if (buttonIndex == 1){
+        InviteInterviewVC *vc = [[InviteInterviewVC alloc] init];
+        vc.title = @"邀请面试";
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    //把cell复原
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZFTableViewCellNotificationChangeToUnexpanded object:nil];
 }
 
 @end

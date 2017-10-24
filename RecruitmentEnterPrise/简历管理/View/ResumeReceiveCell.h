@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZFTableViewCell.h"
 
-@interface ResumeReceiveCell : UITableViewCell
+
+@interface ResumeReceiveCell : ZFTableViewCell
 
 @property(nonatomic,strong) UIButton *selectBtn;
 @property(nonatomic,strong) UIButton *bodyBtn;
