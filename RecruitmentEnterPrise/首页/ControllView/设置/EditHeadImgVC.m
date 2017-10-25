@@ -55,8 +55,6 @@
     [forgetBtn addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
     
     //延迟1秒执行这个方法
-    //    [self performSelector:@selector(delayAction) withObject:nil afterDelay:.1];
-    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self delayAction];
     });

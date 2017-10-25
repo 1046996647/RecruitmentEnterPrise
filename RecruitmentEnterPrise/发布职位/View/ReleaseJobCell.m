@@ -14,20 +14,31 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
-
-        _imgView = [UIImageView imgViewWithframe:CGRectMake(kScreenWidth-12-6, 15, 6, 12) icon:@"44"];
-        [self.contentView addSubview:_imgView];
+    
         
         _leftLab = [UILabel labelWithframe:CGRectMake(12, 14, 100, 17) text:@"" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
         [self.contentView addSubview:_leftLab];
         
-        _rightLab = [UILabel labelWithframe:CGRectMake(_imgView.left-6-58, 15, 58, 14) text:@"" font:[UIFont systemFontOfSize:12] textAlignment:NSTextAlignmentRight textColor:@"#D0021B"];
-        [self.contentView addSubview:_rightLab];
+        _tf = [UITextField textFieldWithframe:CGRectMake(_leftLab.right+10, 0, kScreenWidth-(_leftLab.right+10)-12, 44) placeholder:nil font:nil leftView:nil backgroundColor:@"#FFFFFF"];
+        _tf.font = [UIFont systemFontOfSize:13];
+        [_tf setValue:[UIFont systemFontOfSize:13] forKeyPath:@"_placeholderLabel.font"];// 设置这里时searchTF.font也要设置不然会偏上
+        [_tf setValue:[UIColor colorWithHexString:@"#999999"] forKeyPath:@"_placeholderLabel.textColor"];
         
-        _line = [[UIView alloc] initWithFrame:CGRectMake(_leftLab.left, 45-1, kScreenWidth-_leftLab.left, .5)];
-        _line.backgroundColor = [UIColor colorWithHexString:@"#FAE5E8"];
-        [self.contentView addSubview:_line];
+        [self.contentView addSubview:_tf];
+        [_tf addTarget:self action:@selector(changeAction:) forControlEvents:UIControlEventEditingChanged];
+        
+        UIButton *saveBtn = [UIButton buttonWithframe:_tf.bounds text:nil font:[UIFont systemFontOfSize:14] textColor:@"#333333" backgroundColor:nil normal:nil selected:nil];
+        [saveBtn addTarget:self action:@selector(pushAction) forControlEvents:UIControlEventTouchUpInside];
+        [_tf addSubview:saveBtn];
+        saveBtn.hidden = YES;
+        self.saveBtn = saveBtn;
+        
+        _imgView = [UIImageView imgViewWithframe:CGRectMake(saveBtn.width-6, 15, 6, 12) icon:@"44"];
+        [self.saveBtn addSubview:_imgView];
+        
+//        _line = [[UIView alloc] initWithFrame:CGRectMake(_leftLab.left, 44-1, kScreenWidth-_leftLab.left, .5)];
+//        _line.backgroundColor = [UIColor colorWithHexString:@"#FAE5E8"];
+//        [self.contentView addSubview:_line];
         
         //
         _baseView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth-100, 0, 100, 44)];
@@ -53,6 +64,24 @@
         _label2 = [UILabel labelWithframe:CGRectMake(_tf2.right+2, _tf1.top, 26, _tf1.height) text:@"岁" font:[UIFont systemFontOfSize:12] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
         [_baseView addSubview:_label2];
         
+        //
+        _baseView1 = [[UIView alloc] initWithFrame:CGRectMake(_tf.left-10, 0, _tf.width, 103)];
+//        _baseView1.layer.cornerRadius = 4;
+//        _baseView1.layer.masksToBounds = YES;
+//        _baseView1.layer.borderColor = [UIColor colorWithHexString:@"#DCDCDC"].CGColor;
+//        _baseView1.layer.borderWidth = .5;
+//        _baseView.backgroundColor = [UIColor whiteColor];
+        [self.contentView addSubview:_baseView1];
+        
+        UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(5, 7, _baseView1.width-8, _baseView1.height-7)];
+        textView.font = [UIFont systemFontOfSize:13];
+        [_baseView1 addSubview:textView];
+        textView.delegate = self;
+        self.tv = textView;
+        
+        _remindLabel = [UILabel labelWithframe:CGRectMake(3, 7, 100, 16) text:@"请填写" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#999999"];
+        [textView addSubview:_remindLabel];
+        
     }
     
     return self;
@@ -64,29 +93,213 @@
     _model = model;
     
     _leftLab.text = model.leftTitle;
+    _tf.placeholder = model.rightTitle;
+    _tf.text = model.text;
     
-    if (model.text.length == 0) {
-        _rightLab.text = model.rightTitle;
-        _rightLab.textColor = colorWithHexStr(@"#D0021B");
+    if ([_model.leftTitle isEqualToString:@"职位名称"] ||
+        [_model.leftTitle isEqualToString:@"户口要求"]||
+        [_model.leftTitle isEqualToString:@"年龄要求"]||
+        [_model.leftTitle isEqualToString:@"岗位要求"]||
+        [_model.leftTitle isEqualToString:@"求职者期望职位"]||
+        [_model.leftTitle isEqualToString:@"求职者编号"]||
+        [_model.leftTitle isEqualToString:@"籍贯"]||
+        [_model.leftTitle isEqualToString:@"姓名"]||
+        [_model.leftTitle isEqualToString:@"求职者专业"]||
+        [_model.leftTitle isEqualToString:@"求职者工作经历"]||
+        [_model.leftTitle isEqualToString:@"求职者年龄"]||
+        
+        [_model.leftTitle isEqualToString:@"招聘人数"]) {
+        
+        self.saveBtn.hidden = YES;
+        
+        
     }
     else {
-        _rightLab.text = model.text;
-        _rightLab.textColor = colorWithHexStr(@"#999999");
-
+        
+        self.saveBtn.hidden = NO;
+        
+        
     }
     
     if ([_model.leftTitle isEqualToString:@"求职者年龄"]) {
-        _rightLab.hidden = YES;
-        _imgView.hidden = YES;
         _baseView.hidden = NO;
+        _tf.placeholder = @"";
+
     }
     else {
-        _rightLab.hidden = NO;
-        _imgView.hidden = NO;
         _baseView.hidden = YES;
     }
     
+    if ([_model.leftTitle isEqualToString:@"岗位要求"]) {
+        
+        self.baseView1.hidden = NO;
+        _tv.text = model.text;
+        
+        if (model.text.length == 0) {
+            _remindLabel.hidden = NO;
+        }
+        else {
+            _remindLabel.hidden = YES;
+        }
+    }
+    else {
+        self.baseView1.hidden = YES;
+        
+    }
+}
 
+- (void)pushAction
+{
+    // 收起键盘有效
+    [self.viewController.view endEditing:YES];
+
+    
+    
+    
+    if ([_model.leftTitle isEqualToString:@"性别"]) {
+        self.dataSource = @[@"男",@"女"];
+        
+    }
+    
+    if ([_model.leftTitle isEqualToString:@"人才类型"]) {
+        self.dataSource = @[@"往届",@"应届"];
+        
+    }
+    
+    if ([_model.leftTitle isEqualToString:@"期望月薪"]||
+        [_model.leftTitle isEqualToString:@"待遇要求"]) {
+        for (NSDictionary *dic in self.selectArr) {
+            if ([dic[@"name"] isEqualToString:@"comp_pay"]) {
+                
+                NSString *str = dic[@"data"];
+                self.dataSource = [str componentsSeparatedByString:@","];
+                break;
+            }
+        }
+    }
+
+    
+    if ([_model.leftTitle isEqualToString:@"公司性质"]) {
+        for (NSDictionary *dic in self.selectArr) {
+            if ([dic[@"name"] isEqualToString:@"user_company"]) {
+                
+                NSString *str = dic[@"data"];
+                self.dataSource = [str componentsSeparatedByString:@","];
+                break;
+            }
+        }
+    }
+    
+    
+    if ([_model.leftTitle isEqualToString:@"意向城市"]||
+        [_model.leftTitle isEqualToString:@"所在地"]||
+        [_model.leftTitle isEqualToString:@"期望地区"]) {
+        self.dataSource = @[@"义乌市", @"东阳市", @"金华市",@"浦江县",@"永康市",@"慈溪市",@"余姚市"];
+    }
+    
+    // 岗位类别
+    if ([_model.leftTitle isEqualToString:@"岗位类别"]) {
+        
+        NSMutableArray *arrM = [NSMutableArray array];
+        
+        for (NSDictionary *dic in self.selectJobArr) {
+            
+            [arrM addObject:dic[@"name"]];
+            
+        }
+        self.dataSource = arrM;
+    }
+    
+    //        [BRStringPickerView showStringPickerWithTitle:nil dataSource:self.dataSource defaultSelValue:self.dataSource[0] isAutoSelect:NO resultBlock:^(id selectValue) {
+    //
+    //            _tf.text = selectValue;
+    //            _model.text = selectValue;
+    //
+    //            if ([_model.title isEqualToString:@"工作年限"]||
+    //                [_model.title isEqualToString:@"工作经验"]) {
+    //
+    //                _model.text = [_model.text substringToIndex:_model.text.length-1];
+    //                NSLog(@"-----%@",selectValue);
+    //
+    //            }
+    //            ////        if ([_model.title isEqualToString:@"性别"] ||
+    //            ////            [_model.title isEqualToString:@"人才类型"]||
+    //            ////            [_model.title isEqualToString:@"意向城市"]||
+    //            ////            [_model.title isEqualToString:@"所在地"]||
+    //            ////            [_model.title isEqualToString:@"期望地区"]) {
+    //            //        if ([_model.title isEqualToString:@"意向城市"]||
+    //            //            [_model.title isEqualToString:@"所在地"]||
+    //            //            [_model.title isEqualToString:@"期望地区"]||
+    //            //            [_model.title isEqualToString:@"公司性质"]) {
+    //            //
+    //            //
+    //            //            _model.text = selectValue;
+    //            //
+    //            //        }
+    //            //        else {
+    //            //            _model.text = [NSString stringWithFormat:@"%ld",[self.dataSource indexOfObject:selectValue]+1];
+    //
+    //            //        }
+    //
+    //        }];
+    
+    
+    
+}
+
+- (void)changeAction:(UITextField *)tf
+{
+    _model.text = tf.text;
+    
+}
+
+/**
+ 内容将要发生改变编辑 限制输入文本长度 监听TextView 点击了ReturnKey 按钮
+ 
+ @param textView textView
+ @param range    范围
+ @param text     text
+ 
+ @return BOOL
+ */
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if (range.location < 500)
+    {
+        return  YES;
+        
+    } else  if ([textView.text isEqualToString:@"\n"]) {
+        
+        //这里写按了ReturnKey 按钮后的代码
+        return NO;
+    }
+    
+    if (textView.text.length == 500) {
+        
+        return NO;
+    }
+    
+    return YES;
+    
+}
+
+
+/**
+ 内容发生改变编辑 自定义文本框placeholder
+ 有时候我们要控件自适应输入的文本的内容的高度，只要在textViewDidChange的代理方法中加入调整控件大小的代理即可
+ @param textView textView
+ */
+- (void)textViewDidChange:(UITextView *)textView
+{
+    
+    if (textView.text.length < 1) {
+        self.remindLabel.hidden = NO;
+    }
+    else {
+        self.remindLabel.hidden = YES;
+        
+    }
+    //    count.text = [NSString stringWithFormat:@"%lu/100", textView.text.length  ];
 }
 
 @end

@@ -16,7 +16,7 @@
     if (self) {
         
         
-        _textLab = [UILabel labelWithframe:CGRectMake(12, 8, kScreenWidth-12, 17) text:nil font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
+        _textLab = [UILabel labelWithframe:CGRectMake(28, 8, kScreenWidth-28, 17) text:nil font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
         [self.contentView addSubview:_textLab];
         
         _detailLab = [UILabel labelWithframe:CGRectMake(_textLab.left, _textLab.bottom+5, _textLab.width, 14) text:nil font:[UIFont systemFontOfSize:12] textAlignment:NSTextAlignmentLeft textColor:@"#999999"];

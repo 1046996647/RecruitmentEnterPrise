@@ -16,11 +16,13 @@
     
     if (self) {
         
-        _leftImgView = [UIImageView imgViewWithframe:CGRectMake(0, (30-14)/2, 16, 14) icon:@""];
+        self.backgroundColor = [UIColor clearColor];
+        
+        _leftImgView = [UIImageView imgViewWithframe:CGRectMake(26, (40-14)/2, 16, 14) icon:@""];
         _leftImgView.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:_leftImgView];
         
-        _tf = [UITextField textFieldWithframe:CGRectMake(_leftImgView.right+10, 0, tableView.width-(_leftImgView.right+10), 30) placeholder:nil font:nil leftView:nil backgroundColor:@"#FFFFFF"];
+        _tf = [UITextField textFieldWithframe:CGRectMake(_leftImgView.right+10, 0, tableView.width-(_leftImgView.right+10)-_leftImgView.left, 40) placeholder:nil font:nil leftView:nil backgroundColor:@"#FFFFFF"];
         _tf.font = [UIFont systemFontOfSize:11];
         [_tf setValue:[UIFont systemFontOfSize:11] forKeyPath:@"_placeholderLabel.font"];// 设置这里时searchTF.font也要设置不然会偏上
         [_tf setValue:[UIColor colorWithHexString:@"#999999"] forKeyPath:@"_placeholderLabel.textColor"];
@@ -52,6 +54,7 @@
         [_baseView addSubview:textView];
         textView.delegate = self;
         self.tv = textView;
+//        textView.autocorrectionType = UITextAutocorrectionTypeNo;
         
         _remindLabel = [UILabel labelWithframe:CGRectMake(3, 5, 100, 16) text:@"输入邀请内容" font:[UIFont systemFontOfSize:11] textAlignment:NSTextAlignmentLeft textColor:@"#999999"];
         [textView addSubview:_remindLabel];

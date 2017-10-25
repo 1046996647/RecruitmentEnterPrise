@@ -15,6 +15,8 @@
 #import "ChatWantedVC.h"
 #import "SettingVC.h"
 #import "CompanyDetailVC.h"
+#import "UILabel+WLAttributedString.h"
+
 
 @interface HomeVC ()
 
@@ -59,6 +61,8 @@
     UIButton *levelBtn = [UIButton buttonWithframe:CGRectMake(levelView.right+7, nameLab.top, 44+20, nameLab.height) text:@"会员充值" font:SystemFont(11) textColor:@"#F5A623" backgroundColor:nil normal:nil selected:nil];
     levelBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [scrollView addSubview:levelBtn];
+    [levelBtn addTarget:self action:@selector(btnAction) forControlEvents:UIControlEventTouchUpInside];
+
     
     UIImageView *jiantouView = [UIImageView imgViewWithframe:CGRectMake(levelBtn.width-20, 4, 20, 12) icon:@"Path 3"];
     jiantouView.contentMode = UIViewContentModeScaleAspectFit;
@@ -74,7 +78,6 @@
         [scrollView addSubview:forgetBtn];
         self.forgetBtn = forgetBtn;
         forgetBtn.tag = i;
-//        [forgetBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
         
         UILabel *label1 = [UILabel labelWithframe:CGRectMake(0, 10, forgetBtn.width, 28) text:@"0" font:[UIFont systemFontOfSize:18] textAlignment:NSTextAlignmentCenter textColor:@"#333333"];
         [forgetBtn addSubview:label1];
@@ -84,6 +87,17 @@
         UILabel *label2 = [UILabel labelWithframe:CGRectMake(0, label1.bottom+2, forgetBtn.width, 17) text:titleArr[i] font:[UIFont systemFontOfSize:12] textAlignment:NSTextAlignmentCenter textColor:@"#999999"];
         [forgetBtn addSubview:label2];
         
+        
+        if (i == 2) {
+            
+            label1.textColor = [UIColor colorWithHexString:@"#D0021B"];
+            label1.text = @"0+0";
+            
+            // 该方法是从后往前查找
+            [label1 wl_changeColorWithTextColor:[UIColor colorWithHexString:@"#417504"] changeText:@"0"];
+            [label1 wl_changeColorWithTextColor:[UIColor colorWithHexString:@"#333333"] changeText:@"+"];
+            
+        }
         
     }
     
@@ -146,6 +160,16 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
 }
 
+- (void)btnAction
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"您已成功通知客服" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:nil];
+    [okAction setValue:[UIColor colorWithHexString:@"#D0021B"] forKey:@"_titleTextColor"];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+
+}
+
 
 - (void)btnAction2:(UIButton *)btn
 {
@@ -184,7 +208,7 @@
 - (void)viewAction
 {
     CompanyDetailVC *vc = [[CompanyDetailVC alloc] init];
-    vc.title = @"首页预览";
+    vc.title = @"公司详情";
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -16,6 +16,7 @@
 @property(nonatomic,strong) UITextField *password;
 @property(nonatomic,strong) UITextField *okPassword;
 @property(nonatomic,strong) UITextField *validate;
+@property(nonatomic,strong) UITextField *selectCity;
 
 
 @end
@@ -196,8 +197,46 @@
     _okPassword.leftView = leftView;
     _okPassword.secureTextEntry = YES;
     
+    // 选择城市
+    leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 45+10, leftView.height)];
+    leftView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 45, leftView.height)];
+    leftView1.backgroundColor = [UIColor colorWithHexString:@"#D0021B"];
     
-    UIButton *loginBtn = [UIButton buttonWithframe:CGRectMake(_password.left, _okPassword.bottom+33, _phone.width, _phone.height) text:@"下一步" font:[UIFont systemFontOfSize:16] textColor:@"FFFFFF" backgroundColor:@"#D0021B" normal:nil selected:nil];
+    UIImageView *imgView5 = [UIImageView imgViewWithframe:CGRectMake(0, 0, 45, 17) icon:@"85"];
+    imgView5.contentMode = UIViewContentModeScaleAspectFit;
+    imgView5.center = leftView1.center;
+    
+    [leftView1 addSubview:imgView5];
+    [leftView addSubview:leftView1];
+    
+    rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, _phone.height)];
+    rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBtn.frame = rightView.bounds;
+    //    rightBtn.center = rightView.center;
+    [rightBtn setImage:[UIImage imageNamed:@"37"] forState:UIControlStateNormal];
+//    [rightBtn setImage:[UIImage imageNamed:@"37"] forState:UIControlStateSelected];
+    [rightView addSubview:rightBtn];
+//    [rightBtn addTarget:self action:@selector(viewAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    _selectCity = [UITextField textFieldWithframe:CGRectMake(_phone.left, _okPassword.bottom+15, _phone.width, _phone.height) placeholder:@"请选择城市" font:nil leftView:leftView backgroundColor:@"#FFFFFF"];
+    _selectCity.layer.cornerRadius = 7;
+    //    [tf addTarget:self action:@selector(changeAction:) forControlEvents:UIControlEventEditingChanged];
+    _selectCity.layer.masksToBounds = YES;
+    [self.view addSubview:_selectCity];
+    _selectCity.rightViewMode = UITextFieldViewModeAlways;
+    _selectCity.rightView = rightView;
+    _selectCity.leftViewMode = UITextFieldViewModeAlways;
+    _selectCity.leftView = leftView;
+    _selectCity.secureTextEntry = YES;
+    [_selectCity setValue:[UIColor colorWithHexString:@"#D0021B"] forKeyPath:@"_placeholderLabel.textColor"];
+    
+    // 替代
+    UIButton *selectBtn = [UIButton buttonWithframe:_selectCity.bounds text:nil font:nil textColor:nil backgroundColor:nil normal:nil selected:nil];
+    [_selectCity addSubview:selectBtn];
+//    [addTFBtn addTarget:self action:@selector(addAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *loginBtn = [UIButton buttonWithframe:CGRectMake(_password.left, _selectCity.bottom+33, _phone.width, _phone.height) text:@"下一步" font:[UIFont systemFontOfSize:16] textColor:@"FFFFFF" backgroundColor:@"#D0021B" normal:nil selected:nil];
     loginBtn.layer.cornerRadius = 7;
     loginBtn.layer.masksToBounds = YES;
     [self.view addSubview:loginBtn];
@@ -229,6 +268,8 @@
 
     }
 }
+
+
 
 - (void)nextAction
 {

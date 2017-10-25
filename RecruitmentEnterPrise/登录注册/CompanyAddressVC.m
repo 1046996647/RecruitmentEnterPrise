@@ -8,11 +8,11 @@
 
 #import "CompanyAddressVC.h"
 #import "NearbyAddressCell.h"
+#import "AddressSearchVC.h"
 
 
 #import <BaiduMapAPI_Map/BMKMapView.h>
 #import <BaiduMapAPI_Location/BMKLocationService.h>
-#import <BaiduMapAPI_Search/BMKPoiSearch.h>
 #import <BaiduMapAPI_Map/BMKAnnotation.h>
 #import <BaiduMapAPI_Map/BMKPointAnnotation.h>
 #import <BaiduMapAPI_Map/BMKPinAnnotationView.h>
@@ -32,6 +32,7 @@
 @property(nonatomic,strong) UITextField *detailTF;
 @property(nonatomic,strong) UIButton *addBtn;
 @property (nonatomic,strong) NSArray *dataArr;
+@property (nonatomic,strong) BMKUserLocation *userLocation;
 
 
 
@@ -47,7 +48,8 @@
     baseView.backgroundColor = [UIColor colorWithHexString:@"#D0021B"];
     [self.view addSubview:baseView];
     
-    UIButton *addBtn = [UIButton buttonWithframe:CGRectMake(0, 0, 70, baseView.height) text:@"杭州" font:SystemFont(12) textColor:@"#FFFFFF" backgroundColor:nil normal:@"72" selected:nil];
+    // 杭州
+    UIButton *addBtn = [UIButton buttonWithframe:CGRectMake(0, 0, 70, baseView.height) text:@"" font:SystemFont(12) textColor:@"#FFFFFF" backgroundColor:nil normal:@"72" selected:nil];
 //    _viewBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     addBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
     addBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5);
@@ -72,6 +74,12 @@
     _addTF.layer.cornerRadius = _addTF.height/2;
     _addTF.layer.masksToBounds = YES;
     [baseView addSubview:_addTF];
+    
+    // 替代
+    UIButton *addTFBtn = [UIButton buttonWithframe:_addTF.bounds text:nil font:nil textColor:nil backgroundColor:nil normal:nil selected:nil];
+    [_addTF addSubview:addTFBtn];
+    [addTFBtn addTarget:self action:@selector(addAction) forControlEvents:UIControlEventTouchUpInside];
+
     
     // 门牌号
     leftView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 35, 30)];
@@ -128,7 +136,10 @@
         
     }
     
-    // 
+    // 定位图片
+    UIButton *locationBtn = [UIButton buttonWithframe:CGRectMake(7, _mapView.height-31-7, 31, 31) text:nil font:nil textColor:nil backgroundColor:nil normal:@"73" selected:nil];
+    [_mapView addSubview:locationBtn];
+    [locationBtn addTarget:self action:@selector(locationAction) forControlEvents:UIControlEventTouchUpInside];
     
     // 反检索
     _geocodesearch = [[BMKGeoCodeSearch alloc] init];
@@ -170,6 +181,19 @@
     
 }
 
+- (void)addAction
+{
+    AddressSearchVC *vc = [[AddressSearchVC alloc] init];
+    vc.userLocation = self.userLocation;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+// 重新定位
+- (void)locationAction
+{
+    [_locService startUserLocationService];
+}
+
 //实现相关delegate 处理位置信息更新
 //处理方向变更信息
 - (void)didUpdateUserHeading:(BMKUserLocation *)userLocation
@@ -182,6 +206,7 @@
 {
     //    [_locService stopUserLocationService];//定位完成停止位置更新(导致反检索失败)
     NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
+    self.userLocation = userLocation;
     
     //展示定位
     self.mapView.showsUserLocation = YES;
@@ -190,7 +215,7 @@
     [self.mapView updateLocationData:userLocation];
     
     //获取用户的坐标
-    self.mapView.centerCoordinate = userLocation.location.coordinate;
+    [self.mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
     
 //    //初始化一个点的注释 //只有三个属性
 //    BMKPointAnnotation *annotoation = [[BMKPointAnnotation alloc] init];
@@ -339,7 +364,6 @@
     
     return cell;
 }
-
 
 
 - (void)didReceiveMemoryWarning {

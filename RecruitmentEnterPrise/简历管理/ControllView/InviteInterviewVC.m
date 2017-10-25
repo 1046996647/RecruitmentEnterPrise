@@ -29,22 +29,7 @@
     [self.view addSubview:imgView];
     imgView.userInteractionEnabled = YES;
     
-    UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, imgView.width, 0)];
-    [imgView addSubview:baseView];
     
-    UIImageView *userImg = [UIImageView imgViewWithframe:CGRectMake((imgView.width-50)/2, 15, 50, 50) icon:@""];
-    userImg.backgroundColor = [UIColor redColor];
-    userImg.layer.cornerRadius = userImg.height/2;
-    userImg.layer.masksToBounds = YES;
-    [baseView addSubview:userImg];
-    
-    UILabel *nameLab = [UILabel labelWithframe:CGRectMake(0, userImg.bottom+5, imgView.width, 17) text:@"陈启平" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentCenter textColor:@"#333333"];
-    [baseView addSubview:nameLab];
-    
-    baseView.height = nameLab.bottom;
-    
-    UILabel *selectLab = [UILabel labelWithframe:CGRectMake(0, baseView.bottom+12, imgView.width, 17) text:@"选择面试职位" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentCenter textColor:@"#D0021B"];
-    [imgView addSubview:selectLab];
     
     // 表视图
     self.dataArr = @[@{@"image":@"19",@"title":@"请选择联系人",@"text":@"",@"key":@"company_name"},
@@ -62,21 +47,54 @@
     
     self.dataArr = arrM;
     
-    _tableView = [UITableView tableViewWithframe:CGRectMake(26, 150, imgView.width-26*2, imgView.height-150) style:UITableViewStylePlain];
+    _tableView = [UITableView tableViewWithframe:CGRectMake(0, 0, imgView.width, imgView.height) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [imgView addSubview:_tableView];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.showsVerticalScrollIndicator = NO;
     
+    // 头视图
+    UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(_tableView.left, 0, _tableView.width, 0)];
+    [imgView addSubview:baseView];
+    
+    UIImageView *userImg = [UIImageView imgViewWithframe:CGRectMake((imgView.width-50)/2, 15, 50, 50) icon:@""];
+    userImg.backgroundColor = [UIColor redColor];
+    userImg.layer.cornerRadius = userImg.height/2;
+    userImg.layer.masksToBounds = YES;
+    [baseView addSubview:userImg];
+    
+    UILabel *nameLab = [UILabel labelWithframe:CGRectMake(0, userImg.bottom+5, imgView.width, 17) text:@"陈启平" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentCenter textColor:@"#333333"];
+    [baseView addSubview:nameLab];
+    
+    UILabel *selectLab = [UILabel labelWithframe:CGRectMake(0, nameLab.bottom+12, imgView.width, 17) text:@"选择面试职位" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentCenter textColor:@"#D0021B"];
+    [baseView addSubview:selectLab];
+    
+    baseView.height = selectLab.bottom;
+
+    _tableView.tableHeaderView = baseView;
+
+    
     // 尾视图
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.width, 108+40+17)];
     
-    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(0, 108, footerView.width, 40) text:@"发送面试邀请" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
+    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(26, 108, footerView.width-26*2, 40) text:@"发送面试邀请" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
     releseBtn.layer.cornerRadius = 7;
     releseBtn.layer.masksToBounds = YES;
     [footerView addSubview:releseBtn];
+    [releseBtn addTarget:self action:@selector(btnAction) forControlEvents:UIControlEventTouchUpInside];
+    
     _tableView.tableFooterView = footerView;
+    
+}
+
+- (void)btnAction
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"已成功发送面试邀请" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:nil];
+    [okAction setValue:[UIColor colorWithHexString:@"#D0021B"] forKey:@"_titleTextColor"];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
     
 }
 
@@ -102,7 +120,7 @@
 
     }
     else {
-        return 30;
+        return 40;
 
     }
 }

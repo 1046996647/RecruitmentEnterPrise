@@ -75,7 +75,7 @@
     //
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"36"] forState:UIControlStateNormal];
-    button.frame = CGRectMake(17, 20+(kNavBarHeight-20)/2, 30, 20);
+    button.frame = CGRectMake(17, kStatusBarHeight+(kNavBarHeight-20)/2, 30, 20);
     //        button.backgroundColor = [UIColor greenColor]
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
@@ -83,7 +83,7 @@
 
     
     //
-    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth-90-8, 20+(kNavBarHeight-25)/2, 90, 25)];
+    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth-90-8, kStatusBarHeight+(kNavBarHeight-25)/2, 90, 25)];
 //    rightView.backgroundColor = [UIColor whiteColor];
     self.rightView = rightView;
     
@@ -114,7 +114,7 @@
     
     [leftView1 addSubview:imgView0];
     
-    _tf = [UITextField textFieldWithframe:CGRectMake(40, 20+(kNavBarHeight-25)/2, rightView.left-40, 25) placeholder:@"请输入关键字…" font:[UIFont systemFontOfSize:12] leftView:leftView1 backgroundColor:@"#FFFFFF"];
+    _tf = [UITextField textFieldWithframe:CGRectMake(40, kStatusBarHeight+(kNavBarHeight-25)/2, rightView.left-40, 25) placeholder:@"请输入关键字…" font:[UIFont systemFontOfSize:12] leftView:leftView1 backgroundColor:@"#FFFFFF"];
     [_tf setValue:[UIFont systemFontOfSize:12] forKeyPath:@"_placeholderLabel.font"];// 设置这里时searchTF.font也要设置不然会偏上
     [_tf setValue:[UIColor colorWithHexString:@"#999999"] forKeyPath:@"_placeholderLabel.textColor"];
     _tf.layer.cornerRadius = _tf.height/2;

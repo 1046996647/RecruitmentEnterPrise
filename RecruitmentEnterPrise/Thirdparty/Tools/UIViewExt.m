@@ -242,6 +242,8 @@ CGRect CGRectMoveToCenter(CGRect rect, CGPoint center)
     tf.leftViewMode = UITextFieldViewModeAlways;
     tf.leftView = leftView;
     tf.backgroundColor = [UIColor colorWithHexString:backColor];
+    tf.returnKeyType = UIReturnKeySearch;
+
 
     return tf;
 }
