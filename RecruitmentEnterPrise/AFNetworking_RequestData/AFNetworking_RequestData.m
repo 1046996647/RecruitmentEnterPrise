@@ -20,6 +20,7 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
 +(void)requestMethodGetUrl:(NSString*)url
                        dic:(NSMutableDictionary*)dic
                    showHUD:(BOOL)hud
+                  response:(BOOL)response
                     Succed:(Success)succed
                    failure:(Failure)failure{
     //1.数据请求接口 2.请求方法 3.参数
@@ -29,7 +30,7 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
     // 编码以防崩溃
     url = [url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 
-    [AFNetworking_RequestData Manager:url Method:@"GET"  dic:dic showHUD:(BOOL)hud requestSucced:^(id responseObject) {
+    [AFNetworking_RequestData Manager:url Method:@"GET"  dic:dic showHUD:(BOOL)hud response:(BOOL)response requestSucced:^(id responseObject) {
         
         succed(responseObject);
         
@@ -43,13 +44,14 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
 +(void)requestMethodPOSTUrl:(NSString*)url
                   dic:(NSMutableDictionary*)dic
               showHUD:(BOOL)hud
+              response:(BOOL)response
                Succed:(Success)succed
               failure:(Failure)failure{
     
     // 编码以防崩溃
     url = [url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
-    [AFNetworking_RequestData Manager:url Method:@"POST"  dic:dic showHUD:hud requestSucced:^(id responseObject) {
+    [AFNetworking_RequestData Manager:url Method:@"POST"  dic:dic showHUD:hud response:(BOOL)response requestSucced:^(id responseObject) {
         
         succed(responseObject);
         
@@ -60,7 +62,7 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
 }
 
 //=====================
-+(void)Manager:(NSString*)url Method:(NSString*)Method dic:(NSMutableDictionary*)dic showHUD:(BOOL)hud requestSucced:(Success)Succed requestfailure:(Failure)failure
++(void)Manager:(NSString*)url Method:(NSString*)Method dic:(NSMutableDictionary*)dic showHUD:(BOOL)hud response:(BOOL)response requestSucced:(Success)Succed requestfailure:(Failure)failure
 {
     
     if (hud) {
@@ -77,17 +79,19 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
     PersonModel *person = [InfoCache unarchiveObjectWithFile:Person];
     NSString *token = [InfoCache unarchiveObjectWithFile:@"token"];
     NSString *userid = [InfoCache unarchiveObjectWithFile:@"userid"];
-    
+    NSString *siteId = [InfoCache unarchiveObjectWithFile:@"siteId"];
+
     //======POST=====
     if ([Method isEqualToString:@"POST"]) {
 
         if (person) {
-            [dic  setValue:person.uid forKey:@"uid"];
+//            [dic  setValue:person.uid forKey:@"uid"];
         }
 
         if (token) {
             [dic  setValue:token forKey:@"token"];
             [dic  setValue:userid forKey:@"userid"];
+            [dic  setValue:siteId forKey:@"siteId"];
 
         }
 
@@ -113,12 +117,21 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
 
                 }
                 
-                if ([message isEqualToString:@""]) {
-                    
+//                if ([message isEqualToString:@""]) {
+//
+//
+//                }
+                
+                if (response) {
+                    Succed(responseObject);
                     
                 }
             }
-            Succed(responseObject);
+            else {
+                Succed(responseObject);
+
+            }
+            
 
 
             
@@ -202,7 +215,7 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
     [dic  setValue:token forKey:@"token"];
     
     //formData: 专门用于拼接需要上传的数据,在此位置生成一个要上传的数据体
-    [manager POST:Upload_user_img parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    [manager POST:url parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
         
         // 在网络开发中，上传文件时，是文件不允许被覆盖，文件重名

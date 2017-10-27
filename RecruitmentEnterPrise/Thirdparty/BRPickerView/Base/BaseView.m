@@ -87,7 +87,7 @@
 //        _rightBtn.layer.cornerRadius = 6.0f;
 //        _rightBtn.layer.masksToBounds = YES;
         _rightBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-        [_rightBtn setTitleColor:RGB_HEX(0xFFA02D, 1.0) forState:UIControlStateNormal];
+        [_rightBtn setTitleColor:RGB_HEX(0xD0021B, 1.0) forState:UIControlStateNormal];
         [_rightBtn setTitle:@"完成" forState:UIControlStateNormal];
         [_rightBtn addTarget:self action:@selector(clickRightBtn) forControlEvents:UIControlEventTouchUpInside];
     }

@@ -10,4 +10,7 @@
 
 @interface BaseMessageVC : BaseViewController
 
+@property(nonatomic,strong) PersonModel *model;
+
+
 @end

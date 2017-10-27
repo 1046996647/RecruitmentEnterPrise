@@ -30,11 +30,14 @@
         _tf1.layer.cornerRadius = 10;
         _tf1.layer.masksToBounds = YES;
         [self.contentView addSubview:_tf1];
+        [_tf1 addTarget:self action:@selector(changeAction:) forControlEvents:UIControlEventEditingChanged];
         
         _tf1.background = [UIImage imageNamed:@"Group"];
         
         _selectBtn = [UIButton buttonWithframe:_tf1.bounds text:@"" font:nil textColor:nil backgroundColor:nil normal:@"" selected:@""];
         [_tf1 addSubview:_selectBtn];
+        [_selectBtn addTarget:self action:@selector(pushAction) forControlEvents:UIControlEventTouchUpInside];
+
         
         UIImageView *imgView = [UIImageView imgViewWithframe:CGRectMake(_selectBtn.width-12-6, (_selectBtn.height-12)/2, 6, 12) icon:@"44"];
         [_selectBtn addSubview:imgView];
@@ -45,12 +48,56 @@
     
 }
 
+- (void)pushAction
+{
+    // 收起键盘有效
+    [self.viewController.view endEditing:YES];
+    
+    
+    if ([_model.title isEqualToString:@"公司性质"]) {
+        for (NSDictionary *dic in self.selectArr) {
+            if ([dic[@"name"] isEqualToString:@"user_company"]) {
+                
+                NSString *str = dic[@"data"];
+                self.dataSource = [str componentsSeparatedByString:@","];
+                break;
+            }
+        }
+    }
+    
+    
+    // 岗位类别
+    if ([_model.title isEqualToString:@"所属行业"]) {
+        
+        NSMutableArray *arrM = [NSMutableArray array];
+        
+        for (NSDictionary *dic in self.selectJobArr) {
+            
+            [arrM addObject:dic[@"name"]];
+            
+        }
+        self.dataSource = arrM;
+    }
+    
+    [BRStringPickerView showStringPickerWithTitle:nil dataSource:self.dataSource defaultSelValue:self.dataSource[0] isAutoSelect:NO resultBlock:^(id selectValue) {
+        
+        _tf1.text = selectValue;
+        _model.text = selectValue;
+        
+        
+    }];
+    
+    
+    
+}
+
 - (void)setModel:(AddContactModel *)model
 {
     _model = model;
     
     _nameLab.text = model.title;
     _tf1.placeholder = model.placeTitle;
+    _tf1.text = model.text;
     
     if ([_model.title isEqualToString:@"所属行业"] || [_model.title isEqualToString:@"公司性质"]) {
         _selectBtn.hidden = NO;
@@ -61,6 +108,12 @@
         _selectBtn.hidden = YES;
     }
 
+}
+
+- (void)changeAction:(UITextField *)tf
+{
+    _model.text = tf.text;
+    
 }
 
 @end

@@ -27,8 +27,10 @@
     UILabel *changeLab = [UILabel labelWithframe:CGRectMake(18, 0, 100, changeBtn.height) text:@"登录账号" font:SystemFont(17) textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
     [changeBtn addSubview:changeLab];
     
-    UILabel *nameLab = [UILabel labelWithframe:CGRectMake(kScreenWidth-100-20, 0, 100, changeBtn.height) text:@"dayday" font:SystemFont(17) textAlignment:NSTextAlignmentRight textColor:@"#333333"];
+    // dayday
+    UILabel *nameLab = [UILabel labelWithframe:CGRectMake(kScreenWidth-100-20, 0, 100, changeBtn.height) text:@"" font:SystemFont(17) textAlignment:NSTextAlignmentRight textColor:@"#333333"];
     [changeBtn addSubview:nameLab];
+    nameLab.text = self.model.cname;
     
     // 手机号
     UIButton *exitBtn = [UIButton buttonWithframe:CGRectMake(changeBtn.left, changeBtn.bottom+ 10, kScreenWidth, changeBtn.height) text:nil font:nil textColor:nil backgroundColor:@"#FFFFFF" normal:nil selected:nil];
@@ -38,13 +40,17 @@
     
     UILabel *exitLab = [UILabel labelWithframe:CGRectMake(18, 0, 100, changeBtn.height) text:@"手机号" font:SystemFont(17) textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
     [exitBtn addSubview:exitLab];
+
     
     UIImageView *exitView = [UIImageView imgViewWithframe:CGRectMake(kScreenWidth-12-6, 24, 6, 12) icon:@"44"];
     exitView.contentMode = UIViewContentModeScaleAspectFit;
     [exitBtn addSubview:exitView];
     
-    UILabel *phoneLab = [UILabel labelWithframe:CGRectMake(exitView.left-200-10, 0, 200, changeBtn.height) text:@"18842682580" font:SystemFont(17) textAlignment:NSTextAlignmentRight textColor:@"#333333"];
+    // 18842682580
+    UILabel *phoneLab = [UILabel labelWithframe:CGRectMake(exitView.left-200-10, 0, 200, changeBtn.height) text:@"" font:SystemFont(17) textAlignment:NSTextAlignmentRight textColor:@"#333333"];
     [exitBtn addSubview:phoneLab];
+    phoneLab.text = self.model.phone;
+
     
     // E-mail
     UIButton *mailBtn = [UIButton buttonWithframe:CGRectMake(changeBtn.left, exitBtn.bottom+ 1, kScreenWidth, changeBtn.height) text:nil font:nil textColor:nil backgroundColor:@"#FFFFFF" normal:nil selected:nil];
@@ -59,8 +65,11 @@
     mailView.contentMode = UIViewContentModeScaleAspectFit;
     [mailBtn addSubview:mailView];
     
-    UILabel *mailLab1 = [UILabel labelWithframe:CGRectMake(mailView.left-200-10, 0, 200, changeBtn.height) text:@"356335205@qq.com" font:SystemFont(17) textAlignment:NSTextAlignmentRight textColor:@"#333333"];
+    // 356335205@qq.com
+    UILabel *mailLab1 = [UILabel labelWithframe:CGRectMake(mailView.left-200-10, 0, 200, changeBtn.height) text:@"" font:SystemFont(17) textAlignment:NSTextAlignmentRight textColor:@"#333333"];
     [mailBtn addSubview:mailLab1];
+    mailLab1.text = self.model.email;
+
 }
 
 - (void)didReceiveMemoryWarning {

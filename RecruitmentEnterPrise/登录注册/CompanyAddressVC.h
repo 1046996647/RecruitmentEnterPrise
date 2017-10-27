@@ -8,6 +8,12 @@
 
 #import "BaseViewController.h"
 
+typedef void(^CompanyAddressBlock)(NSString *text);
+
+
 @interface CompanyAddressVC : BaseViewController
+
+@property(nonatomic,copy) CompanyAddressBlock block;
+
 
 @end

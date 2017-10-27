@@ -38,15 +38,8 @@
     
 //    [NSThread sleepForTimeInterval:1];
     
-//    TabBarController *tabVC = [[TabBarController alloc] init];
-//    self.tabVC = tabVC;
-//    self.window.rootViewController = tabVC;
-
-    
-    LoginVC *vc = [[LoginVC alloc] init];
-//    vc.title = @"发布新职位";
-    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:vc];
-    self.window.rootViewController = nav;
+    // 判断登录状态
+    [self isLoginedState];
 
     // 键盘遮盖处理第三方库
     IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
@@ -66,6 +59,20 @@
     return YES;
 }
 
+// 判断登录状态
+- (void)isLoginedState
+{
+    if (![[InfoCache getValueForKey:@"LoginedState"] integerValue]) {
+        LoginVC *loginVC = [[LoginVC alloc] init];
+        NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
+        self.window.rootViewController = nav;
+    }
+    else {
+        TabBarController *tabVC = [[TabBarController alloc] init];
+        self.tabVC = tabVC;
+        self.window.rootViewController = tabVC;
+    }
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

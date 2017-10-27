@@ -8,6 +8,10 @@
 
 #import "OtherVC.h"
 #import "ChangeInfoVC.h"
+#import "AppDelegate.h"
+#import "NavigationController.h"
+#import "LoginVC.h"
+
 
 @interface OtherVC ()
 
@@ -61,7 +65,15 @@
     if (btn.tag == 1) {
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确定要退出登录吗" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [InfoCache saveValue:@0 forKey:@"LoginedState"];
+            [InfoCache archiveObject:nil toFile:@"token"];
+
+            AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            LoginVC *loginVC = [[LoginVC alloc] init];
+            NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
+            delegate.window.rootViewController = nav;
+        }];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
         [alertController addAction:cancelAction];
         [alertController addAction:okAction];

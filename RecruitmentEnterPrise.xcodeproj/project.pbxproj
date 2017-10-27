@@ -46,6 +46,7 @@
 		F74F989B1FA027D20027C418 /* CompanyintroduceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F989A1FA027D20027C418 /* CompanyintroduceVC.m */; };
 		F74F989E1FA057120027C418 /* UILabel+WLAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F989D1FA057120027C418 /* UILabel+WLAttributedString.m */; };
 		F74F98A11FA069470027C418 /* ForgetPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F98A01FA069470027C418 /* ForgetPasswordVC.m */; };
+		F74F98A41FA07CDB0027C418 /* CountDownServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F98A31FA07CDB0027C418 /* CountDownServer.m */; };
 		F756477F1F9986460060E744 /* AddContactVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F756477E1F9986460060E744 /* AddContactVC.m */; };
 		F75647821F99865A0060E744 /* AddContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75647811F99865A0060E744 /* AddContactCell.m */; };
 		F75647851F998A0E0060E744 /* AddContactModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75647841F998A0E0060E744 /* AddContactModel.m */; };
@@ -212,6 +213,8 @@
 		F74F989D1FA057120027C418 /* UILabel+WLAttributedString.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+WLAttributedString.m"; sourceTree = "<group>"; };
 		F74F989F1FA069470027C418 /* ForgetPasswordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgetPasswordVC.h; sourceTree = "<group>"; };
 		F74F98A01FA069470027C418 /* ForgetPasswordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgetPasswordVC.m; sourceTree = "<group>"; };
+		F74F98A21FA07CDB0027C418 /* CountDownServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountDownServer.h; sourceTree = "<group>"; };
+		F74F98A31FA07CDB0027C418 /* CountDownServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CountDownServer.m; sourceTree = "<group>"; };
 		F756477D1F9986460060E744 /* AddContactVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddContactVC.h; sourceTree = "<group>"; };
 		F756477E1F9986460060E744 /* AddContactVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddContactVC.m; sourceTree = "<group>"; };
 		F75647801F99865A0060E744 /* AddContactCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddContactCell.h; sourceTree = "<group>"; };
@@ -480,7 +483,6 @@
 				F74820551F91FCCA00F072CD /* Info.plist */,
 				F74820561F91FCCA00F072CD /* main.m */,
 				F74820E01F9202CE00F072CD /* DefineFile.h */,
-				F74820E11F9202E100F072CD /* UrlFile.h */,
 				F74820E21F9202F400F072CD /* RecruitmentEnterPrise.pch */,
 			);
 			path = RecruitmentEnterPrise;
@@ -583,6 +585,8 @@
 		F74820971F91FE8A00F072CD /* RegexTool */ = {
 			isa = PBXGroup;
 			children = (
+				F74F98A21FA07CDB0027C418 /* CountDownServer.h */,
+				F74F98A31FA07CDB0027C418 /* CountDownServer.m */,
 				F74820981F91FE8A00F072CD /* RegexTool.h */,
 				F74820991F91FE8A00F072CD /* RegexTool.m */,
 			);
@@ -730,6 +734,7 @@
 				F71C04281F9839690024C1EC /* ChatWantedVC.m */,
 				F75647931F99C2C40060E744 /* CompanyDetailVC.h */,
 				F75647921F99C2C40060E744 /* CompanyDetailVC.m */,
+				F74820E11F9202E100F072CD /* UrlFile.h */,
 				F71C04371F9879140024C1EC /* 设置 */,
 			);
 			path = ControllView;
@@ -886,8 +891,6 @@
 				F766D9421F95E405004C74F0 /* RegisterVC.m */,
 				F74F989F1FA069470027C418 /* ForgetPasswordVC.h */,
 				F74F98A01FA069470027C418 /* ForgetPasswordVC.m */,
-				F78D93771F9204F400E0DCA9 /* PersonModel.h */,
-				F78D93761F9204F200E0DCA9 /* PersonModel.m */,
 				F766D94B1F95F9C4004C74F0 /* PersonalMessageVC.h */,
 				F766D94C1F95F9C4004C74F0 /* PersonalMessageVC.m */,
 				F766D9491F95F597004C74F0 /* PersonalMessageCell.h */,
@@ -900,6 +903,8 @@
 				F765129D1F9F0BB100BF80D9 /* AddressSearchVC.m */,
 				F74F98991FA027D20027C418 /* CompanyintroduceVC.h */,
 				F74F989A1FA027D20027C418 /* CompanyintroduceVC.m */,
+				F78D93771F9204F400E0DCA9 /* PersonModel.h */,
+				F78D93761F9204F200E0DCA9 /* PersonModel.m */,
 			);
 			path = "登录注册";
 			sourceTree = "<group>";
@@ -1173,6 +1178,7 @@
 				F766D92B1F95AB02004C74F0 /* ResumeCheckedVC.m in Sources */,
 				F78D93861F92064A00E0DCA9 /* NavigationController.m in Sources */,
 				F78D938B1F92067900E0DCA9 /* HomeVC.m in Sources */,
+				F74F98A41FA07CDB0027C418 /* CountDownServer.m in Sources */,
 				F71C043A1F98793C0024C1EC /* SettingVC.m in Sources */,
 				F76AD8661F97515700BA88D3 /* ResumeSearchResultVC.m in Sources */,
 				F75BA9311F9AD1B00083E448 /* ZFTableViewCell.m in Sources */,

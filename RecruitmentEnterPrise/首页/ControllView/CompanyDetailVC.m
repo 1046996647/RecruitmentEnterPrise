@@ -42,7 +42,7 @@
     
     [paraDic setValue:self.model.companyId forKey:@"companyId"];
     
-    [AFNetworking_RequestData requestMethodPOSTUrl:Get_company_detail dic:paraDic showHUD:YES Succed:^(id responseObject) {
+    [AFNetworking_RequestData requestMethodPOSTUrl:@"" dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
         
         JobModel *model = [JobModel yy_modelWithJSON:responseObject[@"data"]];
         self.model = model;

@@ -104,6 +104,7 @@
     UIButton *viewBtn = [UIButton buttonWithframe:rightView.bounds text:@"保存" font:SystemFont(14) textColor:@"#FFFFFF" backgroundColor:nil normal:nil selected:nil];
     [rightView addSubview:viewBtn];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
+    [viewBtn addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
     
     // 地图
     //初始化地图
@@ -181,11 +182,25 @@
     
 }
 
+- (void)saveAction
+{
+    NSString *address = [NSString stringWithFormat:@"%@%@%@",self.addBtn.currentTitle, self.addTF.text, self.detailTF.text];
+    
+    if (self.block) {
+        self.block(address);
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)addAction
 {
     AddressSearchVC *vc = [[AddressSearchVC alloc] init];
     vc.userLocation = self.userLocation;
     [self.navigationController pushViewController:vc animated:YES];
+    vc.block = ^(NSString *text) {
+        
+        self.addTF.text = text;
+    };
 }
 
 // 重新定位
@@ -340,11 +355,8 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-//    if (indexPath.row == 0) {
-//        SystemMassageVC *vc = [[SystemMassageVC alloc] init];
-//        vc.title = @"系统消息";
-//        [self.viewController.navigationController pushViewController:vc animated:YES];
-//    }
+    BMKPoiInfo *poiInfo = self.dataArr[indexPath.row];
+    self.addTF.text = poiInfo.name;
 
     
 }

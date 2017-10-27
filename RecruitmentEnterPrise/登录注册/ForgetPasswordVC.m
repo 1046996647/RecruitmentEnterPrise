@@ -8,11 +8,16 @@
 
 #import "ForgetPasswordVC.h"
 
+#import "RegexTool.h"
+
+#define kCountDownForVerifyCode @"CountDownForVerifyCode"
+
 @interface ForgetPasswordVC ()
 
 @property(nonatomic,strong) UITextField *phone;
 @property(nonatomic,strong) UITextField *password;
 @property(nonatomic,strong) UITextField *validate;
+@property (nonatomic, strong) UIButton *countDownButton;
 
 
 @end
@@ -68,9 +73,7 @@
     [self.view addSubview:_phone];
     _phone.leftViewMode = UITextFieldViewModeAlways;
     _phone.leftView = leftView;
-    
-    _phone.text = [InfoCache unarchiveObjectWithFile:@"userid"];
-    
+        
     
     leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 45+10, leftView.height)];
     leftView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 45, leftView.height)];
@@ -130,6 +133,8 @@
     [rightBtn setTitleColor:[UIColor colorWithHexString:@"#D0374A"] forState:UIControlStateNormal];
     rightBtn.titleLabel.font = [UIFont systemFontOfSize:11];
     [rightView addSubview:rightBtn];
+    self.countDownButton = rightBtn;
+    [self.countDownButton addTarget:self action:@selector(getCodeAction) forControlEvents:UIControlEventTouchUpInside];
     
     _validate = [UITextField textFieldWithframe:CGRectMake(_phone.left, _password.bottom+15, _phone.width, _phone.height) placeholder:@"请输入验证码" font:nil leftView:leftView backgroundColor:@"#FFFFFF"];
     _validate.layer.cornerRadius = 7;
@@ -147,9 +152,42 @@
     [self.view addSubview:loginBtn];
     [loginBtn addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
     
+    //倒计时通知事件
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(countDownUpdate:) name:@"CountDownUpdate" object:nil];
+    
+    
+}
 
+- (void)getCodeAction
+{
+    [self.view endEditing:YES];
     
+    if (![RegexTool checkPhone:self.phone.text]) {
+        [self.view makeToast:@"无效的手机号"];
+        return;
+    }
     
+    // 开始计时
+    [CountDownServer startCountDown:10 identifier:kCountDownForVerifyCode];
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    [paramDic  setValue:self.phone.text forKey:@"phone"];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:VerifyCode dic:paramDic showHUD:YES response:YES Succed:^(id responseObject) {
+        
+        NSNumber *code = [responseObject objectForKey:@"status"];
+        if (1 == [code integerValue]) {
+            
+            NSString *message = [responseObject objectForKey:@"message"];
+            [self.view makeToast:message];
+            
+        }
+        
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)viewAction:(UIButton *)btn
@@ -171,7 +209,25 @@
     
     [self.view endEditing:YES];
     
-
+    if (self.phone.text.length == 0 ||
+        self.password.text.length == 0||
+        self.validate.text.length == 0) {
+        [self.view makeToast:@"您还有内容未填写完整"];
+        return;
+    }
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    [paramDic  setValue:self.phone.text forKey:@"phone"];
+    [paramDic  setValue:self.password.text forKey:@"passwd_new"];
+    [paramDic  setValue:self.validate.text forKey:@"verify"];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Forget_passwd dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -190,6 +246,36 @@
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
     
+}
+
+#pragma mark-验证码通知方法
+- (void)countDownUpdate:(NSNotification *)noti
+{
+    NSString *identifier = [noti.userInfo objectForKey:@"CountDownIdentifier"];
+    if ([identifier isEqualToString:kCountDownForVerifyCode]) {
+        NSNumber *n = [noti.userInfo objectForKey:@"SecondsCountDown"];
+        
+        [self performSelectorOnMainThread:@selector(updateVerifyCodeCountDown:) withObject:n waitUntilDone:YES];
+    }
+}
+
+- (void)updateVerifyCodeCountDown:(NSNumber *)num {
+    
+    if ([num integerValue] == 0){
+        
+        [self.countDownButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+        self.countDownButton.userInteractionEnabled = YES;
+        self.countDownButton.layer.borderColor = [UIColor colorWithHexString:@"#D0021B"].CGColor;
+        self.countDownButton.layer.borderWidth = .5;
+        [self.countDownButton setTitleColor:[UIColor colorWithHexString:@"#D0021B"] forState:UIControlStateNormal];
+        
+    } else {
+        [self.countDownButton setTitle:[NSString stringWithFormat:@"%@后重新获取",num] forState:UIControlStateNormal];
+        self.countDownButton.userInteractionEnabled = NO;
+        self.countDownButton.layer.borderColor = [UIColor colorWithHexString:@"#848484"].CGColor;
+        self.countDownButton.layer.borderWidth = .5;
+        [self.countDownButton setTitleColor:[UIColor colorWithHexString:@"#848484"] forState:UIControlStateNormal];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

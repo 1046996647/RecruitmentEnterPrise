@@ -8,6 +8,13 @@
 
 #import "BaseViewController.h"
 
+typedef void(^CompanyintroduceBlock)(NSString *text);
+
 @interface CompanyintroduceVC : BaseViewController
+
+@property(nonatomic,strong) NSString *text;
+
+@property(nonatomic,copy) CompanyintroduceBlock block;
+
 
 @end

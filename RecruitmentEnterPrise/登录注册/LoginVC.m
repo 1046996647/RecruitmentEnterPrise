@@ -10,12 +10,18 @@
 #import "RegisterVC.h"
 #import "ForgetPasswordVC.h"
 #import "AppDelegate.h"
+#import "RegexTool.h"
+
+
+#define kCountDownForVerifyCode @"CountDownForVerifyCode"
+
 
 @interface LoginVC ()
 
 @property(nonatomic,strong) UITextField *phone;
 @property(nonatomic,strong) UITextField *password;
 @property(nonatomic,strong) UITextField *validate;
+@property (nonatomic, strong) UIButton *countDownButton;
 
 
 @end
@@ -72,7 +78,6 @@
     _phone.leftViewMode = UITextFieldViewModeAlways;
     _phone.leftView = leftView;
     
-    _phone.text = [InfoCache unarchiveObjectWithFile:@"userid"];
 
     
     leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 45+10, leftView.height)];
@@ -125,7 +130,6 @@
     rightBtn.frame = CGRectMake(0, 0, 87, 23);
     rightBtn.center = rightView.center;
     rightBtn.layer.cornerRadius = rightBtn.height/2;
-    //    [tf addTarget:self action:@selector(changeAction:) forControlEvents:UIControlEventEditingChanged];
     rightBtn.layer.masksToBounds = YES;
     rightBtn.layer.borderColor = [UIColor colorWithHexString:@"#D0374A"].CGColor;
     rightBtn.layer.borderWidth = .5;
@@ -133,6 +137,9 @@
     [rightBtn setTitleColor:[UIColor colorWithHexString:@"#D0374A"] forState:UIControlStateNormal];
     rightBtn.titleLabel.font = [UIFont systemFontOfSize:11];
     [rightView addSubview:rightBtn];
+    self.countDownButton = rightBtn;
+    [self.countDownButton addTarget:self action:@selector(getCodeAction) forControlEvents:UIControlEventTouchUpInside];
+
     
     _validate = [UITextField textFieldWithframe:CGRectMake(_phone.left, _password.bottom+15, _phone.width, _phone.height) placeholder:@"请输入验证码" font:nil leftView:leftView backgroundColor:@"#FFFFFF"];
     _validate.layer.cornerRadius = 7;
@@ -148,7 +155,7 @@
     loginBtn.layer.cornerRadius = 7;
     loginBtn.layer.masksToBounds = YES;
     [self.view addSubview:loginBtn];
-    [loginBtn addTarget:self action:@selector(loginAction1) forControlEvents:UIControlEventTouchUpInside];
+    [loginBtn addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
 
     
     UIButton *registerBtn = [UIButton buttonWithframe:CGRectMake(loginBtn.left+5, loginBtn.bottom+16, 50, 14) text:@"立即注册" font:[UIFont systemFontOfSize:12] textColor:@"FFFFFF" backgroundColor:nil normal:nil selected:nil];
@@ -159,8 +166,17 @@
     [self.view addSubview:forgetBtn];
     [forgetBtn addTarget:self action:@selector(forgetAction) forControlEvents:UIControlEventTouchUpInside];
     
+    //倒计时通知事件
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(countDownUpdate:) name:@"CountDownUpdate" object:nil];
+    
     // 登录通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifLoginAction:) name:@"kLoginNotification" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifLoginAction) name:@"kLoginNotification" object:nil];
+    
+    // 获取选择项数据
+    [self getCities];
+    [self getSelectItems];
+    [self getSelectItemJob];
 
 }
 
@@ -176,78 +192,69 @@
     }
 }
 
-// 通知动作
-- (void)notifLoginAction:(NSNotification *)notification
-{
-    self.phone.text = [InfoCache unarchiveObjectWithFile:@"userid"];
-    self.password.text = [InfoCache unarchiveObjectWithFile:@"password"];
-    [self loginAction:notification];
-}
 
-- (void)loginAction1
-{
-    [self loginAction:nil];
-
-}
-
-- (void)loginAction:(NSNotification *)notification
+- (void)loginAction
 {
     
     [self.view endEditing:YES];
     
-    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    TabBarController *tabVC = [[TabBarController alloc] init];
-    delegate.tabVC = tabVC;
-    delegate.window.rootViewController = tabVC;
     
-    /*
-    if (self.phone.text.length == 0 || self.password.text == 0) {
+    if (self.phone.text.length == 0 ||
+        self.password.text.length == 0||
+        self.validate.text.length == 0) {
         [self.view makeToast:@"您还有内容未填写完整"];
         return;
     }
     
     NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
-    [paramDic  setValue:self.phone.text forKey:@"userid"];// userid和手机一样
+    [paramDic  setValue:self.phone.text forKey:@"phone"];
     [paramDic  setValue:self.password.text forKey:@"passwd"];
-    
-    [AFNetworking_RequestData requestMethodPOSTUrl:Login dic:paramDic showHUD:YES Succed:^(id responseObject) {
+    [paramDic  setValue:self.validate.text forKey:@"verify"];
+
+    [AFNetworking_RequestData requestMethodPOSTUrl:Login dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
-        NSNumber *code = [responseObject objectForKey:@"status"];
-        if (1 == [code integerValue]) {
-            
-            [InfoCache archiveObject:self.phone.text toFile:@"userid"];
-            [InfoCache archiveObject:responseObject[@"token"] toFile:@"token"];
-            
-            [self get_ui_info:notification];
-        }
+        [InfoCache archiveObject:responseObject[@"token"] toFile:@"token"];
         
+        [InfoCache saveValue:@1 forKey:@"LoginedState"];
+        
+        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        TabBarController *tabVC = [[TabBarController alloc] init];
+        delegate.tabVC = tabVC;
+        delegate.window.rootViewController = tabVC;
+
 
         
     } failure:^(NSError *error) {
         
     }];
-     */
+    
 }
 
-// 返回用户表该用户相关信息
-- (void)get_ui_info:(NSNotification *)notification
+- (void)getCodeAction
 {
-
-    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    [self.view endEditing:YES];
     
-    [AFNetworking_RequestData requestMethodPOSTUrl:Get_ui_info dic:paramDic showHUD:YES Succed:^(id responseObject) {
+    if (![RegexTool checkPhone:self.phone.text]) {
+        [self.view makeToast:@"无效的手机号"];
+        return;
+    }
+    
+    // 开始计时
+    [CountDownServer startCountDown:10 identifier:kCountDownForVerifyCode];
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    [paramDic  setValue:self.phone.text forKey:@"phone"];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:VerifyCode dic:paramDic showHUD:YES response:YES Succed:^(id responseObject) {
         
-        PersonModel *model = [PersonModel yy_modelWithJSON:responseObject[@"data"]];
-        [InfoCache archiveObject:model toFile:Person];
-        
-        if (![notification.object isEqualToString:@"注册"]) {
+        NSNumber *code = [responseObject objectForKey:@"status"];
+        if (1 == [code integerValue]) {
             
-            NSNumber *code = [responseObject objectForKey:@"status"];
-            if (1 == [code integerValue]) {
-                [self.navigationController popViewControllerAnimated:YES];
-
-            }
+            NSString *message = [responseObject objectForKey:@"message"];
+            [self.view makeToast:message];
+            
         }
+        
         
     } failure:^(NSError *error) {
         
@@ -274,7 +281,8 @@
     [super viewWillAppear:animated];
     
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    
+    _phone.text = [InfoCache unarchiveObjectWithFile:@"phone"];
+
     //带动画结果在切换tabBar的时候viewController会有闪动的效果不建议这样写
     //    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
@@ -293,8 +301,79 @@
     // Dispose of any resources that can be recreated.
 }
 
-//- (void)back{
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
+#pragma mark-验证码通知方法
+- (void)countDownUpdate:(NSNotification *)noti
+{
+    NSString *identifier = [noti.userInfo objectForKey:@"CountDownIdentifier"];
+    if ([identifier isEqualToString:kCountDownForVerifyCode]) {
+        NSNumber *n = [noti.userInfo objectForKey:@"SecondsCountDown"];
+        
+        [self performSelectorOnMainThread:@selector(updateVerifyCodeCountDown:) withObject:n waitUntilDone:YES];
+    }
+}
+
+- (void)updateVerifyCodeCountDown:(NSNumber *)num {
+    
+    if ([num integerValue] == 0){
+        
+        [self.countDownButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+        self.countDownButton.userInteractionEnabled = YES;
+        self.countDownButton.layer.borderColor = [UIColor colorWithHexString:@"#D0021B"].CGColor;
+        self.countDownButton.layer.borderWidth = .5;
+        [self.countDownButton setTitleColor:[UIColor colorWithHexString:@"#D0021B"] forState:UIControlStateNormal];
+        
+    } else {
+        [self.countDownButton setTitle:[NSString stringWithFormat:@"%@后重新获取",num] forState:UIControlStateNormal];
+        self.countDownButton.userInteractionEnabled = NO;
+        self.countDownButton.layer.borderColor = [UIColor colorWithHexString:@"#848484"].CGColor;
+        self.countDownButton.layer.borderWidth = .5;
+        [self.countDownButton setTitleColor:[UIColor colorWithHexString:@"#848484"] forState:UIControlStateNormal];
+    }
+}
+
+// 获取分站数据
+- (void)getCities
+{
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Get_sites dic:nil showHUD:NO response:NO  Succed:^(id responseObject) {
+        
+        NSArray *cityArr = responseObject[@"data"];
+        [InfoCache archiveObject:cityArr toFile:SelectItemCity];
+        
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
+
+- (void)getSelectItems
+{
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Get_setting dic:nil showHUD:NO response:NO Succed:^(id responseObject) {
+        
+        NSArray *selectArr = responseObject[@"data"];
+        [InfoCache archiveObject:selectArr toFile:SelectItem];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
+
+// 获取行业数据
+- (void)getSelectItemJob
+{
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Get_jobs_cate dic:nil showHUD:NO response:NO Succed:^(id responseObject) {
+        
+        NSArray *selectArr = responseObject[@"data"];
+        [InfoCache archiveObject:selectArr toFile:SelectItemJob];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
 
 @end

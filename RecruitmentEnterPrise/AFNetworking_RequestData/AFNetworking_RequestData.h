@@ -24,6 +24,7 @@ typedef void(^Failure)(NSError *error);
 +(void)requestMethodGetUrl:(NSString*)url
                        dic:(NSMutableDictionary*)dic
                    showHUD:(BOOL)hud
+                  response:(BOOL)response // 为了表视图加载更多数据时的回调
                     Succed:(Success)succed
                    failure:(Failure)failure;
 
@@ -31,6 +32,7 @@ typedef void(^Failure)(NSError *error);
 +(void)requestMethodPOSTUrl:(NSString*)url
                         dic:(NSMutableDictionary*)dic
                     showHUD:(BOOL)hud
+                   response:(BOOL)response
                      Succed:(Success)succed
                     failure:(Failure)failure;
 

@@ -110,13 +110,12 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    //    if (indexPath.row == 0) {
-    //        SystemMassageVC *vc = [[SystemMassageVC alloc] init];
-    //        vc.title = @"系统消息";
-    //        [self.viewController.navigationController pushViewController:vc animated:YES];
-    //    }
-    
-    
+    BMKPoiInfo *poiInfo = self.dataArr[indexPath.row];
+    if (self.block) {
+        self.block(poiInfo.name);
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 

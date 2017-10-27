@@ -14,6 +14,8 @@
 @property(nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSArray *dataArr;
 @property (nonatomic,strong) NSArray *selectArr;
+@property (nonatomic,strong) NSArray *selectJobArr;
+
 @end
 
 @implementation PersonalMessageVC
@@ -22,13 +24,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.dataArr = @[@[@{@"image":@"80",@"title":@"公司名称",@"key":@"name"},
-                       @{@"image":@"79",@"title":@"招聘负责人",@"key":@"education"},
-                       @{@"image":@"78",@"title":@"联系电话",@"key":@"jobyear"}],
-                     @[@{@"image":@"77",@"title":@"点击获取公司地址",@"key":@"hopepostion"},
-                       @{@"image":@"76",@"title":@"所属行业",@"key":@"requestsalary"},
-                       @{@"image":@"75",@"title":@"公司性质",@"key":@"hopelocation"}],
-                     @[@{@"image":@"74",@"title":@"公司简介",@"key":@"hopepostion"}]
+    self.dataArr = @[@[@{@"image":@"80",@"title":@"公司名称",@"key":@"title"},
+                       @{@"image":@"79",@"title":@"招聘负责人",@"key":@"contactName"},
+                       @{@"image":@"78",@"title":@"联系电话",@"key":@"tele"}],
+                     @[@{@"image":@"77",@"title":@"点击获取公司地址",@"key":@"address"},
+                       @{@"image":@"76",@"title":@"所属行业",@"key":@"cateId"},
+                       @{@"image":@"75",@"title":@"公司性质",@"key":@"type"}],
+                     @[@{@"image":@"74",@"title":@"公司简介",@"key":@"info"}]
                      ];
     
     NSMutableArray *arrM = [NSMutableArray array];
@@ -66,6 +68,9 @@
     // 选择项数据
     NSArray *selectArr = [InfoCache unarchiveObjectWithFile:SelectItem];;
     self.selectArr = selectArr;
+    
+    NSArray *selectJobArr = [InfoCache unarchiveObjectWithFile:SelectItemJob];;
+    self.selectJobArr = selectJobArr;
 
 }
 
@@ -92,16 +97,44 @@
     
     NSLog(@"%@",paramDic);
     
-    [AFNetworking_RequestData requestMethodPOSTUrl:Update_peronal_info dic:paramDic showHUD:YES Succed:^(id responseObject) {
+    [AFNetworking_RequestData requestMethodPOSTUrl:Add_company_info dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
-        // 登录通知
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"kLoginNotification" object:self.title];
+//        // 登录通知
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"kLoginNotification" object:self.title];
+        
+        [self.navigationController popToRootViewControllerAnimated:YES];
+
+
         
     } failure:^(NSError *error) {
         
     }];
 }
 
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    self.navigationItem.leftBarButtonItem.customView.hidden = YES;
+    
+    // 禁用返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    self.navigationItem.leftBarButtonItem.customView.hidden = NO;
+
+    // 开启返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -155,6 +188,19 @@
     
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.0001;// 为0无效
+    
+}
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0.0001)];
+    //    view.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+    return view;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -167,6 +213,7 @@
     PersonModel *model = self.dataArr[indexPath.section][indexPath.row];
     cell.model = model;
     cell.selectArr = self.selectArr;
+    cell.selectJobArr = self.selectJobArr;
     return cell;
 }
 

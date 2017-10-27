@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 //#import "EditJobMsgModel.h"
 #import "PersonModel.h"
-//#import "BRPickerView.h"
+#import "BRPickerView.h"
 
 @interface PersonalMessageCell : UITableViewCell<UITextFieldDelegate>
 

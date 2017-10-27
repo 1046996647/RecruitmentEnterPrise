@@ -21,7 +21,7 @@
     if (self) {
     
         
-        _tf = [UITextField textFieldWithframe:CGRectMake(48, 0, kScreenWidth-43-12, 40) placeholder:nil font:nil leftView:nil backgroundColor:@"#FFFFFF"];
+        _tf = [UITextField textFieldWithframe:CGRectMake(48, 0, kScreenWidth-43-30, 40) placeholder:nil font:nil leftView:nil backgroundColor:@"#FFFFFF"];
         _tf.font = [UIFont systemFontOfSize:13];
         [_tf setValue:[UIFont systemFontOfSize:13] forKeyPath:@"_placeholderLabel.font"];// 设置这里时searchTF.font也要设置不然会偏上
         [_tf setValue:[UIColor colorWithHexString:@"#999999"] forKeyPath:@"_placeholderLabel.textColor"];
@@ -94,6 +94,11 @@
         CompanyAddressVC *vc = [[CompanyAddressVC alloc] init];
         vc.title = @"公司地址";
         [self.viewController.navigationController pushViewController:vc animated:YES];
+        vc.block = ^(NSString *text) {
+            
+            _tf.text = text;
+            _model.text = text;
+        };
         return;
 
     }
@@ -101,65 +106,18 @@
     if ([_model.title isEqualToString:@"公司简介"]) {
         CompanyintroduceVC *vc = [[CompanyintroduceVC alloc] init];
         vc.title = @"公司简介";
+        vc.text = _tf.text;
         [self.viewController.navigationController pushViewController:vc animated:YES];
+        vc.block = ^(NSString *text) {
+            
+            _tf.text = text;
+            _model.text = text;
+        };
         return;
         
     }
         
-        
-    if ([_model.title isEqualToString:@"性别"]) {
-    self.dataSource = @[@"男",@"女"];
-
-    }
-
-    if ([_model.title isEqualToString:@"人才类型"]) {
-    self.dataSource = @[@"往届",@"应届"];
-
-    }
-
-
-    if ([_model.title isEqualToString:@"工作年限"]||
-    [_model.title isEqualToString:@"工作经验"]) {
-    NSMutableArray *arrM = [NSMutableArray array];
-    for (NSDictionary *dic in self.selectArr) {
-        if ([dic[@"name"] isEqualToString:@"comp_years"]) {
-            
-            NSString *str = dic[@"data"];
-            NSArray *arr = [str componentsSeparatedByString:@","];
-            
-            for (NSString *s in arr) {
-                NSString *s1 = [NSString stringWithFormat:@"%@年",s];
-                [arrM addObject:s1];
-            }
-            self.dataSource = arrM;
-            break;
-        }
-    }
-
-    }
-    if ([_model.title isEqualToString:@"期望月薪"]||
-    [_model.title isEqualToString:@"待遇要求"]) {
-    for (NSDictionary *dic in self.selectArr) {
-        if ([dic[@"name"] isEqualToString:@"comp_pay"]) {
-            
-            NSString *str = dic[@"data"];
-            self.dataSource = [str componentsSeparatedByString:@","];
-            break;
-        }
-    }
-    }
-
-    if ([_model.title isEqualToString:@"民族"]) {
-    for (NSDictionary *dic in self.selectArr) {
-        if ([dic[@"name"] isEqualToString:@"comp_nation"]) {
-            
-            NSString *str = dic[@"data"];
-            self.dataSource = [str componentsSeparatedByString:@","];
-            break;
-        }
-    }
-    }
-
+    
     if ([_model.title isEqualToString:@"公司性质"]) {
     for (NSDictionary *dic in self.selectArr) {
         if ([dic[@"name"] isEqualToString:@"user_company"]) {
@@ -172,26 +130,8 @@
     }
 
 
-
-    if ([_model.title isEqualToString:@"住房要求"]) {
-    for (NSDictionary *dic in self.selectArr) {
-        if ([dic[@"name"] isEqualToString:@"comp_house"]) {
-            
-            NSString *str = dic[@"data"];
-            self.dataSource = [str componentsSeparatedByString:@","];
-            break;
-        }
-    }
-    }
-
-    if ([_model.title isEqualToString:@"意向城市"]||
-    [_model.title isEqualToString:@"所在地"]||
-    [_model.title isEqualToString:@"期望地区"]) {
-    self.dataSource = @[@"义乌市", @"东阳市", @"金华市",@"浦江县",@"永康市",@"慈溪市",@"余姚市"];
-    }
-
     // 岗位类别
-    if ([_model.title isEqualToString:@"岗位类别"]) {
+    if ([_model.title isEqualToString:@"所属行业"]) {
 
     NSMutableArray *arrM = [NSMutableArray array];
 
@@ -203,38 +143,13 @@
     self.dataSource = arrM;
     }
 
-    //        [BRStringPickerView showStringPickerWithTitle:nil dataSource:self.dataSource defaultSelValue:self.dataSource[0] isAutoSelect:NO resultBlock:^(id selectValue) {
-    //
-    //            _tf.text = selectValue;
-    //            _model.text = selectValue;
-    //
-    //            if ([_model.title isEqualToString:@"工作年限"]||
-    //                [_model.title isEqualToString:@"工作经验"]) {
-    //
-    //                _model.text = [_model.text substringToIndex:_model.text.length-1];
-    //                NSLog(@"-----%@",selectValue);
-    //
-    //            }
-    //            ////        if ([_model.title isEqualToString:@"性别"] ||
-    //            ////            [_model.title isEqualToString:@"人才类型"]||
-    //            ////            [_model.title isEqualToString:@"意向城市"]||
-    //            ////            [_model.title isEqualToString:@"所在地"]||
-    //            ////            [_model.title isEqualToString:@"期望地区"]) {
-    //            //        if ([_model.title isEqualToString:@"意向城市"]||
-    //            //            [_model.title isEqualToString:@"所在地"]||
-    //            //            [_model.title isEqualToString:@"期望地区"]||
-    //            //            [_model.title isEqualToString:@"公司性质"]) {
-    //            //
-    //            //
-    //            //            _model.text = selectValue;
-    //            //
-    //            //        }
-    //            //        else {
-    //            //            _model.text = [NSString stringWithFormat:@"%ld",[self.dataSource indexOfObject:selectValue]+1];
-    //
-    //            //        }
-    //
-    //        }];
+    [BRStringPickerView showStringPickerWithTitle:nil dataSource:self.dataSource defaultSelValue:self.dataSource[0] isAutoSelect:NO resultBlock:^(id selectValue) {
+
+        _tf.text = selectValue;
+        _model.text = selectValue;
+
+
+    }];
     
     
 

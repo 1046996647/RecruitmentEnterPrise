@@ -16,6 +16,8 @@
 #import "SettingVC.h"
 #import "CompanyDetailVC.h"
 #import "UILabel+WLAttributedString.h"
+#import "PersonalMessageVC.h"
+#import "NSStringExt.h"
 
 
 @interface HomeVC ()
@@ -23,6 +25,15 @@
 @property(nonatomic,strong) UIButton *forgetBtn;
 @property(nonatomic,strong) UIButton *forgetBtn1;
 @property(nonatomic,strong) UIButton *forgetBtn2;
+@property(nonatomic,strong) NSMutableArray *labelArr;
+@property(nonatomic,strong) NSMutableArray *labelArr1;
+@property(nonatomic,strong) UIButton *logoBtn;
+@property(nonatomic,strong) UILabel *companyLab;
+@property(nonatomic,strong) UILabel *nameLab;
+@property(nonatomic,strong) UIImageView *levelView;
+@property(nonatomic,strong) UILabel *emailLab;
+@property(nonatomic,strong) UIButton *levelBtn;
+
 
 @end
 
@@ -41,28 +52,35 @@
     baseView.backgroundColor = colorWithHexStr(@"#D0021B");
     [scrollView addSubview:baseView];
 
-    UIButton *logoBtn = [UIButton buttonWithframe:CGRectMake(20, 10, 71, 71) text:nil font:nil textColor:nil backgroundColor:nil normal:nil selected:nil];
+    UIButton *logoBtn = [UIButton buttonWithframe:CGRectMake(20, 10, 71, 71) text:nil font:nil textColor:nil backgroundColor:nil normal:@"Rectangle 14" selected:nil];
     logoBtn.layer.cornerRadius = logoBtn.height/2.0;
     logoBtn.layer.masksToBounds = YES;
     logoBtn.layer.borderColor = [UIColor colorWithHexString:@"#FF8054"].CGColor;
     logoBtn.layer.borderWidth = 5;
     [scrollView addSubview:logoBtn];
+    self.logoBtn = logoBtn;
 
-    UILabel *companyLab = [UILabel labelWithframe:CGRectMake(logoBtn.right+18, logoBtn.top, kScreenWidth-logoBtn.right-12, 25) text:@"杭州晖鸿科技有限公司" font:SystemFont(18) textAlignment:NSTextAlignmentLeft textColor:@"#FFFFFF"];
+    // 杭州晖鸿科技有限公司
+    UILabel *companyLab = [UILabel labelWithframe:CGRectMake(logoBtn.right+18, logoBtn.top, kScreenWidth-logoBtn.right-12, 25) text:@"" font:SystemFont(18) textAlignment:NSTextAlignmentLeft textColor:@"#FFFFFF"];
     [scrollView addSubview:companyLab];
+    self.companyLab = companyLab;
     
-    UILabel *nameLab = [UILabel labelWithframe:CGRectMake(companyLab.left, companyLab.bottom+2, 48, 20) text:@"dayday" font:SystemFont(14) textAlignment:NSTextAlignmentLeft textColor:@"#FFFFFF"];
+    // dayday
+    UILabel *nameLab = [UILabel labelWithframe:CGRectMake(companyLab.left, companyLab.bottom+2, 48, 20) text:@"" font:SystemFont(14) textAlignment:NSTextAlignmentLeft textColor:@"#FFFFFF"];
     [scrollView addSubview:nameLab];
+    self.nameLab = nameLab;
     
-    UIImageView *levelView = [UIImageView imgViewWithframe:CGRectMake(nameLab.right+7, nameLab.top, 12, 20) icon:@"65"];
+    UIImageView *levelView = [UIImageView imgViewWithframe:CGRectMake(nameLab.right+7, nameLab.top, 12, 20) icon:@""];
     levelView.contentMode = UIViewContentModeScaleAspectFit;
     [scrollView addSubview:levelView];
+    self.levelView = levelView;
+//    levelView.backgroundColor = [UIColor yellowColor];
 
     UIButton *levelBtn = [UIButton buttonWithframe:CGRectMake(levelView.right+7, nameLab.top, 44+20, nameLab.height) text:@"会员充值" font:SystemFont(11) textColor:@"#F5A623" backgroundColor:nil normal:nil selected:nil];
     levelBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [scrollView addSubview:levelBtn];
     [levelBtn addTarget:self action:@selector(btnAction) forControlEvents:UIControlEventTouchUpInside];
-
+    self.levelBtn = levelBtn;
     
     UIImageView *jiantouView = [UIImageView imgViewWithframe:CGRectMake(levelBtn.width-20, 4, 20, 12) icon:@"Path 3"];
     jiantouView.contentMode = UIViewContentModeScaleAspectFit;
@@ -70,7 +88,9 @@
     
     UILabel *emailLab = [UILabel labelWithframe:CGRectMake(companyLab.left, nameLab.bottom+2, kScreenWidth-logoBtn.right-12, 20) text:@"356335205@qq.com" font:SystemFont(14) textAlignment:NSTextAlignmentLeft textColor:@"#FFFFFF"];
     [scrollView addSubview:emailLab];
+    self.emailLab = emailLab;
     
+    _labelArr = [NSMutableArray array];
     NSArray *titleArr = @[@"今日剩余可查看简历",@"天会员到期时间",@"套餐剩余短信条数"];
     for (int i=0; i<titleArr.count; i++) {
         
@@ -81,7 +101,7 @@
         
         UILabel *label1 = [UILabel labelWithframe:CGRectMake(0, 10, forgetBtn.width, 28) text:@"0" font:[UIFont systemFontOfSize:18] textAlignment:NSTextAlignmentCenter textColor:@"#333333"];
         [forgetBtn addSubview:label1];
-//        [_labelArr addObject:label1];
+        [_labelArr addObject:label1];
         
         
         UILabel *label2 = [UILabel labelWithframe:CGRectMake(0, label1.bottom+2, forgetBtn.width, 17) text:titleArr[i] font:[UIFont systemFontOfSize:12] textAlignment:NSTextAlignmentCenter textColor:@"#999999"];
@@ -101,7 +121,7 @@
         
     }
     
-    
+    _labelArr1 = [NSMutableArray array];
     NSArray *titleArr1 = @[@"收到简历",@"查看简历",@"收藏人才"];
     for (int i=0; i<titleArr1.count; i++) {
         
@@ -113,7 +133,7 @@
         
         UILabel *label1 = [UILabel labelWithframe:CGRectMake(0, 10, forgetBtn.width, 28) text:@"0" font:[UIFont systemFontOfSize:18] textAlignment:NSTextAlignmentCenter textColor:@"#333333"];
         [forgetBtn addSubview:label1];
-        //        [_labelArr addObject:label1];
+        [_labelArr1 addObject:label1];
         
         
         UILabel *label2 = [UILabel labelWithframe:CGRectMake(0, label1.bottom+2, forgetBtn.width, 17) text:titleArr1[i] font:[UIFont systemFontOfSize:12] textAlignment:NSTextAlignmentCenter textColor:@"#999999"];
@@ -158,6 +178,112 @@
     [setBtn addTarget:self action:@selector(setAction) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
+    
+}
+
+// 个人信息是否填写过
+- (void)isComplete
+{
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+
+    [AFNetworking_RequestData requestMethodPOSTUrl:Is_complete dic:paramDic showHUD:NO response:NO Succed:^(id responseObject) {
+  
+        NSNumber *code = [responseObject objectForKey:@"status"];
+        if (1 == [code integerValue]) {
+            
+            [self get_ui_info];
+
+        }
+        else {
+            PersonalMessageVC *vc = [[PersonalMessageVC alloc] init];
+            vc.title = @"个人信息";
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    [self isComplete];
+
+}
+
+// 返回用户表该用户相关信息
+- (void)get_ui_info
+{
+
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+
+    [AFNetworking_RequestData requestMethodPOSTUrl:Get_ui_info dic:paramDic showHUD:NO response:NO Succed:^(id responseObject) {
+
+        PersonModel *model = [PersonModel yy_modelWithJSON:responseObject[@"data"]];
+//        [InfoCache archiveObject:model toFile:Person];
+        
+
+        self.companyLab.text = model.title;
+        
+        CGSize size = [NSString textLength:model.cname font:self.nameLab.font];
+        self.nameLab.width = size.width;
+        self.nameLab.text = model.cname;
+        
+        self.emailLab.text = model.email;
+        
+        if (model.img.length > 0) {
+            [self.logoBtn sd_setImageWithURL:[NSURL URLWithString:model.img] forState:UIControlStateNormal];
+
+        }
+
+        
+        self.levelView.frame = CGRectMake(self.nameLab.right+7, self.nameLab.top, 12, 20);
+        if (model.vipLevel.integerValue == 0) {
+            self.levelView.frame = CGRectMake(self.nameLab.right+7, self.nameLab.center.y-7, 20, 15);
+            self.levelView.image = [UIImage imageNamed:@"63"];
+        }
+        if (model.vipLevel.integerValue == 1) {
+            self.levelView.image = [UIImage imageNamed:@"65"];
+        }
+        if (model.vipLevel.integerValue == 2) {
+            self.levelView.image = [UIImage imageNamed:@"64"];
+        }
+
+        self.levelBtn.left = self.levelView.right+7;
+        //
+        NSString *msgStr = [NSString stringWithFormat:@"%@+%@",model.msgReceive, model.msgSend];
+        NSArray *titleArr = @[model.resumeLeft,model.vipTime,msgStr];
+        int i=0;
+        for (UILabel *label in _labelArr) {
+            label.text = titleArr[i];
+            
+            if (i == 2) {
+                
+                // 该方法是从后往前查找
+                [label wl_changeColorWithTextColor:[UIColor colorWithHexString:@"#417504"] changeText:@"0"];
+                [label wl_changeColorWithTextColor:[UIColor colorWithHexString:@"#333333"] changeText:@"+"];
+            }
+
+            i++;
+        }
+        
+        //
+        NSArray *titleArr1 = @[model.receiveResume,model.viewResume,model.favs];
+        int j=0;
+        for (UILabel *label in _labelArr1) {
+            label.text = titleArr1[j];
+            
+            j++;
+        }
+
+
+    } failure:^(NSError *error) {
+
+    }];
 }
 
 - (void)btnAction

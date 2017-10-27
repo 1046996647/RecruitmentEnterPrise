@@ -10,4 +10,7 @@
 
 @interface CountMessageVC : BaseViewController
 
+@property(nonatomic,strong) PersonModel *model;
+
+
 @end

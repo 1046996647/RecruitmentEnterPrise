@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AddContactModel.h"
+#import "BRPickerView.h"
 
 
 @interface AddContactCell : UITableViewCell
@@ -18,5 +19,10 @@
 @property(nonatomic,strong) UIButton *selectBtn;
 
 @property(nonatomic,strong) AddContactModel *model;
+
+@property (nonatomic,strong) NSArray *selectArr;
+@property (nonatomic,strong) NSArray *selectJobArr;
+@property(nonatomic,strong) NSArray *dataSource;
+
 
 @end

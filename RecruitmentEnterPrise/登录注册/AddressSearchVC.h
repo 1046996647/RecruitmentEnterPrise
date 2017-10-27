@@ -9,9 +9,12 @@
 #import "BaseViewController.h"
 #import <BaiduMapAPI_Location/BMKLocationService.h>
 
+typedef void(^AddressSearchBlock)(NSString *text);
 
 @interface AddressSearchVC : BaseViewController
 
 @property (nonatomic,strong) BMKUserLocation *userLocation;
+@property(nonatomic,copy) AddressSearchBlock block;
+
 
 @end
