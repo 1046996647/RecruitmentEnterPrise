@@ -31,24 +31,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    CGFloat screenHeight = 0;
-    CGFloat statusBar = 0;
 
-    if (Device_Is_iPhoneX) {
-        screenHeight  = kScreenHeight+24;
-        statusBar  = 44;
-    }
-    else {
-        screenHeight  = kScreenHeight;
-        statusBar  = 20;
-
-    }
     
-    UIImageView *imgView = [UIImageView imgViewWithframe:CGRectMake(0, 0, kScreenWidth, screenHeight) icon:@"110"];
+    UIImageView *imgView = [UIImageView imgViewWithframe:CGRectMake(0, 0, kScreenWidth, kScreenHeight) icon:@"110"];
     [self.view addSubview:imgView];
     
-    UIButton *backBtn = [UIButton buttonWithframe:CGRectMake(20, statusBar+(44-30)/2, 30, 20) text:nil font:nil textColor:nil backgroundColor:nil normal:@"" selected:nil];
+    UIButton *backBtn = [UIButton buttonWithframe:CGRectMake(20, kStatusBarHeight+(44-30)/2, 30, 20) text:nil font:nil textColor:nil backgroundColor:nil normal:@"" selected:nil];
     [self.view addSubview:backBtn];
     backBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 //    [backBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
@@ -78,6 +66,7 @@
     _phone.leftViewMode = UITextFieldViewModeAlways;
     _phone.leftView = leftView;
     
+    _phone.text = [InfoCache unarchiveObjectWithFile:@"phone"];
 
     
     leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 45+10, leftView.height)];
@@ -177,6 +166,7 @@
     [self getCities];
     [self getSelectItems];
     [self getSelectItemJob];
+    [self getSelectItemJob1];
 
 }
 
@@ -214,7 +204,9 @@
     [AFNetworking_RequestData requestMethodPOSTUrl:Login dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
         [InfoCache archiveObject:responseObject[@"token"] toFile:@"token"];
-        
+        [InfoCache archiveObject:responseObject[@"data"][@"userid"] toFile:@"userid"];
+        [InfoCache archiveObject:self.phone.text toFile:@"phone"];
+
         [InfoCache saveValue:@1 forKey:@"LoginedState"];
         
         AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -369,6 +361,21 @@
         
         NSArray *selectArr = responseObject[@"data"];
         [InfoCache archiveObject:selectArr toFile:SelectItemJob];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
+
+// 获取职位类别数据
+- (void)getSelectItemJob1
+{
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Get_jobs_cate1 dic:nil showHUD:NO response:NO Succed:^(id responseObject) {
+        
+        NSArray *selectArr = responseObject[@"data"];
+        [InfoCache archiveObject:selectArr toFile:SelectItemJob1];
         
     } failure:^(NSError *error) {
         

@@ -10,4 +10,7 @@
 
 @interface ChangePasswordVC : BaseViewController
 
+@property(nonatomic,strong) PersonModel *model;
+
+
 @end

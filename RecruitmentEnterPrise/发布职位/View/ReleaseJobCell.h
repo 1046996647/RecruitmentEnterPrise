@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ReleaseJobModel.h"
+#import "BRPickerView.h"
 
 @interface ReleaseJobCell : UITableViewCell<UITextViewDelegate>
 

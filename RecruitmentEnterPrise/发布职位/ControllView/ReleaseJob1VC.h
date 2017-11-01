@@ -7,7 +7,14 @@
 //
 
 #import "BasePresentViewController.h"
+#import "ReleaseJobModel.h"
+
+typedef void(^ReleaseJob1Block)(void);
 
 @interface ReleaseJob1VC : BasePresentViewController
+
+@property(nonatomic,copy) ReleaseJob1Block block;
+@property (nonatomic,strong) ReleaseJobModel *model;
+
 
 @end

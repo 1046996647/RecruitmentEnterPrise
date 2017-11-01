@@ -7,6 +7,7 @@
 //
 
 #import "CompanyintroduceVC.h"
+#import "RegexTool.h"
 
 @interface CompanyintroduceVC ()
 
@@ -27,6 +28,10 @@
     textView.layer.masksToBounds = YES;
     self.tv = textView;
     textView.text = self.text;
+    
+    if ([self.title isEqualToString:@"修改邮箱"]) {
+        textView.height = 40;
+    }
 
     UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(textView.left, (textView.bottom+102)*scaleWidth, kScreenWidth-textView.left*2, 40) text:@"提交" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
     releseBtn.layer.cornerRadius = 7;
@@ -43,14 +48,30 @@
 - (void)changeAction
 {
     if (self.tv.text.length == 0) {
-        [self.view makeToast:@"请填写公司介绍"];
+        [self.view makeToast:@"请填写内容"];
         return;
     }
     
-    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
-    [paramDic  setValue:self.tv.text forKey:@"info"];
+    NSMutableDictionary *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
     
-    [AFNetworking_RequestData requestMethodPOSTUrl:Edit_info dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+    NSString *url = nil;
+    if ([self.title isEqualToString:@"修改邮箱"]) {
+        
+        if (![RegexTool validateEmail:self.tv.text]) {
+            [self.view makeToast:@"邮箱格式错误"];
+            return;
+        }
+        
+        [paramDic  setValue:self.tv.text forKey:@"email"];
+        url = Update_company_info;
+    }
+    else {
+        [paramDic  setValue:self.tv.text forKey:@"info"];
+        url = Edit_info;
+
+    }
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:url dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
         if (self.block) {
             self.block(_tv.text);
@@ -64,7 +85,8 @@
 
 - (void)upAction
 {
-    if ([self.title isEqualToString:@"公司介绍"]) {
+    if ([self.title isEqualToString:@"公司介绍"]||
+        [self.title isEqualToString:@"修改邮箱"]) {
         [self changeAction];
     }
     else {

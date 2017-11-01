@@ -7,8 +7,13 @@
 //
 
 #import "CountMessageVC.h"
+#import "CompanyintroduceVC.h"
+#import "ChangePhoneVC.h"
 
 @interface CountMessageVC ()
+
+@property(nonatomic,strong) UILabel *mailLab1;
+
 
 @end
 
@@ -68,6 +73,7 @@
     // 356335205@qq.com
     UILabel *mailLab1 = [UILabel labelWithframe:CGRectMake(mailView.left-200-10, 0, 200, changeBtn.height) text:@"" font:SystemFont(17) textAlignment:NSTextAlignmentRight textColor:@"#333333"];
     [mailBtn addSubview:mailLab1];
+    self.mailLab1 = mailLab1;
     mailLab1.text = self.model.email;
 
 }
@@ -79,15 +85,24 @@
 
 - (void)btnAction:(UIButton *)btn
 {
-//    if (btn.tag == 0) {
-//        ChangeInfoVC *vc = [[ChangeInfoVC alloc] init];
-//        vc.title = @"修改资料";
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }
-//    if (btn.tag == 1) {
-//
-//
-//    }
+    if (btn.tag == 0) {
+        ChangePhoneVC *vc = [[ChangePhoneVC alloc] init];
+        vc.title = @"修改手机";
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if (btn.tag == 1) {
+
+        CompanyintroduceVC *vc = [[CompanyintroduceVC alloc] init];
+        vc.title = @"修改邮箱";
+        vc.text = self.model.email;
+        [self.navigationController pushViewController:vc animated:YES];
+        vc.block = ^(NSString *text) {
+            
+            self.model.email = text;
+            self.mailLab1.text = text;
+        };
+
+    }
     
     
 }

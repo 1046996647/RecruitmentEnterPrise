@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ZFTableViewCell.h"
+#import "AddContactModel.h"
 
 
 @interface ContactManageCell : ZFTableViewCell
@@ -17,5 +18,6 @@
 @property(nonatomic,strong) UIButton *eduBtn;
 @property(nonatomic,strong) UILabel *timeLab;
 
+@property(nonatomic,strong) AddContactModel *model;
 
 @end

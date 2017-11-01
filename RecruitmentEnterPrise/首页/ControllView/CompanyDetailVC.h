@@ -7,12 +7,12 @@
 //
 
 #import "BaseViewController.h"
-#import "JobModel.h"
+#import "PersonModel.h"
 
 
 @interface CompanyDetailVC : BaseViewController
 
-@property (nonatomic,strong) JobModel *model;
+@property (nonatomic,strong) PersonModel *model;
 
 
 @end

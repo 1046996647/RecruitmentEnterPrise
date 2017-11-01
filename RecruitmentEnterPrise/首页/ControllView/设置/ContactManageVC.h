@@ -7,7 +7,14 @@
 //
 
 #import "BaseViewController.h"
+#import "AddContactModel.h"
+
+typedef void(^ContactManageBlock)(AddContactModel *model);
 
 @interface ContactManageVC : BaseViewController
+
+@property(nonatomic,copy) ContactManageBlock block;
+@property(nonatomic,assign) NSInteger mark;
+
 
 @end

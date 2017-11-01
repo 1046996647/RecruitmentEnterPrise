@@ -7,6 +7,7 @@
 //
 
 #import "ReleaseJobCell.h"
+#import "ContactManageVC.h"
 
 @implementation ReleaseJobCell
 
@@ -153,23 +154,30 @@
     // 收起键盘有效
     [self.viewController.view endEditing:YES];
 
-    
-    
-    
-    if ([_model.leftTitle isEqualToString:@"性别"]) {
-        self.dataSource = @[@"男",@"女"];
+    if ([_model.leftTitle isEqualToString:@"联系人"]) {
+        ContactManageVC *vc = [[ContactManageVC alloc] init];
+        vc.title = @"联系人管理";
+        vc.mark = 1;
+        [self.viewController.navigationController pushViewController:vc animated:YES];
+        vc.block = ^(AddContactModel *model) {
+
+            _tf.text = [NSString stringWithFormat:@"%@%@",model.name, model.tele];
+            _model.text = _tf.text;
+            _model.contactId = model.contactId;
+        };
+        return;
         
     }
     
-    if ([_model.leftTitle isEqualToString:@"人才类型"]) {
-        self.dataSource = @[@"往届",@"应届"];
+    
+    if ([_model.leftTitle isEqualToString:@"性别要求"]) {
+        self.dataSource = @[@"不限",@"男",@"女"];
         
     }
     
-    if ([_model.leftTitle isEqualToString:@"期望月薪"]||
-        [_model.leftTitle isEqualToString:@"待遇要求"]) {
+    if ([_model.leftTitle isEqualToString:@"学历要求"]) {
         for (NSDictionary *dic in self.selectArr) {
-            if ([dic[@"name"] isEqualToString:@"comp_pay"]) {
+            if ([dic[@"name"] isEqualToString:@"comp_edu"]) {
                 
                 NSString *str = dic[@"data"];
                 self.dataSource = [str componentsSeparatedByString:@","];
@@ -179,9 +187,27 @@
     }
 
     
-    if ([_model.leftTitle isEqualToString:@"公司性质"]) {
+    if ([_model.leftTitle isEqualToString:@"工作经验"]) {
+        NSMutableArray *arrM = [NSMutableArray array];
         for (NSDictionary *dic in self.selectArr) {
-            if ([dic[@"name"] isEqualToString:@"user_company"]) {
+            if ([dic[@"name"] isEqualToString:@"comp_years"]) {
+                
+                NSString *str = dic[@"data"];
+                NSArray *arr = [str componentsSeparatedByString:@","];
+                
+                for (NSString *s in arr) {
+                    NSString *s1 = [NSString stringWithFormat:@"%@年",s];
+                    [arrM addObject:s1];
+                }
+                self.dataSource = arrM;
+                break;
+            }
+        }
+        
+    }
+    if ([_model.leftTitle isEqualToString:@"月薪"]) {
+        for (NSDictionary *dic in self.selectArr) {
+            if ([dic[@"name"] isEqualToString:@"comp_pay"]) {
                 
                 NSString *str = dic[@"data"];
                 self.dataSource = [str componentsSeparatedByString:@","];
@@ -191,57 +217,87 @@
     }
     
     
-    if ([_model.leftTitle isEqualToString:@"意向城市"]||
-        [_model.leftTitle isEqualToString:@"所在地"]||
-        [_model.leftTitle isEqualToString:@"期望地区"]) {
+    if ([_model.leftTitle isEqualToString:@"工作类型"]) {
+        for (NSDictionary *dic in self.selectArr) {
+            if ([dic[@"name"] isEqualToString:@"comp_jobs"]) {
+                
+                NSString *str = dic[@"data"];
+                self.dataSource = [str componentsSeparatedByString:@","];
+                break;
+            }
+        }
+    }
+    
+    if ([_model.leftTitle isEqualToString:@"应聘方式"]) {
+        for (NSDictionary *dic in self.selectArr) {
+            if ([dic[@"name"] isEqualToString:@"user_tele"]) {
+                
+                NSString *str = dic[@"data"];
+                self.dataSource = [str componentsSeparatedByString:@","];
+                break;
+            }
+        }
+    }
+    
+    if ([_model.leftTitle isEqualToString:@"住房要求"]) {
+        for (NSDictionary *dic in self.selectArr) {
+            if ([dic[@"name"] isEqualToString:@"comp_house"]) {
+                
+                NSString *str = dic[@"data"];
+                self.dataSource = [str componentsSeparatedByString:@","];
+                break;
+            }
+        }
+    }
+    
+    
+    if ([_model.leftTitle isEqualToString:@"工作地点"]) {
         self.dataSource = @[@"义乌市", @"东阳市", @"金华市",@"浦江县",@"永康市",@"慈溪市",@"余姚市"];
     }
     
     // 岗位类别
-    if ([_model.leftTitle isEqualToString:@"岗位类别"]) {
+    if ([_model.leftTitle isEqualToString:@"职位类别"]) {
         
-        NSMutableArray *arrM = [NSMutableArray array];
-        
-        for (NSDictionary *dic in self.selectJobArr) {
-            
-            [arrM addObject:dic[@"name"]];
-            
-        }
-        self.dataSource = arrM;
+        [BRAddressPickerView showAddressPickerWithDefaultSelected:@[@0, @0] isAutoSelect:NO resultBlock:^(NSArray *selectAddressArr) {
+            _tf.text = selectAddressArr[0];
+            _model.text = selectAddressArr[0];
+//            weakSelf.addressTF.text = [NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1], selectAddressArr[2]];
+        }];
+        return;
     }
     
-    //        [BRStringPickerView showStringPickerWithTitle:nil dataSource:self.dataSource defaultSelValue:self.dataSource[0] isAutoSelect:NO resultBlock:^(id selectValue) {
-    //
-    //            _tf.text = selectValue;
-    //            _model.text = selectValue;
-    //
-    //            if ([_model.title isEqualToString:@"工作年限"]||
-    //                [_model.title isEqualToString:@"工作经验"]) {
-    //
-    //                _model.text = [_model.text substringToIndex:_model.text.length-1];
-    //                NSLog(@"-----%@",selectValue);
-    //
-    //            }
-    //            ////        if ([_model.title isEqualToString:@"性别"] ||
-    //            ////            [_model.title isEqualToString:@"人才类型"]||
-    //            ////            [_model.title isEqualToString:@"意向城市"]||
-    //            ////            [_model.title isEqualToString:@"所在地"]||
-    //            ////            [_model.title isEqualToString:@"期望地区"]) {
-    //            //        if ([_model.title isEqualToString:@"意向城市"]||
-    //            //            [_model.title isEqualToString:@"所在地"]||
-    //            //            [_model.title isEqualToString:@"期望地区"]||
-    //            //            [_model.title isEqualToString:@"公司性质"]) {
-    //            //
-    //            //
-    //            //            _model.text = selectValue;
-    //            //
-    //            //        }
-    //            //        else {
-    //            //            _model.text = [NSString stringWithFormat:@"%ld",[self.dataSource indexOfObject:selectValue]+1];
-    //
-    //            //        }
-    //
-    //        }];
+    [BRStringPickerView showStringPickerWithTitle:nil dataSource:self.dataSource defaultSelValue:self.dataSource[0] isAutoSelect:NO resultBlock:^(id selectValue) {
+
+        _tf.text = selectValue;
+        _model.text = selectValue;
+
+        if ([_model.leftTitle isEqualToString:@"工作年限"]||
+            [_model.leftTitle isEqualToString:@"工作经验"]) {
+
+            _model.text = [_model.text substringToIndex:_model.text.length-1];
+            NSLog(@"-----%@",selectValue);
+
+        }
+        ////        if ([_model.title isEqualToString:@"性别"] ||
+        ////            [_model.title isEqualToString:@"人才类型"]||
+        ////            [_model.title isEqualToString:@"意向城市"]||
+        ////            [_model.title isEqualToString:@"所在地"]||
+        ////            [_model.title isEqualToString:@"期望地区"]) {
+        //        if ([_model.title isEqualToString:@"意向城市"]||
+        //            [_model.title isEqualToString:@"所在地"]||
+        //            [_model.title isEqualToString:@"期望地区"]||
+        //            [_model.title isEqualToString:@"公司性质"]) {
+        //
+        //
+        //            _model.text = selectValue;
+        //
+        //        }
+        //        else {
+        //            _model.text = [NSString stringWithFormat:@"%ld",[self.dataSource indexOfObject:selectValue]+1];
+
+        //        }
+
+    }];
     
     
     
@@ -299,7 +355,7 @@
         self.remindLabel.hidden = YES;
         
     }
-    //    count.text = [NSString stringWithFormat:@"%lu/100", textView.text.length  ];
+    _model.text = textView.text;
 }
 
 @end

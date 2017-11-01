@@ -26,12 +26,18 @@
 // 1.6    忘记密码
 #define Forget_passwd  [NSString stringWithFormat:@"%@/User/forget_passwd",BaseUrl]
 
+// 1.7    修改手机
+#define Alter_phone  [NSString stringWithFormat:@"%@/User/alter_phone",BaseUrl]
+
 
 // 2.2    选择项获取分站信息
 #define Get_sites  [NSString stringWithFormat:@"%@/QuickGet/get_sites",BaseUrl]
 
 // 选择项行业分类
 #define Get_jobs_cate  [NSString stringWithFormat:@"%@/QuickGet/get_company_cate",BaseUrl]
+
+// 选择项职位类别
+#define Get_jobs_cate1  [NSString stringWithFormat:@"%@/QuickGet/get_jobs_cate",BaseUrl]
 
 // 选择项(个人信息)
 #define Get_setting  [NSString stringWithFormat:@"%@/Tool/get_setting",BaseUrl]
@@ -51,11 +57,48 @@
 // 1.3    修改基本信息
 #define Update_company_info  [NSString stringWithFormat:@"%@/User/update_company_info",BaseUrl]
 
+// 1.8    修改密码
+#define Alter_passwd  [NSString stringWithFormat:@"%@/User/alter_passwd",BaseUrl]
+
 // 6.1    个人信息是否填写过
 #define Is_complete  [NSString stringWithFormat:@"%@/User/is_complete",BaseUrl]
 
 // 6.1    首页显示信息
 #define Get_ui_info  [NSString stringWithFormat:@"%@/User/get_ui_info",BaseUrl]
+
+// 3.1    获取全部联系人
+#define Get_contact  [NSString stringWithFormat:@"%@/Contact/get_contact",BaseUrl]
+
+// 3.2    添加联系人
+#define Add_contact  [NSString stringWithFormat:@"%@/Contact/add_contact",BaseUrl]
+
+// 3.2    删除联系人
+#define Delete_contact  [NSString stringWithFormat:@"%@/Contact/delete_contact",BaseUrl]
+
+// 3.2    修改联系人
+#define Update_contact  [NSString stringWithFormat:@"%@/Contact/update_contact",BaseUrl]
+
+// 2.1    发布职位
+#define Post_position  [NSString stringWithFormat:@"%@/Jobs/post_position",BaseUrl]
+
+// 2.2    获取已发布职位
+#define Get_position  [NSString stringWithFormat:@"%@/Jobs/get_position",BaseUrl]
+
+// 2.3    获取职位详情
+#define Get_position_detail  [NSString stringWithFormat:@"%@/Jobs/get_position_detail",BaseUrl]
+
+// 2.4    修改职位
+#define Update_position  [NSString stringWithFormat:@"%@/Jobs/update_position",BaseUrl]
+
+
+
+// 2.5    删除职位
+#define Delete_position  [NSString stringWithFormat:@"%@/Jobs/delete_position",BaseUrl]
+
+// 2.6    更改职位状态
+#define Change_status  [NSString stringWithFormat:@"%@/Jobs/change_status",BaseUrl]
+
+
 
 // 1.16	上传头像
 #define Upload_company_logo  [NSString stringWithFormat:@"%@/User/upload_company_logo",BaseUrl]

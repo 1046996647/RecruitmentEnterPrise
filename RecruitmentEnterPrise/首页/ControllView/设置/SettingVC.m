@@ -171,6 +171,7 @@
     if (btn.tag == 3) {
         OtherVC *vc = [[OtherVC alloc] init];
         vc.title = @"其他功能";
+        vc.model = self.model;
         [self.navigationController pushViewController:vc animated:YES];
     }
 

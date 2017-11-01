@@ -10,4 +10,12 @@
 
 @implementation ReleaseJobModel
 
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    
+    NSString *timeStr = [[dic[@"update_time"] componentsSeparatedByString:@" "] firstObject];
+    _update_time = timeStr;
+    
+    return YES;
+}
+
 @end

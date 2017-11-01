@@ -56,7 +56,6 @@
 		F75647911F99BC490060E744 /* EditHeadImgVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75647901F99BC490060E744 /* EditHeadImgVC.m */; };
 		F75647941F99C2C40060E744 /* CompanyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75647921F99C2C40060E744 /* CompanyDetailVC.m */; };
 		F75647971F99C3060060E744 /* JobDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75647951F99C3060060E744 /* JobDetailCell.m */; };
-		F756479A1F99C3920060E744 /* JobModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75647981F99C3920060E744 /* JobModel.m */; };
 		F75BA9301F9AD1B00083E448 /* ZFShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA92D1F9AD1B00083E448 /* ZFShareView.m */; };
 		F75BA9311F9AD1B00083E448 /* ZFTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA92F1F9AD1B00083E448 /* ZFTableViewCell.m */; };
 		F75BD65C1F947F2B00433133 /* CDTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BD65B1F947F2A00433133 /* CDTabBar.m */; };
@@ -68,6 +67,8 @@
 		F75EB6821F96F64100CBCA7C /* SendMsgVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75EB6811F96F64100CBCA7C /* SendMsgVC.m */; };
 		F75EB6851F96F9A100CBCA7C /* ReceiveMsgCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75EB6841F96F9A100CBCA7C /* ReceiveMsgCell.m */; };
 		F75EB6881F9722CC00CBCA7C /* ResumeSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75EB6871F9722CC00CBCA7C /* ResumeSearchVC.m */; };
+		F75F9D191FA3176D00F7148A /* JobModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75F9D181FA3176D00F7148A /* JobModel.m */; };
+		F75F9D1C1FA325F000F7148A /* ChangePhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75F9D1B1FA325F000F7148A /* ChangePhoneVC.m */; };
 		F765129B1F9EEA1600BF80D9 /* NearbyAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F765129A1F9EEA1600BF80D9 /* NearbyAddressCell.m */; };
 		F765129E1F9F0BB100BF80D9 /* AddressSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F765129D1F9F0BB100BF80D9 /* AddressSearchVC.m */; };
 		F766D8ED1F958D43004C74F0 /* JobCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F766D8EC1F958D43004C74F0 /* JobCell.m */; };
@@ -233,8 +234,6 @@
 		F75647931F99C2C40060E744 /* CompanyDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDetailVC.h; sourceTree = "<group>"; };
 		F75647951F99C3060060E744 /* JobDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobDetailCell.m; sourceTree = "<group>"; };
 		F75647961F99C3060060E744 /* JobDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobDetailCell.h; sourceTree = "<group>"; };
-		F75647981F99C3920060E744 /* JobModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobModel.m; sourceTree = "<group>"; };
-		F75647991F99C3920060E744 /* JobModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobModel.h; sourceTree = "<group>"; };
 		F75BA92C1F9AD1B00083E448 /* ZFShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFShareView.h; sourceTree = "<group>"; };
 		F75BA92D1F9AD1B00083E448 /* ZFShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFShareView.m; sourceTree = "<group>"; };
 		F75BA92E1F9AD1B00083E448 /* ZFTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFTableViewCell.h; sourceTree = "<group>"; };
@@ -257,6 +256,10 @@
 		F75EB6841F96F9A100CBCA7C /* ReceiveMsgCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReceiveMsgCell.m; sourceTree = "<group>"; };
 		F75EB6861F9722CC00CBCA7C /* ResumeSearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResumeSearchVC.h; sourceTree = "<group>"; };
 		F75EB6871F9722CC00CBCA7C /* ResumeSearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResumeSearchVC.m; sourceTree = "<group>"; };
+		F75F9D171FA3176D00F7148A /* JobModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobModel.h; sourceTree = "<group>"; };
+		F75F9D181FA3176D00F7148A /* JobModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobModel.m; sourceTree = "<group>"; };
+		F75F9D1A1FA325F000F7148A /* ChangePhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePhoneVC.h; sourceTree = "<group>"; };
+		F75F9D1B1FA325F000F7148A /* ChangePhoneVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePhoneVC.m; sourceTree = "<group>"; };
 		F76512991F9EEA1600BF80D9 /* NearbyAddressCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NearbyAddressCell.h; sourceTree = "<group>"; };
 		F765129A1F9EEA1600BF80D9 /* NearbyAddressCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NearbyAddressCell.m; sourceTree = "<group>"; };
 		F765129C1F9F0BB100BF80D9 /* AddressSearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressSearchVC.h; sourceTree = "<group>"; };
@@ -430,6 +433,8 @@
 				F756477E1F9986460060E744 /* AddContactVC.m */,
 				F75647861F9993960060E744 /* ChangePasswordVC.h */,
 				F75647871F9993960060E744 /* ChangePasswordVC.m */,
+				F75F9D1A1FA325F000F7148A /* ChangePhoneVC.h */,
+				F75F9D1B1FA325F000F7148A /* ChangePhoneVC.m */,
 			);
 			path = "设置";
 			sourceTree = "<group>";
@@ -743,8 +748,8 @@
 		F766D8F71F959F86004C74F0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F75647991F99C3920060E744 /* JobModel.h */,
-				F75647981F99C3920060E744 /* JobModel.m */,
+				F75F9D171FA3176D00F7148A /* JobModel.h */,
+				F75F9D181FA3176D00F7148A /* JobModel.m */,
 				F75647831F998A0E0060E744 /* AddContactModel.h */,
 				F75647841F998A0E0060E744 /* AddContactModel.m */,
 			);
@@ -979,7 +984,7 @@
 				TargetAttributes = {
 					F74820431F91FCCA00F072CD = {
 						CreatedOnToolsVersion = 9.0;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					F748205B1F91FCCA00F072CD = {
 						CreatedOnToolsVersion = 9.0;
@@ -1106,6 +1111,7 @@
 				F71C042C1F983ABD0024C1EC /* ChatWantedCell.m in Sources */,
 				F74820CA1F91FE8B00F072CD /* InfoCache.m in Sources */,
 				F766D9241F95AA99004C74F0 /* UIView+MJCClassExtension.m in Sources */,
+				F75F9D1C1FA325F000F7148A /* ChangePhoneVC.m in Sources */,
 				F766D9471F95E413004C74F0 /* LoginVC.m in Sources */,
 				F766D9441F95E405004C74F0 /* RegisterVC.m in Sources */,
 				F78D93881F92064A00E0DCA9 /* BaseViewController.m in Sources */,
@@ -1131,7 +1137,6 @@
 				F766D9231F95AA99004C74F0 /* UILabel+MJCClassExtension.m in Sources */,
 				F74820571F91FCCA00F072CD /* main.m in Sources */,
 				F75EB6881F9722CC00CBCA7C /* ResumeSearchVC.m in Sources */,
-				F756479A1F99C3920060E744 /* JobModel.m in Sources */,
 				F71C043D1F988C450024C1EC /* OtherVC.m in Sources */,
 				F765129B1F9EEA1600BF80D9 /* NearbyAddressCell.m in Sources */,
 				F78D93781F9204F400E0DCA9 /* PersonModel.m in Sources */,
@@ -1149,6 +1154,7 @@
 				F74820D81F91FE8B00F072CD /* NSStringExt.m in Sources */,
 				F74820DD1F91FE8B00F072CD /* UIColor+Expend.m in Sources */,
 				F766D91F1F95AA99004C74F0 /* MJCCommonTools.m in Sources */,
+				F75F9D191FA3176D00F7148A /* JobModel.m in Sources */,
 				F78871071F9DD959008CDD52 /* CompanyAddressVC.m in Sources */,
 				F766D91E1F95AA99004C74F0 /* MJCAlertMessage.m in Sources */,
 				F76AD8691F97520500BA88D3 /* ResumeSearchResultCell.m in Sources */,
@@ -1363,7 +1369,7 @@
 			baseConfigurationReference = ED42DDDA9E94D49555C9D932 /* Pods-RecruitmentEnterPrise.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = D59VU3JG9L;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/RecruitmentEnterPrise/RecruitmentEnterPrise.pch";
@@ -1372,6 +1378,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HongHu.RecruitmentEnterPrise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e17b870e-f7ed-4b93-98ba-19cca9ba11b4";
+				PROVISIONING_PROFILE_SPECIFIER = 17812;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1381,7 +1389,7 @@
 			baseConfigurationReference = EED2D2ECB8E0F197D3396C4F /* Pods-RecruitmentEnterPrise.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = D59VU3JG9L;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/RecruitmentEnterPrise/RecruitmentEnterPrise.pch";
@@ -1390,6 +1398,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HongHu.RecruitmentEnterPrise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e17b870e-f7ed-4b93-98ba-19cca9ba11b4";
+				PROVISIONING_PROFILE_SPECIFIER = 17812;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

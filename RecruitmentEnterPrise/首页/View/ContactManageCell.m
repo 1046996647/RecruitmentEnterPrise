@@ -41,7 +41,7 @@
         
         
         _timeLab = [UILabel labelWithframe:CGRectMake(baseView.width-68-8, 44, 68, 13) text:@"2015-08-29" font:[UIFont systemFontOfSize:11] textAlignment:NSTextAlignmentRight textColor:@"#999999"];
-        [baseView addSubview:_timeLab];
+//        [baseView addSubview:_timeLab];
         
         _bodyBtn = [UIButton buttonWithframe:CGRectMake(20, 17, 200, 17) text:@"陈先生" font:SystemFont(14) textColor:@"#D0021B" backgroundColor:nil normal:@"35" selected:nil];
         _bodyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -70,5 +70,16 @@
     return self;
     
 }
+
+- (void)setModel:(AddContactModel *)model
+{
+    _model = model;
+    
+    [_bodyBtn setTitle:model.name forState:UIControlStateNormal];
+    [_eduBtn setTitle:model.email forState:UIControlStateNormal];
+    [_chatBtn setTitle:model.tele forState:UIControlStateNormal];
+
+}
+
 
 @end

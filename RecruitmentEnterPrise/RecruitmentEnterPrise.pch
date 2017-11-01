@@ -16,6 +16,7 @@
 #define SelectItem @"SelectItem"
 #define SelectItemCity @"SelectItemCity"
 #define SelectItemJob @"SelectItemJob"
+#define SelectItemJob1 @"SelectItemJob1"
 
 
 #import "UIColor+Expend.h"

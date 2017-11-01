@@ -14,7 +14,7 @@
 
 @interface ContactManageVC ()<UITableViewDelegate,UITableViewDataSource,ZFTableViewCellDelegate>
 
-//@property (nonatomic,strong) NSArray *dataArr;
+@property (nonatomic,strong) NSMutableArray *dataArr;
 @property(nonatomic,strong) UITableView *tableView;
 
 @end
@@ -43,7 +43,60 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
     
     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
+    [self get_contact];
+}
+
+// 获取联系人
+- (void)get_contact
+{
+    [self.view endEditing:YES];
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    
+    
+    NSLog(@"%@",paramDic);
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Get_contact dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        NSMutableArray *arrM = [NSMutableArray array];
+        for (NSDictionary *dic in responseObject[@"data"]) {
+            
+            NSMutableArray *arrM1 = [NSMutableArray array];
+
+            AddContactModel *model = [AddContactModel yy_modelWithDictionary:dic];
+            [arrM1 addObject:model];
+            [arrM addObject:arrM1];
+        }
+        self.dataArr = arrM;
+        [_tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+// 删除联系人
+- (void)delete_contact:(AddContactModel *)model
+{
+    [self.view endEditing:YES];
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    [paramDic setValue:model.contactId forKey:@"contactId"];
+    
+    NSLog(@"%@",paramDic);
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Delete_contact dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+    
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)addAction
@@ -61,15 +114,15 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    //    return [self.dataArr count];
-    return 2;
-    
+    return [self.dataArr count];
+//    return 2;
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //    return [self.dataArr[section] count];
-    return 1;
+    return [self.dataArr[section] count];
+//    return 1;
     
     
 }
@@ -96,10 +149,15 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    AddContactVC *vc = [[AddContactVC alloc] init];
-    vc.title = @"修改联系人";
-    [self.navigationController pushViewController:vc animated:YES];
-    
+    if (self.mark == 1) {
+        AddContactModel *model = self.dataArr[indexPath.section][indexPath.row];
+        
+        if (self.block) {
+            self.block(model);
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -133,8 +191,8 @@
                                           rowHeight:100];
         
     }
-    //    ReleaseJobModel *model = self.dataArr[indexPath.section][indexPath.row];
-    //    cell.model = model;
+        AddContactModel *model = self.dataArr[indexPath.section][indexPath.row];
+        cell.model = model;
     //    cell.selectArr = _selectArr;
     //    cell.selectJobArr = _selectJobArr;
     return cell;
@@ -144,11 +202,17 @@
 -(void)buttonTouchedOnCell:(ZFTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath atButtonIndex:(NSInteger)buttonIndex{
     NSLog(@"row:%ld,buttonIndex:%ld",(long)indexPath.row,(long)buttonIndex);
     
+    AddContactModel *model = self.dataArr[indexPath.section][indexPath.row];
+    
     // 删除
     if (buttonIndex == 0){
         //        NSLog(@"编辑");
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确定删除该联系人吗" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self delete_contact:model];
+            [self.dataArr removeObjectAtIndex:indexPath.section];
+            [self.tableView reloadData];
+        }];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
         [alertController addAction:cancelAction];
         [alertController addAction:okAction];
@@ -156,7 +220,10 @@
     }
     else if (buttonIndex == 1){
         //        NSLog(@"删除");
-
+        AddContactVC *vc = [[AddContactVC alloc] init];
+        vc.title = @"修改联系人";
+        vc.model = model;
+        [self.navigationController pushViewController:vc animated:YES];
         
     }
     //把cell复原

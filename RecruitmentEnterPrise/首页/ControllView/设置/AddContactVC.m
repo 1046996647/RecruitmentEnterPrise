@@ -22,11 +22,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.dataArr = @[@{@"title":@"姓名",@"placeTitle":@"请填写姓名",@"text":@"",@"key":@"key"},
-                     @{@"title":@"E-mail（选填）",@"placeTitle":@"请填写E-mail",@"text":@"",@"key":@"key"},
-                     @{@"title":@"电话",@"placeTitle":@"请填写联系电话",@"text":@"",@"key":@"key"},
-                     @{@"title":@"传真（选填）",@"placeTitle":@"请填写传真号码",@"text":@"",@"key":@"key"},
-                     @{@"title":@"公司地址",@"placeTitle":@"请填写公司地址",@"text":@"",@"key":@"key"}
+    if (!self.model) {
+        self.model = [[AddContactModel alloc] init];
+        self.model.name = @"";
+        self.model.email = @"";
+        self.model.tele = @"";
+        self.model.fax = @"";
+        self.model.address = @"";
+    }
+    
+    self.dataArr = @[@{@"title":@"姓名",@"placeTitle":@"请填写姓名",@"text":self.model.name,@"key":@"name"},
+                     @{@"title":@"E-mail（选填）",@"placeTitle":@"请填写E-mail",@"text":self.model.email,@"key":@"email"},
+                     @{@"title":@"电话",@"placeTitle":@"请填写联系电话",@"text":self.model.tele,@"key":@"tele"},
+                     @{@"title":@"传真（选填）",@"placeTitle":@"请填写传真号码",@"text":self.model.fax,@"key":@"fax"},
+                     @{@"title":@"公司地址",@"placeTitle":@"请填写公司地址",@"text":self.model.address,@"key":@"address"}
                      
                      ];
     
@@ -54,12 +63,59 @@
     releseBtn.layer.cornerRadius = 7;
     releseBtn.layer.masksToBounds = YES;
     [footerView addSubview:releseBtn];
+    [releseBtn addTarget:self action:@selector(upAction) forControlEvents:UIControlEventTouchUpInside];
+
+    
     _tableView.tableFooterView = footerView;
     
     if ([self.title isEqualToString:@"修改联系人"]) {
         [releseBtn setTitle:@"修改" forState:UIControlStateNormal];
     }
     
+}
+
+- (void)upAction
+{
+    [self.view endEditing:YES];
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    
+    for (AddContactModel *model in self.dataArr) {
+        
+        if (!([model.title isEqualToString:@"E-mail（选填）"]||
+              [model.title isEqualToString:@"传真（选填）"])) {
+            
+            if (model.text.length == 0) {
+                [self.view makeToast:@"您还有必填项未填写"];
+                return;
+            }
+        }
+        
+        [paramDic  setValue:model.text forKey:model.key];
+        
+    }
+    
+    NSLog(@"%@",paramDic);
+    NSString *url = nil;
+    
+    if ([self.title isEqualToString:@"修改联系人"]) {
+        url = Update_contact;
+        [paramDic  setValue:self.model.contactId forKey:@"contactId"];
+
+    }
+    else {
+        url = Add_contact;
+
+    }
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:url dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

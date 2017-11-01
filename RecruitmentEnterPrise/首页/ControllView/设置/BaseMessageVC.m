@@ -52,7 +52,7 @@
         self.dataArr = @[@{@"title":@"招聘负责人",@"placeTitle":@"请填写招聘负责人",@"text":model.name,@"key":@"contactName"},
                          @{@"title":@"法人代表（选填）",@"placeTitle":@"请填写法人代表",@"text":model.lawer,@"key":@"lawer"},
                          @{@"title":@"联系电话",@"placeTitle":@"请填写联系电话",@"text":model.tele,@"key":@"tele"},
-                         @{@"title":@"传真号码（选填）",@"placeTitle":@"请填写传真号码",@"text":model.tele,@"key":@"fax"},
+                         @{@"title":@"传真号码（选填）",@"placeTitle":@"请填写传真号码",@"text":model.fax,@"key":@"fax"},
                          @{@"title":@"公司地址",@"placeTitle":@"请填写公司地址",@"text":model.address,@"key":@"address"},
                          @{@"title":@"公司网站（选填）",@"placeTitle":@"请填写公司网站",@"text":model.web,@"key":@"web"},
                          @{@"title":@"所属行业",@"placeTitle":@"请选择所属行业",@"text":model.cateName,@"key":@"cateName"},
@@ -245,7 +245,7 @@
     if (cell == nil) {
         
         cell = [[AddContactCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     AddContactModel *model = self.dataArr[indexPath.row];
     cell.model = model;

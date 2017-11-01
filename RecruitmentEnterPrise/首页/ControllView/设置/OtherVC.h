@@ -10,4 +10,7 @@
 
 @interface OtherVC : BaseViewController
 
+@property(nonatomic,strong) PersonModel *model;
+
+
 @end

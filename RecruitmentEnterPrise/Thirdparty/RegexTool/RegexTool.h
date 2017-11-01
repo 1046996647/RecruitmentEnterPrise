@@ -39,8 +39,6 @@
 
 + (NSString *) datetimeStrFormatter:(NSString *)dateStr formatter:(NSString *)formatterStr;
 
-+ (BOOL)validateMobile:(NSString *)mobileNum;
-
 
 +(BOOL)isChinese;
 

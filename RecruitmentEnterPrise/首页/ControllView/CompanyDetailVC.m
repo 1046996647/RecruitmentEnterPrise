@@ -9,7 +9,6 @@
 #import "CompanyDetailVC.h"
 #import "JobDetailCell.h"
 //#import "JobDetailVC.h"
-//#import "ShareVC.h"
 
 
 @interface CompanyDetailVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -27,32 +26,33 @@
     // Do any additional setup after loading the view.
     
     
-//    [self get_company_detail];
-    [self initViews];
+    [self preview_company_info];
+//    [self initViews];
 
 
 }
 
-
-// 3.1	公司详情
-- (void)get_company_detail
+- (void)preview_company_info
 {
     
-    NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
     
-    [paraDic setValue:self.model.companyId forKey:@"companyId"];
-    
-    [AFNetworking_RequestData requestMethodPOSTUrl:@"" dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+    [AFNetworking_RequestData requestMethodPOSTUrl:Preview_company_info dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
-        JobModel *model = [JobModel yy_modelWithJSON:responseObject[@"data"]];
+        PersonModel *model = [PersonModel yy_modelWithJSON:responseObject[@"data"]];
         self.model = model;
+        
+        if (model) {
+            [self initViews];
+            
+        }
         
         NSArray *arr = responseObject[@"jobs"];
         if ([arr isKindOfClass:[NSArray class]]) {
             
             NSMutableArray *arrM = [NSMutableArray array];
             for (NSDictionary *dic in arr) {
-                JobModel *model = [JobModel yy_modelWithJSON:dic];
+                PersonModel *model = [PersonModel yy_modelWithJSON:dic];
                 [arrM addObject:model];
             }
             
@@ -61,16 +61,12 @@
             
         }
         
-        if (model) {
-            [self initViews];
-            
-        }
         
     } failure:^(NSError *error) {
         
-        
     }];
 }
+
 
 - (void)initViews
 {
@@ -92,15 +88,15 @@
 
     
     // @"浙江金狮工贸有限公司永康分公司"
-    UILabel *companyLab = [UILabel labelWithframe:CGRectMake(logoView.right+21, logoView.top, kScreenWidth-12-(logoView.right+7), 19) text:self.model.company_name font:[UIFont systemFontOfSize:16] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
+    UILabel *companyLab = [UILabel labelWithframe:CGRectMake(logoView.right+21, logoView.top, kScreenWidth-12-(logoView.right+7), 19) text:self.model.title font:[UIFont systemFontOfSize:16] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
     [headView addSubview:companyLab];
     
     // @"五金机电"
-    UILabel *decLab = [UILabel labelWithframe:CGRectMake(companyLab.left, companyLab.bottom+10, kScreenWidth-26-(logoView.right+7), 17) text:self.model.cate_name font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#999999"];
+    UILabel *decLab = [UILabel labelWithframe:CGRectMake(companyLab.left, companyLab.bottom+10, kScreenWidth-26-(logoView.right+7), 17) text:@"" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#999999"];
     [headView addSubview:decLab];
     
     // @"150人"
-    UILabel *addressLab = [UILabel labelWithframe:CGRectMake(companyLab.left, decLab.bottom+5, 100, decLab.height) text:_model.persons font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#999999"];
+    UILabel *addressLab = [UILabel labelWithframe:CGRectMake(companyLab.left, decLab.bottom+5, 100, decLab.height) text:@"" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#999999"];
     [headView addSubview:addressLab];
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, logoView.bottom+16, kScreenWidth, 10)];
@@ -134,6 +130,7 @@
     UIButton *decBtn = [UIButton buttonWithframe:CGRectMake(logoView.left, view.bottom+9, 87, 17) text:@"公司地址" font:[UIFont systemFontOfSize:14] textColor:@"#333333" backgroundColor:nil normal:@"48" selected:nil];
     decBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     [headView addSubview:decBtn];
+    decBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     
     // @"浙江省永嘉市网生路2号"
     UILabel *jobDecLab = [UILabel labelWithframe:CGRectMake(decBtn.left, decBtn.bottom+12, kScreenWidth-decBtn.left*2, 18) text:_model.address font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#999999"];
@@ -148,10 +145,17 @@
     UIButton *sameBtn = [UIButton buttonWithframe:CGRectMake(jobDecLab.left, view.bottom+9, 87, 17) text:@"公司介绍" font:[UIFont systemFontOfSize:14] textColor:@"#333333" backgroundColor:nil normal:@"47" selected:nil];
     sameBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     [headView addSubview:sameBtn];
+    sameBtn.contentHorizontalAlignment = decBtn.contentHorizontalAlignment;
     
     // @"提供长期稳定的就业环境，不断提高员工的薪资水平。"
     UILabel *companyDecLab = [UILabel labelWithframe:CGRectMake(sameBtn.left, sameBtn.bottom+9, kScreenWidth-24, 16) text:_model.info font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#999999"];
     [headView addSubview:companyDecLab];
+    companyDecLab.numberOfLines = 0;
+
+    // 计算高度
+    CGSize size = [NSString textHeight:_model.info font:companyDecLab.font width:companyDecLab.width];
+    
+    companyDecLab.height = size.height;
     
     view = [[UIView alloc] initWithFrame:CGRectMake(0, companyDecLab.bottom+9, kScreenWidth, 10)];
     view.backgroundColor = [UIColor colorWithHexString:@"#FAE5E8"];
@@ -161,6 +165,8 @@
     UIButton *wantBtn = [UIButton buttonWithframe:CGRectMake(jobDecLab.left, view.bottom+9, 125, 17) text:@"正在招聘的职位" font:[UIFont systemFontOfSize:14] textColor:@"#333333" backgroundColor:nil normal:@"46" selected:nil];
     wantBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     [headView addSubview:wantBtn];
+    wantBtn.contentHorizontalAlignment = decBtn.contentHorizontalAlignment;
+
     
     view = [[UIView alloc] initWithFrame:CGRectMake(0, wantBtn.bottom+9, kScreenWidth, 1)];
     view.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];

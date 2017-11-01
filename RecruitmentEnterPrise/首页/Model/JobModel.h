@@ -19,7 +19,6 @@
 @property (nonatomic,strong) NSString *pay;
 @property (nonatomic,strong) NSString *nums;
 @property (nonatomic,strong) NSString *update_time;
-@property (nonatomic,assign) BOOL isSelected;
 
 // 职位详情
 @property (nonatomic,strong) NSString *area;

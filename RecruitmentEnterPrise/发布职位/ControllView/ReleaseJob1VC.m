@@ -13,6 +13,9 @@
 
 @property (nonatomic,strong) NSArray *dataArr;
 @property(nonatomic,strong) UITableView *tableView;
+@property (nonatomic,strong) NSArray *selectArr;
+@property (nonatomic,strong) NSArray *selectJobArr;
+
 
 @end
 
@@ -21,48 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
-    self.dataArr = @[@[@{@"leftTitle":@"职位名称",@"rightTitle":@"请填写",@"text":@"",@"key":@"key"},
-                       @{@"leftTitle":@"职位类别",@"rightTitle":@"请选择",@"text":@"",@"key":@"key"}
-                       ],
-                     @[@{@"leftTitle":@"联系人",@"rightTitle":@"请填写",@"text":@"",@"key":@"key"},
-                       @{@"leftTitle":@"工作地点",@"rightTitle":@"请选择",@"text":@"",@"key":@"key"}
-                       ],
-                     @[@{@"leftTitle":@"学历要求",@"rightTitle":@"请选择",@"text":@"",@"key":@"key"},
-                       @{@"leftTitle":@"户口要求",@"rightTitle":@"请填写",@"text":@"",@"key":@"key"}
-                       ],
-                     @[@{@"leftTitle":@"工作类型",@"rightTitle":@"请选择",@"text":@"",@"key":@"key"},
-                       @{@"leftTitle":@"工作经验",@"rightTitle":@"请选择",@"text":@"",@"key":@"key"},
-                       @{@"leftTitle":@"月薪",@"rightTitle":@"请选择",@"text":@"",@"key":@"key"}
-                       ],
-                     @[@{@"leftTitle":@"性别要求",@"rightTitle":@"请选择",@"text":@"",@"key":@"key"},
-                       @{@"leftTitle":@"年龄要求",@"rightTitle":@"请填写",@"text":@"",@"key":@"key"},
-                       @{@"leftTitle":@"住房要求",@"rightTitle":@"请选择",@"text":@"",@"key":@"key"}
-                       ],
-                     @[@{@"leftTitle":@"应聘方式",@"rightTitle":@"请选择",@"text":@"",@"key":@"key"},
-                       @{@"leftTitle":@"招聘人数",@"rightTitle":@"请填写",@"text":@"",@"key":@"key"}
-                       ],
-                     @[@{@"leftTitle":@"岗位要求",@"rightTitle":@"请填写",@"text":@"",@"key":@"key"}
-                       ]
-                     
-                     ];
-    
-    NSMutableArray *arrM = [NSMutableArray array];
-    for (NSArray *arr in self.dataArr) {
-        
-        NSMutableArray *arrM1 = [NSMutableArray array];
-        
-        for (NSDictionary *dic in arr) {
-            
-            ReleaseJobModel *model = [ReleaseJobModel yy_modelWithJSON:dic];
-            [arrM1 addObject:model];
-        }
-        
-        [arrM addObject:arrM1];
-        
-    }
-    
-    self.dataArr = arrM;
     
     _tableView = [UITableView tableViewWithframe:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kTopHeight) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
@@ -79,7 +40,188 @@
     releseBtn.layer.masksToBounds = YES;
     [footerView addSubview:releseBtn];
     _tableView.tableFooterView = footerView;
+    [releseBtn addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
+
+    
+    // 选择项数据
+    NSArray *selectArr = [InfoCache unarchiveObjectWithFile:SelectItem];;
+    self.selectArr = selectArr;
+    
+//    NSArray *selectJobArr = [InfoCache unarchiveObjectWithFile:SelectItemJob1];;
+//    self.selectJobArr = selectJobArr;
+    
+    if ([self.title isEqualToString:@"修改职位"]) {
+        [releseBtn setTitle:@"修改" forState:UIControlStateNormal];
+        [self get_position_detail];
+    }
+    else {
+        self.dataArr = @[@[@{@"leftTitle":@"职位名称",@"rightTitle":@"请填写",@"text":@"",@"key":@"title"},
+                           @{@"leftTitle":@"职位类别",@"rightTitle":@"请选择",@"text":@"",@"key":@"cateName"}
+                           ],
+                         @[@{@"leftTitle":@"联系人",@"rightTitle":@"请选择",@"text":@"",@"key":@"contactId"},
+                           @{@"leftTitle":@"工作地点",@"rightTitle":@"请选择",@"text":@"",@"key":@"area"}
+                           ],
+                         @[@{@"leftTitle":@"学历要求",@"rightTitle":@"请选择",@"text":@"",@"key":@"edu"},
+                           @{@"leftTitle":@"户口要求",@"rightTitle":@"请填写",@"text":@"",@"key":@"hukou"}
+                           ],
+                         @[@{@"leftTitle":@"工作类型",@"rightTitle":@"请选择",@"text":@"",@"key":@"jobs"},
+                           @{@"leftTitle":@"工作经验",@"rightTitle":@"请选择",@"text":@"",@"key":@"years"},
+                           @{@"leftTitle":@"月薪",@"rightTitle":@"请选择",@"text":@"",@"key":@"pay"}
+                           ],
+                         @[@{@"leftTitle":@"性别要求",@"rightTitle":@"请选择",@"text":@"",@"key":@"gender"},
+                           @{@"leftTitle":@"年龄要求",@"rightTitle":@"请填写",@"text":@"",@"key":@"ages"},
+                           @{@"leftTitle":@"住房要求",@"rightTitle":@"请选择",@"text":@"",@"key":@"house"}
+                           ],
+                         @[@{@"leftTitle":@"应聘方式",@"rightTitle":@"请选择",@"text":@"",@"key":@"tele"},
+                           @{@"leftTitle":@"招聘人数",@"rightTitle":@"请填写",@"text":@"",@"key":@"nums"}
+                           ],
+                         @[@{@"leftTitle":@"岗位要求",@"rightTitle":@"请填写",@"text":@"",@"key":@"info"}
+                           ]
+                         
+                         ];
+        
+        NSMutableArray *arrM = [NSMutableArray array];
+        for (NSArray *arr in self.dataArr) {
+            
+            NSMutableArray *arrM1 = [NSMutableArray array];
+            
+            for (NSDictionary *dic in arr) {
+                
+                ReleaseJobModel *model = [ReleaseJobModel yy_modelWithJSON:dic];
+                [arrM1 addObject:model];
+            }
+            
+            [arrM addObject:arrM1];
+            
+        }
+        
+        self.dataArr = arrM;
+        [_tableView reloadData];
+    }
 }
+
+- (void)get_position_detail
+{
+
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    [paramDic  setValue:self.model.jobId forKey:@"jobId"];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Get_position_detail dic:paramDic showHUD:YES response:YES Succed:^(id responseObject) {
+        
+        ReleaseJobModel *model = [ReleaseJobModel yy_modelWithDictionary:responseObject[@"data"]];
+        
+        self.dataArr = @[@[@{@"leftTitle":@"职位名称",@"rightTitle":@"请填写",@"text":model.title,@"key":@"title"},
+                           @{@"leftTitle":@"职位类别",@"rightTitle":@"请选择",@"text":model.cateName,@"key":@"cateName"}
+                           ],
+                         @[@{@"leftTitle":@"联系人",@"rightTitle":@"请选择",@"text":model.contactName,@"key":@"contactId"},
+                           @{@"leftTitle":@"工作地点",@"rightTitle":@"请选择",@"text":model.area,@"key":@"area"}
+                           ],
+                         @[@{@"leftTitle":@"学历要求",@"rightTitle":@"请选择",@"text":model.edu,@"key":@"edu"},
+                           @{@"leftTitle":@"户口要求",@"rightTitle":@"请填写",@"text":model.hukou,@"key":@"hukou"}
+                           ],
+                         @[@{@"leftTitle":@"工作类型",@"rightTitle":@"请选择",@"text":model.jobs,@"key":@"jobs"},
+                           @{@"leftTitle":@"工作经验",@"rightTitle":@"请选择",@"text":model.years,@"key":@"years"},
+                           @{@"leftTitle":@"月薪",@"rightTitle":@"请选择",@"text":model.pay,@"key":@"pay"}
+                           ],
+                         @[@{@"leftTitle":@"性别要求",@"rightTitle":@"请选择",@"text":model.gender,@"key":@"gender"},
+                           @{@"leftTitle":@"年龄要求",@"rightTitle":@"请填写",@"text":model.ages,@"key":@"ages"},
+                           @{@"leftTitle":@"住房要求",@"rightTitle":@"请选择",@"text":model.house,@"key":@"house"}
+                           ],
+                         @[@{@"leftTitle":@"应聘方式",@"rightTitle":@"请选择",@"text":model.tele,@"key":@"tele"},
+                           @{@"leftTitle":@"招聘人数",@"rightTitle":@"请填写",@"text":model.nums,@"key":@"nums"}
+                           ],
+                         @[@{@"leftTitle":@"岗位要求",@"rightTitle":@"请填写",@"text":model.info,@"key":@"info"}
+                           ]
+                         
+                         ];
+        
+        NSMutableArray *arrM = [NSMutableArray array];
+        for (NSArray *arr in self.dataArr) {
+            
+            NSMutableArray *arrM1 = [NSMutableArray array];
+            
+            for (NSDictionary *dic in arr) {
+                
+                ReleaseJobModel *model = [ReleaseJobModel yy_modelWithJSON:dic];
+                [arrM1 addObject:model];
+            }
+            
+            [arrM addObject:arrM1];
+            
+        }
+        
+        self.dataArr = arrM;
+        [_tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)saveAction
+{
+    [self.view endEditing:YES];
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    
+    for (NSArray *arr in self.dataArr) {
+        
+        for (ReleaseJobModel *model in arr) {
+            
+            if (model.text.length == 0) {
+                [self.view makeToast:@"请完善发布新职位的信息"];
+                return;
+            }
+            
+            if ([model.leftTitle isEqualToString:@"联系人"]) {
+                [paramDic  setValue:model.contactId forKey:model.key];
+
+            }
+            else {
+                [paramDic  setValue:model.text forKey:model.key];
+
+            }
+
+            
+        }
+        
+    }
+    
+    NSLog(@"%@",paramDic);
+    
+    NSString *url = nil;
+    if ([self.title isEqualToString:@"修改职位"]) {
+        url = Update_position;
+        [paramDic  setValue:self.model.jobId forKey:@"jobId"];
+        
+    }
+    else {
+        url = Post_position;
+        
+    }
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:url dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+
+        if (self.block) {
+            self.block();
+        }
+        
+        if ([self.title isEqualToString:@"修改职位"]) {
+            [self.navigationController popViewControllerAnimated:YES];
+
+            
+        }
+        else {
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+
+        }
+
+
+    } failure:^(NSError *error) {
+
+    }];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -178,7 +320,7 @@
     }
     ReleaseJobModel *model = self.dataArr[indexPath.section][indexPath.row];
     cell.model = model;
-//    cell.selectArr = _selectArr;
+    cell.selectArr = _selectArr;
 //    cell.selectJobArr = _selectJobArr;
     return cell;
 }

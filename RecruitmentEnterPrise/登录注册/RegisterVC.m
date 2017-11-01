@@ -35,23 +35,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    CGFloat screenHeight = 0;
-    CGFloat statusBar = 0;
     
-    if (Device_Is_iPhoneX) {
-        screenHeight  = kScreenHeight+24;
-        statusBar  = 44;
-    }
-    else {
-        screenHeight  = kScreenHeight;
-        statusBar  = 20;
-        
-    }
-    
-    UIImageView *imgView = [UIImageView imgViewWithframe:CGRectMake(0, 0, kScreenWidth, screenHeight) icon:@"110"];
+    UIImageView *imgView = [UIImageView imgViewWithframe:CGRectMake(0, 0, kScreenWidth, kScreenHeight) icon:@"110"];
     [self.view addSubview:imgView];
     
-    UIButton *backBtn = [UIButton buttonWithframe:CGRectMake(20, statusBar+(44-30)/2, 30, 20) text:nil font:nil textColor:nil backgroundColor:nil normal:@"49" selected:nil];
+    UIButton *backBtn = [UIButton buttonWithframe:CGRectMake(20, kStatusBarHeight+(44-30)/2, 30, 20) text:nil font:nil textColor:nil backgroundColor:nil normal:@"49" selected:nil];
     [self.view addSubview:backBtn];
     backBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [backBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];

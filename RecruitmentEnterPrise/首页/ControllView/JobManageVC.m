@@ -9,11 +9,15 @@
 #import "JobManageVC.h"
 #import "JobCell.h"
 #import "ZFTableViewCell.h"
+#import "ReleaseJob1VC.h"
+#import "ReleaseJobModel.h"
+#import "NavigationController.h"
 
 @interface JobManageVC ()<UITableViewDelegate,UITableViewDataSource,ZFTableViewCellDelegate>
 
-//@property (nonatomic,strong) NSArray *dataArr;
+@property (nonatomic,strong) NSMutableArray *dataArr;
 @property(nonatomic,strong) UITableView *tableView;
+@property(nonatomic,strong) NSMutableArray *selectedArr;// 选择数组
 
 @end
 
@@ -49,20 +53,72 @@
     baseView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:baseView];
     
-    UIView *baseView1 = [[UIView alloc] initWithFrame:CGRectMake((kScreenWidth-(105+5+222))/2, 6, 105+5+222, 40)];
+    UIView *baseView1 = [[UIView alloc] initWithFrame:CGRectMake((kScreenWidth-(105*scaleWidth+5+222*scaleWidth))/2, 6, 105*scaleWidth+5+222*scaleWidth, 40)];
     [baseView addSubview:baseView1];
     
-    UIButton *delBtn = [UIButton buttonWithframe:CGRectMake(0, 0, 105, 40) text:@"删除选中" font:SystemFont(16) textColor:@"#D0021B" backgroundColor:nil normal:@"" selected:nil];
+    UIButton *delBtn = [UIButton buttonWithframe:CGRectMake(0, 0, 105*scaleWidth, 40) text:@"删除选中" font:SystemFont(16) textColor:@"#D0021B" backgroundColor:nil normal:@"" selected:nil];
     delBtn.layer.cornerRadius = 7;
     delBtn.layer.masksToBounds = YES;
     delBtn.layer.borderColor = [UIColor colorWithHexString:@"#CB4F5E"].CGColor;
     delBtn.layer.borderWidth = 1;
     [baseView1 addSubview:delBtn];
+    [delBtn addTarget:self action:@selector(delAction) forControlEvents:UIControlEventTouchUpInside];
+
     
-    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(delBtn.right+5, 0, 222, 40) text:@"发布新职位" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
+    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(delBtn.right+5, 0, 222*scaleWidth, 40) text:@"发布新职位" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
     releseBtn.layer.cornerRadius = 7;
     releseBtn.layer.masksToBounds = YES;
     [baseView1 addSubview:releseBtn];
+    [releseBtn addTarget:self action:@selector(releaseAction) forControlEvents:UIControlEventTouchUpInside];
+
+    self.selectedArr = [NSMutableArray array];
+
+    
+    [self get_position];
+}
+
+- (void)delAction
+{
+
+    if (self.selectedArr.count == 0) {
+        
+        [self.view makeToast:@"请选择"];
+        return;
+    }
+    
+    
+    NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
+    
+    // 职位id
+    NSMutableArray *idArr = [NSMutableArray array];
+    for (ReleaseJobModel *model in self.selectedArr) {
+        [idArr addObject:model.jobId];
+        
+        [self.dataArr removeObjectAtIndex:model.indexPath.section];
+    }
+    NSString *string = [idArr componentsJoinedByString:@","]; //,为分隔符
+    [paraDic setValue:string forKey:@"jobId"];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Delete_position dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+
+
+    } failure:^(NSError *error) {
+
+
+    }];
+    [self.tableView reloadData];
+}
+
+- (void)releaseAction
+{
+    ReleaseJob1VC *vc = [[ReleaseJob1VC alloc] init];
+    vc.title = @"发布新职位";
+    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
+    vc.block = ^{
+        [self get_position];
+
+    };
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,18 +126,43 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)get_position
+{
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Get_position dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        NSMutableArray *arrM = [NSMutableArray array];
+        for (NSDictionary *dic in responseObject[@"data"]) {
+
+            NSMutableArray *arrM1 = [NSMutableArray array];
+
+            ReleaseJobModel *model = [ReleaseJobModel yy_modelWithDictionary:dic];
+            [arrM1 addObject:model];
+            [arrM addObject:arrM1];
+        }
+        self.dataArr = arrM;
+        [_tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    //    return [self.dataArr count];
-    return 2;
+    return [self.dataArr count];
+//    return 2;
     
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //    return [self.dataArr[section] count];
-    return 1;
+    return [self.dataArr[section] count];
+//    return 1;
     
     
 }
@@ -104,9 +185,11 @@
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    ReleaseJobModel *model = self.dataArr[section][0];
+
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
     //    view.backgroundColor = [UIColor colorWithHexString:@"#FAE5E8"];
-    UILabel *label = [UILabel labelWithframe:CGRectMake(19, 7, kScreenWidth-19, 17) text:@"2017-08-24" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
+    UILabel *label = [UILabel labelWithframe:CGRectMake(19, 7, kScreenWidth-19, 17) text:model.update_time font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
     [view addSubview:label];
     
     return view;
@@ -141,11 +224,26 @@
                                  withRightButtonColors:@[[UIColor clearColor]]
                                                   type:ZFTableViewCellTypeOne
                                              rowHeight:60];
+        cell.block = ^(ReleaseJobModel *model) {
+            
+            if (model) {
+                if (model.isSelected) {
+                    [self.selectedArr addObject:model];
+                    
+                }
+                else {
+                    [self.selectedArr removeObject:model];
+                }
+            }
+            [_tableView reloadData];
+
+        };
         
     }
-    //    ReleaseJobModel *model = self.dataArr[indexPath.section][indexPath.row];
-    //    cell.model = model;
-    //    cell.selectArr = _selectArr;
+    ReleaseJobModel *model = self.dataArr[indexPath.section][indexPath.row];
+    model.indexPath = indexPath;
+    cell.model = model;
+    cell.dataArr = _dataArr;
     //    cell.selectJobArr = _selectJobArr;
     return cell;
 }
@@ -154,13 +252,33 @@
 -(void)buttonTouchedOnCell:(ZFTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath atButtonIndex:(NSInteger)buttonIndex{
     NSLog(@"row:%ld,buttonIndex:%ld",(long)indexPath.row,(long)buttonIndex);
     
+    ReleaseJobModel *model = self.dataArr[indexPath.section][indexPath.row];
+
     // 编辑
     if (buttonIndex == 0){
         NSLog(@"编辑");
+        ReleaseJob1VC *vc = [[ReleaseJob1VC alloc] init];
+        vc.title = @"修改职位";
+        vc.model = model;
+        [self.navigationController pushViewController:vc animated:YES];
     }
     else if (buttonIndex == 1){
         NSLog(@"删除");
 
+        NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
+        
+        [paraDic setValue:model.jobId forKey:@"jobId"];
+        
+        [AFNetworking_RequestData requestMethodPOSTUrl:Delete_position dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+            
+            
+        } failure:^(NSError *error) {
+            
+            
+        }];
+        
+        [self.dataArr removeObjectAtIndex:indexPath.section];
+        [self.tableView reloadData];
     }
     //把cell复原
     [[NSNotificationCenter defaultCenter] postNotificationName:ZFTableViewCellNotificationChangeToUnexpanded object:nil];

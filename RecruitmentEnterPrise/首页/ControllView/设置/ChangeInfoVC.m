@@ -62,6 +62,7 @@
     if (btn.tag == 1) {
         ChangePasswordVC *vc = [[ChangePasswordVC alloc] init];
         vc.title = @"修改密码";
+        vc.model = self.model;
         [self.navigationController pushViewController:vc animated:YES];
     }
 

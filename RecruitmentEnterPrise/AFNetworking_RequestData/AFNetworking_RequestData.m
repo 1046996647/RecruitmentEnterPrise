@@ -108,7 +108,7 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
             [SVProgressHUD dismiss];
 
             NSNumber *code = [responseObject objectForKey:@"status"];
-            if (0 == [code integerValue]) {
+            if (0 == [code integerValue] || 3 == [code integerValue]) {
                 
                 NSString *message = [responseObject objectForKey:@"message"];
                 

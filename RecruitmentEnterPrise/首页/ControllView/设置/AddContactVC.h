@@ -7,7 +7,11 @@
 //
 
 #import "BaseViewController.h"
+#import "AddContactModel.h"
 
 @interface AddContactVC : BaseViewController
+
+@property (nonatomic,strong) AddContactModel *model;
+
 
 @end

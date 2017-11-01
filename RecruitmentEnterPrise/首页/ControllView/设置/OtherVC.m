@@ -60,6 +60,7 @@
     if (btn.tag == 0) {
         ChangeInfoVC *vc = [[ChangeInfoVC alloc] init];
         vc.title = @"修改资料";
+        vc.model = self.model;
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (btn.tag == 1) {
