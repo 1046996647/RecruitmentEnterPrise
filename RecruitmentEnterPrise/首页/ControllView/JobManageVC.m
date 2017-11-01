@@ -18,6 +18,7 @@
 @property (nonatomic,strong) NSMutableArray *dataArr;
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,strong) NSMutableArray *selectedArr;// 选择数组
+@property(nonatomic,strong) NSMutableArray *orderArr;// 排序数组
 
 @end
 
@@ -39,12 +40,12 @@
     
     UIButton *viewBtn = [UIButton buttonWithframe:CGRectMake(0, 0, rightView.height, rightView.height) text:nil font:nil textColor:nil backgroundColor:nil normal:@"105" selected:nil];
     [rightView addSubview:viewBtn];
-    //    [viewBtn addTarget:self action:@selector(viewAction) forControlEvents:UIControlEventTouchUpInside];
+    [viewBtn addTarget:self action:@selector(orderAction) forControlEvents:UIControlEventTouchUpInside];
     
     
     UIButton *setBtn = [UIButton buttonWithframe:CGRectMake(viewBtn.right+13, viewBtn.top, rightView.height, rightView.height) text:nil font:nil textColor:nil backgroundColor:nil normal:@"104" selected:@""];
     [rightView addSubview:setBtn];
-    //    [setBtn addTarget:self action:@selector(setAction) forControlEvents:UIControlEventTouchUpInside];
+    [setBtn addTarget:self action:@selector(refreshAction) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
     
@@ -72,9 +73,61 @@
     [releseBtn addTarget:self action:@selector(releaseAction) forControlEvents:UIControlEventTouchUpInside];
 
     self.selectedArr = [NSMutableArray array];
+    self.orderArr = [NSMutableArray array];
 
     
     [self get_position];
+}
+
+
+// 2.8    职位显示顺序修改
+- (void)orderAction
+{
+    NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
+    
+    // 职位id
+    NSMutableArray *idArr = [NSMutableArray array];
+    for (ReleaseJobModel *model in self.orderArr) {
+        [idArr addObject:model.jobId];
+        
+    }
+    NSString *string = [idArr componentsJoinedByString:@","]; //,为分隔符
+    [paraDic setValue:string forKey:@"jobId"];
+    
+    // 排序id
+    NSMutableArray *orderArr = [NSMutableArray array];
+    for (ReleaseJobModel *model in self.orderArr) {
+        [orderArr addObject:model.ordid];
+        
+    }
+    NSString *string1 = [orderArr componentsJoinedByString:@","]; //,为分隔符
+    [paraDic setValue:string1 forKey:@"ordid"];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Update_order dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+
+        [self get_position];
+
+
+    } failure:^(NSError *error) {
+
+
+    }];
+}
+
+// 2.7    刷新职位
+- (void)refreshAction
+{
+    NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Refresh_position dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        [self get_position];
+
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
 }
 
 - (void)delAction
@@ -94,19 +147,22 @@
     for (ReleaseJobModel *model in self.selectedArr) {
         [idArr addObject:model.jobId];
         
-        [self.dataArr removeObjectAtIndex:model.indexPath.section];
     }
     NSString *string = [idArr componentsJoinedByString:@","]; //,为分隔符
     [paraDic setValue:string forKey:@"jobId"];
     
     [AFNetworking_RequestData requestMethodPOSTUrl:Delete_position dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
 
+        [self get_position];
+
 
     } failure:^(NSError *error) {
 
 
     }];
-    [self.tableView reloadData];
+    
+    
+ 
 }
 
 - (void)releaseAction
@@ -224,24 +280,34 @@
                                  withRightButtonColors:@[[UIColor clearColor]]
                                                   type:ZFTableViewCellTypeOne
                                              rowHeight:60];
-        cell.block = ^(ReleaseJobModel *model) {
+        cell.block = ^(ReleaseJobModel *model, NSInteger type) {
             
-            if (model) {
-                if (model.isSelected) {
-                    [self.selectedArr addObject:model];
+            // 选中或改变状态
+            if (type == 0) {
+                if (model) {
+                    if (model.isSelected) {
+                        [self.selectedArr addObject:model];
+                        
+                    }
+                    else {
+                        [self.selectedArr removeObject:model];
+                    }
+                }
+                [_tableView reloadData];
+            }
+            // 排序
+            else {
+                if (![self.orderArr containsObject:model]) {
+                    [self.orderArr addObject:model];
                     
                 }
-                else {
-                    [self.selectedArr removeObject:model];
-                }
             }
-            [_tableView reloadData];
+
 
         };
         
     }
     ReleaseJobModel *model = self.dataArr[indexPath.section][indexPath.row];
-    model.indexPath = indexPath;
     cell.model = model;
     cell.dataArr = _dataArr;
     //    cell.selectJobArr = _selectJobArr;
@@ -261,6 +327,9 @@
         vc.title = @"修改职位";
         vc.model = model;
         [self.navigationController pushViewController:vc animated:YES];
+        
+        //把cell复原
+        [[NSNotificationCenter defaultCenter] postNotificationName:ZFTableViewCellNotificationChangeToUnexpanded object:nil];
     }
     else if (buttonIndex == 1){
         NSLog(@"删除");
@@ -271,17 +340,17 @@
         
         [AFNetworking_RequestData requestMethodPOSTUrl:Delete_position dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
             
+            [self.dataArr removeObjectAtIndex:indexPath.section];
+            [self.tableView reloadData];
             
         } failure:^(NSError *error) {
             
             
         }];
         
-        [self.dataArr removeObjectAtIndex:indexPath.section];
-        [self.tableView reloadData];
     }
-    //把cell复原
-    [[NSNotificationCenter defaultCenter] postNotificationName:ZFTableViewCellNotificationChangeToUnexpanded object:nil];
+    
+
 }
 
 @end

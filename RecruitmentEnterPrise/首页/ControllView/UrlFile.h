@@ -26,9 +26,12 @@
 // 1.6    忘记密码
 #define Forget_passwd  [NSString stringWithFormat:@"%@/User/forget_passwd",BaseUrl]
 
-// 1.7    修改手机
-#define Alter_phone  [NSString stringWithFormat:@"%@/User/alter_phone",BaseUrl]
 
+// 1.7    验证旧手机验证码
+#define Check_phone  [NSString stringWithFormat:@"%@/User/check_phone",BaseUrl]
+
+// 1.8    确认修改手机
+#define Alter_phone  [NSString stringWithFormat:@"%@/User/alter_phone",BaseUrl]
 
 // 2.2    选择项获取分站信息
 #define Get_sites  [NSString stringWithFormat:@"%@/QuickGet/get_sites",BaseUrl]
@@ -87,6 +90,12 @@
 // 2.3    获取职位详情
 #define Get_position_detail  [NSString stringWithFormat:@"%@/Jobs/get_position_detail",BaseUrl]
 
+// 2.7    刷新职位
+#define Refresh_position  [NSString stringWithFormat:@"%@/Jobs/refresh_position",BaseUrl]
+
+// 2.8    职位显示顺序修改
+#define Update_order  [NSString stringWithFormat:@"%@/Jobs/update_order",BaseUrl]
+
 // 2.4    修改职位
 #define Update_position  [NSString stringWithFormat:@"%@/Jobs/update_position",BaseUrl]
 
@@ -96,7 +105,7 @@
 #define Delete_position  [NSString stringWithFormat:@"%@/Jobs/delete_position",BaseUrl]
 
 // 2.6    更改职位状态
-#define Change_status  [NSString stringWithFormat:@"%@/Jobs/change_status",BaseUrl]
+#define Alter_position_status  [NSString stringWithFormat:@"%@/Jobs/alter_position_status",BaseUrl]
 
 
 

@@ -72,6 +72,10 @@
         _tf.placeholder = @"请输入新号码";
         [releseBtn setTitle:@"确定" forState:UIControlStateNormal];
     }
+    else {
+        _tf.text = self.model.phone;
+        _tf.enabled = NO;
+    }
     
     //倒计时通知事件
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -127,17 +131,16 @@
     NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
     NSString *url = nil;
     if (self.mark == 0) {
-        url = @"";
+        url = Check_phone;
     }
     else {
         
         url = Alter_phone;
 
         [paramDic  setValue:self.tf.text forKey:@"phoneNew"];
-        [paramDic  setValue:self.tf1.text forKey:@"verify"];
     }
+    [paramDic  setValue:self.tf1.text forKey:@"verify"];
 
-    
     [AFNetworking_RequestData requestMethodPOSTUrl:url dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
         if (self.mark == 0) {
@@ -145,11 +148,17 @@
             ChangePhoneVC *vc = [[ChangePhoneVC alloc] init];
             vc.title = @"修改手机";
             vc.mark = 1;
+            vc.model = self.model;
             [self.navigationController pushViewController:vc animated:YES];
         }
         else {
-            [self popViewController:@"CountMessageVC"];
+            
+            self.model.phone = self.tf.text;
+            
+            [InfoCache archiveObject:self.tf.text toFile:@"phone"];
 
+            [self popViewController:@"CountMessageVC"];
+            
         }
         
     } failure:^(NSError *error) {

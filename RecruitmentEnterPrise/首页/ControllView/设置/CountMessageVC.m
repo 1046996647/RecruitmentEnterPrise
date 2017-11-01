@@ -13,6 +13,7 @@
 @interface CountMessageVC ()
 
 @property(nonatomic,strong) UILabel *mailLab1;
+@property(nonatomic,strong) UILabel *phoneLab;
 
 
 @end
@@ -54,8 +55,8 @@
     // 18842682580
     UILabel *phoneLab = [UILabel labelWithframe:CGRectMake(exitView.left-200-10, 0, 200, changeBtn.height) text:@"" font:SystemFont(17) textAlignment:NSTextAlignmentRight textColor:@"#333333"];
     [exitBtn addSubview:phoneLab];
-    phoneLab.text = self.model.phone;
-
+//    phoneLab.text = self.model.phone;
+    self.phoneLab = phoneLab;
     
     // E-mail
     UIButton *mailBtn = [UIButton buttonWithframe:CGRectMake(changeBtn.left, exitBtn.bottom+ 1, kScreenWidth, changeBtn.height) text:nil font:nil textColor:nil backgroundColor:@"#FFFFFF" normal:nil selected:nil];
@@ -83,12 +84,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.phoneLab.text = self.model.phone;
+}
+
 - (void)btnAction:(UIButton *)btn
 {
     if (btn.tag == 0) {
         ChangePhoneVC *vc = [[ChangePhoneVC alloc] init];
         vc.title = @"修改手机";
+        vc.model = self.model;
         [self.navigationController pushViewController:vc animated:YES];
+
     }
     if (btn.tag == 1) {
 

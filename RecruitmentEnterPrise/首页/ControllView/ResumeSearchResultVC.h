@@ -10,4 +10,7 @@
 
 @interface ResumeSearchResultVC : BaseViewController
 
+@property(nonatomic,copy) NSString *searchText;
+
+
 @end

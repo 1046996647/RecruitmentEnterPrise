@@ -11,7 +11,7 @@
 #import "ReleaseJobModel.h"
 #import "BRPickerView.h"
 
-typedef void(^JobSendModelBlock)(ReleaseJobModel *model);
+typedef void(^JobSendModelBlock)(ReleaseJobModel *model, NSInteger type);
 
 @interface JobCell : ZFTableViewCell
 

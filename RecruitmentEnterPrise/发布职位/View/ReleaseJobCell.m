@@ -50,6 +50,7 @@
         _tf1.layer.borderColor = [UIColor colorWithHexString:@"#D0021B"].CGColor;
         _tf1.layer.borderWidth = .5;
         _tf1.clearButtonMode = UITextFieldViewModeNever;
+        _tf1.textAlignment = NSTextAlignmentCenter;
         [_baseView addSubview:_tf1];
 
         _label1 = [UILabel labelWithframe:CGRectMake(_tf1.right+2, _tf1.top, 26, _tf1.height) text:@"岁至" font:[UIFont systemFontOfSize:12] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
@@ -60,6 +61,7 @@
         _tf2.layer.borderColor = [UIColor colorWithHexString:@"#D0021B"].CGColor;
         _tf2.layer.borderWidth = .5;
         _tf2.clearButtonMode = UITextFieldViewModeNever;
+        _tf2.textAlignment = NSTextAlignmentCenter;
         [_baseView addSubview:_tf2];
         
         _label2 = [UILabel labelWithframe:CGRectMake(_tf2.right+2, _tf1.top, 26, _tf1.height) text:@"岁" font:[UIFont systemFontOfSize:12] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
@@ -122,13 +124,27 @@
         
     }
     
+    if ([_model.leftTitle isEqualToString:@"招聘人数"]) {
+        
+        _tf.keyboardType = UIKeyboardTypeNumberPad;
+
+    }
+    else {
+        _tf.keyboardType = UIKeyboardTypeDefault;
+
+    }
+    
     if ([_model.leftTitle isEqualToString:@"求职者年龄"]) {
         _baseView.hidden = NO;
         _tf.placeholder = @"";
 
+        _tf1.keyboardType = UIKeyboardTypeNumberPad;
+        _tf2.keyboardType = UIKeyboardTypeNumberPad;
     }
     else {
         _baseView.hidden = YES;
+        _tf1.keyboardType = UIKeyboardTypeDefault;
+        _tf2.keyboardType = UIKeyboardTypeDefault;
     }
     
     if ([_model.leftTitle isEqualToString:@"岗位要求"]) {
@@ -147,6 +163,8 @@
         self.baseView1.hidden = YES;
         
     }
+    
+    
 }
 
 - (void)pushAction
@@ -196,8 +214,8 @@
                 NSArray *arr = [str componentsSeparatedByString:@","];
                 
                 for (NSString *s in arr) {
-                    NSString *s1 = [NSString stringWithFormat:@"%@年",s];
-                    [arrM addObject:s1];
+//                    NSString *s1 = [NSString stringWithFormat:@"%@年",s];
+                    [arrM addObject:s];
                 }
                 self.dataSource = arrM;
                 break;
@@ -252,7 +270,15 @@
     
     
     if ([_model.leftTitle isEqualToString:@"工作地点"]) {
-        self.dataSource = @[@"义乌市", @"东阳市", @"金华市",@"浦江县",@"永康市",@"慈溪市",@"余姚市"];
+        
+        for (NSDictionary *dic in self.selectArr) {
+            if ([dic[@"name"] isEqualToString:@"citys"]) {
+                
+                NSString *str = dic[@"data"];
+                self.dataSource = [str componentsSeparatedByString:@","];
+                break;
+            }
+        }
     }
     
     // 岗位类别
@@ -271,31 +297,13 @@
         _tf.text = selectValue;
         _model.text = selectValue;
 
-        if ([_model.leftTitle isEqualToString:@"工作年限"]||
-            [_model.leftTitle isEqualToString:@"工作经验"]) {
-
-            _model.text = [_model.text substringToIndex:_model.text.length-1];
-            NSLog(@"-----%@",selectValue);
-
-        }
-        ////        if ([_model.title isEqualToString:@"性别"] ||
-        ////            [_model.title isEqualToString:@"人才类型"]||
-        ////            [_model.title isEqualToString:@"意向城市"]||
-        ////            [_model.title isEqualToString:@"所在地"]||
-        ////            [_model.title isEqualToString:@"期望地区"]) {
-        //        if ([_model.title isEqualToString:@"意向城市"]||
-        //            [_model.title isEqualToString:@"所在地"]||
-        //            [_model.title isEqualToString:@"期望地区"]||
-        //            [_model.title isEqualToString:@"公司性质"]) {
-        //
-        //
-        //            _model.text = selectValue;
-        //
-        //        }
-        //        else {
-        //            _model.text = [NSString stringWithFormat:@"%ld",[self.dataSource indexOfObject:selectValue]+1];
-
-        //        }
+//        if ([_model.leftTitle isEqualToString:@"工作年限"]||
+//            [_model.leftTitle isEqualToString:@"工作经验"]) {
+//
+//            _model.text = [_model.text substringToIndex:_model.text.length-1];
+//            NSLog(@"-----%@",selectValue);
+//
+//        }
 
     }];
     

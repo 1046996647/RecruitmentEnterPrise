@@ -8,10 +8,14 @@
 
 #import "BaseViewController.h"
 
+typedef void(^ChangePhoneBlock)(NSString *text);
+
 @interface ChangePhoneVC : BaseViewController
 
 
 @property(nonatomic,assign) NSInteger mark;
 
+@property(nonatomic,strong) PersonModel *model;
+@property(nonatomic,copy) ChangePhoneBlock block;
 
 @end

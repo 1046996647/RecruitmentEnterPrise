@@ -13,7 +13,7 @@
 #import "ResumeSearchResultVC.h"
 
 
-@interface ResumeSearchVC ()<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface ResumeSearchVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UITextFieldDelegate>
 
 @property(nonatomic,strong) UITextField *tf;
 @property(nonatomic,strong) UIView *rightView;
@@ -21,6 +21,8 @@
 @property(nonatomic,strong) PlaceView *placeView;
 @property(nonatomic,strong) SearchUITableView *searchUITableView;
 @property(nonatomic,strong) UIView *baseView;
+@property(nonatomic,strong) UIButton *timeBtn;
+@property(nonatomic,strong) UIButton *rightBtn;
 
 
 @end
@@ -91,6 +93,7 @@
     [rightView addSubview:timeBtn];
     timeBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [timeBtn addTarget:self action:@selector(timeAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.timeBtn = timeBtn;
     
     UILabel *timeLab = [UILabel labelWithframe:CGRectMake(0, 0, 26, rightView.height) text:@"不限" font:[UIFont systemFontOfSize:12] textAlignment:NSTextAlignmentLeft textColor:@"#FFFFFF"];
     [timeBtn addSubview:timeLab];
@@ -98,7 +101,7 @@
     UIButton *rightBtn = [UIButton buttonWithframe:CGRectMake(timeBtn.right+16, 0, 20, rightView.height) text:nil font:nil textColor:@"#FFFFFF" backgroundColor:nil normal:@"5" selected:@""];
     [rightView addSubview:rightBtn];
     [rightBtn addTarget:self action:@selector(rightAction:) forControlEvents:UIControlEventTouchUpInside];
-
+    self.rightBtn = rightBtn;
     
     [baseView addSubview:rightView];
     
@@ -119,6 +122,8 @@
     [_tf setValue:[UIColor colorWithHexString:@"#999999"] forKeyPath:@"_placeholderLabel.textColor"];
     _tf.layer.cornerRadius = _tf.height/2;
     _tf.layer.masksToBounds = YES;
+    _tf.delegate = self;
+
     
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:tfView];
 
@@ -161,6 +166,10 @@
 
 - (void)timeAction:(UIButton *)btn
 {
+    self.rightBtn.selected = NO;
+    [self.searchUITableView removeFromSuperview];
+
+    
     btn.selected = !btn.selected;
     
     if (btn.selected) {
@@ -177,6 +186,9 @@
 
 - (void)rightAction:(UIButton *)btn
 {
+    self.timeBtn.selected = NO;
+    [self.placeView removeFromSuperview];
+    
     btn.selected = !btn.selected;
     
     if (btn.selected) {
@@ -249,6 +261,31 @@
 
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if (textField.text.length == 0) {
+        [textField resignFirstResponder];
+        
+        return YES;
+    }
+    
+    [textField resignFirstResponder];
+
+    [self pushAction:textField.text];
+    
+    return YES;
+
+}
+
+// 搜索结果
+- (void)pushAction:(NSString *)text
+{
+    ResumeSearchResultVC *vc = [[ResumeSearchResultVC alloc] init];
+    vc.searchText = text;
+    vc.title = @"简历搜索";
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

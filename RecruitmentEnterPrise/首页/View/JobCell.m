@@ -82,7 +82,7 @@
     _model.isSelected = !_model.isSelected;
     
     if (self.block) {
-        self.block(_model);
+        self.block(_model,0);
     }
 }
 
@@ -95,27 +95,12 @@
         
         [paraDic setValue:_model.jobId forKey:@"jobId"];
         
-        if (_model.status.integerValue == 1) {
-            [paraDic setValue:_model.jobId forKey:@"jobId"];
-
-        }
-        else {
-            [paraDic setValue:_model.jobId forKey:@"jobId"];
-
-        }
         
-        [AFNetworking_RequestData requestMethodPOSTUrl:Change_status dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+        [AFNetworking_RequestData requestMethodPOSTUrl:Alter_position_status dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
             
-            if (_model.status.integerValue == 1) {
-                _model.status = @"0";
-
-            }
-            else {
-                _model.status = @"1";
-
-            }
+            _model.status = responseObject[@"jobStatus"];
             if (self.block) {
-                self.block(nil);
+                self.block(nil,0);
             }
             
         } failure:^(NSError *error) {
@@ -129,14 +114,17 @@
         
         NSMutableArray *arrM = [NSMutableArray array];
         
-        for (int i=1; i<=self.dataArr.count; i++) {
+        for (int i=0; i<self.dataArr.count; i++) {
             [arrM addObject:[NSString stringWithFormat:@"%d",i]];
         }
         [BRStringPickerView showStringPickerWithTitle:nil dataSource:arrM defaultSelValue:arrM[0] isAutoSelect:NO resultBlock:^(id selectValue) {
             
-//            _tf.text = selectValue;
-//            _model.text = selectValue;
+            _orderLab.text = selectValue;
+            _model.ordid = selectValue;
             
+            if (self.block) {
+                self.block(_model,1);
+            }
             
         }];
     }
@@ -149,7 +137,7 @@
     _nameLab.width = _orderLab.left-_nameLab.left-10;
     _nameLab.text = model.title;
     [_viewBtn setTitle:model.hits forState:UIControlStateNormal];
-    _orderLab.text = [NSString stringWithFormat:@"%ld",model.indexPath.section+1];
+    _orderLab.text = model.ordid;
     
     _selectBtn.selected = _model.isSelected;
 

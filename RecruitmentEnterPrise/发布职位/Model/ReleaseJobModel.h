@@ -17,7 +17,6 @@
 @property(nonatomic,strong) NSString *contactId;
 
 @property (nonatomic,assign) BOOL isSelected;
-@property(nonatomic,strong) NSIndexPath *indexPath;
 
 
 // 职位管理
@@ -26,6 +25,7 @@
 @property(nonatomic,strong) NSString *status;
 @property(nonatomic,strong) NSString *title;
 @property(nonatomic,strong) NSString *update_time;
+@property(nonatomic,strong) NSString *ordid;
 
 // 职位详情
 @property(nonatomic,strong) NSString *contactName;
