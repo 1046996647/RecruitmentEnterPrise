@@ -11,6 +11,7 @@
 @interface WordsVC ()
 
 @property(nonatomic,strong) UITextView *words;
+@property(nonatomic,strong) UIButton *lastBtn;
 
 
 @end
@@ -39,17 +40,18 @@
         
         UIButton *forgetBtn = [UIButton buttonWithframe:CGRectMake(typeLab.right +(i%4)*(aWidth+interval), typeLab.top+(i/4)*(20+interval), aWidth, 20) text:titleArr2[i] font:SystemFont(13) textColor:@"#333333" backgroundColor:nil normal:@"Group 2 Copy" selected:@"3"];
         [scrollView addSubview:forgetBtn];
-//        self.forgetBtn2 = forgetBtn;
-//        [forgetBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [forgetBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
         forgetBtn.tag = i;
         forgetBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
         
         if (i == 0) {
             forgetBtn.selected = YES;
+            self.lastBtn = forgetBtn;
+
         }
     }
     
-    _words = [[UITextView alloc] initWithFrame:CGRectMake(22, typeLab.bottom+57, kScreenWidth-44, 329)];
+    _words = [[UITextView alloc] initWithFrame:CGRectMake(22, typeLab.bottom+57, kScreenWidth-44, 329*scaleWidth)];
     _words.backgroundColor = [UIColor whiteColor];
     _words.layer.cornerRadius = 7;
     _words.layer.masksToBounds = YES;
@@ -69,14 +71,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+- (void)btnAction:(UIButton *)btn
+{
+    self.lastBtn.selected = NO;
+    btn.selected = YES;
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    self.lastBtn = btn;
+
 }
-*/
 
 @end

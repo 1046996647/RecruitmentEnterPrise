@@ -33,6 +33,7 @@
 @property(nonatomic,strong) UIImageView *levelView;
 @property(nonatomic,strong) UILabel *emailLab;
 @property(nonatomic,strong) UIButton *levelBtn;
+@property(nonatomic,strong) PersonModel *model;
 
 
 @end
@@ -98,6 +99,8 @@
         [scrollView addSubview:forgetBtn];
         self.forgetBtn = forgetBtn;
         forgetBtn.tag = i;
+        [forgetBtn addTarget:self action:@selector(btnAction1:) forControlEvents:UIControlEventTouchUpInside];
+
         
         UILabel *label1 = [UILabel labelWithframe:CGRectMake(0, 10, forgetBtn.width, 28) text:@"0" font:[UIFont systemFontOfSize:18] textAlignment:NSTextAlignmentCenter textColor:@"#333333"];
         [forgetBtn addSubview:label1];
@@ -225,7 +228,7 @@
 
         PersonModel *model = [PersonModel yy_modelWithJSON:responseObject[@"data"]];
 //        [InfoCache archiveObject:model toFile:Person];
-        
+        self.model = model;
 
         self.companyLab.text = model.title;
         
@@ -296,6 +299,14 @@
 
 }
 
+- (void)btnAction1:(UIButton *)btn
+{
+    if (btn.tag == 2) {
+        
+        [self.view makeToast:[NSString stringWithFormat:@"接收%@条，发送%@条",self.model.msgReceive, self.model.msgSend]];
+    }
+    
+}
 
 - (void)btnAction2:(UIButton *)btn
 {

@@ -64,6 +64,10 @@
         releseBtn.layer.masksToBounds = YES;
         [footerView addSubview:releseBtn];
         self.tableFooterView = footerView;
+        
+        // 选择项数据
+        NSArray *selectArr = [InfoCache unarchiveObjectWithFile:SelectItem];;
+        self.selectArr = selectArr;
 
     }
     return self;
@@ -115,7 +119,7 @@
     }
     ReleaseJobModel *model = self.dataArr[indexPath.section][indexPath.row];
     cell.model = model;
-    //    cell.selectArr = _selectArr;
+    cell.selectArr = _selectArr;
     //    cell.selectJobArr = _selectJobArr;
     return cell;
 }

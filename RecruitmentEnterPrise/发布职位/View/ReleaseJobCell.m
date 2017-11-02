@@ -108,8 +108,8 @@
         [_model.leftTitle isEqualToString:@"籍贯"]||
         [_model.leftTitle isEqualToString:@"姓名"]||
         [_model.leftTitle isEqualToString:@"求职者专业"]||
-        [_model.leftTitle isEqualToString:@"求职者工作经历"]||
         [_model.leftTitle isEqualToString:@"求职者年龄"]||
+        [_model.leftTitle isEqualToString:@"求职者工作经历"]||
         
         [_model.leftTitle isEqualToString:@"招聘人数"]) {
         
@@ -136,15 +136,15 @@
     
     if ([_model.leftTitle isEqualToString:@"求职者年龄"]) {
         _baseView.hidden = NO;
-        _tf.placeholder = @"";
+        _tf.hidden = YES;
 
         _tf1.keyboardType = UIKeyboardTypeNumberPad;
         _tf2.keyboardType = UIKeyboardTypeNumberPad;
     }
     else {
         _baseView.hidden = YES;
-        _tf1.keyboardType = UIKeyboardTypeDefault;
-        _tf2.keyboardType = UIKeyboardTypeDefault;
+        _tf.hidden = NO;
+
     }
     
     if ([_model.leftTitle isEqualToString:@"岗位要求"]) {
@@ -188,12 +188,14 @@
     }
     
     
-    if ([_model.leftTitle isEqualToString:@"性别要求"]) {
+    if ([_model.leftTitle isEqualToString:@"性别要求"]||
+        [_model.leftTitle isEqualToString:@"求职者性别"]) {
         self.dataSource = @[@"不限",@"男",@"女"];
         
     }
     
-    if ([_model.leftTitle isEqualToString:@"学历要求"]) {
+    if ([_model.leftTitle isEqualToString:@"学历要求"]||
+        [_model.leftTitle isEqualToString:@"求职者学历"]) {
         for (NSDictionary *dic in self.selectArr) {
             if ([dic[@"name"] isEqualToString:@"comp_edu"]) {
                 
@@ -269,7 +271,8 @@
     }
     
     
-    if ([_model.leftTitle isEqualToString:@"工作地点"]) {
+    if ([_model.leftTitle isEqualToString:@"工作地点"]||
+        [_model.leftTitle isEqualToString:@"期望工作地点"]) {
         
         for (NSDictionary *dic in self.selectArr) {
             if ([dic[@"name"] isEqualToString:@"citys"]) {

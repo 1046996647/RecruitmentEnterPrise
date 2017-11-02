@@ -11,6 +11,7 @@
 @interface SearchUITableView : UITableView<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) NSArray *dataArr;
+@property (nonatomic,strong) NSArray *selectArr;
 
 
 @end
