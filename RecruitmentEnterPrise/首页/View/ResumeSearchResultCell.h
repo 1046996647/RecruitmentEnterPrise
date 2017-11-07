@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ResumeModel.h"
+
+typedef void(^ResumeSearchResultBlock)(ResumeModel *model);
+
 
 @interface ResumeSearchResultCell : UITableViewCell
 
@@ -20,5 +24,9 @@
 @property(nonatomic,strong) UILabel *nameLab;
 @property(nonatomic,strong) UILabel *jobLab;
 @property(nonatomic,strong) UILabel *label;
+
+@property(nonatomic,strong) ResumeModel *model;
+@property(nonatomic,copy) ResumeSearchResultBlock block;
+
 
 @end

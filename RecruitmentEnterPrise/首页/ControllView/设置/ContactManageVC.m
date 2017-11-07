@@ -9,6 +9,7 @@
 #import "ContactManageVC.h"
 #import "ContactManageCell.h"
 #import "AddContactVC.h"
+#import "NavigationController.h"
 
 #import "ZFTableViewCell.h"
 
@@ -101,9 +102,11 @@
 
 - (void)addAction
 {
+    
     AddContactVC *vc = [[AddContactVC alloc] init];
     vc.title = @"增加联系人";
-    [self.navigationController pushViewController:vc animated:YES];
+    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

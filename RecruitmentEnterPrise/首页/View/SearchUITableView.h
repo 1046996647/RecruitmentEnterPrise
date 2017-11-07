@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^SearchTableViewBlock)(NSMutableDictionary *dic);
+
 @interface SearchUITableView : UITableView<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) NSArray *dataArr;
 @property (nonatomic,strong) NSArray *selectArr;
+@property (nonatomic,copy) SearchTableViewBlock block;
 
 
 @end

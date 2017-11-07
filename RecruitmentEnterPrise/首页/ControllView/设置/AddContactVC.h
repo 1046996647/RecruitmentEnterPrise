@@ -6,10 +6,10 @@
 //  Copyright © 2017年 ZhangWeiLiang. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "BasePresentViewController.h"
 #import "AddContactModel.h"
 
-@interface AddContactVC : BaseViewController
+@interface AddContactVC : BasePresentViewController
 
 @property (nonatomic,strong) AddContactModel *model;
 

@@ -12,6 +12,7 @@
 #import "WordsVC.h"
 #import "MyMailboxVC.h"
 #import "ResumeSearchVC.h"
+#import "ResumeManage1VC.h"
 #import "ChatWantedVC.h"
 #import "SettingVC.h"
 #import "CompanyDetailVC.h"
@@ -99,7 +100,7 @@
         [scrollView addSubview:forgetBtn];
         self.forgetBtn = forgetBtn;
         forgetBtn.tag = i;
-        [forgetBtn addTarget:self action:@selector(btnAction1:) forControlEvents:UIControlEventTouchUpInside];
+        [forgetBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
 
         
         UILabel *label1 = [UILabel labelWithframe:CGRectMake(0, 10, forgetBtn.width, 28) text:@"0" font:[UIFont systemFontOfSize:18] textAlignment:NSTextAlignmentCenter textColor:@"#333333"];
@@ -132,7 +133,7 @@
         [scrollView addSubview:forgetBtn];
         self.forgetBtn1 = forgetBtn;
         forgetBtn.tag = i;
-//        [forgetBtn addTarget:self action:@selector(btnAction1:) forControlEvents:UIControlEventTouchUpInside];
+        [forgetBtn addTarget:self action:@selector(btnAction1:) forControlEvents:UIControlEventTouchUpInside];
         
         UILabel *label1 = [UILabel labelWithframe:CGRectMake(0, 10, forgetBtn.width, 28) text:@"0" font:[UIFont systemFontOfSize:18] textAlignment:NSTextAlignmentCenter textColor:@"#333333"];
         [forgetBtn addSubview:label1];
@@ -299,13 +300,32 @@
 
 }
 
-- (void)btnAction1:(UIButton *)btn
+- (void)btnAction:(UIButton *)btn
 {
     if (btn.tag == 2) {
         
         [self.view makeToast:[NSString stringWithFormat:@"接收%@条，发送%@条",self.model.msgReceive, self.model.msgSend]];
     }
     
+}
+
+- (void)btnAction1:(UIButton *)btn
+{
+    ResumeManage1VC *vc = [[ResumeManage1VC alloc] init];
+    vc.title = @"简历管理";
+    if (btn.tag == 0 ||
+        btn.tag == 1) {
+        
+        vc.selectedSegmentIndex = btn.tag;
+    }
+    
+    if (btn.tag == 2) {
+        
+        vc.selectedSegmentIndex = btn.tag+1;
+
+    }
+    [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 - (void)btnAction2:(UIButton *)btn

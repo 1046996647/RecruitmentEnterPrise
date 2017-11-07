@@ -10,4 +10,7 @@
 
 @interface InviteInterviewVC : BaseViewController
 
+@property(nonatomic,strong) NSMutableArray *selectedArr;// 选择数组
+
+
 @end

@@ -43,7 +43,7 @@
     lala.itemBackColor =  [UIColor clearColor];
     lala.itemTextNormalColor = colorWithHexStr(@"#EFCBD0");;
     lala.itemTextSelectedColor = colorWithHexStr(@"#D0021B");;
-    lala.selectedSegmentIndex = 0;
+    lala.selectedSegmentIndex = self.selectedSegmentIndex;
     lala.indicatorColor = colorWithHexStr(@"#D0021B");
     lala.isIndicatorsAnimals = YES;
     lala.itemTextFontSize = 12;

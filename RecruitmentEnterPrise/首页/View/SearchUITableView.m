@@ -22,18 +22,18 @@
         self.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;// 滑动时收起键盘
 
         
-        self.dataArr = @[@[@{@"leftTitle":@"求职者期望职位",@"rightTitle":@"请填写",@"text":@"",@"key":@"key"},
-                           @{@"leftTitle":@"求职者编号",@"rightTitle":@"请填写",@"text":@"",@"key":@"key"},
-                           @{@"leftTitle":@"籍贯",@"rightTitle":@"请填写",@"text":@"",@"key":@"key"},
-                           @{@"leftTitle":@"有无照片",@"rightTitle":@"请填写",@"text":@"不限",@"key":@"key"},
-                           @{@"leftTitle":@"最近上网日期",@"rightTitle":@"请填写",@"text":@"不限",@"key":@"key"},
-                           @{@"leftTitle":@"求职者性别",@"rightTitle":@"请填写",@"text":@"不限",@"key":@"key"},
-                           @{@"leftTitle":@"求职者专业",@"rightTitle":@"请填写",@"text":@"",@"key":@"key"},
-                           @{@"leftTitle":@"求职者工作经历",@"rightTitle":@"请填写",@"text":@"",@"key":@"key"},
-                           @{@"leftTitle":@"求职者学历",@"rightTitle":@"请填写",@"text":@"不限",@"key":@"key"},
+        self.dataArr = @[@[@{@"leftTitle":@"求职者期望职位",@"rightTitle":@"请填写",@"text":@"",@"key":@"hopepostion"},
+                           @{@"leftTitle":@"求职者编号",@"rightTitle":@"请填写",@"text":@"",@"key":@"workerId"},
+                           @{@"leftTitle":@"籍贯",@"rightTitle":@"请填写",@"text":@"",@"key":@"jiguan"},
+                           @{@"leftTitle":@"有无照片",@"rightTitle":@"请填写",@"text":@"不限",@"key":@"img"},
+                           @{@"leftTitle":@"最近上网日期",@"rightTitle":@"请填写",@"text":@"不限",@"key":@"lastTime"},
+                           @{@"leftTitle":@"求职者性别",@"rightTitle":@"请填写",@"text":@"不限",@"key":@"sex"},
+                           @{@"leftTitle":@"求职者专业",@"rightTitle":@"请填写",@"text":@"",@"key":@"speciality"},
+                           @{@"leftTitle":@"求职者工作经历",@"rightTitle":@"请填写",@"text":@"",@"key":@"jobhistory"},
+                           @{@"leftTitle":@"求职者学历",@"rightTitle":@"请填写",@"text":@"不限",@"key":@"education"},
                            @{@"leftTitle":@"求职者年龄",@"rightTitle":@"请填写",@"text":@"",@"key":@"key"},
-                           @{@"leftTitle":@"期望工作地点",@"rightTitle":@"请填写",@"text":@"不限",@"key":@"key"},
-                           @{@"leftTitle":@"姓名",@"rightTitle":@"请填写",@"text":@"",@"key":@"key"}
+                           @{@"leftTitle":@"期望工作地点",@"rightTitle":@"请填写",@"text":@"不限",@"key":@"hopelocation"},
+                           @{@"leftTitle":@"姓名",@"rightTitle":@"请填写",@"text":@"",@"key":@"name"}
                            ]
                          
                          ];
@@ -63,6 +63,9 @@
         releseBtn.layer.cornerRadius = 7;
         releseBtn.layer.masksToBounds = YES;
         [footerView addSubview:releseBtn];
+        [releseBtn addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
+
+        
         self.tableFooterView = footerView;
         
         // 选择项数据
@@ -122,6 +125,60 @@
     cell.selectArr = _selectArr;
     //    cell.selectJobArr = _selectJobArr;
     return cell;
+}
+
+- (void)saveAction
+{
+    NSMutableDictionary *paramDic = [[NSMutableDictionary  alloc]initWithCapacity:0];
+    
+    for (NSArray *arr in self.dataArr) {
+        
+        for (ReleaseJobModel *model in arr) {
+            
+            if ([model.leftTitle isEqualToString:@"求职者年龄"]) {
+                
+                if (model.minAge.length == 0) {
+                    [paramDic  setValue:@"不限" forKey:@"minAge"];
+                    
+                }
+                else {
+                    [paramDic  setValue:model.minAge forKey:@"minAge"];
+                    
+                }
+                
+                if (model.maxAge.length == 0) {
+                    [paramDic  setValue:@"不限" forKey:@"maxAge"];
+                    
+                }
+                else {
+                    [paramDic  setValue:model.maxAge forKey:@"maxAge"];
+                    
+                }
+                
+            }
+            else {
+                
+                if (model.text.length == 0) {
+                    [paramDic  setValue:@"不限" forKey:model.key];
+                    
+                }
+                else {
+                    [paramDic  setValue:model.text forKey:model.key];
+                    
+                }
+                
+            }
+        }
+        
+        
+        
+    }
+    
+    if (self.block) {
+        self.block(paramDic);
+    }
+    NSLog(@"%@",paramDic);
+
 }
 
 @end

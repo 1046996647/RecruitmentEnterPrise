@@ -52,6 +52,8 @@
         _tf1.clearButtonMode = UITextFieldViewModeNever;
         _tf1.textAlignment = NSTextAlignmentCenter;
         [_baseView addSubview:_tf1];
+        [_tf1 addTarget:self action:@selector(changeAction:) forControlEvents:UIControlEventEditingChanged];
+
 
         _label1 = [UILabel labelWithframe:CGRectMake(_tf1.right+2, _tf1.top, 26, _tf1.height) text:@"岁至" font:[UIFont systemFontOfSize:12] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
         [_baseView addSubview:_label1];
@@ -63,6 +65,8 @@
         _tf2.clearButtonMode = UITextFieldViewModeNever;
         _tf2.textAlignment = NSTextAlignmentCenter;
         [_baseView addSubview:_tf2];
+        [_tf2 addTarget:self action:@selector(changeAction:) forControlEvents:UIControlEventEditingChanged];
+
         
         _label2 = [UILabel labelWithframe:CGRectMake(_tf2.right+2, _tf1.top, 26, _tf1.height) text:@"岁" font:[UIFont systemFontOfSize:12] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
         [_baseView addSubview:_label2];
@@ -190,7 +194,17 @@
     
     if ([_model.leftTitle isEqualToString:@"性别要求"]||
         [_model.leftTitle isEqualToString:@"求职者性别"]) {
-        self.dataSource = @[@"不限",@"男",@"女"];
+        self.dataSource = @[@"男",@"女"];
+        
+    }
+    
+    if ([_model.leftTitle isEqualToString:@"有无照片"]) {
+        self.dataSource = @[@"有",@"无"];
+        
+    }
+    
+    if ([_model.leftTitle isEqualToString:@"最近上网日期"]) {
+        self.dataSource = @[@"一天内",@"三天内",@"一周内",@"半月内",@"一个月内",@"三个月内",@"半年内",@"一年内"];
         
     }
     
@@ -295,7 +309,16 @@
         return;
     }
     
-    [BRStringPickerView showStringPickerWithTitle:nil dataSource:self.dataSource defaultSelValue:self.dataSource[0] isAutoSelect:NO resultBlock:^(id selectValue) {
+    NSMutableArray *arrM = self.dataSource.mutableCopy;
+    if (!([_model.leftTitle isEqualToString:@"月薪"]||
+          [_model.leftTitle isEqualToString:@"学历要求"]||
+          [_model.leftTitle isEqualToString:@"住房要求"]||
+        [_model.leftTitle isEqualToString:@"应聘方式"])) {
+        
+        [arrM insertObject:@"不限" atIndex:0];
+    }
+
+    [BRStringPickerView showStringPickerWithTitle:nil dataSource:arrM defaultSelValue:arrM[0] isAutoSelect:NO resultBlock:^(id selectValue) {
 
         _tf.text = selectValue;
         _model.text = selectValue;
@@ -316,7 +339,16 @@
 
 - (void)changeAction:(UITextField *)tf
 {
-    _model.text = tf.text;
+    if ([_model.leftTitle isEqualToString:@"求职者年龄"]) {
+        
+        _model.minAge = _tf1.text;
+        _model.maxAge = _tf2.text;
+
+    }
+    else {
+        _model.text = tf.text;
+
+    }
     
 }
 

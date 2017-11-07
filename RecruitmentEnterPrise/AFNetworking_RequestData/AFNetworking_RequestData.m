@@ -42,6 +42,7 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
     }];
 }
 #pragma POST请求--------------
+// 参数response：为表视图的加载更多数据提供回调
 +(void)requestMethodPOSTUrl:(NSString*)url
                   dic:(NSMutableDictionary*)dic
               showHUD:(BOOL)hud

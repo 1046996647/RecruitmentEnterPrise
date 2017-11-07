@@ -11,6 +11,7 @@
 @interface ResumeSearchResultVC : BaseViewController
 
 @property(nonatomic,copy) NSString *searchText;
+@property(nonatomic,strong) NSMutableDictionary *dic;
 
 
 @end

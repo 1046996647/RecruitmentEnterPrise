@@ -15,6 +15,8 @@
 @property(nonatomic,strong) NSString *key;
 @property(nonatomic,strong) NSString *text;
 @property(nonatomic,strong) NSString *contactId;
+@property(nonatomic,strong) NSString *minAge;
+@property(nonatomic,strong) NSString *maxAge;
 
 @property (nonatomic,assign) BOOL isSelected;
 

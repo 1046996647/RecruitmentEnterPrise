@@ -9,8 +9,8 @@
 #import "BaseMessageVC.h"
 #import "EditHeadImgVC.h"
 #import "UIImage+UIImageExt.h"
-
 #import "AddContactCell.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface BaseMessageVC ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -159,6 +159,8 @@
 
 - (void)editImgAction
 {
+    
+    
     EditHeadImgVC *vc  = [[EditHeadImgVC alloc] init];
     vc.modalPresentationStyle=UIModalPresentationOverCurrentContext;
     //淡出淡入
@@ -170,29 +172,64 @@
         
         if (indexRow == 0) {
             
+            /* 用户体验更好
+            AVAuthorizationStatus AVstatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];//相机权限
+            
+            switch (AVstatus) {
+                case AVAuthorizationStatusAuthorized:
+                    NSLog(@"Authorized");
+                    break;
+                case AVAuthorizationStatusDenied:
+                    NSLog(@"Denied");
+                {
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"无法访问相机" message:@"你未开启“允许访问相机”选项" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:nil];
+                    UIAlertAction *setAction = [UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                    }];
+                    //                [okAction setValue:[UIColor colorWithHexString:@"#D0021B"] forKey:@"_titleTextColor"];
+                    [alertController addAction:okAction];
+                    [alertController addAction:setAction];
+                    [self presentViewController:alertController animated:YES completion:nil];
+                    return ;
+                }
+                    
+                    break;
+                case AVAuthorizationStatusNotDetermined:
+                    NSLog(@"not Determined");
+                    break;
+                case AVAuthorizationStatusRestricted:
+                    NSLog(@"Restricted");
+                    break;
+                default:
+                    break;
+            }
+            */
+
             // 创建相册控制器
             UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
-            
+
             // 设置代理对象
             pickerController.delegate = self;
             // 设置选择后的图片可以被编辑
             //            pickerController.allowsEditing=YES;
-            
+
             // 判断当前设备是否有摄像头
             if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear] || [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]) {
-                
+
                 // 设置类型
                 pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-                
+
             }
-            
+
             // 跳转到相册页面
             [self presentViewController:pickerController animated:YES completion:nil];
         }
         else {
             // 创建相册控制器
             UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
-            
+
             // 设置代理对象
             pickerController.delegate = self;
             // 设置选择后的图片可以被编辑

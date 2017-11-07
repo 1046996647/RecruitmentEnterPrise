@@ -18,47 +18,54 @@
 @property(nonatomic,strong) UITextField *tf;
 @property(nonatomic,strong) UIView *rightView;
 @property(nonatomic,strong) NSArray *dataArr;
-@property(nonatomic,strong) PlaceView *placeView;
+//@property(nonatomic,strong) PlaceView *placeView;
 @property(nonatomic,strong) SearchUITableView *searchUITableView;
 @property(nonatomic,strong) UIView *baseView;
 @property(nonatomic,strong) UIButton *timeBtn;
 @property(nonatomic,strong) UIButton *rightBtn;
+@property(nonatomic,strong) UICollectionView *collectionView;
 
+//@property(nonatomic,strong) NSMutableDictionary *dic;
 
 @end
 
 @implementation ResumeSearchVC
 
-- (PlaceView *)placeView
-{
-    if (!_placeView) {
-        
-        __weak typeof(self) weakSelf = self;
-        _placeView = [[PlaceView alloc] initWithFrame:CGRectMake(0, self.baseView.bottom, kScreenWidth, kScreenHeight-kTopHeight)];
-        _placeView.block = ^(NSString *place) {
-            
-            
-            [weakSelf.placeView removeFromSuperview];
-//            weakSelf.imgView.image = [UIImage imageNamed:@"55"];
-//            weakSelf.placeBtn.selected = NO;
-            if (place) {
-//                [weakSelf.placeBtn setTitle:place forState:UIControlStateNormal];
-//                [weakSelf.tableView.mj_header beginRefreshing];
-                
-            }
-        };
-    }
-    return _placeView;
-}
+//- (PlaceView *)placeView
+//{
+//    if (!_placeView) {
+//
+//        __weak typeof(self) weakSelf = self;
+//        _placeView = [[PlaceView alloc] initWithFrame:CGRectMake(0, self.baseView.bottom, kScreenWidth, kScreenHeight-kTopHeight)];
+//        _placeView.block = ^(NSString *place) {
+//
+//
+//            [weakSelf.placeView removeFromSuperview];
+//            weakSelf.timeBtn.selected = NO;
+//            if (place) {
+////                [weakSelf.placeBtn setTitle:place forState:UIControlStateNormal];
+////                [weakSelf.tableView.mj_header beginRefreshing];
+//
+//            }
+//        };
+//    }
+//    return _placeView;
+//}
 
 - (SearchUITableView *)searchUITableView
 {
     if (!_searchUITableView) {
         
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf =  self;
         _searchUITableView = [[SearchUITableView alloc] initWithFrame:CGRectMake(0, self.baseView.bottom, kScreenWidth, kScreenHeight-kTopHeight)];
         _searchUITableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;// 滑动时收起键盘
         _searchUITableView.backgroundColor = colorWithHexStr(@"#FAE5E8");
+        _searchUITableView.block = ^(NSMutableDictionary *dic) {
+            
+//            self.dic = dic;
+            [weakSelf pushAction:weakSelf.tf.text para:dic];
+
+        };
 
     }
     return _searchUITableView;
@@ -85,20 +92,20 @@
 
     
     //
-    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth-90-8, kStatusBarHeight+(kNavBarHeight-25)/2, 90, 25)];
+    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth-45-8, kStatusBarHeight+(kNavBarHeight-25)/2, 45, 25)];
 //    rightView.backgroundColor = [UIColor whiteColor];
     self.rightView = rightView;
     
-    UIButton *timeBtn = [UIButton buttonWithframe:CGRectMake(8, 0, 42, rightView.height) text:@"" font:SystemFont(12) textColor:@"#FFFFFF" backgroundColor:nil normal:@"6" selected:@"4"];
-    [rightView addSubview:timeBtn];
-    timeBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [timeBtn addTarget:self action:@selector(timeAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.timeBtn = timeBtn;
+//    UIButton *timeBtn = [UIButton buttonWithframe:CGRectMake(8, 0, 42, rightView.height) text:@"" font:SystemFont(12) textColor:@"#FFFFFF" backgroundColor:nil normal:@"6" selected:@"4"];
+//    [rightView addSubview:timeBtn];
+//    timeBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+//    [timeBtn addTarget:self action:@selector(timeAction:) forControlEvents:UIControlEventTouchUpInside];
+//    self.timeBtn = timeBtn;
     
-    UILabel *timeLab = [UILabel labelWithframe:CGRectMake(0, 0, 26, rightView.height) text:@"不限" font:[UIFont systemFontOfSize:12] textAlignment:NSTextAlignmentLeft textColor:@"#FFFFFF"];
-    [timeBtn addSubview:timeLab];
+//    UILabel *timeLab = [UILabel labelWithframe:CGRectMake(0, 0, 26, rightView.height) text:@"不限" font:[UIFont systemFontOfSize:12] textAlignment:NSTextAlignmentLeft textColor:@"#FFFFFF"];
+//    [timeBtn addSubview:timeLab];
     
-    UIButton *rightBtn = [UIButton buttonWithframe:CGRectMake(timeBtn.right+16, 0, 20, rightView.height) text:nil font:nil textColor:@"#FFFFFF" backgroundColor:nil normal:@"5" selected:@""];
+    UIButton *rightBtn = [UIButton buttonWithframe:CGRectMake((rightView.width-20)/2, 0, 20, rightView.height) text:nil font:nil textColor:@"#FFFFFF" backgroundColor:nil normal:@"5" selected:@""];
     [rightView addSubview:rightBtn];
     [rightBtn addTarget:self action:@selector(rightAction:) forControlEvents:UIControlEventTouchUpInside];
     self.rightBtn = rightBtn;
@@ -128,9 +135,6 @@
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:tfView];
 
     [baseView addSubview:_tf];
-    
-    // 热门关键字
-    self.dataArr = @[@"销售",@"会计",@"电商",@"外贸",@"淘宝美工",@"业务员"];
 
     
     UILabel *hotLab = [UILabel labelWithframe:CGRectMake(16, baseView.bottom+ 18, 62, 17) text:@"热门关键字" font:[UIFont systemFontOfSize:12] textAlignment:NSTextAlignmentRight textColor:@"#999999"];
@@ -156,7 +160,30 @@
     [collectionView registerClass:[HotJobCell class] forCellWithReuseIdentifier:@"cellID"];
     collectionView.contentInset = UIEdgeInsetsMake(0, 12, 0, 12);
     [self.view addSubview:collectionView];
+    self.collectionView = collectionView;
 
+    [self get_hot_keyword];
+}
+
+- (void)get_hot_keyword
+{
+
+    NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Get_hot_keyword dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        // 热门关键字
+        self.dataArr = responseObject[@"data"];
+        self.collectionView.height = 26*self.dataArr.count+12;
+        [self.collectionView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -164,30 +191,30 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)timeAction:(UIButton *)btn
-{
-    self.rightBtn.selected = NO;
-    [self.searchUITableView removeFromSuperview];
-
-    
-    btn.selected = !btn.selected;
-    
-    if (btn.selected) {
-        [self.view addSubview:self.placeView];
-//        self.imgView.image = [UIImage imageNamed:@"箭头"];
-    }
-    else {
-        [self.placeView removeFromSuperview];
-//        self.imgView.image = [UIImage imageNamed:@"55"];
-        
-    }
-
-}
+//- (void)timeAction:(UIButton *)btn
+//{
+//    self.rightBtn.selected = NO;
+//    [self.searchUITableView removeFromSuperview];
+//
+//
+//    btn.selected = !btn.selected;
+//
+//    if (btn.selected) {
+//        [self.view addSubview:self.placeView];
+////        self.imgView.image = [UIImage imageNamed:@"箭头"];
+//    }
+//    else {
+//        [self.placeView removeFromSuperview];
+////        self.imgView.image = [UIImage imageNamed:@"55"];
+//
+//    }
+//
+//}
 
 - (void)rightAction:(UIButton *)btn
 {
-    self.timeBtn.selected = NO;
-    [self.placeView removeFromSuperview];
+//    self.timeBtn.selected = NO;
+//    [self.placeView removeFromSuperview];
     
     btn.selected = !btn.selected;
     
@@ -235,17 +262,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    ResumeSearchResultVC *vc = [[ResumeSearchResultVC alloc] init];
-    vc.title = @"简历搜索";
-    [self.navigationController pushViewController:vc animated:YES];
-//    NSString *keyword = self.dataArr[indexPath.item][@"name"];
-//    [self pushAction:keyword];
-//
-//    if (![self.hisArr containsObject:keyword]) {
-//        [self.hisArr addObject:keyword];
-//        [InfoCache saveValue:_hisArr forKey:HistoryPath];
-//        [self.tableView reloadData];
-//    }
+    NSString *keyword = self.dataArr[indexPath.item];
+    [self pushAction:keyword para:nil];
+
     
 }
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -267,23 +286,24 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     if (textField.text.length == 0) {
         [textField resignFirstResponder];
-        
+
         return YES;
     }
-    
+
     [textField resignFirstResponder];
 
-    [self pushAction:textField.text];
+    [self pushAction:textField.text para:nil];
     
     return YES;
 
 }
 
 // 搜索结果
-- (void)pushAction:(NSString *)text
+- (void)pushAction:(NSString *)text para:(NSMutableDictionary *)dic
 {
     ResumeSearchResultVC *vc = [[ResumeSearchResultVC alloc] init];
     vc.searchText = text;
+    vc.dic = dic;
     vc.title = @"简历搜索";
     [self.navigationController pushViewController:vc animated:YES];
 }

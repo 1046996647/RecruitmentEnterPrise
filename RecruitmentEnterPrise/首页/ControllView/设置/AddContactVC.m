@@ -110,8 +110,15 @@
     
     [AFNetworking_RequestData requestMethodPOSTUrl:url dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
-        [self.navigationController popViewControllerAnimated:YES];
-        
+        if ([self.title isEqualToString:@"修改联系人"]) {
+            [self.navigationController popViewControllerAnimated:YES];
+            
+            
+        }
+        else {
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            
+        }
         
     } failure:^(NSError *error) {
         

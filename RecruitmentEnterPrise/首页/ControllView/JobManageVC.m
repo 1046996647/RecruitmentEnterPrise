@@ -83,6 +83,11 @@
 // 2.8    职位显示顺序修改
 - (void)orderAction
 {
+    if (self.orderArr.count == 0) {
+        [self.view makeToast:@"请先修改排序"];
+        return;
+    }
+    
     NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
     
     // 职位id
@@ -135,7 +140,7 @@
 
     if (self.selectedArr.count == 0) {
         
-        [self.view makeToast:@"请选择"];
+        [self.view makeToast:@"请先选择职位"];
         return;
     }
     

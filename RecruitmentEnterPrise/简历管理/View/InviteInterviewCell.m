@@ -28,10 +28,11 @@
         [_tf setValue:[UIColor colorWithHexString:@"#999999"] forKeyPath:@"_placeholderLabel.textColor"];
 //        _tf.backgroundColor = [UIColor yellowColor];
         [self.contentView addSubview:_tf];
-//        [_tf addTarget:self action:@selector(changeAction:) forControlEvents:UIControlEventEditingChanged];
+        [_tf addTarget:self action:@selector(changeAction:) forControlEvents:UIControlEventEditingChanged];
         
         UIButton *saveBtn = [UIButton buttonWithframe:_tf.bounds text:nil font:[UIFont systemFontOfSize:14] textColor:@"#333333" backgroundColor:nil normal:nil selected:nil];
 //        [saveBtn addTarget:self action:@selector(pushAction) forControlEvents:UIControlEventTouchUpInside];
+        saveBtn.userInteractionEnabled = NO;
         [_tf addSubview:saveBtn];
         self.saveBtn = saveBtn;
 //        saveBtn.backgroundColor = [UIColor yellowColor];
@@ -63,6 +64,11 @@
     
     return self;
 }
+- (void)changeAction:(UITextField *)tf
+{
+    _model.text = tf.text;
+    
+}
 
 - (void)setModel:(ContactModel *)model
 {
@@ -74,10 +80,11 @@
     
     if ([_model.title isEqualToString:@"请选择联系人"]) {
         self.saveBtn.hidden = NO;
-
+        _tf.enabled = NO;
     }
     else {
         self.saveBtn.hidden = YES;
+        _tf.enabled = YES;
 
     }
     

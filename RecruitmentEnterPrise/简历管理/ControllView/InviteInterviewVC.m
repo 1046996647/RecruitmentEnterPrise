@@ -8,10 +8,16 @@
 
 #import "InviteInterviewVC.h"
 #import "InviteInterviewCell.h"
+#import "ResDetailCollectionViewCell.h"
+#import "ContactManageVC.h"
+#import "ReleaseJobModel.h"
+#import "BRPickerView.h"
 
-@interface InviteInterviewVC ()<UITableViewDelegate,UITableViewDataSource>
+
+@interface InviteInterviewVC ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic,strong) NSArray *dataArr;
+@property (nonatomic,strong) NSArray *jobArr;
 @property(nonatomic,strong) UITableView *tableView;
 
 
@@ -28,7 +34,6 @@
     UIImageView *imgView = [UIImageView imgViewWithframe:CGRectMake((kScreenWidth-341*scaleWidth)/2, 20, 341*scaleWidth, 560*scaleWidth) icon:@"Combined Shape"];
     [self.view addSubview:imgView];
     imgView.userInteractionEnabled = YES;
-    
     
     
     // 表视图
@@ -58,19 +63,40 @@
     UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(_tableView.left, 0, _tableView.width, 0)];
     [imgView addSubview:baseView];
     
-    UIImageView *userImg = [UIImageView imgViewWithframe:CGRectMake((imgView.width-50)/2, 15, 50, 50) icon:@""];
-    userImg.backgroundColor = [UIColor redColor];
-    userImg.layer.cornerRadius = userImg.height/2;
-    userImg.layer.masksToBounds = YES;
-    [baseView addSubview:userImg];
+//    UIImageView *userImg = [UIImageView imgViewWithframe:CGRectMake((imgView.width-50)/2, 15, 50, 50) icon:@""];
+//    userImg.backgroundColor = [UIColor redColor];
+//    userImg.layer.cornerRadius = userImg.height/2;
+//    userImg.layer.masksToBounds = YES;
+//    [baseView addSubview:userImg];
     
-    UILabel *nameLab = [UILabel labelWithframe:CGRectMake(0, userImg.bottom+5, imgView.width, 17) text:@"陈启平" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentCenter textColor:@"#333333"];
-    [baseView addSubview:nameLab];
+    CGFloat width = (self.selectedArr.count+1)*12+self.selectedArr.count*50;
     
-    UILabel *selectLab = [UILabel labelWithframe:CGRectMake(0, nameLab.bottom+12, imgView.width, 17) text:@"选择面试职位" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentCenter textColor:@"#D0021B"];
-    [baseView addSubview:selectLab];
+    if (width > baseView.width) {
+        width = baseView.width;
+    }
+
+    UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+    layout.itemSize = CGSizeMake(50, 74);
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    layout.minimumLineSpacing = 12;
+    UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake((baseView.width-width)/2, 15, width,74) collectionViewLayout:layout];
+    collectionView.backgroundColor = [UIColor clearColor];
+    collectionView.delegate = self;
+    collectionView.dataSource = self;
+    //        collectionView.scrollsToTop = NO;
+    collectionView.showsVerticalScrollIndicator = NO;
+    collectionView.showsHorizontalScrollIndicator = NO;
+    [collectionView registerClass:[ResDetailCollectionViewCell class] forCellWithReuseIdentifier:@"cellID"];
+    collectionView.contentInset = UIEdgeInsetsMake(0, 12, 0, 12);
+    [baseView addSubview:collectionView];
     
-    baseView.height = selectLab.bottom;
+    
+    UIButton *selectBtn = [UIButton buttonWithframe:CGRectMake(0, collectionView.bottom+12, imgView.width, 17) text:@"选择面试职位" font:[UIFont systemFontOfSize:14] textColor:@"#D0021B" backgroundColor:nil normal:nil selected:nil];
+    [selectBtn addTarget:self action:@selector(selectAction) forControlEvents:UIControlEventTouchUpInside];
+    [baseView addSubview:selectBtn];
+    
+    
+    baseView.height = selectBtn.bottom;
 
     _tableView.tableHeaderView = baseView;
 
@@ -86,6 +112,31 @@
     
     _tableView.tableFooterView = footerView;
     
+    
+    [self get_position];
+}
+
+- (void)selectAction
+{
+    NSMutableArray *arrM = [NSMutableArray array];
+    for (ReleaseJobModel *model in self.jobArr) {
+        
+        [arrM addObject:model.title];
+    }
+    [BRStringPickerView showStringPickerWithTitle:nil dataSource:arrM defaultSelValue:arrM[0] isAutoSelect:NO resultBlock:^(id selectValue) {
+        
+//        _tf.text = selectValue;
+//        _model.text = selectValue;
+        
+        //        if ([_model.leftTitle isEqualToString:@"工作年限"]||
+        //            [_model.leftTitle isEqualToString:@"工作经验"]) {
+        //
+        //            _model.text = [_model.text substringToIndex:_model.text.length-1];
+        //            NSLog(@"-----%@",selectValue);
+        //
+        //        }
+        
+    }];
 }
 
 - (void)btnAction
@@ -96,6 +147,26 @@
     [alertController addAction:okAction];
     [self presentViewController:alertController animated:YES completion:nil];
     
+}
+
+- (void)get_position
+{
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Get_position dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        NSMutableArray *arrM = [NSMutableArray array];
+        for (NSDictionary *dic in responseObject[@"data"]) {
+            
+            ReleaseJobModel *model = [ReleaseJobModel yy_modelWithDictionary:dic];
+            [arrM addObject:model];
+        }
+        self.jobArr = arrM;
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - UITableViewDataSource
@@ -130,6 +201,28 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    if (indexPath.row == 0) {
+        ContactManageVC *vc = [[ContactManageVC alloc] init];
+        vc.title = @"联系人管理";
+        vc.mark = 1;
+        [self.navigationController pushViewController:vc animated:YES];
+        vc.block = ^(AddContactModel *model) {
+
+            for (ContactModel *model1 in self.dataArr) {
+                
+                if ([model1.title isEqualToString:@"请填写联系人"]) {
+                    model1.text = model.name;
+                }
+                if ([model1.title isEqualToString:@"请填写联系方式"]) {
+                    model1.text = model.tele;
+                }
+            }
+            
+            [_tableView reloadData];
+        };
+    }
+
+    
 }
 
 
@@ -153,6 +246,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.selectedArr.count;
+}
 
+
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ResDetailCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellID" forIndexPath:indexPath];
+    
+    ResumeModel *model = self.selectedArr[indexPath.item];
+    cell.model = model;
+    return cell;
+    
+}
 
 @end

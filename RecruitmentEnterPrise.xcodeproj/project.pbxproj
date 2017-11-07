@@ -100,6 +100,11 @@
 		F76AD8631F97452500BA88D3 /* SearchUITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F76AD8621F97452500BA88D3 /* SearchUITableView.m */; };
 		F76AD8661F97515700BA88D3 /* ResumeSearchResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F76AD8651F97515700BA88D3 /* ResumeSearchResultVC.m */; };
 		F76AD8691F97520500BA88D3 /* ResumeSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F76AD8681F97520500BA88D3 /* ResumeSearchResultCell.m */; };
+		F77622691FB0035400102A06 /* ResumeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F77622681FB0035400102A06 /* ResumeModel.m */; };
+		F776226C1FB0158700102A06 /* EditResumeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F776226B1FB0158600102A06 /* EditResumeVC.m */; };
+		F776226F1FB015F400102A06 /* EditResumeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F776226E1FB015F400102A06 /* EditResumeCell.m */; };
+		F77622721FB024B100102A06 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F77622701FB024B000102A06 /* HeaderView.m */; };
+		F77622751FB0350800102A06 /* ResDetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F77622731FB0350700102A06 /* ResDetailCollectionViewCell.m */; };
 		F78870FA1F9D84AA008CDD52 /* InviteInterviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F78870F91F9D84AA008CDD52 /* InviteInterviewVC.m */; };
 		F78871001F9D8D0D008CDD52 /* InviteInterviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F78870FF1F9D8D0D008CDD52 /* InviteInterviewCell.m */; };
 		F78871041F9DB32C008CDD52 /* ContactModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F78871031F9DB32C008CDD52 /* ContactModel.m */; };
@@ -322,6 +327,16 @@
 		F76AD8651F97515700BA88D3 /* ResumeSearchResultVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResumeSearchResultVC.m; sourceTree = "<group>"; };
 		F76AD8671F97520500BA88D3 /* ResumeSearchResultCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResumeSearchResultCell.h; sourceTree = "<group>"; };
 		F76AD8681F97520500BA88D3 /* ResumeSearchResultCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResumeSearchResultCell.m; sourceTree = "<group>"; };
+		F77622671FB0035400102A06 /* ResumeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResumeModel.h; sourceTree = "<group>"; };
+		F77622681FB0035400102A06 /* ResumeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResumeModel.m; sourceTree = "<group>"; };
+		F776226A1FB0158600102A06 /* EditResumeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditResumeVC.h; sourceTree = "<group>"; };
+		F776226B1FB0158600102A06 /* EditResumeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditResumeVC.m; sourceTree = "<group>"; };
+		F776226D1FB015F400102A06 /* EditResumeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditResumeCell.h; sourceTree = "<group>"; };
+		F776226E1FB015F400102A06 /* EditResumeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditResumeCell.m; sourceTree = "<group>"; };
+		F77622701FB024B000102A06 /* HeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeaderView.m; sourceTree = "<group>"; };
+		F77622711FB024B100102A06 /* HeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeaderView.h; sourceTree = "<group>"; };
+		F77622731FB0350700102A06 /* ResDetailCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResDetailCollectionViewCell.m; sourceTree = "<group>"; };
+		F77622741FB0350700102A06 /* ResDetailCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResDetailCollectionViewCell.h; sourceTree = "<group>"; };
 		F78870F81F9D84AA008CDD52 /* InviteInterviewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InviteInterviewVC.h; sourceTree = "<group>"; };
 		F78870F91F9D84AA008CDD52 /* InviteInterviewVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InviteInterviewVC.m; sourceTree = "<group>"; };
 		F78870FE1F9D8D0D008CDD52 /* InviteInterviewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InviteInterviewCell.h; sourceTree = "<group>"; };
@@ -408,6 +423,8 @@
 				F766D9301F95AB2C004C74F0 /* ResumeCollectionVC.m */,
 				F78870F81F9D84AA008CDD52 /* InviteInterviewVC.h */,
 				F78870F91F9D84AA008CDD52 /* InviteInterviewVC.m */,
+				F776226A1FB0158600102A06 /* EditResumeVC.h */,
+				F776226B1FB0158600102A06 /* EditResumeVC.m */,
 			);
 			path = ControllView;
 			sourceTree = "<group>";
@@ -708,8 +725,14 @@
 			children = (
 				F766D93B1F95CBE2004C74F0 /* ResumeReceiveCell.h */,
 				F766D93C1F95CBE2004C74F0 /* ResumeReceiveCell.m */,
+				F776226D1FB015F400102A06 /* EditResumeCell.h */,
+				F776226E1FB015F400102A06 /* EditResumeCell.m */,
+				F77622711FB024B100102A06 /* HeaderView.h */,
+				F77622701FB024B000102A06 /* HeaderView.m */,
 				F78870FE1F9D8D0D008CDD52 /* InviteInterviewCell.h */,
 				F78870FF1F9D8D0D008CDD52 /* InviteInterviewCell.m */,
+				F77622741FB0350700102A06 /* ResDetailCollectionViewCell.h */,
+				F77622731FB0350700102A06 /* ResDetailCollectionViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -752,6 +775,8 @@
 				F75F9D181FA3176D00F7148A /* JobModel.m */,
 				F75647831F998A0E0060E744 /* AddContactModel.h */,
 				F75647841F998A0E0060E744 /* AddContactModel.m */,
+				F77622671FB0035400102A06 /* ResumeModel.h */,
+				F77622681FB0035400102A06 /* ResumeModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1133,6 +1158,7 @@
 				F75647941F99C2C40060E744 /* CompanyDetailVC.m in Sources */,
 				F75647851F998A0E0060E744 /* AddContactModel.m in Sources */,
 				F71C04291F9839690024C1EC /* ChatWantedVC.m in Sources */,
+				F77622721FB024B100102A06 /* HeaderView.m in Sources */,
 				F766D91D1F95AA99004C74F0 /* MJCTitlesView.m in Sources */,
 				F766D9231F95AA99004C74F0 /* UILabel+MJCClassExtension.m in Sources */,
 				F74820571F91FCCA00F072CD /* main.m in Sources */,
@@ -1156,6 +1182,7 @@
 				F766D91F1F95AA99004C74F0 /* MJCCommonTools.m in Sources */,
 				F75F9D191FA3176D00F7148A /* JobModel.m in Sources */,
 				F78871071F9DD959008CDD52 /* CompanyAddressVC.m in Sources */,
+				F77622691FB0035400102A06 /* ResumeModel.m in Sources */,
 				F766D91E1F95AA99004C74F0 /* MJCAlertMessage.m in Sources */,
 				F76AD8691F97520500BA88D3 /* ResumeSearchResultCell.m in Sources */,
 				F74820C31F91FE8B00F072CD /* BRAddressModel.m in Sources */,
@@ -1180,6 +1207,7 @@
 				F766D9201F95AA99004C74F0 /* MJCOrdinaryLayout.m in Sources */,
 				F76AD85D1F973E9E00BA88D3 /* HotJobCell.m in Sources */,
 				F75EB67C1F96F61500CBCA7C /* MyMailboxVC.m in Sources */,
+				F77622751FB0350800102A06 /* ResDetailCollectionViewCell.m in Sources */,
 				F766D93A1F95C880004C74F0 /* ResumeManageVC.m in Sources */,
 				F766D92B1F95AB02004C74F0 /* ResumeCheckedVC.m in Sources */,
 				F78D93861F92064A00E0DCA9 /* NavigationController.m in Sources */,
@@ -1196,6 +1224,7 @@
 				F766D9281F95AABF004C74F0 /* ResumeReceiveVC.m in Sources */,
 				F766D93D1F95CBE2004C74F0 /* ResumeReceiveCell.m in Sources */,
 				F756477F1F9986460060E744 /* AddContactVC.m in Sources */,
+				F776226C1FB0158700102A06 /* EditResumeVC.m in Sources */,
 				F75EB67F1F96F62E00CBCA7C /* ReceiveMsgVC.m in Sources */,
 				F74F989B1FA027D20027C418 /* CompanyintroduceVC.m in Sources */,
 				F705A7E31F94985500298D57 /* BasePresentViewController.m in Sources */,
@@ -1204,6 +1233,7 @@
 				F75BD65F1F94866800433133 /* ReleaseJob1VC.m in Sources */,
 				F766D9211F95AA99004C74F0 /* UIButton+MJCClassExtension.m in Sources */,
 				F74820C61F91FE8B00F072CD /* BaseView.m in Sources */,
+				F776226F1FB015F400102A06 /* EditResumeCell.m in Sources */,
 				F766D9251F95AA99004C74F0 /* MJCSegmentInterface.m in Sources */,
 				F766D91C1F95AA99004C74F0 /* MJCTabItem.m in Sources */,
 			);

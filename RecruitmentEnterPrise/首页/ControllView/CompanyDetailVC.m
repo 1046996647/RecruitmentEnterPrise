@@ -47,12 +47,12 @@
             
         }
         
-        NSArray *arr = responseObject[@"jobs"];
+        NSArray *arr = model.jobs;
         if ([arr isKindOfClass:[NSArray class]]) {
             
             NSMutableArray *arrM = [NSMutableArray array];
             for (NSDictionary *dic in arr) {
-                PersonModel *model = [PersonModel yy_modelWithJSON:dic];
+                JobModel *model = [JobModel yy_modelWithJSON:dic];
                 [arrM addObject:model];
             }
             
@@ -194,8 +194,8 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return self.modelArr.count;
-    return 10;
+    return self.modelArr.count;
+//    return 10;
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -220,7 +220,7 @@
         cell = [[JobDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         
     }
-//    cell.model = self.modelArr[indexPath.row];
+    cell.model = self.modelArr[indexPath.row];
     return cell;
 }
 

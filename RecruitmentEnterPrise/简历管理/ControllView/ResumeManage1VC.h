@@ -10,4 +10,8 @@
 
 @interface ResumeManage1VC : BasePresentViewController
 
+@property(nonatomic,assign) NSInteger selectedSegmentIndex;
+
+
+
 @end

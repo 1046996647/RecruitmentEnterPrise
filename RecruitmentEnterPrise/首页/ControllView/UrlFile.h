@@ -100,14 +100,20 @@
 #define Update_position  [NSString stringWithFormat:@"%@/Jobs/update_position",BaseUrl]
 
 
-
 // 2.5    删除职位
 #define Delete_position  [NSString stringWithFormat:@"%@/Jobs/delete_position",BaseUrl]
 
 // 2.6    更改职位状态
 #define Alter_position_status  [NSString stringWithFormat:@"%@/Jobs/alter_position_status",BaseUrl]
 
+// 5.6    获取热门关键字
+#define Get_hot_keyword  [NSString stringWithFormat:@"%@/QuickGet/get_hot_keyword",BaseUrl]
 
+// 4.1    搜索简历
+#define Search_resume  [NSString stringWithFormat:@"%@/Resume/search_resume/",BaseUrl]
+
+// 4.2    获取简历详情
+#define Resume_detail  [NSString stringWithFormat:@"%@/Resume/resume_detail",BaseUrl]
 
 // 1.16	上传头像
 #define Upload_company_logo  [NSString stringWithFormat:@"%@/User/upload_company_logo",BaseUrl]
