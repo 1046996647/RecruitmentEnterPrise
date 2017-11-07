@@ -155,7 +155,7 @@
         self.remindLabel.hidden = YES;
         
     }
-    //    count.text = [NSString stringWithFormat:@"%lu/100", textView.text.length  ];
+    _model.text = textView.text;
 }
 
 @end

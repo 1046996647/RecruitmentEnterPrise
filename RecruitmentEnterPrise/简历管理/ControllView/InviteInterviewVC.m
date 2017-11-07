@@ -19,7 +19,9 @@
 @property (nonatomic,strong) NSArray *dataArr;
 @property (nonatomic,strong) NSArray *jobArr;
 @property(nonatomic,strong) UITableView *tableView;
+@property(nonatomic,strong) UIButton *selectBtn;
 
+@property(nonatomic,strong) NSString *jobId;
 
 @end
 
@@ -37,11 +39,11 @@
     
     
     // 表视图
-    self.dataArr = @[@{@"image":@"19",@"title":@"请选择联系人",@"text":@"",@"key":@"company_name"},
-                     @{@"image":@"18",@"title":@"请填写联系人",@"text":@"",@"key":@"position"},
-                     @{@"image":@"17",@"title":@"请填写联系方式",@"text":@"",@"key":@"position"},
-                     @{@"image":@"16",@"title":@"请填写地址",@"text":@"",@"key":@"position"},
-                     @{@"image":@"15",@"title":@"输入邀请内容",@"text":@"",@"key":@"position"}];
+    self.dataArr = @[@{@"image":@"19",@"title":@"请选择联系人",@"text":@"",@"key":@"key"},
+                     @{@"image":@"18",@"title":@"请填写联系人",@"text":@"",@"key":@"name"},
+                     @{@"image":@"17",@"title":@"请填写联系方式",@"text":@"",@"key":@"tele"},
+                     @{@"image":@"16",@"title":@"请填写地址",@"text":@"",@"key":@"address"},
+                     @{@"image":@"15",@"title":@"输入邀请内容",@"text":@"",@"key":@"info"}];
     
     NSMutableArray *arrM = [NSMutableArray array];
     for (NSDictionary *dic in self.dataArr) {
@@ -94,7 +96,7 @@
     UIButton *selectBtn = [UIButton buttonWithframe:CGRectMake(0, collectionView.bottom+12, imgView.width, 17) text:@"选择面试职位" font:[UIFont systemFontOfSize:14] textColor:@"#D0021B" backgroundColor:nil normal:nil selected:nil];
     [selectBtn addTarget:self action:@selector(selectAction) forControlEvents:UIControlEventTouchUpInside];
     [baseView addSubview:selectBtn];
-    
+    self.selectBtn = selectBtn;
     
     baseView.height = selectBtn.bottom;
 
@@ -113,46 +115,74 @@
     _tableView.tableFooterView = footerView;
     
     
-    [self get_position];
 }
 
 - (void)selectAction
 {
-    NSMutableArray *arrM = [NSMutableArray array];
-    for (ReleaseJobModel *model in self.jobArr) {
-        
-        [arrM addObject:model.title];
-    }
-    [BRStringPickerView showStringPickerWithTitle:nil dataSource:arrM defaultSelValue:arrM[0] isAutoSelect:NO resultBlock:^(id selectValue) {
-        
-//        _tf.text = selectValue;
-//        _model.text = selectValue;
-        
-        //        if ([_model.leftTitle isEqualToString:@"工作年限"]||
-        //            [_model.leftTitle isEqualToString:@"工作经验"]) {
-        //
-        //            _model.text = [_model.text substringToIndex:_model.text.length-1];
-        //            NSLog(@"-----%@",selectValue);
-        //
-        //        }
-        
-    }];
+    [self get_position];
+
+    
+
 }
 
 - (void)btnAction
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"已成功发送面试邀请" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:nil];
-    [okAction setValue:[UIColor colorWithHexString:@"#D0021B"] forKey:@"_titleTextColor"];
-    [alertController addAction:okAction];
-    [self presentViewController:alertController animated:YES completion:nil];
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+
+    for (ContactModel *model1 in self.dataArr) {
+        
+        if (![model1.title isEqualToString:@"请选择联系人"]) {
+            
+            if (model1.text.length == 0) {
+                [self.view makeToast:@"请补充面试邀请信息"];
+                return;
+            }
+            [paramDic setValue:model1.text forKey:model1.key];
+        }
+
+    }
+    if (self.jobId.length == 0) {
+        [self.view makeToast:@"请补充面试邀请信息"];
+        return;
+
+    }
+    [paramDic setValue:self.jobId forKey:@"jobId"];
+    
+    // 求职者编号
+    NSMutableArray *idArr = [NSMutableArray array];
+    for (ResumeModel *model in self.selectedArr) {
+        [idArr addObject:model.workerId];
+    }
+    NSString *string = [idArr componentsJoinedByString:@","]; //,为分隔符
+    [paramDic setValue:string forKey:@"workerId"];
+
+    [AFNetworking_RequestData requestMethodPOSTUrl:Interview_invite dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"已成功发送面试邀请" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+
+            });
+        }];
+        [okAction setValue:[UIColor colorWithHexString:@"#D0021B"] forKey:@"_titleTextColor"];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+
     
 }
 
 - (void)get_position
 {
     
-    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    NSMutableDictionary *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
     
     [AFNetworking_RequestData requestMethodPOSTUrl:Get_position dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
@@ -163,6 +193,28 @@
             [arrM addObject:model];
         }
         self.jobArr = arrM;
+        
+        if (self.jobArr.count > 0) {
+            NSMutableArray *arrM = [NSMutableArray array];
+            for (ReleaseJobModel *model in self.jobArr) {
+                
+                [arrM addObject:model.title];
+            }
+            [BRStringPickerView showStringPickerWithTitle:nil dataSource:arrM defaultSelValue:arrM[0] isAutoSelect:NO resultBlock:^(id selectValue) {
+                
+                [self.selectBtn setTitle:selectValue forState:UIControlStateNormal];
+                
+                for (ReleaseJobModel *model in self.jobArr) {
+                    
+                    if ([model.title isEqualToString:selectValue]) {
+                        self.jobId = model.jobId;
+                        break;
+                    }
+                }
+                
+                
+            }];
+        }
         
     } failure:^(NSError *error) {
         

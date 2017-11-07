@@ -215,6 +215,7 @@
 {
 //    self.timeBtn.selected = NO;
 //    [self.placeView removeFromSuperview];
+    [self.view endEditing:YES];
     
     btn.selected = !btn.selected;
     
@@ -283,6 +284,16 @@
 }
 
 #pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    
+    self.rightBtn.selected = NO;
+    [self.searchUITableView removeFromSuperview];
+    return YES;
+}
+
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     if (textField.text.length == 0) {
         [textField resignFirstResponder];

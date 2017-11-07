@@ -25,6 +25,7 @@
 @property (nonatomic,strong) UILabel *phoneLabel;
 @property (nonatomic,strong) UILabel *hopeLabel;
 @property (nonatomic,strong) UIButton *userBtn;
+@property(nonatomic,strong) UIButton *cellctionBtn;
 
 
 
@@ -41,7 +42,7 @@
     headView.backgroundColor = [UIColor whiteColor];
     
     // 简历信息
-    UIButton *userBtn = [UIButton buttonWithframe:CGRectMake(6, 14, 66, 66) text:nil font:nil textColor:nil backgroundColor:nil normal:@"96" selected:nil];
+    UIButton *userBtn = [UIButton buttonWithframe:CGRectMake(6, 14, 66, 66) text:nil font:nil textColor:nil backgroundColor:nil normal:@"" selected:nil];
 //    [userBtn addTarget:self action:@selector(headImgAction) forControlEvents:UIControlEventTouchUpInside];
     [headView addSubview:userBtn];
     self.userBtn = userBtn;
@@ -100,9 +101,79 @@
     releseBtn.layer.cornerRadius = 7;
     releseBtn.layer.masksToBounds = YES;
     [footerView addSubview:releseBtn];
-    _tableView.tableFooterView = footerView;
     //    [releseBtn addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
+
+    if (self.mark == 1) {
+        _tableView.tableFooterView = footerView;
+
+    }
+    
+    // 右上角按钮
+    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 40)];
+    
+    [self.view addSubview:rightView];
+    
+    UIButton *cellctionBtn = [UIButton buttonWithframe:CGRectMake(0, 10, 20, 20) text:nil font:nil textColor:nil backgroundColor:nil normal:@"Star" selected:@"Star Copy"];
+    
+    [rightView addSubview:cellctionBtn];
+//    [cellctionBtn addTarget:self action:@selector(cellctionAction) forControlEvents:UIControlEventTouchUpInside];
+    self.cellctionBtn = cellctionBtn;
+    
+//    if (_model.favs.integerValue == 0) {
+//        cellctionBtn.selected = NO;
+//    }
+//    else {
+//        cellctionBtn.selected = YES;
+//
+//    }
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
 }
+
+//- (void)cellctionAction
+//
+//{
+//    PersonModel *model = [InfoCache unarchiveObjectWithFile:Person];
+//    if (!model) {
+//        LoginVC *vc = [[LoginVC alloc] init];
+//        [self.navigationController pushViewController:vc animated:YES];
+//
+//        return;
+//    }
+//
+//    NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
+//    [paraDic setValue:self.model.ID forKey:@"id"];
+//
+//    if (_model.favs.integerValue == 0) {
+//        //        [paraDic setValue:@"0" forKey:@"del"];
+//    }
+//    else {
+//        [paraDic setValue:@(1) forKey:@"del"];// 取消收藏
+//
+//    }
+//
+//    [AFNetworking_RequestData requestMethodPOSTUrl:Favs_job dic:paraDic showHUD:YES Succed:^(id responseObject) {
+//
+//        if ([responseObject[@"message"] isEqualToString:@"收藏成功"]) {
+//            self.cellctionBtn.selected = YES;
+//            _model.favs = @"1";
+//        }
+//        else {
+//            self.cellctionBtn.selected = NO;
+//            _model.favs = @"0";
+//
+//        }
+//
+//        [self.view makeToast:responseObject[@"message"]];
+//
+//
+//    } failure:^(NSError *error) {
+//
+//
+//    }];
+//
+//}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -155,11 +226,11 @@
         
         self.editBtn.left = self.signLabel.right+11;
 
-        self.infoLabel.text = [NSString stringWithFormat:@"%@|%@cm|%@kg",model.sex,model.height,model.weight];
+        self.infoLabel.text = [NSString stringWithFormat:@"%@|%@岁|%@cm|%@kg",model.sex,model.age,model.height,model.weight];
         
         self.phoneLabel.text = [NSString stringWithFormat:@"%@  户籍：%@  所在地：%@",model.phone,model.jiguan,model.home];
 
-        self.hopeLabel.text = [NSString stringWithFormat:@"%@ %@ %@",model.marry,model.political,model.jobyear];
+        self.hopeLabel.text = [NSString stringWithFormat:@"%@ %@ %@年工作经验",model.marry,model.political,model.jobyear];
         
 
 

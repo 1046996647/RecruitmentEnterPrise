@@ -115,6 +115,9 @@
 // 4.2    获取简历详情
 #define Resume_detail  [NSString stringWithFormat:@"%@/Resume/resume_detail",BaseUrl]
 
+// 4.3    面试邀请
+#define Interview_invite  [NSString stringWithFormat:@"%@/Resume/interview_invite",BaseUrl]
+
 // 1.16	上传头像
 #define Upload_company_logo  [NSString stringWithFormat:@"%@/User/upload_company_logo",BaseUrl]
 

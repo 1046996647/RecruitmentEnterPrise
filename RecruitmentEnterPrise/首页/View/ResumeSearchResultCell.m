@@ -7,6 +7,7 @@
 //
 
 #import "ResumeSearchResultCell.h"
+#import "NSStringExt.h"
 
 @implementation ResumeSearchResultCell
 
@@ -58,17 +59,17 @@
         _eduBtn.userInteractionEnabled = NO;
         [baseView addSubview:_eduBtn];
         
-        _jobBtn = [UIButton buttonWithframe:CGRectMake(_eduBtn.right+9, _jobLab.bottom+9, 200, 14) text:@"杭州" font:SystemFont(12) textColor:@"#999999" backgroundColor:nil normal:@"27" selected:nil];
+        _jobBtn = [UIButton buttonWithframe:CGRectMake(_eduBtn.right+9, _jobLab.bottom+9, 40, 14) text:@"1年" font:SystemFont(12) textColor:@"#999999" backgroundColor:nil normal:@"工作经验" selected:nil];
         _jobBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         _jobBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
         _jobBtn.userInteractionEnabled = NO;
         [baseView addSubview:_jobBtn];
         
-//        _addressBtn = [UIButton buttonWithframe:CGRectMake(_jobBtn.right+9, _jobLab.bottom+9, 100, 14) text:@"杭州" font:SystemFont(12) textColor:@"#999999" backgroundColor:nil normal:@"籍贯" selected:nil];
-//        _addressBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//        _addressBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
-//        _addressBtn.userInteractionEnabled = NO;
-//        [baseView addSubview:_addressBtn];
+        _addressBtn = [UIButton buttonWithframe:CGRectMake(_jobBtn.right+9, _jobLab.bottom+9, 200, 14) text:@"杭州" font:SystemFont(12) textColor:@"#999999" backgroundColor:nil normal:@"籍贯" selected:nil];
+        _addressBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        _addressBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
+        _addressBtn.userInteractionEnabled = NO;
+        [baseView addSubview:_addressBtn];
         
         _label = [UILabel labelWithframe:CGRectMake(baseView.width-54-8, baseView.height-3-16, 54, 16) text:@"1223556" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentRight textColor:@"#666666"];
         [baseView addSubview:_label];
@@ -95,10 +96,15 @@
     _nameLab.text = model.name;
     _jobLab.text = [NSString stringWithFormat:@"应聘职位 %@",model.hopepostion];
     [_eduBtn setTitle:model.education forState:UIControlStateNormal];
-    [_jobBtn setTitle:model.jiguan forState:UIControlStateNormal];
+    [_jobBtn setTitle:[NSString stringWithFormat:@"%@年",model.jobyear] forState:UIControlStateNormal];
+    [_addressBtn setTitle:model.jiguan forState:UIControlStateNormal];
 //    [ad setTitle:model.education forState:UIControlStateNormal];
     _timeLab.text = [NSString stringWithFormat:@"最近登录：%@",model.lastTime];
     _label.text = model.workerId;
+    
+    CGSize size = [NSString textLength:model.name font:_nameLab.font];
+    _nameLab.width = size.width;
+    _bodyBtn.left = _nameLab.right+4;
     
     [_bodyBtn setTitle:model.age forState:UIControlStateNormal];
     if ([model.sex isEqualToString:@"女"]) {
