@@ -486,7 +486,6 @@
 		F74820461F91FCCA00F072CD /* RecruitmentEnterPrise */ = {
 			isa = PBXGroup;
 			children = (
-				F78D93721F9204B800E0DCA9 /* AFNetworking_RequestData */,
 				F74820791F91FE8A00F072CD /* Thirdparty */,
 				F75BD6591F947F2A00433133 /* CustomClass */,
 				F74820471F91FCCA00F072CD /* AppDelegate.h */,
@@ -536,12 +535,8 @@
 		F74820791F91FE8A00F072CD /* Thirdparty */ = {
 			isa = PBXGroup;
 			children = (
+				F78D93721F9204B800E0DCA9 /* AFNetworking_RequestData */,
 				F7931B581FB2E4BA00DD5CE2 /* Tools */,
-				F748207A1F91FE8A00F072CD /* BRPickerView */,
-				F748208E1F91FE8A00F072CD /* InfoCache */,
-				F74820971F91FE8A00F072CD /* RegexTool */,
-				F74820AA1F91FE8A00F072CD /* Toast */,
-				F74820BA1F91FE8A00F072CD /* UIColorEx */,
 				F74820BD1F91FE8A00F072CD /* ZXPUnicode */,
 			);
 			path = Thirdparty;
@@ -661,6 +656,7 @@
 		F75BD6591F947F2A00433133 /* CustomClass */ = {
 			isa = PBXGroup;
 			children = (
+				F748207A1F91FE8A00F072CD /* BRPickerView */,
 				F75BA92B1F9AD1B00083E448 /* ZFTableViewCell */,
 				F766D8FF1F95AA98004C74F0 /* MJCSlideInterface */,
 				F75BD65A1F947F2A00433133 /* CDTabBar.h */,
@@ -920,10 +916,10 @@
 		F7931B581FB2E4BA00DD5CE2 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				F7931B591FB2E4BA00DD5CE2 /* NSStringExt.h */,
-				F7931B5A1FB2E4BA00DD5CE2 /* NSStringExt.m */,
-				F7931B6D1FB2E55700DD5CE2 /* UILabel+WLAttributedString.h */,
-				F7931B6C1FB2E55700DD5CE2 /* UILabel+WLAttributedString.m */,
+				F74820AA1F91FE8A00F072CD /* Toast */,
+				F74820971F91FE8A00F072CD /* RegexTool */,
+				F748208E1F91FE8A00F072CD /* InfoCache */,
+				F74820BA1F91FE8A00F072CD /* UIColorEx */,
 				F7931B5B1FB2E4BA00DD5CE2 /* TableView+Gategory */,
 				F7931B5E1FB2E4BA00DD5CE2 /* UIImage+UIImageExt.h */,
 				F7931B5F1FB2E4BA00DD5CE2 /* UIImage+UIImageExt.m */,
@@ -931,6 +927,10 @@
 				F7931B611FB2E4BA00DD5CE2 /* UIViewController+UIViewControllerExt.m */,
 				F7931B6A1FB2E51400DD5CE2 /* UIViewExt.h */,
 				F7931B691FB2E51300DD5CE2 /* UIViewExt.m */,
+				F7931B591FB2E4BA00DD5CE2 /* NSStringExt.h */,
+				F7931B5A1FB2E4BA00DD5CE2 /* NSStringExt.m */,
+				F7931B6D1FB2E55700DD5CE2 /* UILabel+WLAttributedString.h */,
+				F7931B6C1FB2E55700DD5CE2 /* UILabel+WLAttributedString.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
