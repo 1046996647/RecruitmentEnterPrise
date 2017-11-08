@@ -167,7 +167,7 @@ static ZFTableViewCell *_editingCell;
                     twoButton.layer.borderWidth = 1;
                 }
                 
-            } else {
+            } else if (type == ZFTableViewCellTypeFive) {
                 
                 NSArray *imgArr = @[@"31",@"43"];
                 NSArray *titleArr = @[@"删除",@"修改"];
@@ -177,6 +177,25 @@ static ZFTableViewCell *_editingCell;
                     twoButton.tag = i;
                     twoButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0);
                     twoButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
+                    [button addSubview:twoButton];
+                    [twoButton addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
+                    twoButton.layer.cornerRadius = 5;
+                    twoButton.layer.masksToBounds = YES;
+                    twoButton.layer.borderColor = [UIColor colorWithHexString:@"#D0021B"].CGColor;
+                    twoButton.layer.borderWidth = 1;
+                }
+                
+                
+                
+            } else {
+                
+                NSArray *imgArr = @[@"31",@"43"];
+                NSArray *titleArr = @[@"取消收藏",@"分配职位"];
+                
+                for (int i = 0; i < imgArr.count; i++) {
+                    UIButton *twoButton = [UIButton buttonWithframe:CGRectMake(4, 10+i*(29+18), 84, 29) text:titleArr[i] font:SystemFont(14) textColor:@"#D0021B" backgroundColor:nil normal:imgArr[i] selected:nil];
+                    twoButton.tag = i;
+                    twoButton.titleEdgeInsets = UIEdgeInsetsMake(0, 3, 0, 0);
                     [button addSubview:twoButton];
                     [twoButton addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
                     twoButton.layer.cornerRadius = 5;

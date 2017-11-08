@@ -47,10 +47,6 @@
 
 - (void)changeAction
 {
-    if (self.tv.text.length == 0) {
-        [self.view makeToast:@"请填写内容"];
-        return;
-    }
     
     NSMutableDictionary *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
     
@@ -85,6 +81,11 @@
 
 - (void)upAction
 {
+    if (self.tv.text.length == 0) {
+        [self.view makeToast:@"请填写内容"];
+        return;
+    }
+    
     if ([self.title isEqualToString:@"公司介绍"]||
         [self.title isEqualToString:@"修改邮箱"]) {
         [self changeAction];

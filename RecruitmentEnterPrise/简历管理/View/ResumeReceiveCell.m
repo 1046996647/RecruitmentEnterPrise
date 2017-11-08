@@ -80,7 +80,7 @@
         _viewBtn = [UIButton buttonWithframe:CGRectMake(baseView.width-8-20, _jobLab.top, 20, 20) text:@"" font:nil textColor:@"" backgroundColor:nil normal:@"12" selected:nil];
         [baseView addSubview:_viewBtn];
         
-        _msgBtn = [UIButton buttonWithframe:CGRectMake(baseView.width-8-20, _jobBtn.top, 20, 20) text:@"" font:nil textColor:@"" backgroundColor:nil normal:@"53" selected:nil];
+        _msgBtn = [UIButton buttonWithframe:CGRectMake(baseView.width-8-20, _jobBtn.top, 20, 20) text:@"" font:nil textColor:@"" backgroundColor:nil normal:@"10" selected:nil];
         [baseView addSubview:_msgBtn];
 
     }

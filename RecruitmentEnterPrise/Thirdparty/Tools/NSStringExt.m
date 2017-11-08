@@ -182,7 +182,7 @@
 // 富文本
 + (NSMutableAttributedString *)text:(NSString *)text  fullText:(NSString *)fullText location:(NSInteger)location color:(UIColor *)color font:(UIFont *)font
 {
-    
+
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:fullText];
     NSRange range = {location,[text length]};
     [attStr addAttribute:NSForegroundColorAttributeName value:color range:range];

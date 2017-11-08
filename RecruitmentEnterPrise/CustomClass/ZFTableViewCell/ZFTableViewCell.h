@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger,ZFTableViewCellType){
     ZFTableViewCellTypeThree,
     ZFTableViewCellTypeFour,
     ZFTableViewCellTypeFive,
+    ZFTableViewCellTypeSix,
 };
 
 typedef NS_ENUM(NSInteger,ZFTableViewCellState){

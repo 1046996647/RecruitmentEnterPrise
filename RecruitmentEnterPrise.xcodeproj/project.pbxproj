@@ -36,15 +36,9 @@
 		F74820CA1F91FE8B00F072CD /* InfoCache.m in Sources */ = {isa = PBXBuildFile; fileRef = F74820901F91FE8A00F072CD /* InfoCache.m */; };
 		F74820CE1F91FE8B00F072CD /* RegexTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F74820991F91FE8A00F072CD /* RegexTool.m */; };
 		F74820D61F91FE8B00F072CD /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = F74820AC1F91FE8A00F072CD /* UIView+Toast.m */; };
-		F74820D81F91FE8B00F072CD /* NSStringExt.m in Sources */ = {isa = PBXBuildFile; fileRef = F74820B01F91FE8A00F072CD /* NSStringExt.m */; };
-		F74820D91F91FE8B00F072CD /* UITableView+EmptyData.m in Sources */ = {isa = PBXBuildFile; fileRef = F74820B31F91FE8A00F072CD /* UITableView+EmptyData.m */; };
-		F74820DA1F91FE8B00F072CD /* UIImage+UIImageExt.m in Sources */ = {isa = PBXBuildFile; fileRef = F74820B51F91FE8A00F072CD /* UIImage+UIImageExt.m */; };
-		F74820DB1F91FE8B00F072CD /* UIViewController+UIViewControllerExt.m in Sources */ = {isa = PBXBuildFile; fileRef = F74820B71F91FE8A00F072CD /* UIViewController+UIViewControllerExt.m */; };
-		F74820DC1F91FE8B00F072CD /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = F74820B91F91FE8A00F072CD /* UIViewExt.m */; };
 		F74820DD1F91FE8B00F072CD /* UIColor+Expend.m in Sources */ = {isa = PBXBuildFile; fileRef = F74820BC1F91FE8A00F072CD /* UIColor+Expend.m */; };
 		F74820DE1F91FE8B00F072CD /* ZXPUnicode.m in Sources */ = {isa = PBXBuildFile; fileRef = F74820BF1F91FE8A00F072CD /* ZXPUnicode.m */; };
 		F74F989B1FA027D20027C418 /* CompanyintroduceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F989A1FA027D20027C418 /* CompanyintroduceVC.m */; };
-		F74F989E1FA057120027C418 /* UILabel+WLAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F989D1FA057120027C418 /* UILabel+WLAttributedString.m */; };
 		F74F98A11FA069470027C418 /* ForgetPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F98A01FA069470027C418 /* ForgetPasswordVC.m */; };
 		F74F98A41FA07CDB0027C418 /* CountDownServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F98A31FA07CDB0027C418 /* CountDownServer.m */; };
 		F756477F1F9986460060E744 /* AddContactVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F756477E1F9986460060E744 /* AddContactVC.m */; };
@@ -71,6 +65,7 @@
 		F75F9D1C1FA325F000F7148A /* ChangePhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75F9D1B1FA325F000F7148A /* ChangePhoneVC.m */; };
 		F765129B1F9EEA1600BF80D9 /* NearbyAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F765129A1F9EEA1600BF80D9 /* NearbyAddressCell.m */; };
 		F765129E1F9F0BB100BF80D9 /* AddressSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F765129D1F9F0BB100BF80D9 /* AddressSearchVC.m */; };
+		F7658A461FB2AF6F00E47E24 /* PostsJobVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7658A451FB2AF6F00E47E24 /* PostsJobVC.m */; };
 		F766D8ED1F958D43004C74F0 /* JobCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F766D8EC1F958D43004C74F0 /* JobCell.m */; };
 		F766D8FE1F95A111004C74F0 /* JobManageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F766D8FD1F95A111004C74F0 /* JobManageVC.m */; };
 		F766D91A1F95AA99004C74F0 /* MJCChildMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = F766D9021F95AA98004C74F0 /* MJCChildMainView.m */; };
@@ -117,6 +112,12 @@
 		F78D938B1F92067900E0DCA9 /* HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F78D938A1F92067900E0DCA9 /* HomeVC.m */; };
 		F78D93911F92069D00E0DCA9 /* ResumeManage1VC.m in Sources */ = {isa = PBXBuildFile; fileRef = F78D93901F92069D00E0DCA9 /* ResumeManage1VC.m */; };
 		F78D93941F9206A700E0DCA9 /* ChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F78D93931F9206A700E0DCA9 /* ChatVC.m */; };
+		F7931B641FB2E4BA00DD5CE2 /* NSStringExt.m in Sources */ = {isa = PBXBuildFile; fileRef = F7931B5A1FB2E4BA00DD5CE2 /* NSStringExt.m */; };
+		F7931B651FB2E4BA00DD5CE2 /* UITableView+EmptyData.m in Sources */ = {isa = PBXBuildFile; fileRef = F7931B5D1FB2E4BA00DD5CE2 /* UITableView+EmptyData.m */; };
+		F7931B661FB2E4BA00DD5CE2 /* UIImage+UIImageExt.m in Sources */ = {isa = PBXBuildFile; fileRef = F7931B5F1FB2E4BA00DD5CE2 /* UIImage+UIImageExt.m */; };
+		F7931B671FB2E4BA00DD5CE2 /* UIViewController+UIViewControllerExt.m in Sources */ = {isa = PBXBuildFile; fileRef = F7931B611FB2E4BA00DD5CE2 /* UIViewController+UIViewControllerExt.m */; };
+		F7931B6B1FB2E51400DD5CE2 /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = F7931B691FB2E51300DD5CE2 /* UIViewExt.m */; };
+		F7931B6E1FB2E55700DD5CE2 /* UILabel+WLAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = F7931B6C1FB2E55700DD5CE2 /* UILabel+WLAttributedString.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,16 +197,6 @@
 		F74820991F91FE8A00F072CD /* RegexTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexTool.m; sourceTree = "<group>"; };
 		F74820AB1F91FE8A00F072CD /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		F74820AC1F91FE8A00F072CD /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
-		F74820AF1F91FE8A00F072CD /* NSStringExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringExt.h; sourceTree = "<group>"; };
-		F74820B01F91FE8A00F072CD /* NSStringExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringExt.m; sourceTree = "<group>"; };
-		F74820B21F91FE8A00F072CD /* UITableView+EmptyData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+EmptyData.h"; sourceTree = "<group>"; };
-		F74820B31F91FE8A00F072CD /* UITableView+EmptyData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+EmptyData.m"; sourceTree = "<group>"; };
-		F74820B41F91FE8A00F072CD /* UIImage+UIImageExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIImageExt.h"; sourceTree = "<group>"; };
-		F74820B51F91FE8A00F072CD /* UIImage+UIImageExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIImageExt.m"; sourceTree = "<group>"; };
-		F74820B61F91FE8A00F072CD /* UIViewController+UIViewControllerExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+UIViewControllerExt.h"; sourceTree = "<group>"; };
-		F74820B71F91FE8A00F072CD /* UIViewController+UIViewControllerExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+UIViewControllerExt.m"; sourceTree = "<group>"; };
-		F74820B81F91FE8A00F072CD /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
-		F74820B91F91FE8A00F072CD /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
 		F74820BB1F91FE8A00F072CD /* UIColor+Expend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Expend.h"; sourceTree = "<group>"; };
 		F74820BC1F91FE8A00F072CD /* UIColor+Expend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Expend.m"; sourceTree = "<group>"; };
 		F74820BE1F91FE8A00F072CD /* ZXPUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXPUnicode.h; sourceTree = "<group>"; };
@@ -215,8 +206,6 @@
 		F74820E21F9202F400F072CD /* RecruitmentEnterPrise.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecruitmentEnterPrise.pch; sourceTree = "<group>"; };
 		F74F98991FA027D20027C418 /* CompanyintroduceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyintroduceVC.h; sourceTree = "<group>"; };
 		F74F989A1FA027D20027C418 /* CompanyintroduceVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyintroduceVC.m; sourceTree = "<group>"; };
-		F74F989C1FA057110027C418 /* UILabel+WLAttributedString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+WLAttributedString.h"; sourceTree = "<group>"; };
-		F74F989D1FA057120027C418 /* UILabel+WLAttributedString.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+WLAttributedString.m"; sourceTree = "<group>"; };
 		F74F989F1FA069470027C418 /* ForgetPasswordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgetPasswordVC.h; sourceTree = "<group>"; };
 		F74F98A01FA069470027C418 /* ForgetPasswordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgetPasswordVC.m; sourceTree = "<group>"; };
 		F74F98A21FA07CDB0027C418 /* CountDownServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountDownServer.h; sourceTree = "<group>"; };
@@ -269,6 +258,8 @@
 		F765129A1F9EEA1600BF80D9 /* NearbyAddressCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NearbyAddressCell.m; sourceTree = "<group>"; };
 		F765129C1F9F0BB100BF80D9 /* AddressSearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressSearchVC.h; sourceTree = "<group>"; };
 		F765129D1F9F0BB100BF80D9 /* AddressSearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressSearchVC.m; sourceTree = "<group>"; };
+		F7658A441FB2AF6F00E47E24 /* PostsJobVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostsJobVC.h; sourceTree = "<group>"; };
+		F7658A451FB2AF6F00E47E24 /* PostsJobVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostsJobVC.m; sourceTree = "<group>"; };
 		F766D8EB1F958D41004C74F0 /* JobCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobCell.h; sourceTree = "<group>"; };
 		F766D8EC1F958D43004C74F0 /* JobCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobCell.m; sourceTree = "<group>"; };
 		F766D8FC1F95A110004C74F0 /* JobManageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobManageVC.h; sourceTree = "<group>"; };
@@ -361,6 +352,18 @@
 		F78D93901F92069D00E0DCA9 /* ResumeManage1VC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResumeManage1VC.m; sourceTree = "<group>"; };
 		F78D93921F9206A700E0DCA9 /* ChatVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatVC.h; sourceTree = "<group>"; };
 		F78D93931F9206A700E0DCA9 /* ChatVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatVC.m; sourceTree = "<group>"; };
+		F7931B591FB2E4BA00DD5CE2 /* NSStringExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringExt.h; sourceTree = "<group>"; };
+		F7931B5A1FB2E4BA00DD5CE2 /* NSStringExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringExt.m; sourceTree = "<group>"; };
+		F7931B5C1FB2E4BA00DD5CE2 /* UITableView+EmptyData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+EmptyData.h"; sourceTree = "<group>"; };
+		F7931B5D1FB2E4BA00DD5CE2 /* UITableView+EmptyData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+EmptyData.m"; sourceTree = "<group>"; };
+		F7931B5E1FB2E4BA00DD5CE2 /* UIImage+UIImageExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIImageExt.h"; sourceTree = "<group>"; };
+		F7931B5F1FB2E4BA00DD5CE2 /* UIImage+UIImageExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIImageExt.m"; sourceTree = "<group>"; };
+		F7931B601FB2E4BA00DD5CE2 /* UIViewController+UIViewControllerExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+UIViewControllerExt.h"; sourceTree = "<group>"; };
+		F7931B611FB2E4BA00DD5CE2 /* UIViewController+UIViewControllerExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+UIViewControllerExt.m"; sourceTree = "<group>"; };
+		F7931B691FB2E51300DD5CE2 /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
+		F7931B6A1FB2E51400DD5CE2 /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
+		F7931B6C1FB2E55700DD5CE2 /* UILabel+WLAttributedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+WLAttributedString.m"; sourceTree = "<group>"; };
+		F7931B6D1FB2E55700DD5CE2 /* UILabel+WLAttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+WLAttributedString.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -425,6 +428,8 @@
 				F78870F91F9D84AA008CDD52 /* InviteInterviewVC.m */,
 				F776226A1FB0158600102A06 /* EditResumeVC.h */,
 				F776226B1FB0158600102A06 /* EditResumeVC.m */,
+				F7658A441FB2AF6F00E47E24 /* PostsJobVC.h */,
+				F7658A451FB2AF6F00E47E24 /* PostsJobVC.m */,
 			);
 			path = ControllView;
 			sourceTree = "<group>";
@@ -531,11 +536,11 @@
 		F74820791F91FE8A00F072CD /* Thirdparty */ = {
 			isa = PBXGroup;
 			children = (
+				F7931B581FB2E4BA00DD5CE2 /* Tools */,
 				F748207A1F91FE8A00F072CD /* BRPickerView */,
 				F748208E1F91FE8A00F072CD /* InfoCache */,
 				F74820971F91FE8A00F072CD /* RegexTool */,
 				F74820AA1F91FE8A00F072CD /* Toast */,
-				F74820AD1F91FE8A00F072CD /* Tools */,
 				F74820BA1F91FE8A00F072CD /* UIColorEx */,
 				F74820BD1F91FE8A00F072CD /* ZXPUnicode */,
 			);
@@ -622,33 +627,6 @@
 				F74820AC1F91FE8A00F072CD /* UIView+Toast.m */,
 			);
 			path = Toast;
-			sourceTree = "<group>";
-		};
-		F74820AD1F91FE8A00F072CD /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-				F74F989C1FA057110027C418 /* UILabel+WLAttributedString.h */,
-				F74F989D1FA057120027C418 /* UILabel+WLAttributedString.m */,
-				F74820AF1F91FE8A00F072CD /* NSStringExt.h */,
-				F74820B01F91FE8A00F072CD /* NSStringExt.m */,
-				F74820B11F91FE8A00F072CD /* TableView+Gategory */,
-				F74820B41F91FE8A00F072CD /* UIImage+UIImageExt.h */,
-				F74820B51F91FE8A00F072CD /* UIImage+UIImageExt.m */,
-				F74820B61F91FE8A00F072CD /* UIViewController+UIViewControllerExt.h */,
-				F74820B71F91FE8A00F072CD /* UIViewController+UIViewControllerExt.m */,
-				F74820B81F91FE8A00F072CD /* UIViewExt.h */,
-				F74820B91F91FE8A00F072CD /* UIViewExt.m */,
-			);
-			path = Tools;
-			sourceTree = "<group>";
-		};
-		F74820B11F91FE8A00F072CD /* TableView+Gategory */ = {
-			isa = PBXGroup;
-			children = (
-				F74820B21F91FE8A00F072CD /* UITableView+EmptyData.h */,
-				F74820B31F91FE8A00F072CD /* UITableView+EmptyData.m */,
-			);
-			path = "TableView+Gategory";
 			sourceTree = "<group>";
 		};
 		F74820BA1F91FE8A00F072CD /* UIColorEx */ = {
@@ -939,6 +917,33 @@
 			path = "登录注册";
 			sourceTree = "<group>";
 		};
+		F7931B581FB2E4BA00DD5CE2 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				F7931B591FB2E4BA00DD5CE2 /* NSStringExt.h */,
+				F7931B5A1FB2E4BA00DD5CE2 /* NSStringExt.m */,
+				F7931B6D1FB2E55700DD5CE2 /* UILabel+WLAttributedString.h */,
+				F7931B6C1FB2E55700DD5CE2 /* UILabel+WLAttributedString.m */,
+				F7931B5B1FB2E4BA00DD5CE2 /* TableView+Gategory */,
+				F7931B5E1FB2E4BA00DD5CE2 /* UIImage+UIImageExt.h */,
+				F7931B5F1FB2E4BA00DD5CE2 /* UIImage+UIImageExt.m */,
+				F7931B601FB2E4BA00DD5CE2 /* UIViewController+UIViewControllerExt.h */,
+				F7931B611FB2E4BA00DD5CE2 /* UIViewController+UIViewControllerExt.m */,
+				F7931B6A1FB2E51400DD5CE2 /* UIViewExt.h */,
+				F7931B691FB2E51300DD5CE2 /* UIViewExt.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		F7931B5B1FB2E4BA00DD5CE2 /* TableView+Gategory */ = {
+			isa = PBXGroup;
+			children = (
+				F7931B5C1FB2E4BA00DD5CE2 /* UITableView+EmptyData.h */,
+				F7931B5D1FB2E4BA00DD5CE2 /* UITableView+EmptyData.m */,
+			);
+			path = "TableView+Gategory";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1145,12 +1150,10 @@
 				F766D91B1F95AA99004C74F0 /* MJCIndicatorView.m in Sources */,
 				F766D9221F95AA99004C74F0 /* UIColor+MJCClassExtension.m in Sources */,
 				F71C044C1F98A8AB0024C1EC /* ContactManageCell.m in Sources */,
-				F74F989E1FA057120027C418 /* UILabel+WLAttributedString.m in Sources */,
+				F7658A461FB2AF6F00E47E24 /* PostsJobVC.m in Sources */,
 				F74820C81F91FE8B00F072CD /* NSDate+BRAdd.m in Sources */,
 				F705A7E01F948EC200298D57 /* ReleaseJobModel.m in Sources */,
-				F74820DB1F91FE8B00F072CD /* UIViewController+UIViewControllerExt.m in Sources */,
 				F78D93871F92064A00E0DCA9 /* TabBarController.m in Sources */,
-				F74820DA1F91FE8B00F072CD /* UIImage+UIImageExt.m in Sources */,
 				F766D91A1F95AA99004C74F0 /* MJCChildMainView.m in Sources */,
 				F78D93911F92069D00E0DCA9 /* ResumeManage1VC.m in Sources */,
 				F75EB6821F96F64100CBCA7C /* SendMsgVC.m in Sources */,
@@ -1164,6 +1167,7 @@
 				F74820571F91FCCA00F072CD /* main.m in Sources */,
 				F75EB6881F9722CC00CBCA7C /* ResumeSearchVC.m in Sources */,
 				F71C043D1F988C450024C1EC /* OtherVC.m in Sources */,
+				F7931B671FB2E4BA00DD5CE2 /* UIViewController+UIViewControllerExt.m in Sources */,
 				F765129B1F9EEA1600BF80D9 /* NearbyAddressCell.m in Sources */,
 				F78D93781F9204F400E0DCA9 /* PersonModel.m in Sources */,
 				F74F98A11FA069470027C418 /* ForgetPasswordVC.m in Sources */,
@@ -1172,12 +1176,10 @@
 				F74820C91F91FE8B00F072CD /* BRStringPickerView.m in Sources */,
 				F74820C71F91FE8B00F072CD /* BRDatePickerView.m in Sources */,
 				F75647971F99C3060060E744 /* JobDetailCell.m in Sources */,
-				F74820D91F91FE8B00F072CD /* UITableView+EmptyData.m in Sources */,
 				F75647911F99BC490060E744 /* EditHeadImgVC.m in Sources */,
 				F766D94D1F95F9C4004C74F0 /* PersonalMessageVC.m in Sources */,
 				F78D93751F9204B800E0DCA9 /* AFNetworking_RequestData.m in Sources */,
 				F766D8FE1F95A111004C74F0 /* JobManageVC.m in Sources */,
-				F74820D81F91FE8B00F072CD /* NSStringExt.m in Sources */,
 				F74820DD1F91FE8B00F072CD /* UIColor+Expend.m in Sources */,
 				F766D91F1F95AA99004C74F0 /* MJCCommonTools.m in Sources */,
 				F75F9D191FA3176D00F7148A /* JobModel.m in Sources */,
@@ -1202,11 +1204,12 @@
 				F78D93941F9206A700E0DCA9 /* ChatVC.m in Sources */,
 				F78870FA1F9D84AA008CDD52 /* InviteInterviewVC.m in Sources */,
 				F71C04491F98A8790024C1EC /* ContactManageVC.m in Sources */,
-				F74820DC1F91FE8B00F072CD /* UIViewExt.m in Sources */,
+				F7931B6E1FB2E55700DD5CE2 /* UILabel+WLAttributedString.m in Sources */,
 				F756478E1F999E140060E744 /* BaseMessageVC.m in Sources */,
 				F766D9201F95AA99004C74F0 /* MJCOrdinaryLayout.m in Sources */,
 				F76AD85D1F973E9E00BA88D3 /* HotJobCell.m in Sources */,
 				F75EB67C1F96F61500CBCA7C /* MyMailboxVC.m in Sources */,
+				F7931B661FB2E4BA00DD5CE2 /* UIImage+UIImageExt.m in Sources */,
 				F77622751FB0350800102A06 /* ResDetailCollectionViewCell.m in Sources */,
 				F766D93A1F95C880004C74F0 /* ResumeManageVC.m in Sources */,
 				F766D92B1F95AB02004C74F0 /* ResumeCheckedVC.m in Sources */,
@@ -1217,6 +1220,7 @@
 				F76AD8661F97515700BA88D3 /* ResumeSearchResultVC.m in Sources */,
 				F75BA9311F9AD1B00083E448 /* ZFTableViewCell.m in Sources */,
 				F75EB6851F96F9A100CBCA7C /* ReceiveMsgCell.m in Sources */,
+				F7931B651FB2E4BA00DD5CE2 /* UITableView+EmptyData.m in Sources */,
 				F756478B1F9997F40060E744 /* CountMessageVC.m in Sources */,
 				F78871001F9D8D0D008CDD52 /* InviteInterviewCell.m in Sources */,
 				F74820D61F91FE8B00F072CD /* UIView+Toast.m in Sources */,
@@ -1234,7 +1238,9 @@
 				F766D9211F95AA99004C74F0 /* UIButton+MJCClassExtension.m in Sources */,
 				F74820C61F91FE8B00F072CD /* BaseView.m in Sources */,
 				F776226F1FB015F400102A06 /* EditResumeCell.m in Sources */,
+				F7931B6B1FB2E51400DD5CE2 /* UIViewExt.m in Sources */,
 				F766D9251F95AA99004C74F0 /* MJCSegmentInterface.m in Sources */,
+				F7931B641FB2E4BA00DD5CE2 /* NSStringExt.m in Sources */,
 				F766D91C1F95AA99004C74F0 /* MJCTabItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
