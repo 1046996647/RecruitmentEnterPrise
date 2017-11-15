@@ -118,6 +118,8 @@
 		F7931B671FB2E4BA00DD5CE2 /* UIViewController+UIViewControllerExt.m in Sources */ = {isa = PBXBuildFile; fileRef = F7931B611FB2E4BA00DD5CE2 /* UIViewController+UIViewControllerExt.m */; };
 		F7931B6B1FB2E51400DD5CE2 /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = F7931B691FB2E51300DD5CE2 /* UIViewExt.m */; };
 		F7931B6E1FB2E55700DD5CE2 /* UILabel+WLAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = F7931B6C1FB2E55700DD5CE2 /* UILabel+WLAttributedString.m */; };
+		F7CFA8B91FBADAF40067D018 /* ReceiveMsgModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F7CFA8B81FBADAF40067D018 /* ReceiveMsgModel.m */; };
+		F7CFA8BC1FBAEDE40067D018 /* MsgDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7CFA8BB1FBAEDE40067D018 /* MsgDetailVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -364,6 +366,10 @@
 		F7931B6A1FB2E51400DD5CE2 /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
 		F7931B6C1FB2E55700DD5CE2 /* UILabel+WLAttributedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+WLAttributedString.m"; sourceTree = "<group>"; };
 		F7931B6D1FB2E55700DD5CE2 /* UILabel+WLAttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+WLAttributedString.h"; sourceTree = "<group>"; };
+		F7CFA8B71FBADAF40067D018 /* ReceiveMsgModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReceiveMsgModel.h; sourceTree = "<group>"; };
+		F7CFA8B81FBADAF40067D018 /* ReceiveMsgModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReceiveMsgModel.m; sourceTree = "<group>"; };
+		F7CFA8BA1FBAEDE40067D018 /* MsgDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MsgDetailVC.h; sourceTree = "<group>"; };
+		F7CFA8BB1FBAEDE40067D018 /* MsgDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MsgDetailVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -736,6 +742,8 @@
 				F71C04281F9839690024C1EC /* ChatWantedVC.m */,
 				F75647931F99C2C40060E744 /* CompanyDetailVC.h */,
 				F75647921F99C2C40060E744 /* CompanyDetailVC.m */,
+				F7CFA8BA1FBAEDE40067D018 /* MsgDetailVC.h */,
+				F7CFA8BB1FBAEDE40067D018 /* MsgDetailVC.m */,
 				F74820E11F9202E100F072CD /* UrlFile.h */,
 				F71C04371F9879140024C1EC /* 设置 */,
 			);
@@ -751,6 +759,8 @@
 				F75647841F998A0E0060E744 /* AddContactModel.m */,
 				F77622671FB0035400102A06 /* ResumeModel.h */,
 				F77622681FB0035400102A06 /* ResumeModel.m */,
+				F7CFA8B71FBADAF40067D018 /* ReceiveMsgModel.h */,
+				F7CFA8B81FBADAF40067D018 /* ReceiveMsgModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1156,6 +1166,7 @@
 				F78D93871F92064A00E0DCA9 /* TabBarController.m in Sources */,
 				F766D91A1F95AA99004C74F0 /* MJCChildMainView.m in Sources */,
 				F78D93911F92069D00E0DCA9 /* ResumeManage1VC.m in Sources */,
+				F7CFA8B91FBADAF40067D018 /* ReceiveMsgModel.m in Sources */,
 				F75EB6821F96F64100CBCA7C /* SendMsgVC.m in Sources */,
 				F705A7DD1F9488EE00298D57 /* ReleaseJobCell.m in Sources */,
 				F75647941F99C2C40060E744 /* CompanyDetailVC.m in Sources */,
@@ -1180,6 +1191,7 @@
 				F766D94D1F95F9C4004C74F0 /* PersonalMessageVC.m in Sources */,
 				F78D93751F9204B800E0DCA9 /* AFNetworking_RequestData.m in Sources */,
 				F766D8FE1F95A111004C74F0 /* JobManageVC.m in Sources */,
+				F7CFA8BC1FBAEDE40067D018 /* MsgDetailVC.m in Sources */,
 				F74820DD1F91FE8B00F072CD /* UIColor+Expend.m in Sources */,
 				F766D91F1F95AA99004C74F0 /* MJCCommonTools.m in Sources */,
 				F75F9D191FA3176D00F7148A /* JobModel.m in Sources */,

@@ -71,8 +71,6 @@
     //    [tf addTarget:self action:@selector(changeAction:) forControlEvents:UIControlEventEditingChanged];
     _phone.layer.masksToBounds = YES;
     [self.view addSubview:_phone];
-    _phone.leftViewMode = UITextFieldViewModeAlways;
-    _phone.leftView = leftView;
         
     
     leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 45+10, leftView.height)];
@@ -103,8 +101,6 @@
     [self.view addSubview:_password];
     _password.rightViewMode = UITextFieldViewModeAlways;
     _password.rightView = rightView;
-    _password.leftViewMode = UITextFieldViewModeAlways;
-    _password.leftView = leftView;
     _password.secureTextEntry = YES;
     
     // 验证码
@@ -143,8 +139,6 @@
     [self.view addSubview:_validate];
     _validate.rightViewMode = UITextFieldViewModeAlways;
     _validate.rightView = rightView;
-    _validate.leftViewMode = UITextFieldViewModeAlways;
-    _validate.leftView = leftView;
     
     UIButton *loginBtn = [UIButton buttonWithframe:CGRectMake(_password.left, _validate.bottom+33, _phone.width, _phone.height) text:@"确认" font:[UIFont systemFontOfSize:16] textColor:@"FFFFFF" backgroundColor:@"#D0021B" normal:nil selected:nil];
     loginBtn.layer.cornerRadius = 7;

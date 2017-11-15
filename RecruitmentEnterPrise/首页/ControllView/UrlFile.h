@@ -115,8 +115,50 @@
 // 4.2    获取简历详情
 #define Resume_detail  [NSString stringWithFormat:@"%@/Resume/resume_detail",BaseUrl]
 
+// 4.8    收藏简历
+#define Add_company_fav  [NSString stringWithFormat:@"%@/Resume/add_company_fav",BaseUrl]
+
+// 4.6    查看简历联系方式
+#define View_contact  [NSString stringWithFormat:@"%@/Resume/view_contact",BaseUrl]
+
 // 4.3    面试邀请
 #define Interview_invite  [NSString stringWithFormat:@"%@/Resume/interview_invite",BaseUrl]
+
+// 4.4    获取收到的简历列表
+#define Get_sendresume  [NSString stringWithFormat:@"%@/Resume/get_sendresume/",BaseUrl]
+
+// 4.5    删除收到的简历
+#define Delete_sendresume  [NSString stringWithFormat:@"%@/Resume/delete_sendresume",BaseUrl]
+
+// 4.10    获取收藏人才
+#define Get_company_fav  [NSString stringWithFormat:@"%@/Resume/get_company_fav/",BaseUrl]
+
+// 4.9    收藏人才-分配职位
+#define Assign_fav_job  [NSString stringWithFormat:@"%@/Resume/assign_fav_job",BaseUrl]
+
+// 4.9    取消收藏
+#define Delete_favs  [NSString stringWithFormat:@"%@/Resume/delete_favs",BaseUrl]
+
+// 4.12    获取查看过的简历
+#define Get_viewresume  [NSString stringWithFormat:@"%@/Resume/get_viewresume/",BaseUrl]
+
+// 4.13    获取邀请面试记录
+#define Get_company_invite  [NSString stringWithFormat:@"%@/Resume/get_company_invite/",BaseUrl]
+
+// 4.14    删除邀请面试记录
+#define Delete_invite  [NSString stringWithFormat:@"%@/Resume/delete_invite",BaseUrl]
+
+// 4.7    谁看了我
+#define Get_job_viewers  [NSString stringWithFormat:@"%@/Resume/get_job_viewers/",BaseUrl]
+
+// 1.15    在线投诉/留言
+#define Send_mess_admin  [NSString stringWithFormat:@"%@/User/send_mess_admin",BaseUrl]
+
+// 1.17    我的信箱（发出的消息）
+#define Get_message_fromme  [NSString stringWithFormat:@"%@/User/get_message_fromme/",BaseUrl]
+
+// 1.16    我的信箱（收到的消息）
+#define Get_message_tome  [NSString stringWithFormat:@"%@/User/get_message_tome/",BaseUrl]
 
 // 1.16	上传头像
 #define Upload_company_logo  [NSString stringWithFormat:@"%@/User/upload_company_logo",BaseUrl]

@@ -316,6 +316,11 @@
     }
 }
 
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
+{
+    return 44;
+}
+
 //重写方法
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
     
@@ -334,7 +339,7 @@
         [pickerLabel setTextAlignment:NSTextAlignmentCenter];
         
         [pickerLabel setBackgroundColor:[UIColor clearColor]];
-        [pickerLabel setFont:[UIFont systemFontOfSize:13]];
+        [pickerLabel setFont:[UIFont systemFontOfSize:15]];
         
     }
     

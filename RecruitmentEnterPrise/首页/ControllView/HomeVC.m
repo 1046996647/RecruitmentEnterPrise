@@ -268,7 +268,7 @@
             if (i == 2) {
                 
                 // 该方法是从后往前查找
-                [label wl_changeColorWithTextColor:[UIColor colorWithHexString:@"#417504"] changeText:@"0"];
+                [label wl_changeColorWithTextColor:[UIColor colorWithHexString:@"#417504"] changeText:model.msgSend];
                 [label wl_changeColorWithTextColor:[UIColor colorWithHexString:@"#333333"] changeText:@"+"];
             }
 

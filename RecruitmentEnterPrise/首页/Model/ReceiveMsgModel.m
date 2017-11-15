@@ -1,25 +1,18 @@
 //
-//  ResumeModel.m
+//  ReceiveMsgModel.m
 //  RecruitmentEnterPrise
 //
-//  Created by ZhangWeiLiang on 2017/11/6.
+//  Created by ZhangWeiLiang on 2017/11/14.
 //  Copyright © 2017年 ZhangWeiLiang. All rights reserved.
 //
 
-#import "ResumeModel.h"
+#import "ReceiveMsgModel.h"
 
-@implementation ResumeModel
-
-+ (NSDictionary *)modelCustomPropertyMapper
-{
-    return @{@"ID" : @"id"};
-}
+@implementation ReceiveMsgModel
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     
-    NSString *timeStr = [[dic[@"lastTime"] componentsSeparatedByString:@" "] firstObject];
-    _lastTime = timeStr;
-    
+
     NSString *timeStr1 = [[dic[@"addTime"] componentsSeparatedByString:@" "] lastObject];
     _addTime = timeStr1;
     

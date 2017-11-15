@@ -10,4 +10,7 @@
 
 @interface ResumeCheckedVC : BaseViewController
 
+@property(nonatomic,strong) NSString *positionType;
+
+
 @end

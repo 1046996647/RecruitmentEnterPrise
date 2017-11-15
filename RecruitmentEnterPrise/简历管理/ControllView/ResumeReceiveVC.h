@@ -10,4 +10,7 @@
 
 @interface ResumeReceiveVC : BaseViewController
 
+@property(nonatomic,strong) NSString *positionType;
+
+
 @end

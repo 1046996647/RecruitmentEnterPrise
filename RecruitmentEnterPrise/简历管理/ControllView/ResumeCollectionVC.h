@@ -10,4 +10,7 @@
 
 @interface ResumeCollectionVC : BaseViewController
 
+@property(nonatomic,strong) NSString *positionType;
+
+
 @end

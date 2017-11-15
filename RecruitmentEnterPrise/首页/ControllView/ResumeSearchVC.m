@@ -63,7 +63,7 @@
         _searchUITableView.block = ^(NSMutableDictionary *dic) {
             
 //            self.dic = dic;
-            [weakSelf pushAction:weakSelf.tf.text para:dic];
+            [weakSelf pushAction:weakSelf.tf.text searchType:@"advanced" para:dic];
 
         };
 
@@ -264,7 +264,7 @@
 {
     
     NSString *keyword = self.dataArr[indexPath.item];
-    [self pushAction:keyword para:nil];
+    [self pushAction:keyword searchType:@"normal" para:[NSMutableDictionary dictionary]];
 
     
 }
@@ -303,17 +303,18 @@
 
     [textField resignFirstResponder];
 
-    [self pushAction:textField.text para:nil];
+    [self pushAction:textField.text searchType:@"normal" para:[NSMutableDictionary dictionary]];
     
     return YES;
 
 }
 
 // 搜索结果
-- (void)pushAction:(NSString *)text para:(NSMutableDictionary *)dic
+- (void)pushAction:(NSString *)text searchType:(NSString *)searchType para:(NSMutableDictionary *)dic
 {
     ResumeSearchResultVC *vc = [[ResumeSearchResultVC alloc] init];
     vc.searchText = text;
+    vc.searchType = searchType;
     vc.dic = dic;
     vc.title = @"简历搜索";
     [self.navigationController pushViewController:vc animated:YES];

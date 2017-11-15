@@ -88,6 +88,8 @@ static ZFTableViewCell *_editingCell;
                                                                leftButtonViewWidth, rowHeight)];
         [self.scrollView addSubview:_buttonsView];
         
+        // buttons数组初始化
+        _buttons = [NSMutableArray array];
         
         CGFloat buttonHeight = rowHeight;
         for (int a = 0; a < self.rightButtonTitles.count; a++) {
@@ -100,6 +102,7 @@ static ZFTableViewCell *_editingCell;
 //            [button setTitle:self.rightButtonTitles[a] forState:UIControlStateNormal];
 
             [_buttonsView addSubview:button];
+            
             
             if (type == ZFTableViewCellTypeOne) {
 
@@ -129,6 +132,10 @@ static ZFTableViewCell *_editingCell;
                     twoButton.layer.masksToBounds = YES;
                     twoButton.layer.borderColor = [UIColor colorWithHexString:@"#D0021B"].CGColor;
                     twoButton.layer.borderWidth = 1;
+                    
+                    [_buttons addObject:twoButton];
+
+                    
                 }
                 
             }else if (type == ZFTableViewCellTypeThree) {
@@ -147,6 +154,7 @@ static ZFTableViewCell *_editingCell;
                     twoButton.layer.masksToBounds = YES;
                     twoButton.layer.borderColor = [UIColor colorWithHexString:@"#D0021B"].CGColor;
                     twoButton.layer.borderWidth = 1;
+                    
                 }
                 
             } else if (type == ZFTableViewCellTypeFour) {

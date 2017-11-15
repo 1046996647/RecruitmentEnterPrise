@@ -10,12 +10,16 @@
 #import "ResumeReceiveCell.h"
 #import "ZFTableViewCell.h"
 #import "InviteInterviewVC.h"
+#import "EditResumeVC.h"
 
 
 @interface ResumeLookedVC ()<UITableViewDelegate,UITableViewDataSource,ZFTableViewCellDelegate>
 
 //@property (nonatomic,strong) NSArray *dataArr;
 @property(nonatomic,strong) UITableView *tableView;
+@property(nonatomic,assign) NSInteger pageNO;
+@property(nonatomic,strong) NSMutableArray *modelArr;
+@property (nonatomic,assign) BOOL isRefresh;
 
 @end
 
@@ -33,7 +37,101 @@
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     
-    // 单元格没有任何操作，只显示
+    // 下拉刷新
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
+        [self headerRefresh];
+    }];
+    // 隐藏时间
+    header.lastUpdatedTimeLabel.hidden = YES;
+    self.tableView.mj_header = header;
+    
+    // 上拉刷新
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        
+        if (self.modelArr.count > 0) {
+            [self get_job_viewers];
+        }
+        
+    }];
+    
+    self.pageNO = 1;
+    self.modelArr = [NSMutableArray array];
+    
+    [self get_job_viewers];
+
+}
+
+- (void)headerRefresh
+{
+    self.pageNO = 1;
+    if (self.modelArr.count > 0) {
+        [self.modelArr removeAllObjects];
+        
+    }
+    [self get_job_viewers];
+}
+
+- (void)get_job_viewers
+{
+    
+    if (!self.isRefresh) {
+        [SVProgressHUD show];
+        
+    }
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@p/%ld",Get_job_viewers,self.pageNO];
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    
+    if (self.positionType) {
+        [paramDic setValue:self.positionType forKey:@"positionType"];
+        
+    }
+    else {
+        [paramDic setValue:@"不限" forKey:@"positionType"];
+        
+    }
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:urlStr dic:paramDic showHUD:NO response:YES Succed:^(id responseObject) {
+        
+        self.isRefresh = YES;
+        [SVProgressHUD dismiss];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+        
+        NSArray *arr = responseObject[@"data"];
+        if ([arr count]) {
+            
+            NSMutableArray *arrM = [NSMutableArray array];
+            for (NSDictionary *dic in arr) {
+                
+                NSMutableArray *arrM1 = [NSMutableArray array];
+                ResumeModel *model = [ResumeModel yy_modelWithJSON:dic];
+                [arrM1 addObject:model];
+                [arrM addObject:arrM1];
+            }
+            
+            [self.modelArr addObjectsFromArray:arrM];
+            
+            self.pageNO++;
+        }
+        else {
+            
+            // 拿到当前的上拉刷新控件，变为没有更多数据的状态
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }
+        
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+        self.isRefresh = YES;
+        [SVProgressHUD dismiss];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,18 +139,25 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setPositionType:(NSString *)positionType
+{
+    _positionType = positionType;
+    self.isRefresh = NO;
+    [self headerRefresh];
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    //    return [self.dataArr count];
-    return 2;
+    return [self.modelArr count];
+//    return 2;
     
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //    return [self.dataArr[section] count];
-    return 1;
+    return [self.modelArr[section] count];
+//    return 1;
     
     
 }
@@ -65,6 +170,21 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    ResumeModel *model = self.modelArr[indexPath.section][indexPath.row];
+    
+    if (model.is_hide.boolValue) {
+        [self.view makeToast:@"该用户的简历已被隐藏"];
+        return;
+    }
+    
+    if (model.jobstatus.integerValue == 1) {
+        model.jobstatus = @"2";
+        
+    }
+    EditResumeVC *vc = [[EditResumeVC alloc] init];
+    vc.title = @"详情";
+    vc.model = model;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -112,12 +232,12 @@
                                  withRightButtonColors:@[[UIColor clearColor]]
                                                   type:ZFTableViewCellTypeTwo
                                              rowHeight:100];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
     }
-    //    ReleaseJobModel *model = self.dataArr[indexPath.section][indexPath.row];
-    //    cell.model = model;
-    //    cell.selectArr = _selectArr;
-    //    cell.selectJobArr = _selectJobArr;
+    ResumeModel *model = self.modelArr[indexPath.section][indexPath.row];
+    cell.model = model;
+
     return cell;
 }
 

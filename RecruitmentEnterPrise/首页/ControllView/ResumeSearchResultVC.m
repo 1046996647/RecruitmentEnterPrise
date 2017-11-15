@@ -126,10 +126,9 @@
         
     }
     
-    if (_dic) {
-
+    if ([self.searchType isEqualToString:@"advanced"]) {
+        
         // 高级搜索
-        [_dic setValue:@"advanced" forKey:@"searchType"];
         if (self.searchText.length == 0) {
             [_dic setValue:@"" forKey:@"key"];
         }
@@ -140,17 +139,17 @@
     }
     else {
         // 快速搜索
-        _dic = [NSMutableDictionary dictionary];
-        [_dic setValue:@"normal" forKey:@"searchType"];
+
         [_dic setValue:self.searchText forKey:@"key"];
 
     }
     
+    [_dic setValue:self.searchType forKey:@"searchType"];
 
     NSLog(@"%@",_dic);
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@p/%ld",Search_resume,self.pageNO];
-    
+
+    NSString *urlStr = [NSString stringWithFormat:@"%@p/%ld/size/10",Search_resume,self.pageNO];
+
     [AFNetworking_RequestData requestMethodPOSTUrl:urlStr dic:_dic showHUD:NO response:YES Succed:^(id responseObject) {
         
         self.isRefresh = YES;

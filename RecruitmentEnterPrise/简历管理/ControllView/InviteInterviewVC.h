@@ -8,9 +8,12 @@
 
 #import "BaseViewController.h"
 
+typedef void(^InviteInterviewBlock)(void);
+
 @interface InviteInterviewVC : BaseViewController
 
 @property(nonatomic,strong) NSMutableArray *selectedArr;// 选择数组
+@property(nonatomic,strong) InviteInterviewBlock block;
 
 
 @end

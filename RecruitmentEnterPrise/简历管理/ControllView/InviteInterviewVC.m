@@ -147,7 +147,7 @@
 
     }
     [paramDic setValue:self.jobId forKey:@"jobId"];
-    
+
     // 求职者编号
     NSMutableArray *idArr = [NSMutableArray array];
     for (ResumeModel *model in self.selectedArr) {
@@ -155,9 +155,27 @@
     }
     NSString *string = [idArr componentsJoinedByString:@","]; //,为分隔符
     [paramDic setValue:string forKey:@"workerId"];
+    
+    // sendresumeId
+    NSMutableArray *idArr1 = [NSMutableArray array];
+    for (ResumeModel *model in self.selectedArr) {
+        
+        if (model.sendresumeId) {
+            [idArr1 addObject:model.sendresumeId];
+
+        }
+    }
+    
+    if (idArr1.count>0) {
+        NSString *string1 = [idArr1 componentsJoinedByString:@","]; //,为分隔符
+        [paramDic setValue:string1 forKey:@"sendresumeId"];
+    }
 
     [AFNetworking_RequestData requestMethodPOSTUrl:Interview_invite dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
+        if (self.block) {
+            self.block();
+        }
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"已成功发送面试邀请" message:nil preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

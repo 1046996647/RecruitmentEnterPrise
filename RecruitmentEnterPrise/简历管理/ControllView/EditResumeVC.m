@@ -12,6 +12,7 @@
 //#import "EditEducationMsgVC.h"
 #import "NSStringExt.h"
 #import "UIImage+UIImageExt.h"
+#import "InviteInterviewVC.h"
 
 
 @interface EditResumeVC ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -26,6 +27,7 @@
 @property (nonatomic,strong) UILabel *hopeLabel;
 @property (nonatomic,strong) UIButton *userBtn;
 @property(nonatomic,strong) UIButton *cellctionBtn;
+@property(nonatomic,strong) UIView *footerView;
 
 
 
@@ -95,39 +97,56 @@
 
 
     // 尾视图
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 10+40)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 10+40+10)];
+    self.footerView = footerView;
+
+    CGFloat width = (kScreenWidth-12*4)/3;
+    UIButton *inviteBtn = [UIButton buttonWithframe:CGRectMake(12, 10, width, 40) text:@"邀请面试" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
+    inviteBtn.layer.cornerRadius = 7;
+    inviteBtn.layer.masksToBounds = YES;
+    [footerView addSubview:inviteBtn];
+    inviteBtn.tag = 0;
+    [inviteBtn addTarget:self action:@selector(bottomAction:) forControlEvents:UIControlEventTouchUpInside];
+
     
-    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(25, 0, kScreenWidth-50, 40) text:@"立即沟通" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
+    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(inviteBtn.right+12, inviteBtn.top, width, 40) text:@"立即沟通" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
     releseBtn.layer.cornerRadius = 7;
     releseBtn.layer.masksToBounds = YES;
     [footerView addSubview:releseBtn];
-    //    [releseBtn addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
+    releseBtn.tag = 1;
 
-    if (self.mark == 1) {
-        _tableView.tableFooterView = footerView;
+    
+    UIButton *cellctionBtn = [UIButton buttonWithframe:CGRectMake(releseBtn.right+12, releseBtn.top, width, 40) text:@"加入收藏" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
+    cellctionBtn.layer.cornerRadius = 7;
+    cellctionBtn.layer.masksToBounds = YES;
+    [footerView addSubview:cellctionBtn];
+    cellctionBtn.tag = 2;
+    [cellctionBtn addTarget:self action:@selector(bottomAction:) forControlEvents:UIControlEventTouchUpInside];
 
-    }
-    
-    // 右上角按钮
-    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 40)];
-    
-    [self.view addSubview:rightView];
-    
-    UIButton *cellctionBtn = [UIButton buttonWithframe:CGRectMake(0, 10, 20, 20) text:nil font:nil textColor:nil backgroundColor:nil normal:@"Star" selected:@"Star Copy"];
-    
-    [rightView addSubview:cellctionBtn];
-//    [cellctionBtn addTarget:self action:@selector(cellctionAction) forControlEvents:UIControlEventTouchUpInside];
-    self.cellctionBtn = cellctionBtn;
-    
-//    if (_model.favs.integerValue == 0) {
-//        cellctionBtn.selected = NO;
-//    }
-//    else {
-//        cellctionBtn.selected = YES;
+
+//    // 右上角按钮
+//    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 40)];
 //
-//    }
+//    [self.view addSubview:rightView];
+//
+//    UIButton *cellctionBtn = [UIButton buttonWithframe:CGRectMake(0, 10, 20, 20) text:nil font:nil textColor:nil backgroundColor:nil normal:@"Star" selected:@"Star Copy"];
+//
+//    [rightView addSubview:cellctionBtn];
+////    [cellctionBtn addTarget:self action:@selector(cellctionAction) forControlEvents:UIControlEventTouchUpInside];
+//    self.cellctionBtn = cellctionBtn;
+//
+////    if (_model.favs.integerValue == 0) {
+////        cellctionBtn.selected = NO;
+////    }
+////    else {
+////        cellctionBtn.selected = YES;
+////
+////    }
+//
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
+    [self get_Resume_detail];
+
 }
 
 //- (void)cellctionAction
@@ -175,13 +194,31 @@
 //}
 
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)bottomAction:(UIButton *)btn
 {
-    [super viewWillAppear:animated];
-    
+    if (btn.tag == 0) {
+        
+        NSMutableArray *arrM = [NSMutableArray arrayWithObject:self.model];
+        
+        InviteInterviewVC *vc = [[InviteInterviewVC alloc] init];
+        vc.title = @"邀请面试";
+        vc.selectedArr = arrM;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 
-    [self get_Resume_detail];
-
+    if (btn.tag == 2) {
+        
+        NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+        [paramDic setValue:self.model.workerId forKey:@"workerId"];
+        
+        [AFNetworking_RequestData requestMethodPOSTUrl:Add_company_fav dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+            
+            [self.view makeToast:@"收藏成功"];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }
 }
 
 
@@ -191,7 +228,8 @@
     
     NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
     [paramDic setValue:self.model.workerId forKey:@"workerId"];
-    
+    [paramDic setValue:self.model.sendresumeId forKey:@"sendresumeId"];
+
     [AFNetworking_RequestData requestMethodPOSTUrl:Resume_detail dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
         ResumeModel *model = [ResumeModel yy_modelWithJSON:responseObject[@"data"]];
@@ -217,7 +255,6 @@
         [_tableView reloadData];
 
 
-
         [self.userBtn sd_setImageWithURL:[NSURL URLWithString:self.model.img] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"Rectangle 14"]];
 
         CGSize size = [NSString textLength:model.name font:self.signLabel.font];
@@ -233,7 +270,15 @@
         self.hopeLabel.text = [NSString stringWithFormat:@"%@ %@ %@年工作经验",model.marry,model.political,model.jobyear];
         
 
+        if (model.permit.boolValue) {
+            
+            _tableView.tableFooterView = self.footerView;
 
+        }
+        else {
+            _tableView.tableFooterView = nil;
+
+        }
         
     } failure:^(NSError *error) {
         
@@ -259,6 +304,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 //    return 1;
+    
     if (section == 0) {
         
         if (self.model.requestjobtype.length == 0) {
@@ -535,6 +581,19 @@
         
         cell = [[EditResumeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.block = ^{
+            
+            if (self.model.permit.boolValue) {
+                
+                _tableView.tableFooterView = self.footerView;
+                
+            }
+            else {
+                _tableView.tableFooterView = nil;
+                
+            }
+            [_tableView reloadData];
+        };
     }
     cell.indexPath = indexPath;
     
@@ -545,6 +604,7 @@
         cell.jobEditBtn.hidden = YES;
         
     }
+
 
     return cell;
 }

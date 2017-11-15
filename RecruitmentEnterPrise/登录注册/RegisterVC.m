@@ -66,8 +66,7 @@
     //    [tf addTarget:self action:@selector(changeAction:) forControlEvents:UIControlEventEditingChanged];
     _user.layer.masksToBounds = YES;
     [self.view addSubview:_user];
-    _user.leftViewMode = UITextFieldViewModeAlways;
-    _user.leftView = leftView;
+
     
     // 手机号
     leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 45+10, 40)];
@@ -87,8 +86,7 @@
     //    [tf addTarget:self action:@selector(changeAction:) forControlEvents:UIControlEventEditingChanged];
     _phone.layer.masksToBounds = YES;
     [self.view addSubview:_phone];
-    _phone.leftViewMode = UITextFieldViewModeAlways;
-    _phone.leftView = leftView;
+
     
     
     // 验证码
@@ -126,8 +124,7 @@
     [self.view addSubview:_validate];
     _validate.rightViewMode = UITextFieldViewModeAlways;
     _validate.rightView = rightView;
-    _validate.leftViewMode = UITextFieldViewModeAlways;
-    _validate.leftView = leftView;
+
     
     // 密码
     leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 45+10, leftView.height)];
@@ -158,8 +155,6 @@
     [self.view addSubview:_password];
     _password.rightViewMode = UITextFieldViewModeAlways;
     _password.rightView = rightView;
-    _password.leftViewMode = UITextFieldViewModeAlways;
-    _password.leftView = leftView;
     _password.secureTextEntry = YES;
     
     // 确认密码
@@ -191,8 +186,6 @@
     [self.view addSubview:_okPassword];
     _okPassword.rightViewMode = UITextFieldViewModeAlways;
     _okPassword.rightView = rightView;
-    _okPassword.leftViewMode = UITextFieldViewModeAlways;
-    _okPassword.leftView = leftView;
     _okPassword.secureTextEntry = YES;
     
     // 选择城市
@@ -223,8 +216,6 @@
     [self.view addSubview:_selectCity];
     _selectCity.rightViewMode = UITextFieldViewModeAlways;
     _selectCity.rightView = rightView;
-    _selectCity.leftViewMode = UITextFieldViewModeAlways;
-    _selectCity.leftView = leftView;
 //    _selectCity.secureTextEntry = YES;
     [_selectCity setValue:[UIColor colorWithHexString:@"#D0021B"] forKeyPath:@"_placeholderLabel.textColor"];
     

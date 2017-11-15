@@ -10,4 +10,7 @@
 
 @interface ResumeLookedVC : BaseViewController
 
+@property(nonatomic,strong) NSString *positionType;
+
+
 @end

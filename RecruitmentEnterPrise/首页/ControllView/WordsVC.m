@@ -12,6 +12,7 @@
 
 @property(nonatomic,strong) UITextView *words;
 @property(nonatomic,strong) UIButton *lastBtn;
+@property(nonatomic,strong) UITextView *tv;
 
 
 @end
@@ -55,13 +56,14 @@
     _words.backgroundColor = [UIColor whiteColor];
     _words.layer.cornerRadius = 7;
     _words.layer.masksToBounds = YES;
-    //    [tf addTarget:self action:@selector(changeAction:) forControlEvents:UIControlEventEditingChanged];
     [scrollView addSubview:_words];
     
     UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(_words.left, _words.bottom+37, kScreenWidth-_words.left*2, 40) text:@"发送" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
     releseBtn.layer.cornerRadius = 7;
     releseBtn.layer.masksToBounds = YES;
     [scrollView addSubview:releseBtn];
+    [releseBtn addTarget:self action:@selector(sendAction) forControlEvents:UIControlEventTouchUpInside];
+
     
 //    scrollView.contentSize = CGSizeMake(kScreenWidth, self.forgetBtn2.bottom);
 }
@@ -78,6 +80,28 @@
 
     self.lastBtn = btn;
 
+}
+
+- (void)sendAction
+{
+    if (_words.text.length == 0) {
+        [self.view makeToast:@"请填写内容"];
+        return;
+    }
+    
+    NSMutableDictionary *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    
+    [paramDic  setValue:self.lastBtn.currentTitle forKey:@"type"];
+    [paramDic  setValue:_words.text forKey:@"info"];
+
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Send_mess_admin dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 @end

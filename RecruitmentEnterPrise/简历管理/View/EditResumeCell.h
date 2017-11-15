@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ResumeModel.h"
 
+typedef void(^EditResumeBlock)(void);
 
 @interface EditResumeCell : UITableViewCell
 
@@ -24,8 +25,11 @@
 @property(nonatomic,strong) UIView *hLine1;
 @property(nonatomic,strong) UIView *view;
 @property(nonatomic,strong) UIButton *jobEditBtn;
+@property(nonatomic,strong) UIButton *contactBtn;
 
 @property(nonatomic,strong) ResumeModel *model;
 @property(nonatomic,strong) NSIndexPath *indexPath;
+@property(nonatomic,strong) UITableView *tableView;
+@property(nonatomic,copy) EditResumeBlock block;
 
 @end

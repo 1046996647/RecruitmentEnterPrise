@@ -58,6 +58,12 @@
         [self.contentView addSubview:_jobEditBtn];
 //        self.jobEditBtn = jobEditBtn;
         
+        _contactBtn = [UIButton buttonWithframe:CGRectMake(12, 10, 100, 40) text:@"联系方式" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
+        [_contactBtn addTarget:self action:@selector(contactAction) forControlEvents:UIControlEventTouchUpInside];
+        _contactBtn.layer.cornerRadius = 7;
+        _contactBtn.layer.masksToBounds = YES;
+        [self.contentView addSubview:_contactBtn];
+        
 //        _view = [[UIView alloc] initWithFrame:CGRectMake(_jobLab.left, lin.bottom+9, kScreenWidth-38, 1)];
 //        _view.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
 //        [self.contentView addSubview:_view];
@@ -66,12 +72,35 @@
     return self;
 }
 
+- (void)contactAction
+{
+    NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
+    
+    [paraDic setValue:self.model.workerId forKey:@"workerId"];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:View_contact dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        self.model.permit = @"1";
+
+        if (self.block) {
+            self.block();
+        }
+    } failure:^(NSError *error) {
+        
+        
+    }];
+}
 
 - (void)setModel:(ResumeModel *)model
 {
     _model = model;
     
     _jobEditBtn.hidden = NO;
+    _timeLab.hidden = NO;
+    _jobLab.hidden = NO;
+    _companyLab.hidden = NO;
+    _responsibilityLab.hidden = NO;
+    _contactBtn.hidden = YES;
 
     if (self.indexPath.section == 0) {
         _imgView.hidden = YES;
@@ -199,6 +228,7 @@
         _hLine.hidden = YES;
         _hLine1.hidden = YES;
         _extraLab.hidden = YES;
+        
 
         _timeLab.frame = CGRectMake(12, 10, kScreenWidth-12, 20);
         //        _hLine.frame = CGRectMake(14, _timeLab.bottom+6, kScreenWidth-28, 14);
@@ -211,10 +241,27 @@
         _jobLab.text = [NSString stringWithFormat:@"QQ:%@ %@",model.qq,model.email];
         _companyLab.text = model.address;
         
-        model.cellHeight = _companyLab.bottom+12;
+        if (!model.permit.boolValue) {
+            _timeLab.hidden = YES;
+            _jobLab.hidden = YES;
+            _companyLab.hidden = YES;
+            _responsibilityLab.hidden = YES;
+            _contactBtn.hidden = NO;
+            
+            model.cellHeight = _contactBtn.bottom+12;
 
-        
+        }
+        else {
+            model.cellHeight = _companyLab.bottom+12;
+
+        }
+
+
+
     }
+    
+
+    
 }
 
 @end

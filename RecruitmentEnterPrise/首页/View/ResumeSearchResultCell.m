@@ -94,7 +94,7 @@
     _model = model;
     [_imgView sd_setImageWithURL:[NSURL URLWithString:model.img] placeholderImage:[UIImage imageNamed:@"Rectangle 14"]];
     _nameLab.text = model.name;
-    _jobLab.text = [NSString stringWithFormat:@"应聘职位 %@",model.hopepostion];
+    _jobLab.text = [NSString stringWithFormat:@"期望职位 %@",model.hopepostion];
     [_eduBtn setTitle:model.education forState:UIControlStateNormal];
     [_jobBtn setTitle:[NSString stringWithFormat:@"%@年",model.jobyear] forState:UIControlStateNormal];
     [_addressBtn setTitle:model.jiguan forState:UIControlStateNormal];

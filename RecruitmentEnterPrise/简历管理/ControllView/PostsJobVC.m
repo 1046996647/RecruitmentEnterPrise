@@ -8,11 +8,17 @@
 
 #import "PostsJobVC.h"
 #import "CompanyintroduceVC.h"
+#import "ReleaseJobModel.h"
+#import "BRPickerView.h"
+
 
 @interface PostsJobVC ()
 
 @property(nonatomic,strong) UILabel *mailLab1;
 @property(nonatomic,strong) UILabel *phoneLab;
+@property (nonatomic,strong) NSArray *jobArr;
+@property (nonatomic,assign) BOOL isShow;
+@property(nonatomic,strong) NSString *jobId;
 
 @end
 
@@ -70,7 +76,53 @@
     releseBtn.layer.cornerRadius = 7;
     releseBtn.layer.masksToBounds = YES;
     [self.view addSubview:releseBtn];
-//    [releseBtn addTarget:self action:@selector(upAction) forControlEvents:UIControlEventTouchUpInside];
+    [releseBtn addTarget:self action:@selector(assign_fav_job) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    [self get_position];
+
+}
+
+- (void)get_position
+{
+    
+    NSMutableDictionary *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Get_position dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        NSMutableArray *arrM = [NSMutableArray array];
+        
+        for (NSDictionary *dic in responseObject[@"data"]) {
+            
+            ReleaseJobModel *model = [ReleaseJobModel yy_modelWithDictionary:dic];
+            [arrM addObject:model];
+        }
+        self.jobArr = arrM;
+        
+        if (self.jobArr.count > 0 && _isShow) {
+            NSMutableArray *arrM = [NSMutableArray array];
+//            [arrM addObject:@"不限"];
+            for (ReleaseJobModel *model in self.jobArr) {
+                
+                [arrM addObject:model.title];
+            }
+            [BRStringPickerView showStringPickerWithTitle:nil dataSource:arrM defaultSelValue:arrM[0] isAutoSelect:NO resultBlock:^(id selectValue) {
+                
+                self.phoneLab.text = selectValue;
+                for (ReleaseJobModel *model in self.jobArr) {
+                    
+                    if ([model.title isEqualToString:selectValue]) {
+                        self.jobId = model.jobId;
+                        break;
+                    }
+                }
+                
+            }];
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -82,6 +134,7 @@
 {
     if (btn.tag == 0) {
 
+        [self selectAction];
         
     }
     if (btn.tag == 1) {
@@ -99,5 +152,64 @@
     
     
 }
+- (void)selectAction
+{
+    _isShow = YES;
+    if (self.jobArr.count > 0) {
+        NSMutableArray *arrM = [NSMutableArray array];
+//        [arrM addObject:@"不限"];
+        for (ReleaseJobModel *model in self.jobArr) {
+            
+            [arrM addObject:model.title];
+        }
+        [BRStringPickerView showStringPickerWithTitle:nil dataSource:arrM defaultSelValue:arrM[0] isAutoSelect:NO resultBlock:^(id selectValue) {
+            
+            self.phoneLab.text = selectValue;
+            for (ReleaseJobModel *model in self.jobArr) {
+                
+                if ([model.title isEqualToString:selectValue]) {
+                    self.jobId = model.jobId;
+                    break;
+                }
+            }
+            
+        }];
+    }
+    else {
+        [self get_position];
+        
+    }
+    
+    
+}
 
+
+- (void)assign_fav_job
+{
+    
+    if (self.phoneLab.text.length == 0) {
+        
+        [self.view makeToast:@"请分配职位"];
+        return;
+    }
+    
+    
+    NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
+    
+    [paraDic setValue:self.jobId forKey:@"jobId"];
+    [paraDic setValue:self.favId forKey:@"favId"];
+    [paraDic setValue:self.mailLab1.text forKey:@"remark"];
+
+    [AFNetworking_RequestData requestMethodPOSTUrl:Assign_fav_job dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
+    
+    
+    
+}
 @end

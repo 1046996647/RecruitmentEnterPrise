@@ -36,6 +36,7 @@ typedef NS_ENUM(NSInteger,ZFTableViewCellState){
 @end
 
 @interface ZFTableViewCell : UITableViewCell
+
 /** 分享的View*/
 @property (strong, nonatomic) ZFShareView *shareView;
 /** 每个cell上的右划ScrollView */
@@ -44,6 +45,9 @@ typedef NS_ENUM(NSInteger,ZFTableViewCellState){
 @property (nonatomic,strong) UIView *cellContentView;
 /** 右划编辑的代理*/
 @property (nonatomic,assign) id<ZFTableViewCellDelegate> delegate;
+
+/** button数组*/
+@property (strong, nonatomic) NSMutableArray *buttons;
 
 /**
  *  自定义Cell

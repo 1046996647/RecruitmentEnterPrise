@@ -10,4 +10,7 @@
 
 @interface PostsJobVC : BaseViewController
 
+@property(nonatomic,strong) NSString *favId;
+
+
 @end

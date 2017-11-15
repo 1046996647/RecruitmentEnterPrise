@@ -10,4 +10,7 @@
 
 @interface InviteInterviewRecordVC : BaseViewController
 
+@property(nonatomic,strong) NSString *positionType;
+
+
 @end
