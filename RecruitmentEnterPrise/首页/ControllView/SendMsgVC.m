@@ -9,6 +9,7 @@
 #import "SendMsgVC.h"
 #import "ReceiveMsgCell.h"
 #import "ZFTableViewCell.h"
+#import "MsgDetailVC.h"
 
 
 @interface SendMsgVC ()<UITableViewDelegate,UITableViewDataSource,ZFTableViewCellDelegate>
@@ -383,15 +384,11 @@
     }
     else if (buttonIndex == 1){
         
-        //        NSMutableArray *arrM = [NSMutableArray arrayWithObject:model];
-        //
-        //        InviteInterviewVC *vc = [[InviteInterviewVC alloc] init];
-        //        vc.title = @"邀请面试内容";
-        //        vc.selectedArr = arrM;
-        //        [self.navigationController pushViewController:vc animated:YES];
-        //        vc.block = ^{
-        //            model.jobstatus = @"3";
-        //        };
+        MsgDetailVC *vc = [[MsgDetailVC alloc] init];
+        vc.title = @"短信内容";
+        vc.model = model;
+        vc.mark = 1;
+        [self.navigationController pushViewController:vc animated:YES];
         //把cell复原
         [[NSNotificationCenter defaultCenter] postNotificationName:ZFTableViewCellNotificationChangeToUnexpanded object:nil];
     }

@@ -148,6 +148,9 @@
 // 4.14    删除邀请面试记录
 #define Delete_invite  [NSString stringWithFormat:@"%@/Resume/delete_invite",BaseUrl]
 
+// 4.15    获取邀请信
+#define Get_invite_detail  [NSString stringWithFormat:@"%@/Resume/get_invite_detail",BaseUrl]
+
 // 4.7    谁看了我
 #define Get_job_viewers  [NSString stringWithFormat:@"%@/Resume/get_job_viewers/",BaseUrl]
 
@@ -159,6 +162,11 @@
 
 // 1.16    我的信箱（收到的消息）
 #define Get_message_tome  [NSString stringWithFormat:@"%@/User/get_message_tome/",BaseUrl]
+
+// 1.19    删除消息
+#define Delete_mess  [NSString stringWithFormat:@"%@/User/delete_mess",BaseUrl]
+
+
 
 // 1.16	上传头像
 #define Upload_company_logo  [NSString stringWithFormat:@"%@/User/upload_company_logo",BaseUrl]

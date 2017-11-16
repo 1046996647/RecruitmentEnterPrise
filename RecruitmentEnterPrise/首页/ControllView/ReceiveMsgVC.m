@@ -9,6 +9,7 @@
 #import "ReceiveMsgVC.h"
 #import "ReceiveMsgCell.h"
 #import "ZFTableViewCell.h"
+#import "MsgDetailVC.h"
 
 @interface ReceiveMsgVC ()<UITableViewDelegate,UITableViewDataSource,ZFTableViewCellDelegate>
 
@@ -170,7 +171,6 @@
         return;
     }
     
-    
     NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
     
     NSMutableArray *idArr = [NSMutableArray array];
@@ -181,7 +181,7 @@
     NSString *string = [idArr componentsJoinedByString:@","]; //,为分隔符
     [paraDic setValue:string forKey:@"messId"];
     
-    [AFNetworking_RequestData requestMethodPOSTUrl:Delete_invite dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+    [AFNetworking_RequestData requestMethodPOSTUrl:Delete_mess dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
         self.isRefresh = NO;
         [self headerRefresh];
         
@@ -371,7 +371,7 @@
         
         [paraDic setValue:model.messId forKey:@"messId"];
         
-        [AFNetworking_RequestData requestMethodPOSTUrl:Delete_invite dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+        [AFNetworking_RequestData requestMethodPOSTUrl:Delete_mess dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
             
             [self.modelArr removeObjectAtIndex:indexPath.section];
             [self.tableView reloadData];
@@ -383,15 +383,12 @@
     }
     else if (buttonIndex == 1){
         
-//        NSMutableArray *arrM = [NSMutableArray arrayWithObject:model];
-//
-//        InviteInterviewVC *vc = [[InviteInterviewVC alloc] init];
-//        vc.title = @"邀请面试内容";
-//        vc.selectedArr = arrM;
-//        [self.navigationController pushViewController:vc animated:YES];
-//        vc.block = ^{
-//            model.jobstatus = @"3";
-//        };
+
+        MsgDetailVC *vc = [[MsgDetailVC alloc] init];
+        vc.title = @"短信内容";
+        vc.model = model;
+        [self.navigationController pushViewController:vc animated:YES];
+
         //把cell复原
         [[NSNotificationCenter defaultCenter] postNotificationName:ZFTableViewCellNotificationChangeToUnexpanded object:nil];
     }

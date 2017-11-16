@@ -7,7 +7,12 @@
 //
 
 #import "BaseViewController.h"
+#import "ReceiveMsgModel.h"
 
 @interface MsgDetailVC : BaseViewController
+
+@property (nonatomic,strong) ReceiveMsgModel *model;
+@property (nonatomic,assign) NSInteger mark;
+
 
 @end

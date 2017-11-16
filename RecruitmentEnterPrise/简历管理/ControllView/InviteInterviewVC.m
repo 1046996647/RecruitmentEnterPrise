@@ -20,6 +20,10 @@
 @property (nonatomic,strong) NSArray *jobArr;
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,strong) UIButton *selectBtn;
+@property(nonatomic,strong) UIButton *releseBtn;
+@property(nonatomic,strong) UICollectionView *collectionView;
+@property(nonatomic,strong) UIView *baseView;
+
 
 @property(nonatomic,strong) NSString *jobId;
 
@@ -64,6 +68,7 @@
     // 头视图
     UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(_tableView.left, 0, _tableView.width, 0)];
     [imgView addSubview:baseView];
+    self.baseView = baseView;
     
 //    UIImageView *userImg = [UIImageView imgViewWithframe:CGRectMake((imgView.width-50)/2, 15, 50, 50) icon:@""];
 //    userImg.backgroundColor = [UIColor redColor];
@@ -91,6 +96,7 @@
     [collectionView registerClass:[ResDetailCollectionViewCell class] forCellWithReuseIdentifier:@"cellID"];
     collectionView.contentInset = UIEdgeInsetsMake(0, 12, 0, 12);
     [baseView addSubview:collectionView];
+    self.collectionView = collectionView;
     
     
     UIButton *selectBtn = [UIButton buttonWithframe:CGRectMake(0, collectionView.bottom+12, imgView.width, 17) text:@"选择面试职位" font:[UIFont systemFontOfSize:14] textColor:@"#D0021B" backgroundColor:nil normal:nil selected:nil];
@@ -111,8 +117,70 @@
     releseBtn.layer.masksToBounds = YES;
     [footerView addSubview:releseBtn];
     [releseBtn addTarget:self action:@selector(btnAction) forControlEvents:UIControlEventTouchUpInside];
+    self.releseBtn = releseBtn;
     
     _tableView.tableFooterView = footerView;
+    
+    
+    if ([self.title isEqualToString:@"邀请面试内容"]) {
+        
+        ResumeModel *model1 = [self.selectedArr firstObject];
+        
+        self.selectBtn.userInteractionEnabled = NO;
+        [self.selectBtn setTitle:[NSString stringWithFormat:@"邀请面试的职位：%@",model1.jobName] forState:UIControlStateNormal];
+        
+        self.releseBtn.hidden = YES;
+        
+        
+        CGFloat width = (self.selectedArr.count+1)*12+self.selectedArr.count*50;
+        
+        if (width > self.baseView.width) {
+            width = self.baseView.width;
+        }
+        self.collectionView.frame = CGRectMake((self.baseView.width-width)/2, 15, width,74);
+        [self.collectionView reloadData];
+        
+        [self get_invite_detail];
+    }
+    
+    
+}
+
+- (void)get_invite_detail
+{
+    
+    NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
+    
+    [paraDic setValue:self.inviteId forKey:@"inviteId"];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Get_invite_detail dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+
+
+        ContactModel *model = [ContactModel yy_modelWithJSON:responseObject[@"data"]];
+
+        
+        self.dataArr = @[@{@"image":@"19",@"title":@"请选择联系人",@"text":@"",@"key":@"key"},
+                         @{@"image":@"18",@"title":@"请填写联系人",@"text":model.name,@"key":@"name"},
+                         @{@"image":@"17",@"title":@"请填写联系方式",@"text":model.tele,@"key":@"tele"},
+                         @{@"image":@"16",@"title":@"请填写地址",@"text":model.address,@"key":@"address"},
+                         @{@"image":@"15",@"title":@"输入邀请内容",@"text":model.info,@"key":@"info"}];
+        
+        NSMutableArray *arrM = [NSMutableArray array];
+        for (NSDictionary *dic in self.dataArr) {
+            
+            ContactModel *model = [ContactModel yy_modelWithJSON:dic];
+            [arrM addObject:model];
+        }
+        
+        self.dataArr = arrM;
+        
+        [_tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
     
     
 }
@@ -121,7 +189,6 @@
 {
     [self get_position];
 
-    
 
 }
 
@@ -306,8 +373,12 @@
     }
     ContactModel *model = self.dataArr[indexPath.row];
     cell.model = model;
-    //    cell.selectArr = _selectArr;
-    //    cell.selectJobArr = _selectJobArr;
+
+    if ([self.title isEqualToString:@"邀请面试内容"]) {
+        cell.userInteractionEnabled = NO;
+        cell.imgView.hidden = YES;
+    }
+    
     return cell;
 }
 

@@ -470,6 +470,21 @@
     
     // 删除简历
     if (buttonIndex == 0){
+        
+        NSMutableArray *arrM = [NSMutableArray array];
+        [arrM addObject:model];
+        
+        InviteInterviewVC *vc = [[InviteInterviewVC alloc] init];
+        vc.title = @"邀请面试内容";
+        vc.inviteId = model.inviteId;
+        vc.selectedArr = arrM;
+        [self.navigationController pushViewController:vc animated:YES];
+
+        //把cell复原
+        [[NSNotificationCenter defaultCenter] postNotificationName:ZFTableViewCellNotificationChangeToUnexpanded object:nil];
+    }
+    else if (buttonIndex == 1){
+        
         NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
         
         [paraDic setValue:model.inviteId forKey:@"inviteId"];
@@ -483,20 +498,7 @@
             
             
         }];
-    }
-    else if (buttonIndex == 1){
-        
-        NSMutableArray *arrM = [NSMutableArray arrayWithObject:model];
-        
-        InviteInterviewVC *vc = [[InviteInterviewVC alloc] init];
-        vc.title = @"邀请面试内容";
-        vc.selectedArr = arrM;
-        [self.navigationController pushViewController:vc animated:YES];
-        vc.block = ^{
-            model.jobstatus = @"3";
-        };
-        //把cell复原
-        [[NSNotificationCenter defaultCenter] postNotificationName:ZFTableViewCellNotificationChangeToUnexpanded object:nil];
+
     }
     
 }

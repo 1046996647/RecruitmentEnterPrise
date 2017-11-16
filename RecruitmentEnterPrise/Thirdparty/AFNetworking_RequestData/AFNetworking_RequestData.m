@@ -112,26 +112,23 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
             NSNumber *code = [responseObject objectForKey:@"status"];
             if (0 == [code integerValue] || 3 == [code integerValue]) {
                 
-//                if (3 == [code integerValue]) {
-//                    
-//                    if ([[InfoCache getValueForKey:@"LoginedState"] integerValue]) {
-//                        
-//                        [[UIApplication sharedApplication].keyWindow makeToast:@"您已被挤下线!"];
-//                        
-//                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                            
-//                            LoginVC *loginVC = [[LoginVC alloc] init];
-//                            NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
-//                            
-//                            [UIApplication sharedApplication].keyWindow.rootViewController = nav;
-//                            
-//                            [InfoCache saveValue:@0 forKey:@"LoginedState"];
-//                        });
-//                        
-//                    }
-//                    
-//                    return ;
-//                }
+                if (3 == [code integerValue]) {
+                    
+                    if ([[InfoCache getValueForKey:@"LoginedState"] integerValue]) {
+                        
+                        [[UIApplication sharedApplication].keyWindow makeToast:@"您已被挤下线，请重新登陆!"];
+                        
+                        LoginVC *loginVC = [[LoginVC alloc] init];
+                        NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
+                        
+                        [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+                        
+                        [InfoCache saveValue:@0 forKey:@"LoginedState"];
+                        
+                    }
+                    
+                    return ;
+                }
                 
                 NSString *message = [responseObject objectForKey:@"message"];
                 
