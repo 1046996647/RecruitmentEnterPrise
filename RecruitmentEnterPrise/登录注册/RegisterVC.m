@@ -254,6 +254,8 @@
 
 - (void)cityAction
 {
+    [self.view endEditing:YES];
+    
     NSMutableArray *arrM = [NSMutableArray array];
     for (NSDictionary *dic in self.cityArr) {
         [arrM addObject:dic[@"name"]];

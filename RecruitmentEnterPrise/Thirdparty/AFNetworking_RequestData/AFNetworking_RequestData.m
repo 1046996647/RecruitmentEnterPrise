@@ -78,7 +78,7 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/plain", @"text/json", @"text/javascript",@"text/html", nil];
     
     // 用户信息不包含token
-    PersonModel *person = [InfoCache unarchiveObjectWithFile:Person];
+//    PersonModel *person = [InfoCache unarchiveObjectWithFile:Person];
     NSString *token = [InfoCache unarchiveObjectWithFile:@"token"];
     NSString *userid = [InfoCache unarchiveObjectWithFile:@"userid"];
     NSString *siteId = [InfoCache unarchiveObjectWithFile:@"siteId"];
@@ -86,9 +86,9 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
     //======POST=====
     if ([Method isEqualToString:@"POST"]) {
 
-        if (person) {
+//        if (person) {
 //            [dic  setValue:person.uid forKey:@"uid"];
-        }
+//        }
 
         if (token) {
             [dic  setValue:token forKey:@"token"];
