@@ -312,6 +312,10 @@
         
         [self.userBtn sd_setImageWithURL:[NSURL URLWithString:responseObject[@"img"]] forState:UIControlStateNormal];
         
+        [[NIMSDK sharedSDK].userManager updateMyUserInfo:@{@(NIMUserInfoUpdateTagAvatar) : responseObject[@"img"]} completion:^(NSError *error) {
+            
+        }];
+        
     } failure:^(NSError *error) {
         
     }];

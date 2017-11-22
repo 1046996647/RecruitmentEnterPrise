@@ -197,28 +197,62 @@
     }
     else {
         url = Post_position;
+
+        // 剩余约聊岗位发布次数
+        NSString *chatLast = [InfoCache unarchiveObjectWithFile:@"chatLast"];
         
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"发布职位" message:[NSString stringWithFormat:@"剩余约聊岗位发布%@次",chatLast] preferredStyle:UIAlertControllerStyleAlert];
+        
+        if (chatLast.integerValue > 0) {
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"可约聊" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+                [paramDic  setValue:@"1" forKey:@"chat"];
+
+                [self position:url para:paramDic];
+            }];
+            [alertController addAction:cancelAction];
+
+        }
+        else {
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:nil];
+            [alertController addAction:cancelAction];
+        }
+
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"不可约聊" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [paramDic  setValue:@"0" forKey:@"chat"];
+            [self position:url para:paramDic];
+
+            
+        }];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
     }
     
-    [AFNetworking_RequestData requestMethodPOSTUrl:url dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
 
+}
+
+- (void)position:(NSString *)url para:(NSMutableDictionary *)paramDic
+{
+    [AFNetworking_RequestData requestMethodPOSTUrl:url dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
         if (self.block) {
             self.block();
         }
         
         if ([self.title isEqualToString:@"修改职位"]) {
             [self.navigationController popViewControllerAnimated:YES];
-
+            
             
         }
         else {
             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-
+            
         }
-
-
+        
+        
     } failure:^(NSError *error) {
-
+        
     }];
 }
 

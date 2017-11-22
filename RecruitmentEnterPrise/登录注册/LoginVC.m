@@ -199,19 +199,32 @@
 
     [AFNetworking_RequestData requestMethodPOSTUrl:Login dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
+        NSLog(@"responseObject:%@",responseObject);
+        
         [InfoCache archiveObject:responseObject[@"token"] toFile:@"token"];
         [InfoCache archiveObject:responseObject[@"data"][@"userid"] toFile:@"userid"];
+        [InfoCache archiveObject:responseObject[@"data"][@"siteId"] toFile:@"siteId"];
         [InfoCache archiveObject:self.phone.text toFile:@"phone"];
 
-        [InfoCache saveValue:@1 forKey:@"LoginedState"];
         
-        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        TabBarController *tabVC = [[TabBarController alloc] init];
-        delegate.tabVC = tabVC;
-        delegate.window.rootViewController = tabVC;
+        // 云信
+        [InfoCache archiveObject:responseObject[@"data"][@"accToken"] toFile:@"accToken"];
+        [InfoCache archiveObject:responseObject[@"data"][@"accid"] toFile:@"accid"];
+        [[NIMSDK sharedSDK].loginManager login:responseObject[@"data"][@"accid"] token:responseObject[@"data"][@"accToken"] completion:^(NSError *error) {
+            if (!error) {
+                NSLog(@"登录成功");
+                [InfoCache saveValue:@1 forKey:@"LoginedState"];
 
+                AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                TabBarController *tabVC = [[TabBarController alloc] init];
+                delegate.tabVC = tabVC;
+                delegate.window.rootViewController = tabVC;
+                
+            }else{
+                NSLog(@"登录失败");
+            }
+        }];
 
-        
     } failure:^(NSError *error) {
         
     }];
@@ -228,7 +241,7 @@
     }
     
     // 开始计时
-    [CountDownServer startCountDown:10 identifier:kCountDownForVerifyCode];
+    [CountDownServer startCountDown:60 identifier:kCountDownForVerifyCode];
     
     NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
     [paramDic  setValue:self.phone.text forKey:@"phone"];

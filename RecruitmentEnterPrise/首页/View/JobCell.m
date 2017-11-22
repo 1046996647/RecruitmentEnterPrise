@@ -70,7 +70,9 @@
         UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gesAction:)];
         [_orderLab addGestureRecognizer:tap2];
         
-        
+        _imgView = [UIImageView imgViewWithframe:CGRectMake(_orderLab.left-18-5, _orderLab.center.y-9, 18, 18) icon:@"聊天 (1)"];
+        [baseView addSubview:_imgView];
+
     }
     
     return self;
@@ -134,7 +136,7 @@
 {
     _model = model;
     
-    _nameLab.width = _orderLab.left-_nameLab.left-10;
+    _nameLab.width = _imgView.left-_nameLab.left-10;
     _nameLab.text = model.title;
     [_viewBtn setTitle:model.hits forState:UIControlStateNormal];
     _orderLab.text = model.ordid;
@@ -150,6 +152,15 @@
     else {
         _stateLab.text = @"招聘中";
         _stateLab.backgroundColor = [UIColor colorWithHexString:@"#D0021B"];
+    }
+    
+    if (model.chatStatus.integerValue == 1) {
+        _imgView.hidden = NO;
+        
+    }
+    else {
+        _imgView.hidden = YES;
+
     }
 }
 

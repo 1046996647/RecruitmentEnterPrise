@@ -9,7 +9,7 @@
 #import "CompanyintroduceVC.h"
 #import "RegexTool.h"
 
-@interface CompanyintroduceVC ()
+@interface CompanyintroduceVC ()<UITextViewDelegate>
 
 @property(nonatomic,strong) UITextView *tv;
 
@@ -22,10 +22,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(23, 16, kScreenWidth-23*2, 329*scaleWidth)];
+    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(23, 16, kScreenWidth-23*2, (329-70)*scaleWidth)];
     [self.view addSubview:textView];
     textView.layer.cornerRadius = 7;
     textView.layer.masksToBounds = YES;
+    textView.delegate = self;
     self.tv = textView;
     textView.text = self.text;
     
@@ -33,11 +34,15 @@
         textView.height = 40;
     }
 
-    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(textView.left, (textView.bottom+102)*scaleWidth, kScreenWidth-textView.left*2, 40) text:@"提交" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
-    releseBtn.layer.cornerRadius = 7;
-    releseBtn.layer.masksToBounds = YES;
-    [self.view addSubview:releseBtn];
+//    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(textView.left, (textView.bottom+102)*scaleWidth, kScreenWidth-textView.left*2, 40) text:@"提交" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
+//    releseBtn.layer.cornerRadius = 7;
+//    releseBtn.layer.masksToBounds = YES;
+//    [self.view addSubview:releseBtn];
+//    [releseBtn addTarget:self action:@selector(upAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(0, 0, 40, 40) text:@"提交" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:nil normal:@"" selected:nil];
     [releseBtn addTarget:self action:@selector(upAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:releseBtn];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,6 +86,8 @@
 
 - (void)upAction
 {
+    [self.view endEditing:YES];
+    
     if (self.tv.text.length == 0) {
         [self.view makeToast:@"请填写内容"];
         return;
@@ -98,6 +105,11 @@
 
     }
 
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.view endEditing:YES];
 }
 
 @end

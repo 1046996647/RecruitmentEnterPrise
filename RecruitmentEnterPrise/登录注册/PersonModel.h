@@ -79,6 +79,7 @@
 @property(nonatomic,strong) NSString *fax;
 @property(nonatomic,strong) NSString *cateId;
 @property(nonatomic,strong) NSString *cateName;
+@property(nonatomic,strong) NSString *chatLast;
 
 @property(nonatomic,assign) NSInteger cellHeight;
 

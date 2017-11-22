@@ -70,6 +70,12 @@
             [InfoCache saveValue:@0 forKey:@"LoginedState"];
             [InfoCache archiveObject:nil toFile:@"token"];
 
+            [[[NIMSDK sharedSDK] loginManager] logout:^(NSError *error)
+             {
+//                 extern NSString *NTESNotificationLogout;
+//                 [[NSNotificationCenter defaultCenter] postNotificationName:NTESNotificationLogout object:nil];
+             }];
+            
             AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
             LoginVC *loginVC = [[LoginVC alloc] init];
             NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];

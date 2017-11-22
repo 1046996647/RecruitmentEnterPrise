@@ -24,9 +24,10 @@
     
     if (self.navigationController.childViewControllers.count > 1) {
         
+        
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         //        [button setTitle:@"返回" forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:@"36"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"icon_back_normal"] forState:UIControlStateNormal];
         //        [button setImage:[UIImage imageNamed:@"navigationReturnClick"] forState:UIControlStateHighlighted];
         CGRect frame = button.frame;
         frame.size = CGSizeMake(30, 20);

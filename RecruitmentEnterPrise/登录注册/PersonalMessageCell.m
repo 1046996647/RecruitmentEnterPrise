@@ -31,7 +31,7 @@
         
         UIButton *saveBtn = [UIButton buttonWithframe:_tf.bounds text:nil font:[UIFont systemFontOfSize:14] textColor:@"#333333" backgroundColor:nil normal:nil selected:nil];
         [saveBtn addTarget:self action:@selector(pushAction) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:saveBtn];
+        [_tf addSubview:saveBtn];
         saveBtn.hidden = YES;
         self.saveBtn = saveBtn;
         
@@ -146,8 +146,24 @@
     [BRStringPickerView showStringPickerWithTitle:nil dataSource:self.dataSource defaultSelValue:self.dataSource[0] isAutoSelect:NO resultBlock:^(id selectValue) {
 
         _tf.text = selectValue;
-        _model.text = selectValue;
+        
+        // 岗位类别
+        if ([_model.title isEqualToString:@"所属行业"]) {
+            for (NSDictionary *dic in self.selectJobArr) {
+                
+                if ([selectValue isEqualToString:dic[@"name"]]) {
+                    _model.text = dic[@"cateId"];
+                    
+                }
+                
+            }
+        }
+        else {
+            _model.text = selectValue;
 
+        }
+
+                 
 
     }];
     

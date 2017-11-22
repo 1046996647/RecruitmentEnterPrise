@@ -228,8 +228,13 @@
     [AFNetworking_RequestData requestMethodPOSTUrl:Get_ui_info dic:paramDic showHUD:NO response:NO Succed:^(id responseObject) {
 
         PersonModel *model = [PersonModel yy_modelWithJSON:responseObject[@"data"]];
-//        [InfoCache archiveObject:model toFile:Person];
         self.model = model;
+        
+        // 剩余约聊岗位发布次数
+        [InfoCache archiveObject:model.chatLast toFile:@"chatLast"];
+
+        
+        [self updateInfo];
 
         self.companyLab.text = model.title;
         
@@ -239,10 +244,8 @@
         
         self.emailLab.text = model.email;
         
-        if (model.img.length > 0) {
-            [self.logoBtn sd_setImageWithURL:[NSURL URLWithString:model.img] forState:UIControlStateNormal];
+        [self.logoBtn sd_setImageWithURL:[NSURL URLWithString:model.img] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"Rectangle 14"]];
 
-        }
 
         
         self.levelView.frame = CGRectMake(self.nameLab.right+7, self.nameLab.top, 12, 20);
@@ -382,14 +385,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+// 更新聊天个人信息
+- (void)updateInfo
+{
+    [[NIMSDK sharedSDK].userManager updateMyUserInfo:@{@(NIMUserInfoUpdateTagNick) : self.model.title} completion:^(NSError *error) {
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    }];
+    
+    [[NIMSDK sharedSDK].userManager updateMyUserInfo:@{@(NIMUserInfoUpdateTagAvatar) : self.model.img} completion:^(NSError *error) {
+        
+    }];
 }
-*/
 
 @end

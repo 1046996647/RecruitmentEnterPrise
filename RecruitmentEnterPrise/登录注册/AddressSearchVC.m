@@ -35,7 +35,7 @@
     [self.view addSubview:baseView];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"36"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"icon_back_normal"] forState:UIControlStateNormal];
     button.frame = CGRectMake(17, kStatusBarHeight+(kNavBarHeight-20)/2, 30, 20);
     //        button.backgroundColor = [UIColor greenColor]
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;

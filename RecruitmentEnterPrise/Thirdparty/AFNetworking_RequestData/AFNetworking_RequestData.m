@@ -124,7 +124,8 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
                         [UIApplication sharedApplication].keyWindow.rootViewController = nav;
                         
                         [InfoCache saveValue:@0 forKey:@"LoginedState"];
-                        
+                        [InfoCache archiveObject:nil toFile:@"token"];
+
                     }
                     
                     return ;
@@ -158,7 +159,7 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
             }
             
             if (![UIApplication sharedApplication].keyWindow.rootViewController.view.isShowing) {
-                
+
                 [[UIApplication sharedApplication].keyWindow.rootViewController.view makeToast:@"网络似乎已断开!"];
 
             }

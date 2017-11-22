@@ -13,7 +13,7 @@
 #import "HomeVC.h"
 #import "ResumeManageVC.h"
 #import "ReleaseJobVC.h"
-#import "ChatVC.h"
+#import "SessionListViewController.h"
 
 #import "ReleaseJob1VC.h"
 #import "ResumeManage1VC.h"
@@ -59,7 +59,7 @@
 
     [self setChildViewController:[[ResumeManageVC alloc]init] Title:@"简历管理" Image:@"52" SelectedImage:@"55"];
     
-    [self setChildViewController:[[ChatVC alloc]init] Title:@"约聊" Image:@"53" SelectedImage:@"54"];
+    [self setChildViewController:[[SessionListViewController alloc]init] Title:@"约聊" Image:@"53" SelectedImage:@"54"];
     
     CDTabBar *tabBar = [[CDTabBar alloc] init];
     [self setValue:tabBar forKey:@"tabBar"];

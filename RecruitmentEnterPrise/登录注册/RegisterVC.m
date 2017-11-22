@@ -11,7 +11,8 @@
 #import "RegexTool.h"
 #import "BRPickerView.h"
 
-#define kCountDownForVerifyCode @"CountDownForVerifyCode"
+//#define kCountDownForVerifyCodeRegister @"CountDownForVerifyCode"
+#define kCountDownForVerifyCodeRegister @"kCountDownForVerifyCodeRegister"
 
 @interface RegisterVC ()
 
@@ -284,7 +285,7 @@
     }
     
     // 开始计时
-    [CountDownServer startCountDown:10 identifier:kCountDownForVerifyCode];
+    [CountDownServer startCountDown:60 identifier:kCountDownForVerifyCodeRegister];
     
     NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
     [paramDic  setValue:self.phone.text forKey:@"phone"];
@@ -404,7 +405,7 @@
 - (void)countDownUpdate:(NSNotification *)noti
 {
     NSString *identifier = [noti.userInfo objectForKey:@"CountDownIdentifier"];
-    if ([identifier isEqualToString:kCountDownForVerifyCode]) {
+    if ([identifier isEqualToString:kCountDownForVerifyCodeRegister]) {
         NSNumber *n = [noti.userInfo objectForKey:@"SecondsCountDown"];
         
         [self performSelectorOnMainThread:@selector(updateVerifyCodeCountDown:) withObject:n waitUntilDone:YES];

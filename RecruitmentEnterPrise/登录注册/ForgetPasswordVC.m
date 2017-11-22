@@ -10,7 +10,8 @@
 
 #import "RegexTool.h"
 
-#define kCountDownForVerifyCode @"CountDownForVerifyCode"
+//#define kCountDownForVerifyCodeForget @"CountDownForVerifyCode"
+#define kCountDownForVerifyCodeForget @"kCountDownForVerifyCodeForget"
 
 @interface ForgetPasswordVC ()
 
@@ -163,7 +164,7 @@
     }
     
     // 开始计时
-    [CountDownServer startCountDown:10 identifier:kCountDownForVerifyCode];
+    [CountDownServer startCountDown:20 identifier:kCountDownForVerifyCodeForget];
     
     NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
     [paramDic  setValue:self.phone.text forKey:@"phone"];
@@ -246,7 +247,7 @@
 - (void)countDownUpdate:(NSNotification *)noti
 {
     NSString *identifier = [noti.userInfo objectForKey:@"CountDownIdentifier"];
-    if ([identifier isEqualToString:kCountDownForVerifyCode]) {
+    if ([identifier isEqualToString:kCountDownForVerifyCodeForget]) {
         NSNumber *n = [noti.userInfo objectForKey:@"SecondsCountDown"];
         
         [self performSelectorOnMainThread:@selector(updateVerifyCodeCountDown:) withObject:n waitUntilDone:YES];

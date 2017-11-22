@@ -83,8 +83,8 @@
     [headView addSubview:logoView];
     logoView.layer.cornerRadius = 10;
     logoView.layer.masksToBounds = YES;
-    logoView.backgroundColor = [UIColor yellowColor];
-    [logoView sd_setImageWithURL:[NSURL URLWithString:self.model.logo] placeholderImage:[UIImage imageNamed:@""]];
+//    logoView.backgroundColor = [UIColor yellowColor];
+    [logoView sd_setImageWithURL:[NSURL URLWithString:self.model.logo] placeholderImage:[UIImage imageNamed:@"Rectangle 14"]];
 
     
     // @"浙江金狮工贸有限公司永康分公司"

@@ -28,6 +28,7 @@
 @property(nonatomic,strong) NSString *title;
 @property(nonatomic,strong) NSString *update_time;
 @property(nonatomic,strong) NSString *ordid;
+@property(nonatomic,strong) NSString *chatStatus;
 
 // 职位详情
 @property(nonatomic,strong) NSString *contactName;
