@@ -263,6 +263,9 @@
     [paraDic setValue:string forKey:@"inviteId"];
 
     [AFNetworking_RequestData requestMethodPOSTUrl:Delete_invite dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        [self.view makeToast:@"删除成功"];
+
         self.isRefresh = NO;
         [self headerRefresh];
 

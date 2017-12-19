@@ -8,10 +8,11 @@
 
 #import "ChatWantedVC.h"
 #import "ChatWantedCell.h"
+#import "EditResumeVC.h"
 
 @interface ChatWantedVC ()<UITableViewDelegate,UITableViewDataSource>
 
-//@property (nonatomic,strong) NSArray *dataArr;
+@property (nonatomic,strong) NSArray *dataArr;
 @property(nonatomic,strong) UITableView *tableView;
 
 @end
@@ -37,8 +38,38 @@
 //
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
     
+    [self get_chat_resume];
 
+}
+
+- (void)get_chat_resume
+{
+    NSArray *recentSessions = [NIMSDK sharedSDK].conversationManager.allRecentSessions;
+    NSLog(@"recentSessions:%@",recentSessions);
     
+    NSMutableArray *arrM = [NSMutableArray array];
+    for (NIMRecentSession *recentSession in recentSessions) {
+        [arrM addObject:recentSession.session.sessionId];
+    }
+    NSString *idStr = [arrM componentsJoinedByString:@","];
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    [paramDic setValue:idStr forKey:@"accid"];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Get_chat_resume dic:paramDic showHUD:NO response:NO Succed:^(id responseObject) {
+        
+        NSMutableArray *arrM = [NSMutableArray array];
+
+        for (NSDictionary *dic in responseObject[@"data"]) {
+            
+            ResumeModel *model = [ResumeModel yy_modelWithJSON:dic];
+            [arrM addObject:model];
+        }
+        self.dataArr = arrM;
+        [_tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,8 +87,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //    return [self.dataArr[section] count];
-    return 2;
+    return [self.dataArr count];
+//    return 2;
     
     
 }
@@ -70,6 +101,12 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    ResumeModel *model = self.dataArr[indexPath.row];
+    
+    EditResumeVC *vc = [[EditResumeVC alloc] init];
+    vc.title = @"详情";
+    vc.model = model;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
@@ -81,10 +118,8 @@
         cell = [[ChatWantedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         
     }
-    //    ReleaseJobModel *model = self.dataArr[indexPath.section][indexPath.row];
-    //    cell.model = model;
-    //    cell.selectArr = _selectArr;
-    //    cell.selectJobArr = _selectJobArr;
+    ResumeModel *model = self.dataArr[indexPath.row];
+    cell.model = model;
     return cell;
 }
 

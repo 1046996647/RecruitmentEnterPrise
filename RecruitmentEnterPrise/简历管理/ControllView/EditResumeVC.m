@@ -13,6 +13,7 @@
 #import "NSStringExt.h"
 #import "UIImage+UIImageExt.h"
 #import "InviteInterviewVC.h"
+#import "WordsVC.h"
 
 
 @interface EditResumeVC ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -109,11 +110,12 @@
     [inviteBtn addTarget:self action:@selector(bottomAction:) forControlEvents:UIControlEventTouchUpInside];
 
     
-    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(inviteBtn.right+12, inviteBtn.top, width, 40) text:@"立即沟通" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
+    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(inviteBtn.right+12, inviteBtn.top, width, 40) text:@"发送留言" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
     releseBtn.layer.cornerRadius = 7;
     releseBtn.layer.masksToBounds = YES;
     [footerView addSubview:releseBtn];
     releseBtn.tag = 1;
+    [releseBtn addTarget:self action:@selector(bottomAction:) forControlEvents:UIControlEventTouchUpInside];
 
     
     UIButton *cellctionBtn = [UIButton buttonWithframe:CGRectMake(releseBtn.right+12, releseBtn.top, width, 40) text:@"加入收藏" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
@@ -204,6 +206,16 @@
         vc.title = @"邀请面试";
         vc.selectedArr = arrM;
         [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+    if (btn.tag == 1) {
+        
+        WordsVC *vc = [[WordsVC alloc] init];
+        vc.title = @"在线投诉留言";
+        vc.name = self.model.name;
+        vc.workerId = self.model.workerId;
+        [self.navigationController pushViewController:vc animated:YES];
+
     }
 
     if (btn.tag == 2) {

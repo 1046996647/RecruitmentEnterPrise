@@ -21,11 +21,11 @@
     if (self) {
     
         
-        _tf = [UITextField textFieldWithframe:CGRectMake(48, 0, kScreenWidth-43-30, 40) placeholder:nil font:nil leftView:nil backgroundColor:@"#FFFFFF"];
+        _tf = [UITextField textFieldWithframe:CGRectMake(48, 0, kScreenWidth-43-10, 40) placeholder:nil font:nil leftView:nil backgroundColor:@"#FFFFFF"];
         _tf.font = [UIFont systemFontOfSize:13];
         [_tf setValue:[UIFont systemFontOfSize:13] forKeyPath:@"_placeholderLabel.font"];// 设置这里时searchTF.font也要设置不然会偏上
         [_tf setValue:[UIColor colorWithHexString:@"#999999"] forKeyPath:@"_placeholderLabel.textColor"];
-
+        _tf.rightViewMode = UITextFieldViewModeAlways;
         [self.contentView addSubview:_tf];
         [_tf addTarget:self action:@selector(changeAction:) forControlEvents:UIControlEventEditingChanged];
         
@@ -37,9 +37,24 @@
         
         _imgView = [UIImageView imgViewWithframe:CGRectMake(kScreenWidth-12-6, (40-12)/2, 6, 12) icon:@"44"];
         [self.contentView addSubview:_imgView];
+        
+        _addressBtn = [UIButton buttonWithframe:CGRectMake(0, 0, _tf.height, _tf.height) text:@"" font:nil textColor:nil backgroundColor:nil normal:@"40" selected:@""];
+        [_addressBtn addTarget:self action:@selector(addressAction) forControlEvents:UIControlEventTouchUpInside];
 
     }
     return self;
+}
+
+- (void)addressAction
+{
+    CompanyAddressVC *vc = [[CompanyAddressVC alloc] init];
+    vc.title = @"公司地址";
+    [self.viewController.navigationController pushViewController:vc animated:YES];
+    vc.block = ^(NSString *text) {
+        
+        _tf.text = text;
+        _model.text = text;
+    };
 }
 
 - (void)setModel:(PersonModel *)model
@@ -52,7 +67,7 @@
     
     if ([_model.title isEqualToString:@"公司名称"] ||
         [_model.title isEqualToString:@"招聘负责人"]||
-//        [_model.title isEqualToString:@"点击获取公司地址"]||
+        [_model.title isEqualToString:@"公司地址"]||
 //        [_model.title isEqualToString:@"专业名称"]||
 //        [_model.title isEqualToString:@"姓名"]||
 //        [_model.title isEqualToString:@"意向岗位"]||
@@ -66,21 +81,21 @@
         self.saveBtn.hidden = YES;
         self.imgView.hidden = YES;
 
-
+        if ([_model.title isEqualToString:@"公司地址"]) {
+            //            [_tf setValue:[UIColor colorWithHexString:@"#D0021B"] forKeyPath:@"_placeholderLabel.textColor"];
+//            self.imgView.hidden = YES;
+            _tf.rightView = _addressBtn;
+            
+        }
+        else {
+//            self.imgView.hidden = NO;
+            _tf.rightView = nil;
+            
+        }
     }
     else {
         
         self.saveBtn.hidden = NO;
-        
-        if ([_model.title isEqualToString:@"点击获取公司地址"]) {
-            [_tf setValue:[UIColor colorWithHexString:@"#D0021B"] forKeyPath:@"_placeholderLabel.textColor"];
-            self.imgView.hidden = YES;
-
-        }
-        else {
-            self.imgView.hidden = NO;
-
-        }
 
     }
 }
@@ -90,18 +105,18 @@
     // 收起键盘有效
     [self.viewController.view endEditing:YES];
     
-    if ([_model.title isEqualToString:@"点击获取公司地址"]) {
-        CompanyAddressVC *vc = [[CompanyAddressVC alloc] init];
-        vc.title = @"公司地址";
-        [self.viewController.navigationController pushViewController:vc animated:YES];
-        vc.block = ^(NSString *text) {
-            
-            _tf.text = text;
-            _model.text = text;
-        };
-        return;
-
-    }
+//    if ([_model.title isEqualToString:@"点击获取公司地址"]) {
+//        CompanyAddressVC *vc = [[CompanyAddressVC alloc] init];
+//        vc.title = @"公司地址";
+//        [self.viewController.navigationController pushViewController:vc animated:YES];
+//        vc.block = ^(NSString *text) {
+//
+//            _tf.text = text;
+//            _model.text = text;
+//        };
+//        return;
+//
+//    }
     
     if ([_model.title isEqualToString:@"公司简介"]) {
         CompanyintroduceVC *vc = [[CompanyintroduceVC alloc] init];

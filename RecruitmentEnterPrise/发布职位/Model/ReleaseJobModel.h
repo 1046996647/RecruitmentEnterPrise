@@ -17,8 +17,12 @@
 @property(nonatomic,strong) NSString *contactId;
 @property(nonatomic,strong) NSString *minAge;
 @property(nonatomic,strong) NSString *maxAge;
+@property(nonatomic,strong) NSString *tag;
+@property(nonatomic,strong) NSMutableArray *tagArr;
+
 
 @property (nonatomic,assign) BOOL isSelected;
+@property (nonatomic,assign) NSInteger cellHeight;
 
 
 // 职位管理

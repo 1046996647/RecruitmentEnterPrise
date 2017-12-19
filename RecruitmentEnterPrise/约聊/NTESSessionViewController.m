@@ -13,6 +13,7 @@
 #import "NIMKitUtil.h"
 #import "NTESVideoViewController.h"
 #import "NTESGalleryViewController.h"
+#import "IQKeyboardManager.h"
 
 
 @interface NTESSessionViewController ()
@@ -49,23 +50,31 @@
     
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-    
-}
-
-#pragma mark - 会话title
-//- (NSString *)sessionTitle{
-//
-//    UILabel *label = [UILabel labelWithframe:CGRectMake(0, 0, 150, 20) text:[super sessionTitle] font:[UIFont boldSystemFontOfSize:17] textAlignment:NSTextAlignmentCenter textColor:@"#FFFFFF"];
-//    //    label.backgroundColor = [UIColor greenColor];
-//
-//    self.navigationItem.titleView = label;
-//
-//    return [super sessionTitle];
+//-(void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    [IQKeyboardManager sharedManager].enable = NO;
 //
 //}
+//
+//-(void)viewWillDisappear:(BOOL)animated
+//{
+//    [super viewWillDisappear:animated];
+//    [IQKeyboardManager sharedManager].enable = YES;
+//
+//}
+
+#pragma mark - 会话title
+- (NSString *)sessionTitle{
+
+    UILabel *label = [UILabel labelWithframe:CGRectMake((self.navigationItem.titleView.width-200)/2, (self.navigationItem.titleView.height-20)/2, 200, 20) text:[super sessionTitle] font:[UIFont boldSystemFontOfSize:17] textAlignment:NSTextAlignmentCenter textColor:@"#FFFFFF"];
+//    label.backgroundColor = [UIColor greenColor];
+
+    [self.navigationItem.titleView addSubview:label];
+
+    return @"";
+
+}
 
 #pragma mark - Cell事件
 - (BOOL)onTapCell:(NIMKitEvent *)event

@@ -8,6 +8,7 @@
 
 #import "ReleaseJobCell.h"
 #import "ContactManageVC.h"
+#import "TagViewVC.h"
 
 @implementation ReleaseJobCell
 
@@ -86,14 +87,43 @@
         textView.delegate = self;
         self.tv = textView;
         
-        _remindLabel = [UILabel labelWithframe:CGRectMake(3, 7, 100, 16) text:@"请填写" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#999999"];
+        _remindLabel = [UILabel labelWithframe:CGRectMake(3, 7, 100, 16) text:@"请填写(选填)" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#999999"];
         [textView addSubview:_remindLabel];
         
+        [self.contentView addSubview:self.tagsView];
+
+        
+
     }
     
     return self;
     
 }
+
+- (HXTagsView *)tagsView
+{
+    if (!_tagsView) {
+//        NSArray *tagAry = @[@"薪假",@"公游",@"保险"];
+        //    单行不需要设置高度,内部根据初始化参数自动计算高度
+        _tagsView = [[HXTagsView alloc] initWithFrame:CGRectMake(110, 0, kScreenWidth-33-110, 0)];
+        _tagsView.type = 0;
+        _tagsView.tagHorizontalSpace = 8.0;
+        _tagsView.showsHorizontalScrollIndicator = NO;
+        _tagsView.tagHeight = 22;
+        _tagsView.titleSize = 12.0;
+        _tagsView.tagOriginX = 0.0;
+        _tagsView.titleColor = [UIColor colorWithHexString:@"#666666"];
+        _tagsView.cornerRadius = 5;
+        _tagsView.userInteractionEnabled = NO;
+        _tagsView.backgroundColor = [UIColor clearColor];
+        _tagsView.borderColor = [UIColor colorWithHexString:@"#979797"];
+//        [_tagsView setTagAry:tagAry delegate:nil];
+    }
+    
+    return _tagsView;
+}
+
+
 
 - (void)setModel:(ReleaseJobModel *)model
 {
@@ -125,11 +155,13 @@
         
         self.saveBtn.hidden = NO;
         
-        
     }
     
     if ([_model.leftTitle isEqualToString:@"招聘人数"]) {
         
+        if ([_model.text isEqualToString:@"0"]) {
+            _tf.text = @"";
+        }
         _tf.keyboardType = UIKeyboardTypeNumberPad;
 
     }
@@ -168,7 +200,48 @@
         
     }
     
-    
+    if ([_model.leftTitle isEqualToString:@"公司福利"]) {
+        
+        _tagsView.hidden = NO;
+        
+        _tf.text = @"";
+        if (model.text.length == 0) {
+            _tf.placeholder = @"请选择(选填)";
+        }
+        else {
+            _tf.placeholder = @"";
+            
+            NSArray *tagArr = [model.text componentsSeparatedByString:@","];
+            
+//            if (self.tagArr.count == 0) {
+//                self.tagArr = tagArr.mutableCopy;
+//
+//            }
+            if (model.tagArr.count == 0) {
+                model.tagArr = tagArr.mutableCopy;
+                
+            }
+        }
+        
+        [_tagsView setTagAry:model.tagArr delegate:nil];
+
+        if (model.cellHeight>0) {
+            _tagsView.height = model.cellHeight;
+
+        }
+        else {
+            _model.cellHeight = _tagsView.height;
+
+        }
+
+    }
+    else {
+        _tagsView.hidden = YES;
+
+    }
+    NSLog(@"-------_tagArr:%@",_tagArr);
+    NSLog(@"-------cellHeight:%ld",model.cellHeight);
+
 }
 
 - (void)pushAction
@@ -186,6 +259,37 @@
             _tf.text = [NSString stringWithFormat:@"%@%@",model.name, model.tele];
             _model.text = _tf.text;
             _model.contactId = model.contactId;
+        };
+        return;
+        
+    }
+    
+    if ([_model.leftTitle isEqualToString:@"公司福利"]) {
+        
+        
+        TagViewVC *vc = [[TagViewVC alloc] init];
+        vc.title = @"公司福利";
+        vc.tagArr = _model.tagArr;
+        [self.viewController.navigationController pushViewController:vc animated:YES];
+        vc.block = ^(NSMutableArray *tagArr) {
+            
+            _model.tagArr = tagArr;
+            NSString *tag = [tagArr componentsJoinedByString:@","];
+
+            _model.text = tag;
+        
+            [_tagsView removeFromSuperview];
+            _tagsView = nil;
+            [self.contentView addSubview:self.tagsView];
+            [_tagsView setTagAry:tagArr delegate:nil];
+            _model.cellHeight = _tagsView.height;
+            if (self.block) {
+                self.block();
+            }
+            NSLog(@"-------_tagArr:%@",_model.tagArr);
+            NSLog(@"-------_tagsView:%ld",_tagsView.height);
+
+
         };
         return;
         
@@ -348,6 +452,19 @@
     else {
         _model.text = tf.text;
 
+    }
+    
+    if ([_model.leftTitle isEqualToString:@"招聘人数"]) {
+        
+        if (tf.text.length > 6) {
+            NSString *subStr = [tf.text substringToIndex:6];
+            tf.text = subStr;
+            _model.text = tf.text;
+        }
+
+//        if ([_model.text isEqualToString:@"0"]) {
+//            tf.text = @"";
+//        }
     }
     
 }

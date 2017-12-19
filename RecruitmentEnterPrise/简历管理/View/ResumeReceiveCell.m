@@ -184,13 +184,14 @@
         else {
             
             
-            _jobLab.text = [NSString stringWithFormat:@"期望职位 %@",model.hopepostion];
-            _msgBtn.hidden = YES;
-            
-            if (self.type == 1) {
-                self.scrollView.userInteractionEnabled = NO;
-
-            }
+//            _jobLab.text = [NSString stringWithFormat:@"期望职位 %@",model.hopepostion];
+//            _msgBtn.hidden = YES;
+//
+//            if (self.type == 1) {
+//                self.scrollView.userInteractionEnabled = NO;
+////                self.scrollView.scrollEnabled = NO;
+//
+//            }
 
 
         }
@@ -202,12 +203,13 @@
 
     }
     else {
-        _jobLab.text = [NSString stringWithFormat:@"查看岗位 %@",model.viewJobName];
-        _selectBtn.hidden = YES;
-        _msgBtn.hidden = YES;
-        
-        self.baseView.frame = CGRectMake(10, 0, kScreenWidth-20, 100);
-        self.scrollView.userInteractionEnabled = NO;
+//        _jobLab.text = [NSString stringWithFormat:@"查看岗位 %@",model.viewJobName];
+//        _selectBtn.hidden = YES;
+//        _msgBtn.hidden = YES;
+//        
+//        self.baseView.frame = CGRectMake(10, 0, kScreenWidth-20, 100);
+////        self.scrollView.scrollEnabled = NO;
+//        self.scrollView.userInteractionEnabled = NO;
 
     }
     _timeLab.frame = CGRectMake(self.baseView.width-50-8, 8, 50, 13);

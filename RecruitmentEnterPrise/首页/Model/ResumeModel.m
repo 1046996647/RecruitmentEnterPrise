@@ -20,7 +20,7 @@
     NSString *timeStr = [[dic[@"lastTime"] componentsSeparatedByString:@" "] firstObject];
     _lastTime = timeStr;
     
-    NSString *timeStr1 = [[dic[@"addTime"] componentsSeparatedByString:@" "] lastObject];
+    NSString *timeStr1 = [[dic[@"addTime"] componentsSeparatedByString:@" "] firstObject];
     _addTime = timeStr1;
     
     return YES;

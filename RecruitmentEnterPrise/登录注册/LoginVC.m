@@ -8,7 +8,7 @@
 
 #import "LoginVC.h"
 #import "RegisterVC.h"
-#import "ForgetPasswordVC.h"
+#import "ForgetPassword1VC.h"
 #import "AppDelegate.h"
 #import "RegexTool.h"
 
@@ -265,7 +265,7 @@
 
 - (void)forgetAction
 {
-    ForgetPasswordVC *vc = [[ForgetPasswordVC alloc] init];
+    ForgetPassword1VC *vc = [[ForgetPassword1VC alloc] init];
     vc.title = @"忘记密码";
     [self.navigationController pushViewController:vc animated:YES];
 }

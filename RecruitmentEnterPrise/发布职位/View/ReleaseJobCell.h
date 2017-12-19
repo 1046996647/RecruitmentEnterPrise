@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "ReleaseJobModel.h"
 #import "BRPickerView.h"
+#import "HXTagsView.h"
+#import "YZTagList.h"
+
+typedef void(^ReleaseJobBlock)(void);
+
 
 @interface ReleaseJobCell : UITableViewCell<UITextViewDelegate>
 
@@ -33,5 +38,10 @@
 @property(nonatomic,strong) UIView *baseView1;
 @property(nonatomic,strong) UITextView *tv;
 @property(nonatomic,strong) UILabel *remindLabel;
+@property(nonatomic,strong) HXTagsView *tagsView;
+@property(nonatomic,copy) ReleaseJobBlock block;
+@property(nonatomic,strong) NSMutableArray *tagArr;
+//@property (nonatomic, strong) YZTagList *tagList;
+
 
 @end

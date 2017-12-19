@@ -19,6 +19,8 @@
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,strong) NSMutableArray *selectedArr;// 选择数组
 @property(nonatomic,strong) NSMutableArray *orderArr;// 排序数组
+@property (nonatomic,assign) BOOL isRefresh;
+
 
 @end
 
@@ -35,17 +37,26 @@
     [self.view addSubview:_tableView];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    // 下拉刷新
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
+        [self headerRefresh];
+    }];
+    // 隐藏时间
+    header.lastUpdatedTimeLabel.hidden = YES;
+    self.tableView.mj_header = header;
+    
     // 右上角按钮
-    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24+13+24, 24)];
+    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
     
     UIButton *viewBtn = [UIButton buttonWithframe:CGRectMake(0, 0, rightView.height, rightView.height) text:nil font:nil textColor:nil backgroundColor:nil normal:@"105" selected:nil];
     [rightView addSubview:viewBtn];
     [viewBtn addTarget:self action:@selector(orderAction) forControlEvents:UIControlEventTouchUpInside];
     
     
-    UIButton *setBtn = [UIButton buttonWithframe:CGRectMake(viewBtn.right+13, viewBtn.top, rightView.height, rightView.height) text:nil font:nil textColor:nil backgroundColor:nil normal:@"104" selected:@""];
-    [rightView addSubview:setBtn];
-    [setBtn addTarget:self action:@selector(refreshAction) forControlEvents:UIControlEventTouchUpInside];
+//    UIButton *setBtn = [UIButton buttonWithframe:CGRectMake(viewBtn.right+13, viewBtn.top, rightView.height, rightView.height) text:nil font:nil textColor:nil backgroundColor:nil normal:@"104" selected:@""];
+//    [rightView addSubview:setBtn];
+//    [setBtn addTarget:self action:@selector(refreshAction) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
     
@@ -54,7 +65,7 @@
     baseView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:baseView];
     
-    UIView *baseView1 = [[UIView alloc] initWithFrame:CGRectMake((kScreenWidth-(105*scaleWidth+5+222*scaleWidth))/2, 6, 105*scaleWidth+5+222*scaleWidth, 40)];
+    UIView *baseView1 = [[UIView alloc] initWithFrame:CGRectMake(12, 6, kScreenWidth-24, 40)];
     [baseView addSubview:baseView1];
     
     UIButton *delBtn = [UIButton buttonWithframe:CGRectMake(0, 0, 105*scaleWidth, 40) text:@"删除选中" font:SystemFont(16) textColor:@"#D0021B" backgroundColor:nil normal:@"" selected:nil];
@@ -65,8 +76,13 @@
     [baseView1 addSubview:delBtn];
     [delBtn addTarget:self action:@selector(delAction) forControlEvents:UIControlEventTouchUpInside];
 
+    UIButton *refreshBtn = [UIButton buttonWithframe:CGRectMake(delBtn.right+5, 0, (baseView1.width-delBtn.right-10)/2, 40) text:@"刷新职位" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
+    refreshBtn.layer.cornerRadius = 7;
+    refreshBtn.layer.masksToBounds = YES;
+    [baseView1 addSubview:refreshBtn];
+    [refreshBtn addTarget:self action:@selector(refreshAction) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(delBtn.right+5, 0, 222*scaleWidth, 40) text:@"发布新职位" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
+    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(refreshBtn.right+5, 0, refreshBtn.width, 40) text:@"发布新职位" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
     releseBtn.layer.cornerRadius = 7;
     releseBtn.layer.masksToBounds = YES;
     [baseView1 addSubview:releseBtn];
@@ -76,6 +92,12 @@
     self.orderArr = [NSMutableArray array];
 
     
+    [self get_position];
+}
+
+- (void)headerRefresh
+{
+
     [self get_position];
 }
 
@@ -123,15 +145,15 @@
 - (void)refreshAction
 {
     NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
-    
+
     [AFNetworking_RequestData requestMethodPOSTUrl:Refresh_position dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
-        
+
         [self get_position];
 
-        
+
     } failure:^(NSError *error) {
-        
-        
+
+
     }];
 }
 
@@ -157,6 +179,8 @@
     [paraDic setValue:string forKey:@"jobId"];
     
     [AFNetworking_RequestData requestMethodPOSTUrl:Delete_position dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+
+        [self.view makeToast:@"删除成功"];
 
         [self get_position];
 
@@ -189,26 +213,40 @@
 
 - (void)get_position
 {
+    if (!self.isRefresh) {
+        [SVProgressHUD show];
+        
+    }
     
     NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
     
-    
-    [AFNetworking_RequestData requestMethodPOSTUrl:Get_position dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+    [AFNetworking_RequestData requestMethodPOSTUrl:Get_position dic:paramDic showHUD:NO response:YES Succed:^(id responseObject) {
         
-        NSMutableArray *arrM = [NSMutableArray array];
-        for (NSDictionary *dic in responseObject[@"data"]) {
-
-            NSMutableArray *arrM1 = [NSMutableArray array];
-
-            ReleaseJobModel *model = [ReleaseJobModel yy_modelWithDictionary:dic];
-            [arrM1 addObject:model];
-            [arrM addObject:arrM1];
+        self.isRefresh = YES;
+        [SVProgressHUD dismiss];
+        [self.tableView.mj_header endRefreshing];
+        
+        if ([responseObject[@"data"] isKindOfClass:[NSArray class]]) {
+            
+            NSMutableArray *arrM = [NSMutableArray array];
+            for (NSDictionary *dic in responseObject[@"data"]) {
+                
+                NSMutableArray *arrM1 = [NSMutableArray array];
+                
+                ReleaseJobModel *model = [ReleaseJobModel yy_modelWithDictionary:dic];
+                [arrM1 addObject:model];
+                [arrM addObject:arrM1];
+            }
+            self.dataArr = arrM;
+            [_tableView reloadData];
         }
-        self.dataArr = arrM;
-        [_tableView reloadData];
+
         
     } failure:^(NSError *error) {
         
+        self.isRefresh = YES;
+        [SVProgressHUD dismiss];
+        [self.tableView.mj_header endRefreshing];
     }];
 }
 
@@ -301,13 +339,16 @@
                 [_tableView reloadData];
             }
             // 排序
-            else {
+            else if (type == 1) {
                 if (![self.orderArr containsObject:model]) {
                     [self.orderArr addObject:model];
                     
                 }
             }
-
+//            else {
+//                [self get_position];
+//
+//            }
 
         };
         

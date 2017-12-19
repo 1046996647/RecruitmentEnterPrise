@@ -58,6 +58,7 @@
 @property(nonatomic,strong) NSString *resumeNum;// 投递过的简历数量
 
 @property(nonatomic,strong) NSString *workerId;// 求职者编号
+@property(nonatomic,strong) NSString *userChatId;
 @property(nonatomic,strong) NSString *lastTime;//
 @property(nonatomic,strong) NSString *addTime;//
 @property(nonatomic,strong) NSString *sendresumeId;//

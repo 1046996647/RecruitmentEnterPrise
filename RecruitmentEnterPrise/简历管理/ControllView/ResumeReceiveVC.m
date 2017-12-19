@@ -188,6 +188,8 @@
     [paraDic setValue:string forKey:@"sendresumeId"];
     
     [AFNetworking_RequestData requestMethodPOSTUrl:Delete_sendresume dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+        [self.view makeToast:@"删除成功"];
+
         self.isRefresh = NO;
         [self headerRefresh];
 
@@ -213,6 +215,14 @@
         [self.view makeToast:@"请先选择简历"];
         
         return;
+    }
+    
+    for (ResumeModel *model in self.selectedArr) {
+        if (model.is_hide.boolValue) {
+            [self.view makeToast:@"选择的简历中存在隐藏简历"];
+            return;
+        }
+        
     }
     InviteInterviewVC *vc = [[InviteInterviewVC alloc] init];
     vc.title = @"邀请面试";
@@ -327,9 +337,11 @@
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    ResumeModel *model = self.modelArr[section][0];
+
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
     //    view.backgroundColor = [UIColor colorWithHexString:@"#FAE5E8"];
-    UILabel *label = [UILabel labelWithframe:CGRectMake(19, 7, kScreenWidth-19, 17) text:@"2017-08-24" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
+    UILabel *label = [UILabel labelWithframe:CGRectMake(19, 7, kScreenWidth-19, 17) text:model.addTime font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
     [view addSubview:label];
     
     return view;

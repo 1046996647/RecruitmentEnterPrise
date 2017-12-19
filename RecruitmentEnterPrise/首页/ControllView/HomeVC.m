@@ -19,6 +19,8 @@
 #import "UILabel+WLAttributedString.h"
 #import "PersonalMessageVC.h"
 #import "NSStringExt.h"
+#import "BaseMessageVC.h"
+#import "HeadhuntVC.h"
 
 
 @interface HomeVC ()
@@ -32,6 +34,8 @@
 @property(nonatomic,strong) UILabel *companyLab;
 @property(nonatomic,strong) UILabel *nameLab;
 @property(nonatomic,strong) UIImageView *levelView;
+@property(nonatomic,strong) UIImageView *editView;
+
 @property(nonatomic,strong) UILabel *emailLab;
 @property(nonatomic,strong) UIButton *levelBtn;
 @property(nonatomic,strong) PersonModel *model;
@@ -61,11 +65,24 @@
     logoBtn.layer.borderWidth = 5;
     [scrollView addSubview:logoBtn];
     self.logoBtn = logoBtn;
+    [logoBtn addTarget:self action:@selector(logoAction) forControlEvents:UIControlEventTouchUpInside];
 
     // 杭州晖鸿科技有限公司
-    UILabel *companyLab = [UILabel labelWithframe:CGRectMake(logoBtn.right+18, logoBtn.top, kScreenWidth-logoBtn.right-12, 25) text:@"" font:SystemFont(18) textAlignment:NSTextAlignmentLeft textColor:@"#FFFFFF"];
+    UILabel *companyLab = [UILabel labelWithframe:CGRectMake(logoBtn.right+18, logoBtn.top, 100, 25) text:@"" font:SystemFont(18) textAlignment:NSTextAlignmentLeft textColor:@"#FFFFFF"];
     [scrollView addSubview:companyLab];
     self.companyLab = companyLab;
+    companyLab.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logoAction)];
+    [companyLab addGestureRecognizer:tap1];
+    
+    UIImageView *editView = [UIImageView imgViewWithframe:CGRectMake(companyLab.right, companyLab.center.y-10, 20, 20) icon:@"Group Copy 2"];
+    [scrollView addSubview:editView];
+    self.editView = editView;
+    editView.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logoAction)];
+    [editView addGestureRecognizer:tap2];
     
     // dayday
     UILabel *nameLab = [UILabel labelWithframe:CGRectMake(companyLab.left, companyLab.bottom+2, 48, 20) text:@"" font:SystemFont(14) textAlignment:NSTextAlignmentLeft textColor:@"#FFFFFF"];
@@ -148,8 +165,9 @@
     
     CGFloat interval = 1;
     CGFloat aWidth = (kScreenWidth-interval*2)/3;
-    NSArray *imgArr = @[@"62",@"61",@"60",@"59",@"58",@"57"];
-    NSArray *titleArr2 = @[@"职位管理",@"简历搜索",@"邀请面试记录",@"约聊招聘",@"我的信箱",@"在线投诉/留言"];
+    NSArray *imgArr = @[@"62",@"刷新",@"61",@"60",@"58",@"Group-2"];
+//    NSArray *titleArr2 = @[@"职位管理",@"简历搜索",@"邀请面试记录",@"约聊招聘",@"我的信箱",@"在线投诉/留言"];
+    NSArray *titleArr2 = @[@"职位管理",@"刷新职位",@"简历搜索",@"邀请面试记录",@"我的信箱",@"众信猎头"];
     for (int i=0; i<titleArr2.count; i++) {
         
         UIButton *forgetBtn = [UIButton buttonWithframe:CGRectMake((i%3)*(aWidth+interval), self.forgetBtn1.bottom+10+(i/3)*(aWidth+interval), aWidth, aWidth) text:nil font:nil textColor:nil backgroundColor:@"#FFFFFF" normal:nil selected:nil];
@@ -183,6 +201,17 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
     
+//    [self isComplete];
+
+    [self.view makeToast:@"请记得刷新你的简历~" duration:1.5 position:@"12"];
+}
+
+- (void)logoAction
+{
+    BaseMessageVC *vc = [[BaseMessageVC alloc] init];
+    vc.title = @"编辑基本信息";
+    vc.model = self.model;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 // 个人信息是否填写过
@@ -225,7 +254,8 @@
 
     NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
 
-    [AFNetworking_RequestData requestMethodPOSTUrl:Get_ui_info dic:paramDic showHUD:NO response:NO Succed:^(id responseObject) {
+    [AFNetworking_RequestData requestMethodPOSTUrl:Get_ui_info dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
 
         PersonModel *model = [PersonModel yy_modelWithJSON:responseObject[@"data"]];
         self.model = model;
@@ -233,13 +263,31 @@
         // 剩余约聊岗位发布次数
         [InfoCache archiveObject:model.chatLast toFile:@"chatLast"];
 
-        
-        [self updateInfo];
+        // 地址
+        [InfoCache archiveObject:model.address toFile:@"address"];
 
+        [self updateInfo];
+        
+        CGSize size = [NSString textLength:model.title font:self.companyLab.font];
+        if (size.width>130) {
+            self.companyLab.width = 130;
+        }
+        else {
+            self.companyLab.width = size.width;
+            
+        }
+
+        self.editView.left = _companyLab.right+5;
         self.companyLab.text = model.title;
         
-        CGSize size = [NSString textLength:model.cname font:self.nameLab.font];
-        self.nameLab.width = size.width;
+        size = [NSString textLength:model.cname font:self.nameLab.font];
+        if (size.width>130) {
+            self.nameLab.width = 130;
+        }
+        else {
+            self.nameLab.width = size.width;
+
+        }
         self.nameLab.text = model.cname;
         
         self.emailLab.text = model.email;
@@ -295,11 +343,20 @@
 
 - (void)btnAction
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"您已成功通知客服" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:nil];
-    [okAction setValue:[UIColor colorWithHexString:@"#D0021B"] forKey:@"_titleTextColor"];
-    [alertController addAction:okAction];
-    [self presentViewController:alertController animated:YES completion:nil];
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Company_upgrade dic:paramDic showHUD:NO response:NO Succed:^(id responseObject) {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"您已成功通知客服" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:nil];
+        [okAction setValue:[UIColor colorWithHexString:@"#D0021B"] forKey:@"_titleTextColor"];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+
 
 }
 
@@ -339,18 +396,19 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (btn.tag == 1) {
-        ResumeSearchVC *vc = [[ResumeSearchVC alloc] init];
-//        vc.title = @"职位管理";
-        [self.navigationController pushViewController:vc animated:YES];
+        [self refreshAction];
     }
     if (btn.tag == 2) {
-        InviteInterviewRecordVC *vc = [[InviteInterviewRecordVC alloc] init];
-        vc.title = @"邀请面试记录";
+        ResumeSearchVC *vc = [[ResumeSearchVC alloc] init];
+        //        vc.title = @"职位管理";
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (btn.tag == 3) {
-        ChatWantedVC *vc = [[ChatWantedVC alloc] init];
-        vc.title = @"约聊招聘";
+//        ChatWantedVC *vc = [[ChatWantedVC alloc] init];
+//        vc.title = @"约聊招聘";
+//        [self.navigationController pushViewController:vc animated:YES];
+        InviteInterviewRecordVC *vc = [[InviteInterviewRecordVC alloc] init];
+        vc.title = @"邀请面试记录";
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (btn.tag == 4) {
@@ -359,10 +417,25 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (btn.tag == 5) {
-        WordsVC *vc = [[WordsVC alloc] init];
-        vc.title = @"在线投诉留言";
+        HeadhuntVC *vc = [[HeadhuntVC alloc] init];
+        vc.title = @"众信猎头";
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+
+// 2.7    刷新职位
+- (void)refreshAction
+{
+    NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Refresh_position dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        [self.view makeToast:@"刷新成功"];
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
 }
 
 - (void)viewAction

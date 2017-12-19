@@ -8,6 +8,8 @@
 
 #import "CompanyintroduceVC.h"
 #import "RegexTool.h"
+#import "IQKeyboardManager.h"
+
 
 @interface CompanyintroduceVC ()<UITextViewDelegate>
 
@@ -29,6 +31,23 @@
     textView.delegate = self;
     self.tv = textView;
     textView.text = self.text;
+    
+    CGSize constraintSize = CGSizeMake(self.tv.width, MAXFLOAT);
+    CGSize size = [self.tv sizeThatFits:constraintSize];
+    if (size.height+16 > kScreenHeight-kTopHeight) {
+        self.tv.height = kScreenHeight-kTopHeight-16;
+    }
+    else {
+        
+        if (size.height+16 < (329-70)*scaleWidth) {
+            self.tv.height = (329-70)*scaleWidth;
+
+        }
+        else {
+            self.tv.height = size.height;
+
+        }
+    }
     
     if ([self.title isEqualToString:@"修改邮箱"]) {
         textView.height = 40;
@@ -107,9 +126,67 @@
 
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+#pragma mark - keyboardHight
+-(void)viewWillAppear:(BOOL)animated
 {
-    [self.view endEditing:YES];
+    [self registerForKeyboardNotifications];
+    [IQKeyboardManager sharedManager].enable = NO;
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [IQKeyboardManager sharedManager].enable = YES;
+    
+}
+- (void)registerForKeyboardNotifications
+{
+    //使用NSNotificationCenter 鍵盤出現時
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShown:)
+                                                 name:UIKeyboardWillShowNotification object:nil];
+    //使用NSNotificationCenter 鍵盤隐藏時
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+}
+
+//实现当键盘出现的时候计算键盘的高度大小。用于输入框显示位置
+- (void)keyboardWillShown:(NSNotification*)aNotification
+{
+    
+//    NSDictionary *info = [aNotification userInfo];
+//    NSValue *value = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
+//    CGSize keyboardSize = [value CGRectValue].size;
+    
+//    _words.height = kScreenHeight-_words.top-keyboardSize.height-kTopHeight;
+    _tv.height = (329-70)*scaleWidth;
+
+}
+//当键盘隐藏的时候
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    //do something
+//    _words.height = (329-70)*scaleWidth;
+    CGSize constraintSize = CGSizeMake(self.tv.width, MAXFLOAT);
+    CGSize size = [self.tv sizeThatFits:constraintSize];
+    if (size.height+16 > kScreenHeight-kTopHeight) {
+        self.tv.height = kScreenHeight-kTopHeight-16;
+    }
+    else {
+        
+        if (size.height+16 < (329-70)*scaleWidth) {
+            self.tv.height = (329-70)*scaleWidth;
+            
+        }
+        else {
+            self.tv.height = size.height;
+            
+        }
+        
+    }
+    
 }
 
 @end

@@ -21,6 +21,7 @@ typedef void(^JobSendModelBlock)(ReleaseJobModel *model, NSInteger type);
 @property(nonatomic,strong) UILabel *nameLab;
 @property(nonatomic,strong) UILabel *orderLab;
 @property(nonatomic,strong) UILabel *stateLab;
+@property(nonatomic,strong) UILabel *refreshLab;
 
 @property(nonatomic,strong) ReleaseJobModel *model;
 @property(nonatomic,copy) JobSendModelBlock block;

@@ -7,7 +7,7 @@
 //
 
 #import "ResumeLookedVC.h"
-#import "ResumeReceiveCell.h"
+#import "ResumeCheckedCell.h"
 #import "ZFTableViewCell.h"
 #import "InviteInterviewVC.h"
 #import "EditResumeVC.h"
@@ -29,7 +29,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    _tableView = [UITableView tableViewWithframe:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kTopHeight-37-40) style:UITableViewStyleGrouped];
+    _tableView = [UITableView tableViewWithframe:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kTopHeight-37) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
@@ -195,9 +195,11 @@
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    ResumeModel *model = self.modelArr[section][0];
+
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
     //    view.backgroundColor = [UIColor colorWithHexString:@"#FAE5E8"];
-    UILabel *label = [UILabel labelWithframe:CGRectMake(19, 7, kScreenWidth-19, 17) text:@"2017-08-24" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
+    UILabel *label = [UILabel labelWithframe:CGRectMake(19, 7, kScreenWidth-19, 17) text:model.addTime font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
     [view addSubview:label];
     
     return view;
@@ -221,17 +223,11 @@
     
     static NSString* identity = @"FDFeedCell";
     
-    ResumeReceiveCell *cell = [tableView dequeueReusableCellWithIdentifier:identity];
+    ResumeCheckedCell *cell = [tableView dequeueReusableCellWithIdentifier:identity];
     if (cell == nil) {
         
-        cell = [[ResumeReceiveCell alloc]initWithStyle:UITableViewCellStyleDefault
-                                       reuseIdentifier:identity
-                                              delegate:self
-                                           inTableView:tableView
-                                 withRightButtonTitles:@[@""]
-                                 withRightButtonColors:@[[UIColor clearColor]]
-                                                  type:ZFTableViewCellTypeTwo
-                                             rowHeight:100];
+        cell = [[ResumeCheckedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identity];
+
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
     }

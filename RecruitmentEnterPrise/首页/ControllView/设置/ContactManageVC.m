@@ -192,6 +192,31 @@
                               withRightButtonColors:@[[UIColor clearColor]]
                                                type:ZFTableViewCellTypeFive
                                           rowHeight:100];
+        cell.block = ^(AddContactModel *model, NSInteger tag) {
+            
+            // 删除
+            if (tag == 0){
+                //        NSLog(@"编辑");
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确定删除该联系人吗" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    [self delete_contact:model];
+                    [self.dataArr removeObjectAtIndex:indexPath.section];
+                    [self.tableView reloadData];
+                }];
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+                [alertController addAction:cancelAction];
+                [alertController addAction:okAction];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
+            else if (tag == 1){
+                //        NSLog(@"删除");
+                AddContactVC *vc = [[AddContactVC alloc] init];
+                vc.title = @"修改联系人";
+                vc.model = model;
+                [self.navigationController pushViewController:vc animated:YES];
+                
+            }
+        };
         
     }
         AddContactModel *model = self.dataArr[indexPath.section][indexPath.row];
@@ -201,36 +226,37 @@
     return cell;
 }
 
+
 #pragma mark - ZFTableViewCellDelegate
 -(void)buttonTouchedOnCell:(ZFTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath atButtonIndex:(NSInteger)buttonIndex{
     NSLog(@"row:%ld,buttonIndex:%ld",(long)indexPath.row,(long)buttonIndex);
     
-    AddContactModel *model = self.dataArr[indexPath.section][indexPath.row];
-    
-    // 删除
-    if (buttonIndex == 0){
-        //        NSLog(@"编辑");
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确定删除该联系人吗" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            [self delete_contact:model];
-            [self.dataArr removeObjectAtIndex:indexPath.section];
-            [self.tableView reloadData];
-        }];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
-        [alertController addAction:cancelAction];
-        [alertController addAction:okAction];
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
-    else if (buttonIndex == 1){
-        //        NSLog(@"删除");
-        AddContactVC *vc = [[AddContactVC alloc] init];
-        vc.title = @"修改联系人";
-        vc.model = model;
-        [self.navigationController pushViewController:vc animated:YES];
-        
-    }
-    //把cell复原
-    [[NSNotificationCenter defaultCenter] postNotificationName:ZFTableViewCellNotificationChangeToUnexpanded object:nil];
+//    AddContactModel *model = self.dataArr[indexPath.section][indexPath.row];
+//
+//    // 删除
+//    if (buttonIndex == 0){
+//        //        NSLog(@"编辑");
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确定删除该联系人吗" message:nil preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//            [self delete_contact:model];
+//            [self.dataArr removeObjectAtIndex:indexPath.section];
+//            [self.tableView reloadData];
+//        }];
+//        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+//        [alertController addAction:cancelAction];
+//        [alertController addAction:okAction];
+//        [self presentViewController:alertController animated:YES completion:nil];
+//    }
+//    else if (buttonIndex == 1){
+//        //        NSLog(@"删除");
+//        AddContactVC *vc = [[AddContactVC alloc] init];
+//        vc.title = @"修改联系人";
+//        vc.model = model;
+//        [self.navigationController pushViewController:vc animated:YES];
+//
+//    }
+//    //把cell复原
+//    [[NSNotificationCenter defaultCenter] postNotificationName:ZFTableViewCellNotificationChangeToUnexpanded object:nil];
 }
 
 @end

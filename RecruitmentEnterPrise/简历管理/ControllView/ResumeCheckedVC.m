@@ -7,7 +7,7 @@
 //
 
 #import "ResumeCheckedVC.h"
-#import "ResumeReceiveCell.h"
+#import "ResumeCheckedCell.h"
 #import "ZFTableViewCell.h"
 #import "InviteInterviewVC.h"
 #import "EditResumeVC.h"
@@ -212,6 +212,15 @@
         
         return;
     }
+    
+    for (ResumeModel *model in self.selectedArr) {
+        if (model.is_hide.boolValue) {
+            [self.view makeToast:@"选择的简历中存在隐藏简历"];
+            return;
+        }
+        
+    }
+    
     InviteInterviewVC *vc = [[InviteInterviewVC alloc] init];
     vc.title = @"邀请面试";
     vc.selectedArr = self.selectedArr;
@@ -325,9 +334,11 @@
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    ResumeModel *model = self.modelArr[section][0];
+
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
     //    view.backgroundColor = [UIColor colorWithHexString:@"#FAE5E8"];
-    UILabel *label = [UILabel labelWithframe:CGRectMake(19, 7, kScreenWidth-19, 17) text:@"2017-08-24" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
+    UILabel *label = [UILabel labelWithframe:CGRectMake(19, 7, kScreenWidth-19, 17) text:model.addTime font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
     [view addSubview:label];
     
     return view;
@@ -351,17 +362,10 @@
     
     static NSString* identity = @"FDFeedCell";
     
-    ResumeReceiveCell *cell = [tableView dequeueReusableCellWithIdentifier:identity];
+    ResumeCheckedCell *cell = [tableView dequeueReusableCellWithIdentifier:identity];
     if (cell == nil) {
         
-        cell = [[ResumeReceiveCell alloc]initWithStyle:UITableViewCellStyleDefault
-                                       reuseIdentifier:identity
-                                              delegate:self
-                                           inTableView:tableView
-                                 withRightButtonTitles:@[@""]
-                                 withRightButtonColors:@[[UIColor clearColor]]
-                                                  type:ZFTableViewCellTypeTwo
-                                             rowHeight:100];
+        cell = [[ResumeCheckedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identity];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         cell.block = ^(ResumeModel *model) {

@@ -27,7 +27,7 @@
     self.dataArr = @[@[@{@"image":@"80",@"title":@"公司名称",@"key":@"title"},
                        @{@"image":@"79",@"title":@"招聘负责人",@"key":@"contactName"},
                        @{@"image":@"78",@"title":@"联系电话",@"key":@"tele"}],
-                     @[@{@"image":@"77",@"title":@"点击获取公司地址",@"key":@"address"},
+                     @[@{@"image":@"77",@"title":@"公司地址",@"key":@"address"},
                        @{@"image":@"76",@"title":@"所属行业",@"key":@"cateId"},
                        @{@"image":@"75",@"title":@"公司性质",@"key":@"type"}],
                      @[@{@"image":@"74",@"title":@"公司简介",@"key":@"info"}]

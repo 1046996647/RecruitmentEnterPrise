@@ -43,7 +43,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
-  - BaiduMapKit
+  - BaiduMapKit (~> 3.4.2)
   - FMDB (~> 2.7.2)
   - IQKeyboardManager
   - MJRefresh
@@ -70,6 +70,6 @@ SPEC CHECKSUMS:
   TZImagePickerController: 3f735f4ad5ca6a292a762216d404f9d7a83adad4
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: ca90d5fec280d9e2a1959304f0750ddc79247f7a
+PODFILE CHECKSUM: 68b2a0ee32ceb38f93b68ab63dff2fcaeec3c2cc
 
 COCOAPODS: 1.4.0.beta.1

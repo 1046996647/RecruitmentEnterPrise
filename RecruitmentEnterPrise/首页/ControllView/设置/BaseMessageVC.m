@@ -85,8 +85,9 @@
         userBtn.layer.masksToBounds = YES;
         [headerView addSubview:userBtn];
         [userBtn addTarget:self action:@selector(editImgAction) forControlEvents:UIControlEventTouchUpInside];
+        userBtn.contentMode = UIViewContentModeScaleAspectFill;
         self.userBtn = userBtn;
-        [self.userBtn sd_setImageWithURL:[NSURL URLWithString:self.model.logo] forState:UIControlStateNormal];
+        [self.userBtn sd_setImageWithURL:[NSURL URLWithString:self.model.logo] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"Rectangle 14"]];
         
         
         UIImageView *edtImg = [UIImageView imgViewWithframe:CGRectMake(userBtn.width-15, userBtn.height-15, 15, 15) icon:@"41"];

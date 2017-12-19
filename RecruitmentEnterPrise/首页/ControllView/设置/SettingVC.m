@@ -7,20 +7,26 @@
 //
 
 #import "SettingVC.h"
-#import "OtherVC.h"
+#import "WordsVC.h"
 #import "CountMessageVC.h"
 #import "BaseMessageVC.h"
 #import "CompanyintroduceVC.h"
 #import "NSStringExt.h"
-
+#import "AppDelegate.h"
+#import "NavigationController.h"
+#import "LoginVC.h"
 
 @interface SettingVC ()
 
 @property(nonatomic,strong) UIView *baseView;
 @property(nonatomic,strong) UILabel *contentLab;
 @property(nonatomic,strong) UIButton *otherBtn;
+@property(nonatomic,strong) UIButton *exitBtn;
+
 @property(nonatomic,strong) UIScrollView *scrollView;
 @property(nonatomic,strong) PersonModel *model;
+@property(nonatomic,strong) UIScrollView *scrollView1;
+@property(nonatomic,strong) UITextView *textView;
 
 
 @end
@@ -79,31 +85,83 @@
     lineView.backgroundColor = colorWithHexStr(@"#FFF5F7");
     [baseView addSubview:lineView];
     
-    UILabel *contentLab = [UILabel labelWithframe:CGRectMake(companyLab.left, lineView.bottom+15, kScreenWidth-companyLab.left*2, 200) text:@"" font:SystemFont(14) textAlignment:NSTextAlignmentLeft textColor:@"#999999"];
-    contentLab.numberOfLines = 0;
-//    contentLab.backgroundColor = [UIColor greenColor];
-    [baseView addSubview:contentLab];
-    self.contentLab = contentLab;
+//    UIScrollView *scrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(companyLab.left, lineView.bottom+15, kScreenWidth-companyLab.left*2, 200)];
+//    [baseView addSubview:scrollView1];
+//    self.scrollView1 = scrollView1;
     
-    baseView.height = contentLab.bottom+10;
+//    UILabel *contentLab = [UILabel labelWithframe:scrollView1.bounds text:@"" font:SystemFont(14) textAlignment:NSTextAlignmentLeft textColor:@"#999999"];
+//    contentLab.numberOfLines = 0;
+////    contentLab.backgroundColor = [UIColor greenColor];
+//    [scrollView1 addSubview:contentLab];
+//    self.contentLab = contentLab;
     
-    // 其他功能
+//    baseView.height = contentLab.bottom+10;
+    
+    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(companyLab.left, lineView.bottom+15, kScreenWidth-companyLab.left*2, 200)];
+    textView.font = [UIFont systemFontOfSize:14];
+    textView.textColor = colorWithHexStr(@"#999999");
+    [baseView addSubview:textView];
+    self.textView = textView;
+    textView.editable = NO;
+
+    baseView.height = textView.bottom+10;
+
+    // 投诉建议
     UIButton *otherBtn = [UIButton buttonWithframe:CGRectMake(0, baseView.bottom+10, kScreenWidth, countBtn.height) text:nil font:nil textColor:nil backgroundColor:@"#FFFFFF" normal:nil selected:nil];
     [scrollView addSubview:otherBtn];
     otherBtn.tag = 3;
     [otherBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     self.otherBtn = otherBtn;
     
-    UILabel *otherLab = [UILabel labelWithframe:CGRectMake(18, 0, 100, countBtn.height) text:@"其他功能" font:SystemFont(17) textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
+    UILabel *otherLab = [UILabel labelWithframe:CGRectMake(18, 0, 100, countBtn.height) text:@"投诉建议" font:SystemFont(17) textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
     [otherBtn addSubview:otherLab];
     
     UIImageView *otherView = [UIImageView imgViewWithframe:CGRectMake(kScreenWidth-12-6, 24, 6, 12) icon:@"44"];
     msgView.contentMode = UIViewContentModeScaleAspectFit;
     [otherBtn addSubview:otherView];
     
-    scrollView.contentSize = CGSizeMake(kScreenWidth, otherBtn.bottom);
+    // 退出登录
+    UIButton *exitBtn = [UIButton buttonWithframe:CGRectMake(otherBtn.left, otherBtn.bottom+ 10, kScreenWidth, otherBtn.height) text:nil font:nil textColor:nil backgroundColor:@"#FFFFFF" normal:nil selected:nil];
+    [scrollView addSubview:exitBtn];
+    exitBtn.tag = 1;
+    [exitBtn addTarget:self action:@selector(exitAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.exitBtn = exitBtn;
+    
+    UILabel *exitLab = [UILabel labelWithframe:CGRectMake(18, 0, 100, exitBtn.height) text:@"退出登录" font:SystemFont(17) textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
+    [exitBtn addSubview:exitLab];
+    
+    UIImageView *exitView = [UIImageView imgViewWithframe:CGRectMake(kScreenWidth-12-6, 24, 6, 12) icon:@"44"];
+    exitView.contentMode = UIViewContentModeScaleAspectFit;
+    [exitBtn addSubview:exitView];
+    
+    scrollView.contentSize = CGSizeMake(kScreenWidth, exitBtn.bottom);
     
     [self preview_company_info];
+}
+
+- (void)exitAction:(UIButton *)btn
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确定要退出登录吗" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [InfoCache saveValue:@0 forKey:@"LoginedState"];
+        [InfoCache archiveObject:nil toFile:@"token"];
+        
+        [[[NIMSDK sharedSDK] loginManager] logout:^(NSError *error)
+         {
+             //                 extern NSString *NTESNotificationLogout;
+             //                 [[NSNotificationCenter defaultCenter] postNotificationName:NTESNotificationLogout object:nil];
+         }];
+        
+        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        LoginVC *loginVC = [[LoginVC alloc] init];
+        NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
+        delegate.window.rootViewController = nav;
+    }];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+    
 }
 
 - (void)preview_company_info
@@ -116,15 +174,18 @@
         PersonModel *model = [PersonModel yy_modelWithJSON:responseObject[@"data"]];
         self.model = model;
         
-        CGSize size = [NSString textHeight:model.info font:self.contentLab.font width:self.contentLab.width];
-        
-        self.contentLab.height = size.height;
-        self.baseView.height = self.contentLab.bottom+10;
-        self.otherBtn.top = self.baseView.bottom+10;
-        self.scrollView.contentSize = CGSizeMake(kScreenWidth, self.otherBtn.bottom);
+//        CGSize size = [NSString textHeight:model.info font:self.contentLab.font width:self.contentLab.width];
+//
+//        self.contentLab.height = size.height;
+//        self.baseView.height = self.contentLab.bottom+10;
+//        self.otherBtn.top = self.baseView.bottom+10;
+//        self.exitBtn.top = self.otherBtn.bottom+10;
+//        self.scrollView.contentSize = CGSizeMake(kScreenWidth, self.exitBtn.bottom);
 
         
-        self.contentLab.text = model.info;
+//        self.contentLab.text = model.info;
+        self.textView.text = model.info;
+
         
     } failure:^(NSError *error) {
         
@@ -154,24 +215,27 @@
     if (btn.tag == 2) {
         CompanyintroduceVC *vc = [[CompanyintroduceVC alloc] init];
         vc.title = @"公司介绍";
-        vc.text = self.contentLab.text;
+//        vc.text = self.contentLab.text;
+        vc.text = self.textView.text;
         [self.navigationController pushViewController:vc animated:YES];
         vc.block = ^(NSString *text) {
             
-            CGSize size = [NSString textHeight:text font:self.contentLab.font width:self.contentLab.width];
-            
-            self.contentLab.height = size.height;
-            self.baseView.height = self.contentLab.bottom+10;
-            self.otherBtn.top = self.baseView.bottom+10;
-            self.scrollView.contentSize = CGSizeMake(kScreenWidth, self.otherBtn.bottom);
+//            CGSize size = [NSString textHeight:text font:self.contentLab.font width:self.contentLab.width];
+//
+//            self.contentLab.height = size.height;
+//            self.baseView.height = self.contentLab.bottom+10;
+//            self.otherBtn.top = self.baseView.bottom+10;
+//            self.exitBtn.top = self.otherBtn.bottom+10;
+//            self.scrollView.contentSize = CGSizeMake(kScreenWidth, self.exitBtn.bottom);
 
-            self.contentLab.text = text;
+//            self.scrollView1.contentSize = CGSizeMake(kScreenWidth, size.height);
+//            self.contentLab.text = text;
+            self.textView.text = text;
         };
     }
     if (btn.tag == 3) {
-        OtherVC *vc = [[OtherVC alloc] init];
-        vc.title = @"其他功能";
-        vc.model = self.model;
+        WordsVC *vc = [[WordsVC alloc] init];
+        vc.title = @"投诉建议";
         [self.navigationController pushViewController:vc animated:YES];
     }
 

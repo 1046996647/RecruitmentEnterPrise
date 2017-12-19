@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ResumeModel.h"
 
 @interface ChatWantedCell : UITableViewCell
 
@@ -18,5 +19,6 @@
 @property(nonatomic,strong) UILabel *timeLab;
 @property(nonatomic,strong) UILabel *nameLab;
 @property(nonatomic,strong) UILabel *jobLab;
+@property(nonatomic,strong) ResumeModel *model;
 
 @end

@@ -15,6 +15,8 @@
     NSString *timeStr = [[dic[@"update_time"] componentsSeparatedByString:@" "] firstObject];
     _update_time = timeStr;
     
+    _tagArr = [NSMutableArray array];
+    
     return YES;
 }
 

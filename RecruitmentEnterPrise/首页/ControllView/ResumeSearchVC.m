@@ -130,6 +130,8 @@
     _tf.layer.cornerRadius = _tf.height/2;
     _tf.layer.masksToBounds = YES;
     _tf.delegate = self;
+    _tf.returnKeyType = UIReturnKeySearch;
+
 
     
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:tfView];

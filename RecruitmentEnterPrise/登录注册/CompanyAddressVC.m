@@ -56,7 +56,7 @@
     [baseView addSubview:addBtn];
     self.addBtn = addBtn;
     
-    CGFloat wdith = (kScreenWidth-10-70)/2;
+//    CGFloat wdith = (kScreenWidth-10-70)/2;
     
     // 搜索框
     UIView *leftView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 35, 30)];
@@ -68,35 +68,37 @@
     
     [leftView1 addSubview:imgView0];
     
-    _addTF = [UITextField textFieldWithframe:CGRectMake(addBtn.right, (baseView.height-30)/2, wdith, 30) placeholder:@"查找写字楼等" font:[UIFont systemFontOfSize:14] leftView:leftView1 backgroundColor:@"#FFFFFF"];
+    _addTF = [UITextField textFieldWithframe:CGRectMake(75, (baseView.height-30)/2, kScreenWidth-20-75, 30) placeholder:@"查找写字楼等" font:[UIFont systemFontOfSize:14] leftView:leftView1 backgroundColor:@"#FFFFFF"];
     [_addTF setValue:[UIFont systemFontOfSize:14] forKeyPath:@"_placeholderLabel.font"];// 设置这里时searchTF.font也要设置不然会偏上
     [_addTF setValue:[UIColor colorWithHexString:@"#999999"] forKeyPath:@"_placeholderLabel.textColor"];
     _addTF.layer.cornerRadius = _addTF.height/2;
     _addTF.layer.masksToBounds = YES;
+//    _addTF.textAlignment = NSTextAlignmentCenter;
     [baseView addSubview:_addTF];
-    
+    _addTF.text = @"";
+
     // 替代
     UIButton *addTFBtn = [UIButton buttonWithframe:_addTF.bounds text:nil font:nil textColor:nil backgroundColor:nil normal:nil selected:nil];
     [_addTF addSubview:addTFBtn];
     [addTFBtn addTarget:self action:@selector(addAction) forControlEvents:UIControlEventTouchUpInside];
 
     
-    // 门牌号
-    leftView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 35, 30)];
-    //    leftView1.backgroundColor = [UIColor colorWithHexString:@"#D0021B"];
-    
-    imgView0 = [UIImageView imgViewWithframe:CGRectMake(0, 0, leftView1.width, 16) icon:@"70"];
-    imgView0.contentMode = UIViewContentModeScaleAspectFit;
-    imgView0.center = leftView1.center;
-    
-    [leftView1 addSubview:imgView0];
-    
-    _detailTF = [UITextField textFieldWithframe:CGRectMake(_addTF.right+5, (baseView.height-30)/2, wdith, 30) placeholder:@"输入楼号-门牌号" font:[UIFont systemFontOfSize:14] leftView:leftView1 backgroundColor:@"#FFFFFF"];
-    [_detailTF setValue:[UIFont systemFontOfSize:14] forKeyPath:@"_placeholderLabel.font"];// 设置这里时searchTF.font也要设置不然会偏上
-    [_detailTF setValue:[UIColor colorWithHexString:@"#999999"] forKeyPath:@"_placeholderLabel.textColor"];
-    _detailTF.layer.cornerRadius = _detailTF.height/2;
-    _detailTF.layer.masksToBounds = YES;
-    [baseView addSubview:_detailTF];
+//    // 门牌号
+//    leftView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 35, 30)];
+//    //    leftView1.backgroundColor = [UIColor colorWithHexString:@"#D0021B"];
+//
+//    imgView0 = [UIImageView imgViewWithframe:CGRectMake(0, 0, leftView1.width, 16) icon:@"70"];
+//    imgView0.contentMode = UIViewContentModeScaleAspectFit;
+//    imgView0.center = leftView1.center;
+//
+//    [leftView1 addSubview:imgView0];
+//
+//    _detailTF = [UITextField textFieldWithframe:CGRectMake(_addTF.right+5, (baseView.height-30)/2, wdith, 30) placeholder:@"输入楼号-门牌号" font:[UIFont systemFontOfSize:14] leftView:leftView1 backgroundColor:@"#FFFFFF"];
+//    [_detailTF setValue:[UIFont systemFontOfSize:14] forKeyPath:@"_placeholderLabel.font"];// 设置这里时searchTF.font也要设置不然会偏上
+//    [_detailTF setValue:[UIColor colorWithHexString:@"#999999"] forKeyPath:@"_placeholderLabel.textColor"];
+//    _detailTF.layer.cornerRadius = _detailTF.height/2;
+//    _detailTF.layer.masksToBounds = YES;
+//    [baseView addSubview:_detailTF];
     
     // 右上角按钮
     UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 17)];
@@ -184,8 +186,9 @@
 
 - (void)saveAction
 {
-    NSString *address = [NSString stringWithFormat:@"%@%@%@",self.addBtn.currentTitle, self.addTF.text, self.detailTF.text];
-    
+//    NSString *address = [NSString stringWithFormat:@"%@%@%@",self.addBtn.currentTitle, self.addTF.text, self.detailTF.text];
+    NSString *address = [NSString stringWithFormat:@"%@%@",self.addBtn.currentTitle, self.addTF.text];
+
     if (self.block) {
         self.block(address);
     }

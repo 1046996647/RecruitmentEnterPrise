@@ -9,6 +9,7 @@
 #import "CountMessageVC.h"
 #import "CompanyintroduceVC.h"
 #import "ChangePhoneVC.h"
+#import "ChangePasswordVC.h"
 
 @interface CountMessageVC ()
 
@@ -76,6 +77,19 @@
     [mailBtn addSubview:mailLab1];
     self.mailLab1 = mailLab1;
     mailLab1.text = self.model.email;
+    
+    // 修改密码
+    UIButton *pswBtn = [UIButton buttonWithframe:CGRectMake(changeBtn.left, mailBtn.bottom+ 1, kScreenWidth, changeBtn.height) text:nil font:nil textColor:nil backgroundColor:@"#FFFFFF" normal:nil selected:nil];
+    [self.view addSubview:pswBtn];
+    pswBtn.tag = 2;
+    [pswBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *pswLab = [UILabel labelWithframe:CGRectMake(18, 0, 100, changeBtn.height) text:@"修改密码" font:SystemFont(17) textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
+    [pswBtn addSubview:pswLab];
+    
+    UIImageView *pswView = [UIImageView imgViewWithframe:CGRectMake(kScreenWidth-12-6, 24, 6, 12) icon:@"44"];
+    pswView.contentMode = UIViewContentModeScaleAspectFit;
+    [pswBtn addSubview:pswView];
 
 }
 
@@ -113,7 +127,12 @@
         };
 
     }
-    
+    if (btn.tag == 2) {
+        ChangePasswordVC *vc = [[ChangePasswordVC alloc] init];
+        vc.title = @"修改密码";
+        vc.model = self.model;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     
 }
 

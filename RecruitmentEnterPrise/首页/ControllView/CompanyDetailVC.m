@@ -92,7 +92,7 @@
     [headView addSubview:companyLab];
     
     // @"五金机电"
-    UILabel *decLab = [UILabel labelWithframe:CGRectMake(companyLab.left, companyLab.bottom+10, kScreenWidth-26-(logoView.right+7), 17) text:@"" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#999999"];
+    UILabel *decLab = [UILabel labelWithframe:CGRectMake(companyLab.left, companyLab.bottom+10, kScreenWidth-26-(logoView.right+7), 17) text:self.model.cateName font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#999999"];
     [headView addSubview:decLab];
     
     // @"150人"
@@ -148,16 +148,15 @@
     sameBtn.contentHorizontalAlignment = decBtn.contentHorizontalAlignment;
     
     // @"提供长期稳定的就业环境，不断提高员工的薪资水平。"
-    UILabel *companyDecLab = [UILabel labelWithframe:CGRectMake(sameBtn.left, sameBtn.bottom+9, kScreenWidth-24, 16) text:_model.info font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#999999"];
-    [headView addSubview:companyDecLab];
-    companyDecLab.numberOfLines = 0;
-
-    // 计算高度
-    CGSize size = [NSString textHeight:_model.info font:companyDecLab.font width:companyDecLab.width];
+    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(sameBtn.left, sameBtn.bottom+9, kScreenWidth-24, 200)];
+    textView.font = [UIFont systemFontOfSize:14];
+    textView.textColor = colorWithHexStr(@"#999999");
+    [headView addSubview:textView];
+    //    self.textView = textView;
+    textView.editable = NO;
+    textView.text = _model.info;
     
-    companyDecLab.height = size.height;
-    
-    view = [[UIView alloc] initWithFrame:CGRectMake(0, companyDecLab.bottom+9, kScreenWidth, 10)];
+    view = [[UIView alloc] initWithFrame:CGRectMake(0, textView.bottom+9, kScreenWidth, 10)];
     view.backgroundColor = [UIColor colorWithHexString:@"#FAE5E8"];
     [headView addSubview:view];
     

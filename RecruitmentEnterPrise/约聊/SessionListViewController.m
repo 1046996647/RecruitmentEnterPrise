@@ -22,8 +22,8 @@
 
     
 //    self.navigationItem.title = @"会话";
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSession)];
-    self.navigationItem.rightBarButtonItem = item;
+//    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSession)];
+//    self.navigationItem.rightBarButtonItem = item;
 }
 
 - (void)didReceiveMemoryWarning {

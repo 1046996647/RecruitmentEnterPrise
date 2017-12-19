@@ -321,6 +321,12 @@
 
 - (void)nextAction
 {
+//    PersonalMessageVC *vc = [[PersonalMessageVC alloc] init];
+//    vc.title = @"个人信息";
+//    [self.navigationController pushViewController:vc animated:YES];
+//
+//    return;
+    
     if ([self.title isEqualToString:@"注册"]) {
 
         [self.view endEditing:YES];

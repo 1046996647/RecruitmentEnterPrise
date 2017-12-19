@@ -59,6 +59,8 @@
     _addTF.layer.masksToBounds = YES;
     [baseView addSubview:_addTF];
     _addTF.delegate = self;
+    _addTF.returnKeyType = UIReturnKeySearch;
+
 
     // 右上角按钮
     UIButton *viewBtn = [UIButton buttonWithframe:CGRectMake(_addTF.right, _addTF.center.y-6.5, 54, 17) text:@"搜索" font:SystemFont(14) textColor:@"#FFFFFF" backgroundColor:nil normal:nil selected:nil];

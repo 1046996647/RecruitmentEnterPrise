@@ -16,7 +16,6 @@
     if (self) {
         
         
-        
         _jobLab = [UILabel labelWithframe:CGRectMake(13, 10, 150, 20) text:@"饰品抛光" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
         [self.contentView addSubview:_jobLab];
         
@@ -26,10 +25,11 @@
         _moneyLab = [UILabel labelWithframe:CGRectMake(kScreenWidth-34-12, 12, 34, 18) text:@"6-7k" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentRight textColor:@"#CE4A12"];
         [self.contentView addSubview:_moneyLab];
         
-        _kmLab = [UILabel labelWithframe:CGRectMake(kScreenWidth-37-12, _moneyLab.bottom+6, 37, 17) text:@"5.2km" font:[UIFont systemFontOfSize:12] textAlignment:NSTextAlignmentRight textColor:@"#999999"];
+        // 5.2km
+        _kmLab = [UILabel labelWithframe:CGRectMake(kScreenWidth-37-12, _moneyLab.bottom+6, 37, 17) text:@"" font:[UIFont systemFontOfSize:12] textAlignment:NSTextAlignmentRight textColor:@"#999999"];
         [self.contentView addSubview:_kmLab];
         
-        _addressView = [UIImageView imgViewWithframe:CGRectMake(_kmLab.left-10-7, _kmLab.center.y-7, 10, 13) icon:@""];
+        _addressView = [UIImageView imgViewWithframe:CGRectMake(_kmLab.left-10-7, _kmLab.center.y-7, 10, 13) icon:@"40"];
         _addressView.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:_addressView];
         
@@ -52,6 +52,7 @@
     //        _tagsView.left = _jobLab.left;
     
     _jobLab.text = model.job_name;
+    _kmLab.text = model.area;
     _companyLab.text = model.company_name;
     _timeLab.text = model.update_time;
     _moneyLab.text = [NSString stringWithFormat:@"%@",model.pay];

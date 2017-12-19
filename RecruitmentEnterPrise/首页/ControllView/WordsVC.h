@@ -10,4 +10,8 @@
 
 @interface WordsVC : BaseViewController
 
+@property(nonatomic,strong) NSString *name;
+@property(nonatomic,strong) NSString *workerId;
+
+
 @end

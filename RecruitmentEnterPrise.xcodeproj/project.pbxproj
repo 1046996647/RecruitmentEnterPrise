@@ -49,6 +49,7 @@
 		F75647911F99BC490060E744 /* EditHeadImgVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75647901F99BC490060E744 /* EditHeadImgVC.m */; };
 		F75647941F99C2C40060E744 /* CompanyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75647921F99C2C40060E744 /* CompanyDetailVC.m */; };
 		F75647971F99C3060060E744 /* JobDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75647951F99C3060060E744 /* JobDetailCell.m */; };
+		F757CA841FE8BEF5007819AB /* HeadhuntVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F757CA831FE8BEF5007819AB /* HeadhuntVC.m */; };
 		F75BA9301F9AD1B00083E448 /* ZFShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA92D1F9AD1B00083E448 /* ZFShareView.m */; };
 		F75BA9311F9AD1B00083E448 /* ZFTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA92F1F9AD1B00083E448 /* ZFTableViewCell.m */; };
 		F75BD65C1F947F2B00433133 /* CDTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BD65B1F947F2A00433133 /* CDTabBar.m */; };
@@ -130,12 +131,17 @@
 		F76AD8631F97452500BA88D3 /* SearchUITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F76AD8621F97452500BA88D3 /* SearchUITableView.m */; };
 		F76AD8661F97515700BA88D3 /* ResumeSearchResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F76AD8651F97515700BA88D3 /* ResumeSearchResultVC.m */; };
 		F76AD8691F97520500BA88D3 /* ResumeSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F76AD8681F97520500BA88D3 /* ResumeSearchResultCell.m */; };
+		F76D370C1FC7B5EF00D862B8 /* HXTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = F76D370B1FC7B5EF00D862B8 /* HXTagsView.m */; };
+		F76D370F1FC7B90A00D862B8 /* TagViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F76D370E1FC7B90A00D862B8 /* TagViewVC.m */; };
+		F76D37151FC7F7D900D862B8 /* YZTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F76D37121FC7F7D900D862B8 /* YZTagButton.m */; };
+		F76D37161FC7F7D900D862B8 /* YZTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = F76D37141FC7F7D900D862B8 /* YZTagList.m */; };
 		F77622691FB0035400102A06 /* ResumeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F77622681FB0035400102A06 /* ResumeModel.m */; };
 		F776226C1FB0158700102A06 /* EditResumeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F776226B1FB0158600102A06 /* EditResumeVC.m */; };
 		F776226F1FB015F400102A06 /* EditResumeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F776226E1FB015F400102A06 /* EditResumeCell.m */; };
 		F77622721FB024B100102A06 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F77622701FB024B000102A06 /* HeaderView.m */; };
 		F77622751FB0350800102A06 /* ResDetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F77622731FB0350700102A06 /* ResDetailCollectionViewCell.m */; };
 		F7777B6A1FC02E1F00B72F91 /* SessionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7777B691FC02E1F00B72F91 /* SessionListViewController.m */; };
+		F77CDADB1FD0F67B00B0578B /* ForgetPassword1VC.m in Sources */ = {isa = PBXBuildFile; fileRef = F77CDADA1FD0F67B00B0578B /* ForgetPassword1VC.m */; };
 		F78870FA1F9D84AA008CDD52 /* InviteInterviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F78870F91F9D84AA008CDD52 /* InviteInterviewVC.m */; };
 		F78871001F9D8D0D008CDD52 /* InviteInterviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F78870FF1F9D8D0D008CDD52 /* InviteInterviewCell.m */; };
 		F78871041F9DB32C008CDD52 /* ContactModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F78871031F9DB32C008CDD52 /* ContactModel.m */; };
@@ -156,6 +162,7 @@
 		F7931B6E1FB2E55700DD5CE2 /* UILabel+WLAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = F7931B6C1FB2E55700DD5CE2 /* UILabel+WLAttributedString.m */; };
 		F7CFA8B91FBADAF40067D018 /* ReceiveMsgModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F7CFA8B81FBADAF40067D018 /* ReceiveMsgModel.m */; };
 		F7CFA8BC1FBAEDE40067D018 /* MsgDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7CFA8BB1FBAEDE40067D018 /* MsgDetailVC.m */; };
+		F7E1B6681FC6A4700063EAA6 /* ResumeCheckedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E1B6671FC6A4700063EAA6 /* ResumeCheckedCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -264,6 +271,8 @@
 		F75647931F99C2C40060E744 /* CompanyDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDetailVC.h; sourceTree = "<group>"; };
 		F75647951F99C3060060E744 /* JobDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobDetailCell.m; sourceTree = "<group>"; };
 		F75647961F99C3060060E744 /* JobDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobDetailCell.h; sourceTree = "<group>"; };
+		F757CA821FE8BEF5007819AB /* HeadhuntVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeadhuntVC.h; sourceTree = "<group>"; };
+		F757CA831FE8BEF5007819AB /* HeadhuntVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeadhuntVC.m; sourceTree = "<group>"; };
 		F75BA92C1F9AD1B00083E448 /* ZFShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFShareView.h; sourceTree = "<group>"; };
 		F75BA92D1F9AD1B00083E448 /* ZFShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFShareView.m; sourceTree = "<group>"; };
 		F75BA92E1F9AD1B00083E448 /* ZFTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFTableViewCell.h; sourceTree = "<group>"; };
@@ -426,6 +435,14 @@
 		F76AD8651F97515700BA88D3 /* ResumeSearchResultVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResumeSearchResultVC.m; sourceTree = "<group>"; };
 		F76AD8671F97520500BA88D3 /* ResumeSearchResultCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResumeSearchResultCell.h; sourceTree = "<group>"; };
 		F76AD8681F97520500BA88D3 /* ResumeSearchResultCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResumeSearchResultCell.m; sourceTree = "<group>"; };
+		F76D370A1FC7B5EF00D862B8 /* HXTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXTagsView.h; sourceTree = "<group>"; };
+		F76D370B1FC7B5EF00D862B8 /* HXTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXTagsView.m; sourceTree = "<group>"; };
+		F76D370D1FC7B90A00D862B8 /* TagViewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagViewVC.h; sourceTree = "<group>"; };
+		F76D370E1FC7B90A00D862B8 /* TagViewVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagViewVC.m; sourceTree = "<group>"; };
+		F76D37111FC7F7D900D862B8 /* YZTagButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZTagButton.h; sourceTree = "<group>"; };
+		F76D37121FC7F7D900D862B8 /* YZTagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZTagButton.m; sourceTree = "<group>"; };
+		F76D37131FC7F7D900D862B8 /* YZTagList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZTagList.h; sourceTree = "<group>"; };
+		F76D37141FC7F7D900D862B8 /* YZTagList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZTagList.m; sourceTree = "<group>"; };
 		F77622671FB0035400102A06 /* ResumeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResumeModel.h; sourceTree = "<group>"; };
 		F77622681FB0035400102A06 /* ResumeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResumeModel.m; sourceTree = "<group>"; };
 		F776226A1FB0158600102A06 /* EditResumeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditResumeVC.h; sourceTree = "<group>"; };
@@ -439,6 +456,8 @@
 		F777780B1FC0034F00B72F91 /* NTESGlobalMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESGlobalMacro.h; sourceTree = "<group>"; };
 		F7777B681FC02E1F00B72F91 /* SessionListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SessionListViewController.h; sourceTree = "<group>"; };
 		F7777B691FC02E1F00B72F91 /* SessionListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SessionListViewController.m; sourceTree = "<group>"; };
+		F77CDAD91FD0F67B00B0578B /* ForgetPassword1VC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgetPassword1VC.h; sourceTree = "<group>"; };
+		F77CDADA1FD0F67B00B0578B /* ForgetPassword1VC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgetPassword1VC.m; sourceTree = "<group>"; };
 		F78870F81F9D84AA008CDD52 /* InviteInterviewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InviteInterviewVC.h; sourceTree = "<group>"; };
 		F78870F91F9D84AA008CDD52 /* InviteInterviewVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InviteInterviewVC.m; sourceTree = "<group>"; };
 		F78870FE1F9D8D0D008CDD52 /* InviteInterviewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InviteInterviewCell.h; sourceTree = "<group>"; };
@@ -479,6 +498,8 @@
 		F7CFA8B81FBADAF40067D018 /* ReceiveMsgModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReceiveMsgModel.m; sourceTree = "<group>"; };
 		F7CFA8BA1FBAEDE40067D018 /* MsgDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MsgDetailVC.h; sourceTree = "<group>"; };
 		F7CFA8BB1FBAEDE40067D018 /* MsgDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MsgDetailVC.m; sourceTree = "<group>"; };
+		F7E1B6661FC6A4700063EAA6 /* ResumeCheckedCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResumeCheckedCell.h; sourceTree = "<group>"; };
+		F7E1B6671FC6A4700063EAA6 /* ResumeCheckedCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResumeCheckedCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -765,6 +786,8 @@
 		F75BD6591F947F2A00433133 /* CustomClass */ = {
 			isa = PBXGroup;
 			children = (
+				F76D37101FC7F7D900D862B8 /* YZTagList */,
+				F76D37091FC7B5EF00D862B8 /* 标签 */,
 				F748207A1F91FE8A00F072CD /* BRPickerView */,
 				F75BA92B1F9AD1B00083E448 /* ZFTableViewCell */,
 				F766D8FF1F95AA98004C74F0 /* MJCSlideInterface */,
@@ -781,6 +804,8 @@
 				F705A7D91F9488C500298D57 /* ReleaseJobVC.m */,
 				F75BD65D1F94866800433133 /* ReleaseJob1VC.h */,
 				F75BD65E1F94866800433133 /* ReleaseJob1VC.m */,
+				F76D370D1FC7B90A00D862B8 /* TagViewVC.h */,
+				F76D370E1FC7B90A00D862B8 /* TagViewVC.m */,
 			);
 			path = ControllView;
 			sourceTree = "<group>";
@@ -950,6 +975,8 @@
 			children = (
 				F766D93B1F95CBE2004C74F0 /* ResumeReceiveCell.h */,
 				F766D93C1F95CBE2004C74F0 /* ResumeReceiveCell.m */,
+				F7E1B6661FC6A4700063EAA6 /* ResumeCheckedCell.h */,
+				F7E1B6671FC6A4700063EAA6 /* ResumeCheckedCell.m */,
 				F776226D1FB015F400102A06 /* EditResumeCell.h */,
 				F776226E1FB015F400102A06 /* EditResumeCell.m */,
 				F77622711FB024B100102A06 /* HeaderView.h */,
@@ -977,6 +1004,8 @@
 				F75EB67B1F96F61500CBCA7C /* MyMailboxVC.m */,
 				F75EB67D1F96F62E00CBCA7C /* ReceiveMsgVC.h */,
 				F75EB67E1F96F62E00CBCA7C /* ReceiveMsgVC.m */,
+				F757CA821FE8BEF5007819AB /* HeadhuntVC.h */,
+				F757CA831FE8BEF5007819AB /* HeadhuntVC.m */,
 				F75EB6801F96F64100CBCA7C /* SendMsgVC.h */,
 				F75EB6811F96F64100CBCA7C /* SendMsgVC.m */,
 				F75EB6861F9722CC00CBCA7C /* ResumeSearchVC.h */,
@@ -1084,6 +1113,26 @@
 			path = common;
 			sourceTree = "<group>";
 		};
+		F76D37091FC7B5EF00D862B8 /* 标签 */ = {
+			isa = PBXGroup;
+			children = (
+				F76D370A1FC7B5EF00D862B8 /* HXTagsView.h */,
+				F76D370B1FC7B5EF00D862B8 /* HXTagsView.m */,
+			);
+			path = "标签";
+			sourceTree = "<group>";
+		};
+		F76D37101FC7F7D900D862B8 /* YZTagList */ = {
+			isa = PBXGroup;
+			children = (
+				F76D37111FC7F7D900D862B8 /* YZTagButton.h */,
+				F76D37121FC7F7D900D862B8 /* YZTagButton.m */,
+				F76D37131FC7F7D900D862B8 /* YZTagList.h */,
+				F76D37141FC7F7D900D862B8 /* YZTagList.m */,
+			);
+			path = YZTagList;
+			sourceTree = "<group>";
+		};
 		F78871011F9DB309008CDD52 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1152,6 +1201,8 @@
 				F766D9421F95E405004C74F0 /* RegisterVC.m */,
 				F74F989F1FA069470027C418 /* ForgetPasswordVC.h */,
 				F74F98A01FA069470027C418 /* ForgetPasswordVC.m */,
+				F77CDAD91FD0F67B00B0578B /* ForgetPassword1VC.h */,
+				F77CDADA1FD0F67B00B0578B /* ForgetPassword1VC.m */,
 				F766D94B1F95F9C4004C74F0 /* PersonalMessageVC.h */,
 				F766D94C1F95F9C4004C74F0 /* PersonalMessageVC.m */,
 				F766D9491F95F597004C74F0 /* PersonalMessageCell.h */,
@@ -1431,6 +1482,7 @@
 				F7CFA8B91FBADAF40067D018 /* ReceiveMsgModel.m in Sources */,
 				F75EB6821F96F64100CBCA7C /* SendMsgVC.m in Sources */,
 				F705A7DD1F9488EE00298D57 /* ReleaseJobCell.m in Sources */,
+				F76D370F1FC7B90A00D862B8 /* TagViewVC.m in Sources */,
 				F75647941F99C2C40060E744 /* CompanyDetailVC.m in Sources */,
 				F75647851F998A0E0060E744 /* AddContactModel.m in Sources */,
 				F71C04291F9839690024C1EC /* ChatWantedVC.m in Sources */,
@@ -1465,11 +1517,13 @@
 				F766D91F1F95AA99004C74F0 /* MJCCommonTools.m in Sources */,
 				F75F9D191FA3176D00F7148A /* JobModel.m in Sources */,
 				F78871071F9DD959008CDD52 /* CompanyAddressVC.m in Sources */,
+				F757CA841FE8BEF5007819AB /* HeadhuntVC.m in Sources */,
 				F77622691FB0035400102A06 /* ResumeModel.m in Sources */,
 				F766D91E1F95AA99004C74F0 /* MJCAlertMessage.m in Sources */,
 				F76AD8691F97520500BA88D3 /* ResumeSearchResultCell.m in Sources */,
 				F75E84691FC2D06E00043A11 /* NTESSessionConfig.m in Sources */,
 				F75E846C1FC2D06E00043A11 /* NTESClientUtil.m in Sources */,
+				F76D37151FC7F7D900D862B8 /* YZTagButton.m in Sources */,
 				F75E845C1FC2D06D00043A11 /* UIImage+NTESColor.m in Sources */,
 				F74820C31F91FE8B00F072CD /* BRAddressModel.m in Sources */,
 				F75E84681FC2D06E00043A11 /* NTESCellLayoutConfig.m in Sources */,
@@ -1498,12 +1552,14 @@
 				F71C04491F98A8790024C1EC /* ContactManageVC.m in Sources */,
 				F75E845D1FC2D06D00043A11 /* UIResponder+NTESFirstResponder.m in Sources */,
 				F75E84661FC2D06E00043A11 /* NTESAttachmentDecoder.m in Sources */,
+				F76D37161FC7F7D900D862B8 /* YZTagList.m in Sources */,
 				F7931B6E1FB2E55700DD5CE2 /* UILabel+WLAttributedString.m in Sources */,
 				F756478E1F999E140060E744 /* BaseMessageVC.m in Sources */,
 				F766D9201F95AA99004C74F0 /* MJCOrdinaryLayout.m in Sources */,
 				F76AD85D1F973E9E00BA88D3 /* HotJobCell.m in Sources */,
 				F75EB67C1F96F61500CBCA7C /* MyMailboxVC.m in Sources */,
 				F75E846F1FC2D06E00043A11 /* NTESFileLocationHelper.m in Sources */,
+				F7E1B6681FC6A4700063EAA6 /* ResumeCheckedCell.m in Sources */,
 				F7931B661FB2E4BA00DD5CE2 /* UIImage+UIImageExt.m in Sources */,
 				F77622751FB0350800102A06 /* ResDetailCollectionViewCell.m in Sources */,
 				F766D93A1F95C880004C74F0 /* ResumeManageVC.m in Sources */,
@@ -1524,7 +1580,9 @@
 				F766D94A1F95F597004C74F0 /* PersonalMessageCell.m in Sources */,
 				F766D9281F95AABF004C74F0 /* ResumeReceiveVC.m in Sources */,
 				F766D93D1F95CBE2004C74F0 /* ResumeReceiveCell.m in Sources */,
+				F76D370C1FC7B5EF00D862B8 /* HXTagsView.m in Sources */,
 				F756477F1F9986460060E744 /* AddContactVC.m in Sources */,
+				F77CDADB1FD0F67B00B0578B /* ForgetPassword1VC.m in Sources */,
 				F776226C1FB0158700102A06 /* EditResumeVC.m in Sources */,
 				F75EB67F1F96F62E00CBCA7C /* ReceiveMsgVC.m in Sources */,
 				F74F989B1FA027D20027C418 /* CompanyintroduceVC.m in Sources */,

@@ -10,6 +10,7 @@
 #import "ZFTableViewCell.h"
 #import "AddContactModel.h"
 
+typedef void(^ContactManageCellBlock)(AddContactModel *model, NSInteger tag);
 
 @interface ContactManageCell : ZFTableViewCell
 
@@ -18,6 +19,10 @@
 @property(nonatomic,strong) UIButton *eduBtn;
 @property(nonatomic,strong) UILabel *timeLab;
 
+@property(nonatomic,strong) UIButton *delBtn;
+@property(nonatomic,strong) UIButton *modifyBtn;
+
 @property(nonatomic,strong) AddContactModel *model;
+@property(nonatomic,copy) ContactManageCellBlock block;
 
 @end

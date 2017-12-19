@@ -17,6 +17,8 @@
 @property(nonatomic,strong) UILabel *nameLab;
 @property(nonatomic,strong) UITextField *tf1;
 @property(nonatomic,strong) UIButton *selectBtn;
+@property(nonatomic,strong) UIButton *addressBtn;
+@property(nonatomic,strong) UIButton *contactBtn;
 
 @property(nonatomic,strong) AddContactModel *model;
 

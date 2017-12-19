@@ -30,6 +30,8 @@
         [self.contentView addSubview:_timeLab];
 //        _timeLab.backgroundColor = [UIColor greenColor];
 
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(callAction)];
+        [_timeLab addGestureRecognizer:tap];
         
         _hLine = [[UIView alloc] initWithFrame:CGRectZero];
         _hLine.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
@@ -101,6 +103,8 @@
     _companyLab.hidden = NO;
     _responsibilityLab.hidden = NO;
     _contactBtn.hidden = YES;
+    
+    _timeLab.userInteractionEnabled = NO;
 
     if (self.indexPath.section == 0) {
         _imgView.hidden = YES;
@@ -229,6 +233,7 @@
         _hLine1.hidden = YES;
         _extraLab.hidden = YES;
         
+        _timeLab.userInteractionEnabled = YES;
 
         _timeLab.frame = CGRectMake(12, 10, kScreenWidth-12, 20);
         //        _hLine.frame = CGRectMake(14, _timeLab.bottom+6, kScreenWidth-28, 14);
@@ -261,6 +266,18 @@
     }
     
 
+    
+}
+
+- (void)callAction
+{
+    if (self.model.phone) {
+        //    NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",_model.tele];
+        NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",self.model.phone];
+        UIWebView *callWebview = [[UIWebView alloc] init];
+        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+        [[UIApplication sharedApplication].keyWindow addSubview:callWebview];
+    }
     
 }
 

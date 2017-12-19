@@ -7,12 +7,13 @@
 //
 
 #import "WordsVC.h"
+#import "IQKeyboardManager.h"
 
 @interface WordsVC ()
 
 @property(nonatomic,strong) UITextView *words;
 @property(nonatomic,strong) UIButton *lastBtn;
-@property(nonatomic,strong) UITextView *tv;
+//@property(nonatomic,strong) UITextView *tv;
 
 
 @end
@@ -23,10 +24,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    UIself.view *self.view = [[UIself.view alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kTabBarHeight-kTopHeight)];
+    
+//    UIView *scroller = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kTabBarHeight-kTopHeight)];
 //    [self.view addSubview:self.view];
     
-    UILabel *titleLab = [UILabel labelWithframe:CGRectMake(29, 15, 150, 19) text:@"收信人：网站管理员" font:[UIFont systemFontOfSize:16] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
+    if (!self.name) {
+        self.name = @"网站管理员";
+    }
+
+    UILabel *titleLab = [UILabel labelWithframe:CGRectMake(29, 15, 150, 19) text:[NSString stringWithFormat:@"收信人：%@",self.name] font:[UIFont systemFontOfSize:16] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
     [self.view addSubview:titleLab];
     
     UILabel *typeLab = [UILabel labelWithframe:CGRectMake(titleLab.left, titleLab.bottom+21, 50, 19) text:@"类型：" font:[UIFont systemFontOfSize:16] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
@@ -58,13 +64,15 @@
     _words.layer.masksToBounds = YES;
     [self.view addSubview:_words];
     
-    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(_words.left, _words.bottom+37, kScreenWidth-_words.left*2, 40) text:@"发送" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
-    releseBtn.layer.cornerRadius = 7;
-    releseBtn.layer.masksToBounds = YES;
-    [self.view addSubview:releseBtn];
-    [releseBtn addTarget:self action:@selector(sendAction) forControlEvents:UIControlEventTouchUpInside];
+//    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(_words.left, _words.bottom+37, kScreenWidth-_words.left*2, 40) text:@"发送" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
+//    releseBtn.layer.cornerRadius = 7;
+//    releseBtn.layer.masksToBounds = YES;
+//    [self.view addSubview:releseBtn];
+//    [releseBtn addTarget:self action:@selector(sendAction) forControlEvents:UIControlEventTouchUpInside];
 
-    
+    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(0, 0, 40, 40) text:@"提交" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:nil normal:@"" selected:nil];
+    [releseBtn addTarget:self action:@selector(sendAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:releseBtn];
 //    self.view.contentSize = CGSizeMake(kScreenWidth, self.forgetBtn2.bottom);
 }
 
@@ -94,14 +102,71 @@
     [paramDic  setValue:self.lastBtn.currentTitle forKey:@"type"];
     [paramDic  setValue:_words.text forKey:@"info"];
 
+    NSString *urlStr = nil;
+    if (self.workerId) {
+        [paramDic  setValue:self.workerId forKey:@"toid"];
+        urlStr = Send_mess_to;
+    }
+    else {
+        urlStr = Send_mess_admin;
+
+    }
+
     
-    [AFNetworking_RequestData requestMethodPOSTUrl:Send_mess_admin dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+    [AFNetworking_RequestData requestMethodPOSTUrl:urlStr dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
         [self.navigationController popViewControllerAnimated:YES];
         
     } failure:^(NSError *error) {
         
     }];
+}
+
+#pragma mark - keyboardHight
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self registerForKeyboardNotifications];
+    [IQKeyboardManager sharedManager].enable = NO;
+
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [IQKeyboardManager sharedManager].enable = YES;
+
+}
+- (void)registerForKeyboardNotifications
+{
+    //使用NSNotificationCenter 鍵盤出現時
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShown:)
+                                                 name:UIKeyboardWillShowNotification object:nil];
+    //使用NSNotificationCenter 鍵盤隐藏時
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+}
+
+//实现当键盘出现的时候计算键盘的高度大小。用于输入框显示位置
+- (void)keyboardWillShown:(NSNotification*)aNotification
+{
+
+    NSDictionary *info = [aNotification userInfo];
+    NSValue *value = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGSize keyboardSize = [value CGRectValue].size;
+
+    _words.height = kScreenHeight-_words.top-keyboardSize.height-kTopHeight;
+
+
+}
+//当键盘隐藏的时候
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    //do something
+    _words.height = (329-70)*scaleWidth;
+
+
 }
 
 @end

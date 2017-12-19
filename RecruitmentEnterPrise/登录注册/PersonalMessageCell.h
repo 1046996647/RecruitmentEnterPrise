@@ -16,6 +16,7 @@
 @property(nonatomic,strong) UIImageView *imgView;
 @property(nonatomic,strong) UITextField *tf;
 @property(nonatomic,strong) UIButton *saveBtn;
+@property(nonatomic,strong) UIButton *addressBtn;
 
 @property(nonatomic,strong) PersonModel *model;
 @property(nonatomic,strong) NSArray *dataSource;

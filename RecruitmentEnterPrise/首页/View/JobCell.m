@@ -7,6 +7,7 @@
 //
 
 #import "JobCell.h"
+#import "NSStringExt.h"
 
 @implementation JobCell
 
@@ -46,10 +47,13 @@
         _nameLab = [UILabel labelWithframe:CGRectMake(17, 11, 58, 17) text:@"猎头顾问" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
         [baseView addSubview:_nameLab];
 
-        _viewBtn = [UIButton buttonWithframe:CGRectMake(22, _nameLab.bottom+10, 120, 13) text:@"118" font:SystemFont(12) textColor:@"#999999" backgroundColor:nil normal:@"106" selected:nil];
+        _viewBtn = [UIButton buttonWithframe:CGRectMake(22, _nameLab.bottom+10, 60, 13) text:@"118" font:SystemFont(12) textColor:@"#999999" backgroundColor:nil normal:@"106" selected:nil];
         _viewBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         _viewBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
         [baseView addSubview:_viewBtn];
+        
+        _imgView = [UIImageView imgViewWithframe:CGRectMake(_viewBtn.right, _viewBtn.center.y-6, _viewBtn.height, _viewBtn.height) icon:@"聊天 (1)"];
+        [baseView addSubview:_imgView];
         
         _stateLab = [UILabel labelWithframe:CGRectMake(baseView.width-11-61, 19, 61, 22) text:@"招聘中" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentCenter textColor:@"#FFFFFF"];
         _stateLab.layer.cornerRadius = _stateLab.height/2;
@@ -70,8 +74,15 @@
         UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gesAction:)];
         [_orderLab addGestureRecognizer:tap2];
         
-        _imgView = [UIImageView imgViewWithframe:CGRectMake(_orderLab.left-18-5, _orderLab.center.y-9, 18, 18) icon:@"聊天 (1)"];
-        [baseView addSubview:_imgView];
+//        _refreshLab = [UILabel labelWithframe:CGRectMake(_orderLab.left-12-42, 19, 42, 22) text:@"刷新" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentCenter textColor:@"#FFFFFF"];
+//        _refreshLab.layer.cornerRadius = _stateLab.height/2;
+//        _refreshLab.layer.masksToBounds = YES;
+//        _refreshLab.backgroundColor = colorWithHexStr(@"#D0021B");
+//        [baseView addSubview:_refreshLab];
+//        _refreshLab.userInteractionEnabled = YES;
+//        _refreshLab.tag = 2;
+//        UITapGestureRecognizer *tap3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gesAction:)];
+//        [_refreshLab addGestureRecognizer:tap3];
 
     }
     
@@ -102,7 +113,7 @@
             
             _model.status = responseObject[@"jobStatus"];
             if (self.block) {
-                self.block(nil,0);
+                self.block(nil,tag);
             }
             
         } failure:^(NSError *error) {
@@ -112,7 +123,7 @@
         
 
     }
-    else {
+    else if (tag == 1) {
         
         NSMutableArray *arrM = [NSMutableArray array];
         
@@ -125,10 +136,28 @@
             _model.ordid = selectValue;
             
             if (self.block) {
-                self.block(_model,1);
+                self.block(_model,tag);
             }
             
         }];
+    }
+    else {
+        
+//        NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
+//        
+//        [paraDic setValue:_model.jobId forKey:@"jobId"];
+//        
+//        
+//        [AFNetworking_RequestData requestMethodPOSTUrl:Refresh_position dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+//            
+//            if (self.block) {
+//                self.block(nil,tag);
+//            }
+//            
+//        } failure:^(NSError *error) {
+//            
+//            
+//        }];
     }
 }
 
@@ -136,8 +165,13 @@
 {
     _model = model;
     
-    _nameLab.width = _imgView.left-_nameLab.left-10;
+    _nameLab.width = _orderLab.left-_nameLab.left-10;
     _nameLab.text = model.title;
+    
+    CGSize size = [NSString textLength:model.hits font:_viewBtn.titleLabel.font];
+    _viewBtn.width = 20+size.width;
+    _imgView.left = _viewBtn.right+10;
+    
     [_viewBtn setTitle:model.hits forState:UIControlStateNormal];
     _orderLab.text = model.ordid;
     

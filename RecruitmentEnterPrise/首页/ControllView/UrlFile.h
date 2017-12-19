@@ -69,6 +69,9 @@
 // 6.1    首页显示信息
 #define Get_ui_info  [NSString stringWithFormat:@"%@/User/get_ui_info",BaseUrl]
 
+// 6.1    首页显示信息
+#define Company_upgrade  [NSString stringWithFormat:@"%@/User/company_upgrade",BaseUrl]
+
 // 3.1    获取全部联系人
 #define Get_contact  [NSString stringWithFormat:@"%@/Contact/get_contact",BaseUrl]
 
@@ -80,6 +83,12 @@
 
 // 3.2    修改联系人
 #define Update_contact  [NSString stringWithFormat:@"%@/Contact/update_contact",BaseUrl]
+
+// 5.1    获取已约聊简历
+#define Get_chat_resume  [NSString stringWithFormat:@"%@/Chat/get_chat_resume",BaseUrl]
+
+// 5.7    获取标签列表
+#define Get_tags  [NSString stringWithFormat:@"%@/QuickGet/get_tags",BaseUrl]
 
 // 2.1    发布职位
 #define Post_position  [NSString stringWithFormat:@"%@/Jobs/post_position",BaseUrl]
@@ -156,6 +165,9 @@
 
 // 1.15    在线投诉/留言
 #define Send_mess_admin  [NSString stringWithFormat:@"%@/User/send_mess_admin",BaseUrl]
+
+// 1.18    发送消息
+#define Send_mess_to  [NSString stringWithFormat:@"%@/User/send_mess_to",BaseUrl]
 
 // 1.17    我的信箱（发出的消息）
 #define Get_message_fromme  [NSString stringWithFormat:@"%@/User/get_message_fromme/",BaseUrl]

@@ -41,12 +41,17 @@
     [self.view addSubview:imgView];
     imgView.userInteractionEnabled = YES;
     
+    // 地址
+    NSString *address = [InfoCache unarchiveObjectWithFile:@"address"];
+    if (!address) {
+        address = @"";
+    }
     
     // 表视图
     self.dataArr = @[@{@"image":@"19",@"title":@"请选择联系人",@"text":@"",@"key":@"key"},
                      @{@"image":@"18",@"title":@"请填写联系人",@"text":@"",@"key":@"name"},
                      @{@"image":@"17",@"title":@"请填写联系方式",@"text":@"",@"key":@"tele"},
-                     @{@"image":@"16",@"title":@"请填写地址",@"text":@"",@"key":@"address"},
+                     @{@"image":@"16",@"title":@"请填写地址",@"text":address,@"key":@"address"},
                      @{@"image":@"15",@"title":@"输入邀请内容",@"text":@"",@"key":@"info"}];
     
     NSMutableArray *arrM = [NSMutableArray array];
@@ -187,6 +192,8 @@
 
 - (void)selectAction
 {
+    [self.view endEditing:YES];
+
     [self get_position];
 
 
@@ -194,6 +201,8 @@
 
 - (void)btnAction
 {
+    [self.view endEditing:YES];
+    
     NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
 
     for (ContactModel *model1 in self.dataArr) {
@@ -209,7 +218,7 @@
 
     }
     if (self.jobId.length == 0) {
-        [self.view makeToast:@"请补充面试邀请信息"];
+        [self.view makeToast:@"请选择面试职位"];
         return;
 
     }
@@ -299,6 +308,9 @@
                 
                 
             }];
+        }
+        else {
+            [self.view makeToast:@"您还没发布任何职位~"];
         }
         
     } failure:^(NSError *error) {

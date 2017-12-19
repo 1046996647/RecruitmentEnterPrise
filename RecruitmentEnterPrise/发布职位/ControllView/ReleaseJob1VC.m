@@ -15,6 +15,8 @@
 @property(nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSArray *selectArr;
 @property (nonatomic,strong) NSArray *selectJobArr;
+@property(nonatomic,strong) NSMutableArray *tagArr;
+@property(nonatomic,strong) UIButton *selectBtn;
 
 
 @end
@@ -33,14 +35,26 @@
 
     
     // 尾视图
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 34+40)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
     
-    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(25, 17, kScreenWidth-50, 40) text:@"发布" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
+    UIButton *selectBtn = [UIButton buttonWithframe:CGRectMake(25, 17, kScreenWidth-50, 20) text:[NSString stringWithFormat:@"当前约聊次数为%@次，是否发布可约聊岗位",[InfoCache unarchiveObjectWithFile:@"chatLast"]] font:[UIFont systemFontOfSize:14] textColor:@"#333333" backgroundColor:nil normal:@"Rectangle 11" selected:@"Rectangle 12"];
+    [footerView addSubview:selectBtn];
+    selectBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    selectBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [selectBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.selectBtn = selectBtn;
+    
+//    UILabel *nameLab = [UILabel labelWithframe:CGRectMake(0, 0, selectBtn.width-20-10, selectBtn.height) text:[NSString stringWithFormat:@"发布可约聊岗位，当前约聊次数为%@",[InfoCache unarchiveObjectWithFile:@"chatLast"]] font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
+//    [selectBtn addSubview:nameLab];
+    
+    UIButton *releseBtn = [UIButton buttonWithframe:CGRectMake(25, selectBtn.bottom+ 17, kScreenWidth-50, 40) text:@"发布" font:SystemFont(16) textColor:@"#FFFFFF" backgroundColor:@"#D0021B" normal:@"" selected:nil];
     releseBtn.layer.cornerRadius = 7;
     releseBtn.layer.masksToBounds = YES;
     [footerView addSubview:releseBtn];
-    _tableView.tableFooterView = footerView;
     [releseBtn addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
+
+    footerView.height = releseBtn.bottom+17;
+    _tableView.tableFooterView = footerView;
 
     
     // 选择项数据
@@ -50,32 +64,37 @@
 //    NSArray *selectJobArr = [InfoCache unarchiveObjectWithFile:SelectItemJob1];;
 //    self.selectJobArr = selectJobArr;
     
+//    // 标签数组
+//    self.tagArr = [NSMutableArray array];
+    
     if ([self.title isEqualToString:@"修改职位"]) {
         [releseBtn setTitle:@"修改" forState:UIControlStateNormal];
+        selectBtn.hidden = YES;
         [self get_position_detail];
     }
     else {
         self.dataArr = @[@[@{@"leftTitle":@"职位名称",@"rightTitle":@"请填写",@"text":@"",@"key":@"title"},
-                           @{@"leftTitle":@"职位类别",@"rightTitle":@"请选择",@"text":@"",@"key":@"cateName"}
+                           @{@"leftTitle":@"职位类别",@"rightTitle":@"请选择",@"text":@"",@"key":@"cateName"},
+                           @{@"leftTitle":@"公司福利",@"rightTitle":@"请选择(选填)",@"text":@"",@"key":@"tag"}
                            ],
                          @[@{@"leftTitle":@"联系人",@"rightTitle":@"请选择",@"text":@"",@"key":@"contactId"},
                            @{@"leftTitle":@"工作地点",@"rightTitle":@"请选择",@"text":@"",@"key":@"area"}
                            ],
                          @[@{@"leftTitle":@"学历要求",@"rightTitle":@"请选择",@"text":@"",@"key":@"edu"},
-                           @{@"leftTitle":@"户口要求",@"rightTitle":@"请填写",@"text":@"",@"key":@"hukou"}
+                           @{@"leftTitle":@"户口要求",@"rightTitle":@"请填写(选填)",@"text":@"",@"key":@"hukou"}
                            ],
                          @[@{@"leftTitle":@"工作类型",@"rightTitle":@"请选择",@"text":@"",@"key":@"jobs"},
                            @{@"leftTitle":@"工作经验",@"rightTitle":@"请选择",@"text":@"",@"key":@"years"},
                            @{@"leftTitle":@"月薪",@"rightTitle":@"请选择",@"text":@"",@"key":@"pay"}
                            ],
-                         @[@{@"leftTitle":@"性别要求",@"rightTitle":@"请选择",@"text":@"",@"key":@"gender"},
-                           @{@"leftTitle":@"年龄要求",@"rightTitle":@"请填写",@"text":@"",@"key":@"ages"},
+                         @[@{@"leftTitle":@"性别要求",@"rightTitle":@"请选择",@"text":@"不限",@"key":@"gender"},
+                           @{@"leftTitle":@"年龄要求",@"rightTitle":@"请填写(选填)",@"text":@"不限",@"key":@"ages"},
                            @{@"leftTitle":@"住房要求",@"rightTitle":@"请选择",@"text":@"",@"key":@"house"}
                            ],
                          @[@{@"leftTitle":@"应聘方式",@"rightTitle":@"请选择",@"text":@"",@"key":@"tele"},
-                           @{@"leftTitle":@"招聘人数",@"rightTitle":@"请填写",@"text":@"",@"key":@"nums"}
+                           @{@"leftTitle":@"招聘人数",@"rightTitle":@"若干",@"text":@"0",@"key":@"nums"}
                            ],
-                         @[@{@"leftTitle":@"岗位要求",@"rightTitle":@"请填写",@"text":@"",@"key":@"info"}
+                         @[@{@"leftTitle":@"岗位要求",@"rightTitle":@"请填写(选填)",@"text":@"",@"key":@"info"}
                            ]
                          
                          ];
@@ -97,7 +116,12 @@
         
         self.dataArr = arrM;
         [_tableView reloadData];
+        
+
+
     }
+    
+
 }
 
 - (void)get_position_detail
@@ -111,26 +135,28 @@
         ReleaseJobModel *model = [ReleaseJobModel yy_modelWithDictionary:responseObject[@"data"]];
         
         self.dataArr = @[@[@{@"leftTitle":@"职位名称",@"rightTitle":@"请填写",@"text":model.title,@"key":@"title"},
-                           @{@"leftTitle":@"职位类别",@"rightTitle":@"请选择",@"text":model.cateName,@"key":@"cateName"}
+                           @{@"leftTitle":@"职位类别",@"rightTitle":@"请选择",@"text":model.cateName,@"key":@"cateName"},
+                           @{@"leftTitle":@"公司福利",@"rightTitle":@"请选择(选填)",@"text":model.tag,@"key":@"tag"}
+
                            ],
-                         @[@{@"leftTitle":@"联系人",@"rightTitle":@"请选择",@"text":model.contactName,@"key":@"contactId"},
+                         @[@{@"leftTitle":@"联系人",@"rightTitle":@"请选择",@"text":model.contactName,@"contactId":model.contactId,@"key":@"contactId"},
                            @{@"leftTitle":@"工作地点",@"rightTitle":@"请选择",@"text":model.area,@"key":@"area"}
                            ],
                          @[@{@"leftTitle":@"学历要求",@"rightTitle":@"请选择",@"text":model.edu,@"key":@"edu"},
-                           @{@"leftTitle":@"户口要求",@"rightTitle":@"请填写",@"text":model.hukou,@"key":@"hukou"}
+                           @{@"leftTitle":@"户口要求",@"rightTitle":@"请填写(选填)",@"text":model.hukou,@"key":@"hukou"}
                            ],
                          @[@{@"leftTitle":@"工作类型",@"rightTitle":@"请选择",@"text":model.jobs,@"key":@"jobs"},
                            @{@"leftTitle":@"工作经验",@"rightTitle":@"请选择",@"text":model.years,@"key":@"years"},
                            @{@"leftTitle":@"月薪",@"rightTitle":@"请选择",@"text":model.pay,@"key":@"pay"}
                            ],
                          @[@{@"leftTitle":@"性别要求",@"rightTitle":@"请选择",@"text":model.gender,@"key":@"gender"},
-                           @{@"leftTitle":@"年龄要求",@"rightTitle":@"请填写",@"text":model.ages,@"key":@"ages"},
+                           @{@"leftTitle":@"年龄要求",@"rightTitle":@"请填写(选填)",@"text":model.ages,@"key":@"ages"},
                            @{@"leftTitle":@"住房要求",@"rightTitle":@"请选择",@"text":model.house,@"key":@"house"}
                            ],
                          @[@{@"leftTitle":@"应聘方式",@"rightTitle":@"请选择",@"text":model.tele,@"key":@"tele"},
-                           @{@"leftTitle":@"招聘人数",@"rightTitle":@"请填写",@"text":model.nums,@"key":@"nums"}
+                           @{@"leftTitle":@"招聘人数",@"rightTitle":@"若干",@"text":model.nums,@"key":@"nums"}
                            ],
-                         @[@{@"leftTitle":@"岗位要求",@"rightTitle":@"请填写",@"text":model.info,@"key":@"info"}
+                         @[@{@"leftTitle":@"岗位要求",@"rightTitle":@"请填写(选填)",@"text":model.info,@"key":@"info"}
                            ]
                          
                          ];
@@ -158,6 +184,20 @@
     }];
 }
 
+- (void)selectAction:(UIButton *)btn
+{
+
+    // 剩余约聊岗位发布次数
+    NSString *chatLast = [InfoCache unarchiveObjectWithFile:@"chatLast"];
+    if (chatLast.integerValue == 0) {
+        [self.view makeToast:@"当前约聊次数为0次"];
+        return;
+    }
+    else {
+        btn.selected = !btn.selected;
+    }
+}
+
 - (void)saveAction
 {
     [self.view endEditing:YES];
@@ -168,21 +208,31 @@
         
         for (ReleaseJobModel *model in arr) {
             
-            if (model.text.length == 0) {
-                [self.view makeToast:@"请完善发布新职位的信息"];
-                return;
+            if ([model.leftTitle isEqualToString:@"公司福利"]||
+                [model.leftTitle isEqualToString:@"招聘人数"]||
+//                [model.leftTitle isEqualToString:@"职位名称"]||
+                [model.leftTitle isEqualToString:@"户口要求"]||
+                [model.leftTitle isEqualToString:@"年龄要求"]||
+                [model.leftTitle isEqualToString:@"岗位要求"]) {
+                
+            }
+            else {
+                if (model.text.length == 0) {
+                    [self.view makeToast:@"请完善发布新职位的信息"];
+                    return;
+                }
             }
             
             if ([model.leftTitle isEqualToString:@"联系人"]) {
                 [paramDic  setValue:model.contactId forKey:model.key];
 
             }
+
             else {
                 [paramDic  setValue:model.text forKey:model.key];
 
             }
 
-            
         }
         
     }
@@ -193,40 +243,22 @@
     if ([self.title isEqualToString:@"修改职位"]) {
         url = Update_position;
         [paramDic  setValue:self.model.jobId forKey:@"jobId"];
-        
+        [self position:url para:paramDic];
+
     }
     else {
         url = Post_position;
-
-        // 剩余约聊岗位发布次数
-        NSString *chatLast = [InfoCache unarchiveObjectWithFile:@"chatLast"];
         
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"发布职位" message:[NSString stringWithFormat:@"剩余约聊岗位发布%@次",chatLast] preferredStyle:UIAlertControllerStyleAlert];
-        
-        if (chatLast.integerValue > 0) {
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"可约聊" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                
-                [paramDic  setValue:@"1" forKey:@"chat"];
-
-                [self position:url para:paramDic];
-            }];
-            [alertController addAction:cancelAction];
-
+        if (self.selectBtn.selected) {
+            [paramDic  setValue:@"1" forKey:@"chat"];
+            
+            [self position:url para:paramDic];
         }
         else {
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:nil];
-            [alertController addAction:cancelAction];
-        }
-
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"不可约聊" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
             [paramDic  setValue:@"0" forKey:@"chat"];
             [self position:url para:paramDic];
+        }
 
-            
-        }];
-        [alertController addAction:okAction];
-        [self presentViewController:alertController animated:YES completion:nil];
     }
     
 
@@ -280,7 +312,15 @@
         
     }
     else {
-        return 44;
+        
+        ReleaseJobModel *model = self.dataArr[indexPath.section][indexPath.row];
+        if (model.cellHeight > 0) {
+            return model.cellHeight;
+        }
+        else {
+            return 44;
+
+        }
         
     }
     
@@ -294,6 +334,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+
     if (section == 5 || section == 6) {
         return 30;
     }
@@ -350,12 +391,15 @@
     if (cell == nil) {
         
         cell = [[ReleaseJobCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-        
+        cell.block = ^{
+            
+            [_tableView reloadData];
+        };
     }
     ReleaseJobModel *model = self.dataArr[indexPath.section][indexPath.row];
     cell.model = model;
     cell.selectArr = _selectArr;
-//    cell.selectJobArr = _selectJobArr;
+//    cell.tagArr = _tagArr;
     return cell;
 }
 
