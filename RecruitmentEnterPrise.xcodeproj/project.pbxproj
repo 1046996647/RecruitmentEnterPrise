@@ -99,6 +99,7 @@
 		F75EB6881F9722CC00CBCA7C /* ResumeSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75EB6871F9722CC00CBCA7C /* ResumeSearchVC.m */; };
 		F75F9D191FA3176D00F7148A /* JobModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75F9D181FA3176D00F7148A /* JobModel.m */; };
 		F75F9D1C1FA325F000F7148A /* ChangePhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75F9D1B1FA325F000F7148A /* ChangePhoneVC.m */; };
+		F76019E11FF0F5780050EEA2 /* HeadhuntDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F76019E01FF0F5780050EEA2 /* HeadhuntDetailVC.m */; };
 		F765129B1F9EEA1600BF80D9 /* NearbyAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F765129A1F9EEA1600BF80D9 /* NearbyAddressCell.m */; };
 		F765129E1F9F0BB100BF80D9 /* AddressSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F765129D1F9F0BB100BF80D9 /* AddressSearchVC.m */; };
 		F7658A461FB2AF6F00E47E24 /* PostsJobVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7658A451FB2AF6F00E47E24 /* PostsJobVC.m */; };
@@ -371,6 +372,8 @@
 		F75F9D181FA3176D00F7148A /* JobModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobModel.m; sourceTree = "<group>"; };
 		F75F9D1A1FA325F000F7148A /* ChangePhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePhoneVC.h; sourceTree = "<group>"; };
 		F75F9D1B1FA325F000F7148A /* ChangePhoneVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePhoneVC.m; sourceTree = "<group>"; };
+		F76019DF1FF0F5780050EEA2 /* HeadhuntDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeadhuntDetailVC.h; sourceTree = "<group>"; };
+		F76019E01FF0F5780050EEA2 /* HeadhuntDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeadhuntDetailVC.m; sourceTree = "<group>"; };
 		F76512991F9EEA1600BF80D9 /* NearbyAddressCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NearbyAddressCell.h; sourceTree = "<group>"; };
 		F765129A1F9EEA1600BF80D9 /* NearbyAddressCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NearbyAddressCell.m; sourceTree = "<group>"; };
 		F765129C1F9F0BB100BF80D9 /* AddressSearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressSearchVC.h; sourceTree = "<group>"; };
@@ -1006,6 +1009,8 @@
 				F75EB67E1F96F62E00CBCA7C /* ReceiveMsgVC.m */,
 				F757CA821FE8BEF5007819AB /* HeadhuntVC.h */,
 				F757CA831FE8BEF5007819AB /* HeadhuntVC.m */,
+				F76019DF1FF0F5780050EEA2 /* HeadhuntDetailVC.h */,
+				F76019E01FF0F5780050EEA2 /* HeadhuntDetailVC.m */,
 				F75EB6801F96F64100CBCA7C /* SendMsgVC.h */,
 				F75EB6811F96F64100CBCA7C /* SendMsgVC.m */,
 				F75EB6861F9722CC00CBCA7C /* ResumeSearchVC.h */,
@@ -1553,6 +1558,7 @@
 				F75E845D1FC2D06D00043A11 /* UIResponder+NTESFirstResponder.m in Sources */,
 				F75E84661FC2D06E00043A11 /* NTESAttachmentDecoder.m in Sources */,
 				F76D37161FC7F7D900D862B8 /* YZTagList.m in Sources */,
+				F76019E11FF0F5780050EEA2 /* HeadhuntDetailVC.m in Sources */,
 				F7931B6E1FB2E55700DD5CE2 /* UILabel+WLAttributedString.m in Sources */,
 				F756478E1F999E140060E744 /* BaseMessageVC.m in Sources */,
 				F766D9201F95AA99004C74F0 /* MJCOrdinaryLayout.m in Sources */,

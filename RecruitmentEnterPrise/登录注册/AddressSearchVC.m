@@ -60,11 +60,14 @@
     [baseView addSubview:_addTF];
     _addTF.delegate = self;
     _addTF.returnKeyType = UIReturnKeySearch;
+    [_addTF addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventEditingChanged];
 
 
     // 右上角按钮
     UIButton *viewBtn = [UIButton buttonWithframe:CGRectMake(_addTF.right, _addTF.center.y-6.5, 54, 17) text:@"搜索" font:SystemFont(14) textColor:@"#FFFFFF" backgroundColor:nil normal:nil selected:nil];
     [baseView addSubview:viewBtn];
+    [viewBtn addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
+
     
     // 表视图
     _tableView = [UITableView tableViewWithframe:CGRectMake(0, baseView.bottom, kScreenWidth, kScreenHeight-baseView.bottom) style:UITableViewStylePlain];
@@ -140,19 +143,18 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark - UITextFieldDelegate
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
+-(void)searchAction
 {
-    if (textField.text.length == 0) {
-        [textField resignFirstResponder];
-        
-        return YES;
-    }
-    
-    [textField resignFirstResponder];
+//    if (_addTF.text.length == 0) {
+//        [_addTF resignFirstResponder];
+//
+//        return;
+//    }
+//
+//    [_addTF resignFirstResponder];
     
     [SVProgressHUD show];
-
+    
     //初始化一个周边云检索对象
     BMKNearbySearchOption *option = [[BMKNearbySearchOption alloc] init];
     //索引 默认为0
@@ -162,8 +164,8 @@
     //检索的中心点，经纬度
     option.location = self.userLocation.location.coordinate;
     //搜索的关键字
-    option.keyword = textField.text;
-
+    option.keyword = _addTF.text;
+    
     //根据中心点、半径和检索词发起周边检索
     BOOL flag = [self.poiSearch poiSearchNearBy:option];
     if (flag) {
@@ -174,6 +176,12 @@
         
         NSLog(@"搜索失败");
     }
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self searchAction];
     
     return YES;
 }

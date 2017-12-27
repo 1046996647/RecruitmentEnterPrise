@@ -33,6 +33,7 @@
 @property(nonatomic,strong) UIButton *addBtn;
 @property (nonatomic,strong) NSArray *dataArr;
 @property (nonatomic,strong) BMKUserLocation *userLocation;
+@property (nonatomic, strong) UIImageView *pinView;
 
 
 
@@ -119,6 +120,7 @@
     UIImageView *pinView = [UIImageView imgViewWithframe:CGRectMake(0, (_mapView.height-30)/2-15, _mapView.width, 30) icon:@"69"];
     pinView.contentMode = UIViewContentModeScaleAspectFit;
     [_mapView addSubview:pinView];
+    self.pinView = pinView;
     
     //自定义精度圈
     BMKLocationViewDisplayParam *param = [[BMKLocationViewDisplayParam alloc] init];
@@ -203,6 +205,7 @@
     vc.block = ^(NSString *text) {
         
         self.addTF.text = text;
+        [self saveAction];
     };
 }
 
@@ -315,6 +318,42 @@
 }
 
 #pragma mark -------------BMKMapViewDelegate
+/**
+ *地图区域改变完成后会调用此接口
+ *@param mapView 地图View
+ *@param animated 是否动画
+ */
+- (void)mapView:(BMKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    [UIView animateWithDuration:.25 animations:^{
+        self.pinView.top = self.pinView.top-15;
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:.25 animations:^{
+            self.pinView.top = (_mapView.height-30)/2-15;
+            
+        }];
+    }];
+    
+    //地理反编码
+    BMKReverseGeoCodeOption *reverseGeocodeSearchOption = [[BMKReverseGeoCodeOption alloc]init];
+    
+    reverseGeocodeSearchOption.reverseGeoPoint = mapView.centerCoordinate;
+    
+    BOOL flag = [_geocodesearch reverseGeoCode:reverseGeocodeSearchOption];
+    
+    if(flag){
+        
+        NSLog(@"反geo检索发送成功");
+        
+        [_locService stopUserLocationService];
+        
+    }else{
+        
+        NSLog(@"反geo检索发送失败");
+        
+    }
+}
 // 该方法定位图片会把大头针盖住
 ///**
 // *根据anntation生成对应的View

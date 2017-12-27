@@ -203,7 +203,7 @@
     
 //    [self isComplete];
 
-    [self.view makeToast:@"请记得刷新你的简历~" duration:1.5 position:@"12"];
+    [self.view makeToast:@"记得刷新你的职位~" duration:1.5 position:@"12"];
 }
 
 - (void)logoAction
