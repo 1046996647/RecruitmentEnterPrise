@@ -70,6 +70,14 @@
     [self searchAction];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    
+    [_tableView reloadData];
+}
+
 - (void)inviteAction
 {
     if (self.selectedArr.count == 0) {
@@ -77,6 +85,17 @@
         
         return;
     }
+    
+    for (ResumeModel *model in self.selectedArr) {
+        
+        if (model.invite.integerValue == 0) {
+            [self.view makeToast:@"选择的简历中有未查看过的简历"];
+            
+            return;
+        }
+        
+    }
+    
     InviteInterviewVC *vc = [[InviteInterviewVC alloc] init];
     vc.title = @"邀请面试";
     vc.selectedArr = self.selectedArr;
@@ -223,7 +242,7 @@
 
     EditResumeVC *vc = [[EditResumeVC alloc] init];
     vc.title = @"详情";
-    vc.model = model;
+    vc.model1 = model;
     [self.navigationController pushViewController:vc animated:YES];
     
 }

@@ -53,6 +53,7 @@
 @property(nonatomic,strong) NSString *views;// 简历浏览数
 @property(nonatomic,strong) NSString *is_locks;// 是否锁定
 @property(nonatomic,strong) NSString *is_hide;// 是否隐藏
+@property(nonatomic,strong) NSString *invite;
 
 @property(nonatomic,strong) NSString *form_percent;// 简历完善度
 @property(nonatomic,strong) NSString *resumeNum;// 投递过的简历数量

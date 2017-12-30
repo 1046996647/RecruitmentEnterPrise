@@ -318,16 +318,19 @@ UIFont *GetVariationOfFontWithTrait(UIFont *baseFont, CTFontSymbolicTraits trait
 }
 
 #pragma mark - 改变字粗细 0就是不变 >0加粗 <0加细
-- (void)wl_changeExpansionsWithTextExpansion:(NSNumber *)textExpansion
-{
-    [self wl_changeExpansionsWithTextExpansion:textExpansion changeText:self.text];
-}
-- (void)wl_changeExpansionsWithTextExpansion:(NSNumber *)textExpansion changeText:(NSString *)text
+//- (void)wl_changeExpansionsWithTextExpansion:(NSNumber *)textExpansion
+//{
+//    [self wl_changeExpansionsWithTextExpansion:textExpansion changeText:self.text];
+//}
+
+- (void)wl_changeExpansionsWithTextSize:(CGFloat)size changeText:(NSString *)text
 {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
     NSRange textRange = [self.text rangeOfString:text options:NSBackwardsSearch];
     if (textRange.location != NSNotFound) {
-        [attributedString addAttribute:NSExpansionAttributeName value:textExpansion range:textRange];
+//        [attributedString addAttribute:NSExpansionAttributeName value:textExpansion range:textRange];
+        // 改变字体大小及类型
+        [attributedString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Helvetica-BoldOblique" size:size] range:textRange];
     }
     self.attributedText = attributedString;
 }

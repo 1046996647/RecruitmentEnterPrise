@@ -104,6 +104,11 @@
     NSInteger tag = tap.view.tag;
     if (tag == 0) {
         
+        if (self.vipLevel.integerValue == 0) {
+            [self.viewController.view makeToast:@"请联系客服充会员"];
+            return;
+        }
+        
         NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
         
         [paraDic setValue:_model.jobId forKey:@"jobId"];

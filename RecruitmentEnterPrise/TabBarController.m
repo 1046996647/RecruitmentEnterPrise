@@ -68,6 +68,7 @@
         if (tag == 0) {
             ReleaseJob1VC *vc = [[ReleaseJob1VC alloc] init];
             vc.title = @"发布新职位";
+            vc.mark = 1;
             NavigationController *nav = [[NavigationController alloc] initWithRootViewController:vc];
             [self presentViewController:nav animated:YES completion:nil];
         }

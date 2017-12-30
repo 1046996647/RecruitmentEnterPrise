@@ -8,6 +8,7 @@
 
 #import "ReleaseJob1VC.h"
 #import "ReleaseJobCell.h"
+#import "AppDelegate.h"
 
 @interface ReleaseJob1VC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -17,6 +18,7 @@
 @property (nonatomic,strong) NSArray *selectJobArr;
 @property(nonatomic,strong) NSMutableArray *tagArr;
 @property(nonatomic,strong) UIButton *selectBtn;
+@property(nonatomic,strong) UIView *footerView;
 
 
 @end
@@ -36,6 +38,7 @@
     
     // 尾视图
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
+    self.footerView = footerView;
     
     UIButton *selectBtn = [UIButton buttonWithframe:CGRectMake(25, 17, kScreenWidth-50, 20) text:[NSString stringWithFormat:@"当前约聊次数为%@次，是否发布可约聊岗位",[InfoCache unarchiveObjectWithFile:@"chatLast"]] font:[UIFont systemFontOfSize:14] textColor:@"#333333" backgroundColor:nil normal:@"Rectangle 11" selected:@"Rectangle 12"];
     [footerView addSubview:selectBtn];
@@ -54,7 +57,6 @@
     [releseBtn addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
 
     footerView.height = releseBtn.bottom+17;
-    _tableView.tableFooterView = footerView;
 
     
     // 选择项数据
@@ -73,6 +75,8 @@
         [self get_position_detail];
     }
     else {
+        _tableView.tableFooterView = footerView;
+
         self.dataArr = @[@[@{@"leftTitle":@"职位名称",@"rightTitle":@"请填写",@"text":@"",@"key":@"title"},
                            @{@"leftTitle":@"职位类别",@"rightTitle":@"请选择",@"text":@"",@"key":@"cateName"},
                            @{@"leftTitle":@"公司福利",@"rightTitle":@"请选择(选填)",@"text":@"",@"key":@"tag"}
@@ -132,6 +136,8 @@
     
     [AFNetworking_RequestData requestMethodPOSTUrl:Get_position_detail dic:paramDic showHUD:YES response:YES Succed:^(id responseObject) {
         
+        _tableView.tableFooterView = self.footerView;
+
         ReleaseJobModel *model = [ReleaseJobModel yy_modelWithDictionary:responseObject[@"data"]];
         
         self.dataArr = @[@[@{@"leftTitle":@"职位名称",@"rightTitle":@"请填写",@"text":model.title,@"key":@"title"},
@@ -273,13 +279,21 @@
         }
         
         if ([self.title isEqualToString:@"修改职位"]) {
+            
             [self.navigationController popViewControllerAnimated:YES];
-            
-            
+
         }
         else {
+            
+            
             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
             
+            if (self.mark == 1) {
+                
+                AppDelegate *delegate = (AppDelegate *)[AppDelegate share];
+                delegate.tabVC.selectedIndex = 0;
+                
+            }
         }
         
         

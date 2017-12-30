@@ -211,7 +211,7 @@
     if (btn.tag == 1) {
         
         WordsVC *vc = [[WordsVC alloc] init];
-        vc.title = @"在线投诉留言";
+        vc.title = @"发送留言";
         vc.name = self.model.name;
         vc.workerId = self.model.workerId;
         [self.navigationController pushViewController:vc animated:YES];
@@ -239,8 +239,8 @@
 {
     
     NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
-    [paramDic setValue:self.model.workerId forKey:@"workerId"];
-    [paramDic setValue:self.model.sendresumeId forKey:@"sendresumeId"];
+    [paramDic setValue:self.model1.workerId forKey:@"workerId"];
+    [paramDic setValue:self.model1.sendresumeId forKey:@"sendresumeId"];
 
     [AFNetworking_RequestData requestMethodPOSTUrl:Resume_detail dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
@@ -271,13 +271,13 @@
 
         CGSize size = [NSString textLength:model.name font:self.signLabel.font];
         self.signLabel.width = size.width;
-        self.signLabel.text = model.name;
+        self.signLabel.text = @"******";
         
         self.editBtn.left = self.signLabel.right+11;
 
         self.infoLabel.text = [NSString stringWithFormat:@"%@|%@岁|%@cm|%@kg",model.sex,model.age,model.height,model.weight];
         
-        self.phoneLabel.text = [NSString stringWithFormat:@"%@  户籍：%@  所在地：%@",model.phone,model.jiguan,model.home];
+        self.phoneLabel.text = [NSString stringWithFormat:@"户籍：%@  所在地：%@",model.jiguan,model.home];
 
         self.hopeLabel.text = [NSString stringWithFormat:@"%@ %@ %@年工作经验",model.marry,model.political,model.jobyear];
         
@@ -285,12 +285,15 @@
         if (model.permit.boolValue) {
             
             _tableView.tableFooterView = self.footerView;
+            self.signLabel.text = model.name;
 
         }
         else {
             _tableView.tableFooterView = nil;
+            self.signLabel.text = @"******";
 
         }
+
         
     } failure:^(NSError *error) {
         
@@ -322,7 +325,6 @@
         if (self.model.requestjobtype.length == 0) {
             return 0;
         }
-
 
     } else if (section == 1) {
         
@@ -598,7 +600,8 @@
             if (self.model.permit.boolValue) {
                 
                 _tableView.tableFooterView = self.footerView;
-                
+                self.signLabel.text = self.model.name;
+                self.model1.invite = @"1";
             }
             else {
                 _tableView.tableFooterView = nil;

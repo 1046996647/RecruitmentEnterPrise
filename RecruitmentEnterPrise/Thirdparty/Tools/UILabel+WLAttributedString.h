@@ -317,7 +317,8 @@
  *  @param textExpansion 改变的粗细大小
  *  @param text          改变的字段
  */
-- (void)wl_changeExpansionsWithTextExpansion:(NSNumber *)textExpansion changeText:(NSString *)text NS_AVAILABLE(10_0, 7_0);
+//- (void)wl_changeExpansionsWithTextExpansion:(NSNumber *)textExpansion changeText:(NSString *)text NS_AVAILABLE(10_0, 7_0);
+- (void)wl_changeExpansionsWithTextSize:(CGFloat)size changeText:(NSString *)text;
 
 #pragma mark - 改变字方向 NSWritingDirection
 /**

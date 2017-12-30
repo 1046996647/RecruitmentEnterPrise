@@ -353,9 +353,11 @@
         };
         
     }
+    
     ReleaseJobModel *model = self.dataArr[indexPath.section][indexPath.row];
     cell.model = model;
     cell.dataArr = _dataArr;
+    cell.vipLevel = self.vipLevel;
     //    cell.selectJobArr = _selectJobArr;
     return cell;
 }

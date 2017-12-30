@@ -33,10 +33,10 @@
     [self.view addSubview:loginBtn];
     [loginBtn addTarget:self action:@selector(okAction) forControlEvents:UIControlEventTouchUpInside];
     
-    UILabel *lab1 = [UILabel labelWithframe:CGRectMake(0, kScreenHeight-kTopHeight-33-18, kScreenWidth, 18) text:@"义乌市众信人才开发有限公司" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentCenter textColor:@"#666666"];
+    UILabel *lab1 = [UILabel labelWithframe:CGRectMake(0, kScreenHeight-kTopHeight-33-18, kScreenWidth, 18) text:@"永康市众信人才开发有限公司" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentCenter textColor:@"#666666"];
     [self.view addSubview:lab1];
     
-    UILabel *lab2 = [UILabel labelWithframe:CGRectMake(0, lab1.bottom+4, kScreenWidth, 18) text:@"Yiwu Zhongxin Talent development Co.Ltd." font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentCenter textColor:@"#666666"];
+    UILabel *lab2 = [UILabel labelWithframe:CGRectMake(0, lab1.bottom+4, kScreenWidth, 18) text:@"Yongkang Zhongxin Talent development Co.Ltd." font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentCenter textColor:@"#666666"];
     [self.view addSubview:lab2];
 }
 

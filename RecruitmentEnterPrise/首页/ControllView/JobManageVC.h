@@ -10,4 +10,7 @@
 
 @interface JobManageVC : BaseViewController
 
+@property(nonatomic,strong) NSString *vipLevel;
+
+
 @end

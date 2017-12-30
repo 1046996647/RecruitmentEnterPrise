@@ -71,8 +71,8 @@
         _addressBtn.userInteractionEnabled = NO;
         [baseView addSubview:_addressBtn];
         
-        _label = [UILabel labelWithframe:CGRectMake(baseView.width-54-8, baseView.height-3-16, 54, 16) text:@"1223556" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentRight textColor:@"#666666"];
-        [baseView addSubview:_label];
+//        _label = [UILabel labelWithframe:CGRectMake(baseView.width-54-8, baseView.height-3-16, 54, 16) text:@"1223556" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentRight textColor:@"#666666"];
+//        [baseView addSubview:_label];
     }
     
     return self;
@@ -93,17 +93,29 @@
 {
     _model = model;
     [_imgView sd_setImageWithURL:[NSURL URLWithString:model.img] placeholderImage:[UIImage imageNamed:@"Rectangle 14"]];
-    _nameLab.text = model.name;
     _jobLab.text = [NSString stringWithFormat:@"期望职位 %@",model.hopepostion];
     [_eduBtn setTitle:model.education forState:UIControlStateNormal];
     [_jobBtn setTitle:[NSString stringWithFormat:@"%@年",model.jobyear] forState:UIControlStateNormal];
     [_addressBtn setTitle:model.jiguan forState:UIControlStateNormal];
 //    [ad setTitle:model.education forState:UIControlStateNormal];
     _timeLab.text = [NSString stringWithFormat:@"最近登录：%@",model.lastTime];
-    _label.text = model.workerId;
+//    _label.text = model.workerId;
     
-    CGSize size = [NSString textLength:model.name font:_nameLab.font];
-    _nameLab.width = size.width;
+    if (model.invite.integerValue == 0) {
+        CGSize size = [NSString textLength:model.workerId font:_nameLab.font];
+        _nameLab.width = size.width;
+        _nameLab.text = model.workerId;
+    }
+    else {
+        
+        CGSize size = [NSString textLength:model.name font:_nameLab.font];
+        _nameLab.width = size.width;
+        _nameLab.text = model.name;
+
+
+    }
+
+
     _bodyBtn.left = _nameLab.right+4;
     
     [_bodyBtn setTitle:model.age forState:UIControlStateNormal];

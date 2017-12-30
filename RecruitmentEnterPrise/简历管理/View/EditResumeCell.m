@@ -41,6 +41,7 @@
         [self.contentView addSubview:_jobLab];
         
         _companyLab = [UILabel labelWithframe:CGRectMake(_jobLab.left, _jobLab.bottom+6, 150, _timeLab.height) text:@"福田龙飞进出口有限公司" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
+        _companyLab.numberOfLines = 0;
         [self.contentView addSubview:_companyLab];
         
         _responsibilityLab = [UILabel labelWithframe:CGRectMake(_jobLab.left, _companyLab.bottom+6, kScreenWidth-12-(_jobLab.left), _timeLab.height) text:@"独立完成项目，从交互原型到效果图设计、切图标注等工作。" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
@@ -112,20 +113,24 @@
         _hLine1.hidden = YES;
         _hLine.hidden = NO;
         _extraLab.hidden = YES;
-        
+        _responsibilityLab.hidden = YES;
+
         _timeLab.frame = CGRectMake(12, 10, kScreenWidth-12, 20);
         _hLine.frame = CGRectMake(14, _timeLab.bottom+6, kScreenWidth-28, 1);
         _jobLab.frame = CGRectMake(_timeLab.left, _hLine.bottom+6, _timeLab.width, _timeLab.height);
-        _companyLab.frame = CGRectMake(_timeLab.left, _jobLab.bottom+6, _timeLab.width, _timeLab.height);
-        _responsibilityLab.hidden = YES;
+        //        _responsibilityLab.frame = CGRectMake(12, 10, kScreenWidth-50, 14);
 
-//        _responsibilityLab.frame = CGRectMake(12, 10, kScreenWidth-50, 14);
+
+
+        _companyLab.frame = CGRectMake(_timeLab.left, _jobLab.bottom+6, _timeLab.width, _timeLab.height);
+        CGSize size = [NSString textHeight:model.jobstatus font:_companyLab.font width:_companyLab.width];
+        _companyLab.height = size.height;
         
         _timeLab.text = model.hopepostion;
         _jobLab.text = [NSString stringWithFormat:@"%@|%@|%@|%@",model.requestjobtype,model.hopelocation,model.requestsalary,model.requeststay];
         _companyLab.text = model.jobstatus;
 
-        
+
         model.cellHeight = _companyLab.bottom+12;
     }
     

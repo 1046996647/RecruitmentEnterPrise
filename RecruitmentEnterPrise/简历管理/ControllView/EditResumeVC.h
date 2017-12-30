@@ -13,6 +13,7 @@
 @interface EditResumeVC : BaseViewController
 
 @property(nonatomic,strong) ResumeModel *model;
+@property(nonatomic,strong) ResumeModel *model1;
 @property(nonatomic,assign) NSInteger mark;
 
 

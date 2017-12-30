@@ -28,5 +28,6 @@ typedef void(^JobSendModelBlock)(ReleaseJobModel *model, NSInteger type);
 @property (nonatomic,assign) BOOL isSelected;
 @property (nonatomic,strong) NSMutableArray *dataArr;
 
+@property(nonatomic,strong) NSString *vipLevel;
 
 @end

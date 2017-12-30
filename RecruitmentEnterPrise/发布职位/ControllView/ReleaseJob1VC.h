@@ -15,6 +15,7 @@ typedef void(^ReleaseJob1Block)(void);
 
 @property(nonatomic,copy) ReleaseJob1Block block;
 @property (nonatomic,strong) ReleaseJobModel *model;
+@property (nonatomic,assign) NSInteger mark;
 
 
 @end

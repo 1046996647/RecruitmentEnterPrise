@@ -393,6 +393,7 @@
     if (btn.tag == 0) {
         JobManageVC *vc = [[JobManageVC alloc] init];
         vc.title = @"职位管理";
+        vc.vipLevel = self.model.vipLevel;
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (btn.tag == 1) {

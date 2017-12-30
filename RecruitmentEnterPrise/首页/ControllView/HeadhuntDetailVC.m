@@ -8,6 +8,8 @@
 
 #import "HeadhuntDetailVC.h"
 #import "NSStringExt.h"
+#import "UILabel+WLAttributedString.h"
+
 
 @interface HeadhuntDetailVC ()
 
@@ -38,28 +40,45 @@
         
     }
     
-    UILabel *label = [UILabel labelWithframe:CGRectMake(20, 10, kScreenWidth-40, 0) text:self.text font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
+    UILabel *label = [UILabel labelWithframe:CGRectMake(20, 10, kScreenWidth-40, 0) text:self.text font:[UIFont systemFontOfSize:16] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
     label.numberOfLines = 0;
     label.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:label];
     
-    CGSize size = [NSString textHeight:self.text font:label.font width:label.width];
-    label.height = size.height+10;
+    NSMutableParagraphStyle  *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    
+    // 行间距设置为30
+    [paragraphStyle  setLineSpacing:5];
+    NSMutableAttributedString  *setString = [[NSMutableAttributedString alloc] initWithString:label.text];
+    [setString  addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [label.text length])];
+    // 设置Label要显示的text
+    [label  setAttributedText:setString];
+
     
     if ([self.title isEqualToString:@"联系方式"]) {
         self.text = @"客户服务电话：0579-83840599\n手机：13858924279\n传真：0579-86874216\n邮箱：wang1978223@126.com\nfhlzfx@163.com\n地址：永康市丽州南路136-138号3楼\n邮编：321300";
         
-        UIButton *btn1 = [UIButton buttonWithframe:CGRectMake(0, 15, label.width, 15) text:@"" font:nil textColor:nil backgroundColor:nil normal:@"" selected:@""];
+        // 行间距设置为30
+        [paragraphStyle  setLineSpacing:10];
+        
+        [label wl_changeExpansionsWithTextSize:16 changeText:@"客户服务电话：0579-83840599"];
+        [label wl_changeExpansionsWithTextSize:16 changeText:@"手机：13858924279"];
+
+        
+        UIButton *btn1 = [UIButton buttonWithframe:CGRectMake(0, 13, label.width, 20) text:@"" font:nil textColor:nil backgroundColor:nil normal:@"" selected:@""];
         [self.view addSubview:btn1];
         [btn1 addTarget:self action:@selector(callAction1) forControlEvents:UIControlEventTouchUpInside];
 //        btn1.backgroundColor = [UIColor redColor];
         
-        UIButton *btn2 = [UIButton buttonWithframe:CGRectMake(0, btn1.bottom, label.width, 15) text:@"" font:nil textColor:nil backgroundColor:nil normal:@"" selected:@""];
+        UIButton *btn2 = [UIButton buttonWithframe:CGRectMake(0, btn1.bottom, label.width, btn1.height) text:@"" font:nil textColor:nil backgroundColor:nil normal:@"" selected:@""];
         [self.view addSubview:btn2];
         [btn2 addTarget:self action:@selector(callAction2) forControlEvents:UIControlEventTouchUpInside];
 //        btn1.backgroundColor = [UIColor redColor];
         
     }
+    
+    CGSize size = [NSString textHeight:self.text font:label.font width:label.width];
+    label.height = size.height+10;
 }
 
 - (void)didReceiveMemoryWarning {

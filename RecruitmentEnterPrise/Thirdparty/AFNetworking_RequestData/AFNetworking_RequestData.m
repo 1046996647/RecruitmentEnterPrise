@@ -97,6 +97,8 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
 
         }
 
+        NSLog(@"%@",dic);
+
         [manager POST:url parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -116,7 +118,7 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
                     
                     if ([[InfoCache getValueForKey:@"LoginedState"] integerValue]) {
                         
-                        [[UIApplication sharedApplication].keyWindow makeToast:@"您已被挤下线，请重新登陆!"];
+                        [[UIApplication sharedApplication].keyWindow makeToast:@"账号异常，请重新登陆!"];
                         
                         LoginVC *loginVC = [[LoginVC alloc] init];
                         NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
