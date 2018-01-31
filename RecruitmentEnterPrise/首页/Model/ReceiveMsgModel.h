@@ -15,6 +15,7 @@
 @property(nonatomic,strong) NSString *info;//
 @property(nonatomic,strong) NSString *messId;//
 @property(nonatomic,strong) NSString *name;//
+@property(nonatomic,strong) NSString *addTime1;//
 
 @property (nonatomic,assign) BOOL isSelected;
 

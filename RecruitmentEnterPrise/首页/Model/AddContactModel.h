@@ -23,6 +23,7 @@
 @property(nonatomic,strong) NSString *email;
 @property(nonatomic,strong) NSString *address;
 @property(nonatomic,strong) NSString *add_time;
+@property(nonatomic,strong) NSString *is_lock;
 
 
 

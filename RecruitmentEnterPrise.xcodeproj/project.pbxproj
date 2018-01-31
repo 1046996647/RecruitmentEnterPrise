@@ -12,6 +12,7 @@
 		F705A7DD1F9488EE00298D57 /* ReleaseJobCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F705A7DC1F9488EE00298D57 /* ReleaseJobCell.m */; };
 		F705A7E01F948EC200298D57 /* ReleaseJobModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F705A7DF1F948EC200298D57 /* ReleaseJobModel.m */; };
 		F705A7E31F94985500298D57 /* BasePresentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F705A7E21F94985500298D57 /* BasePresentViewController.m */; };
+		F70EC97E1FFB6F3F00821D01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F70EC97D1FFB6F3F00821D01 /* Assets.xcassets */; };
 		F71C04291F9839690024C1EC /* ChatWantedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F71C04281F9839690024C1EC /* ChatWantedVC.m */; };
 		F71C042C1F983ABD0024C1EC /* ChatWantedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F71C042B1F983ABD0024C1EC /* ChatWantedCell.m */; };
 		F71C043A1F98793C0024C1EC /* SettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F71C04391F98793C0024C1EC /* SettingVC.m */; };
@@ -21,7 +22,6 @@
 		F71C044C1F98A8AB0024C1EC /* ContactManageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F71C044B1F98A8AB0024C1EC /* ContactManageCell.m */; };
 		F74820491F91FCCA00F072CD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F74820481F91FCCA00F072CD /* AppDelegate.m */; };
 		F748204F1F91FCCA00F072CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F748204D1F91FCCA00F072CD /* Main.storyboard */; };
-		F74820511F91FCCA00F072CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F74820501F91FCCA00F072CD /* Assets.xcassets */; };
 		F74820541F91FCCA00F072CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F74820521F91FCCA00F072CD /* LaunchScreen.storyboard */; };
 		F74820571F91FCCA00F072CD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F74820561F91FCCA00F072CD /* main.m */; };
 		F74820611F91FCCA00F072CD /* RecruitmentEnterPriseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F74820601F91FCCA00F072CD /* RecruitmentEnterPriseTests.m */; };
@@ -195,6 +195,7 @@
 		F705A7DF1F948EC200298D57 /* ReleaseJobModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReleaseJobModel.m; sourceTree = "<group>"; };
 		F705A7E11F94985500298D57 /* BasePresentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BasePresentViewController.h; sourceTree = "<group>"; };
 		F705A7E21F94985500298D57 /* BasePresentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BasePresentViewController.m; sourceTree = "<group>"; };
+		F70EC97D1FFB6F3F00821D01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F71C04271F9839690024C1EC /* ChatWantedVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatWantedVC.h; sourceTree = "<group>"; };
 		F71C04281F9839690024C1EC /* ChatWantedVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatWantedVC.m; sourceTree = "<group>"; };
 		F71C042A1F983ABD0024C1EC /* ChatWantedCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatWantedCell.h; sourceTree = "<group>"; };
@@ -213,7 +214,6 @@
 		F74820471F91FCCA00F072CD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F74820481F91FCCA00F072CD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F748204E1F91FCCA00F072CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F74820501F91FCCA00F072CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F74820531F91FCCA00F072CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F74820551F91FCCA00F072CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F74820561F91FCCA00F072CD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -645,7 +645,7 @@
 				F78D937A1F92055E00E0DCA9 /* 简历管理 */,
 				F78D93791F92055B00E0DCA9 /* 约聊 */,
 				F748204D1F91FCCA00F072CD /* Main.storyboard */,
-				F74820501F91FCCA00F072CD /* Assets.xcassets */,
+				F70EC97D1FFB6F3F00821D01 /* Assets.xcassets */,
 				F74820521F91FCCA00F072CD /* LaunchScreen.storyboard */,
 				F74820551F91FCCA00F072CD /* Info.plist */,
 				F74820561F91FCCA00F072CD /* main.m */,
@@ -1371,10 +1371,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F74820541F91FCCA00F072CD /* LaunchScreen.storyboard in Resources */,
-				F74820511F91FCCA00F072CD /* Assets.xcassets in Resources */,
 				F748204F1F91FCCA00F072CD /* Main.storyboard in Resources */,
 				F75E84631FC2D06E00043A11 /* NTESGalleryViewController.xib in Resources */,
 				F75E84751FC2D06E00043A11 /* NTESVideoViewController.xib in Resources */,
+				F70EC97E1FFB6F3F00821D01 /* Assets.xcassets in Resources */,
 				F74820C51F91FE8B00F072CD /* BRCity.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

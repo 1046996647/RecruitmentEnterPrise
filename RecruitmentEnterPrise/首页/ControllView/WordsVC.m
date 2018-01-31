@@ -35,30 +35,40 @@
     UILabel *titleLab = [UILabel labelWithframe:CGRectMake(29, 15, 150, 19) text:[NSString stringWithFormat:@"收信人：%@",self.name] font:[UIFont systemFontOfSize:16] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
     [self.view addSubview:titleLab];
     
-    UILabel *typeLab = [UILabel labelWithframe:CGRectMake(titleLab.left, titleLab.bottom+21, 50, 19) text:@"类型：" font:[UIFont systemFontOfSize:16] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
-    [self.view addSubview:typeLab];
-    
-    CGFloat interval = 12*scaleWidth;
-    CGFloat aWidth = 52;
-//    NSArray *imgArr = @[@"62",@"61",@"60",@"59",@"58"];
-//    NSArray *selectedImgArr = @[@"62",@"61",@"60",@"59",@"58"];
-    NSArray *titleArr2 = @[@"回复",@"咨询",@"建议",@"投诉",@"其他"];
-    for (int i=0; i<titleArr2.count; i++) {
+    CGFloat bottom = titleLab.bottom;
+    if (![self.title isEqualToString:@"发送留言"]) {
         
-        UIButton *forgetBtn = [UIButton buttonWithframe:CGRectMake(typeLab.right +(i%4)*(aWidth+interval), typeLab.top+(i/4)*(20+interval), aWidth, 20) text:titleArr2[i] font:SystemFont(13) textColor:@"#333333" backgroundColor:nil normal:@"Group 2 Copy" selected:@"3"];
-        [self.view addSubview:forgetBtn];
-        [forgetBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
-        forgetBtn.tag = i;
-        forgetBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
+        UILabel *typeLab = [UILabel labelWithframe:CGRectMake(titleLab.left, titleLab.bottom+21, 50, 19) text:@"类型：" font:[UIFont systemFontOfSize:16] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
+        [self.view addSubview:typeLab];
+        bottom = typeLab.bottom;
         
-        if (i == 0) {
-            forgetBtn.selected = YES;
-            self.lastBtn = forgetBtn;
-
+        CGFloat interval = 12*scaleWidth;
+        CGFloat aWidth = 52;
+        //    NSArray *imgArr = @[@"62",@"61",@"60",@"59",@"58"];
+        //    NSArray *selectedImgArr = @[@"62",@"61",@"60",@"59",@"58"];
+        NSArray *titleArr2 = @[@"回复",@"咨询",@"建议",@"投诉",@"其他"];
+        for (int i=0; i<titleArr2.count; i++) {
+            
+            UIButton *forgetBtn = [UIButton buttonWithframe:CGRectMake(typeLab.right +(i%4)*(aWidth+interval), typeLab.top+(i/4)*(20+interval), aWidth, 20) text:titleArr2[i] font:SystemFont(13) textColor:@"#333333" backgroundColor:nil normal:@"Group 2 Copy" selected:@"3"];
+            [self.view addSubview:forgetBtn];
+            [forgetBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+            forgetBtn.tag = i;
+            forgetBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
+            
+            if (i == 0) {
+                forgetBtn.selected = YES;
+                self.lastBtn = forgetBtn;
+                
+            }
         }
     }
+    else {
+//        self.lastBtn.currentTitle = @"回复";
+    }
     
-    _words = [[UITextView alloc] initWithFrame:CGRectMake(22, typeLab.bottom+57, kScreenWidth-44, (329-70)*scaleWidth)];
+    
+    
+    _words = [[UITextView alloc] initWithFrame:CGRectMake(22, bottom+57, kScreenWidth-44, (329-70)*scaleWidth)];
     _words.backgroundColor = [UIColor whiteColor];
     _words.layer.cornerRadius = 7;
     _words.layer.masksToBounds = YES;
@@ -99,7 +109,14 @@
     
     NSMutableDictionary *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
     
-    [paramDic  setValue:self.lastBtn.currentTitle forKey:@"type"];
+    if ([self.title isEqualToString:@"发送留言"]) {
+        [paramDic  setValue:@"回复" forKey:@"type"];
+
+    }
+    else {
+        [paramDic  setValue:self.lastBtn.currentTitle forKey:@"type"];
+
+    }
     [paramDic  setValue:_words.text forKey:@"info"];
 
     NSString *urlStr = nil;

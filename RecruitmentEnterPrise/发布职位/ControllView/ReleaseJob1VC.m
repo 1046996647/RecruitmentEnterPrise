@@ -9,6 +9,8 @@
 #import "ReleaseJob1VC.h"
 #import "ReleaseJobCell.h"
 #import "AppDelegate.h"
+#import "AddContactModel.h"
+#import "NavigationController.h"
 
 @interface ReleaseJob1VC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -40,7 +42,7 @@
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
     self.footerView = footerView;
     
-    UIButton *selectBtn = [UIButton buttonWithframe:CGRectMake(25, 17, kScreenWidth-50, 20) text:[NSString stringWithFormat:@"当前约聊次数为%@次，是否发布可约聊岗位",[InfoCache unarchiveObjectWithFile:@"chatLast"]] font:[UIFont systemFontOfSize:14] textColor:@"#333333" backgroundColor:nil normal:@"Rectangle 11" selected:@"Rectangle 12"];
+    UIButton *selectBtn = [UIButton buttonWithframe:CGRectMake(25, 17, kScreenWidth-25, 20) text:[NSString stringWithFormat:@"当前约聊次数为%@次，是否发布可约聊岗位",[InfoCache unarchiveObjectWithFile:@"chatLast"]] font:[UIFont systemFontOfSize:14] textColor:@"#333333" backgroundColor:nil normal:@"Rectangle 11" selected:@"Rectangle 12"];
     [footerView addSubview:selectBtn];
     selectBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     selectBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -72,30 +74,62 @@
     if ([self.title isEqualToString:@"修改职位"]) {
         [releseBtn setTitle:@"修改" forState:UIControlStateNormal];
         selectBtn.hidden = YES;
+        
         [self get_position_detail];
     }
     else {
-        _tableView.tableFooterView = footerView;
+        
+        [self get_contact];
 
+    }
+    
+
+}
+
+// 获取联系人
+- (void)get_contact
+{
+    [self.view endEditing:YES];
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    
+    
+    NSLog(@"%@",paramDic);
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Get_contact dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        NSMutableArray *contacts = [NSMutableArray array];
+        for (NSDictionary *dic in responseObject[@"data"]) {
+            
+            
+            AddContactModel *model = [AddContactModel yy_modelWithDictionary:dic];
+            [contacts addObject:model];
+        }
+        AddContactModel *model1 = [contacts firstObject];
+        
+        _tableView.tableFooterView = self.footerView;
+        NSString *text = [NSString stringWithFormat:@"%@%@",model1.name, model1.tele];
+//        _model.contactId = model1.contactId;
+        
         self.dataArr = @[@[@{@"leftTitle":@"职位名称",@"rightTitle":@"请填写",@"text":@"",@"key":@"title"},
                            @{@"leftTitle":@"职位类别",@"rightTitle":@"请选择",@"text":@"",@"key":@"cateName"},
                            @{@"leftTitle":@"公司福利",@"rightTitle":@"请选择(选填)",@"text":@"",@"key":@"tag"}
                            ],
-                         @[@{@"leftTitle":@"联系人",@"rightTitle":@"请选择",@"text":@"",@"key":@"contactId"},
-                           @{@"leftTitle":@"工作地点",@"rightTitle":@"请选择",@"text":@"",@"key":@"area"}
+                         @[@{@"leftTitle":@"联系人",@"rightTitle":@"请选择",@"text":text,@"contactId":model1.contactId,@"key":@"contactId"},
+                           @{@"leftTitle":@"工作地点",@"rightTitle":@"请选择",@"text":@"永康市",@"key":@"area"}
                            ],
-                         @[@{@"leftTitle":@"学历要求",@"rightTitle":@"请选择",@"text":@"",@"key":@"edu"},
+                         @[@{@"leftTitle":@"学历要求",@"rightTitle":@"请选择",@"text":@"中专",@"key":@"edu"},
                            @{@"leftTitle":@"户口要求",@"rightTitle":@"请填写(选填)",@"text":@"",@"key":@"hukou"}
                            ],
-                         @[@{@"leftTitle":@"工作类型",@"rightTitle":@"请选择",@"text":@"",@"key":@"jobs"},
-                           @{@"leftTitle":@"工作经验",@"rightTitle":@"请选择",@"text":@"",@"key":@"years"},
-                           @{@"leftTitle":@"月薪",@"rightTitle":@"请选择",@"text":@"",@"key":@"pay"}
+                         @[@{@"leftTitle":@"工作类型",@"rightTitle":@"请选择",@"text":@"不限",@"key":@"jobs"},
+                           @{@"leftTitle":@"工作经验",@"rightTitle":@"请选择",@"text":@"不限",@"key":@"years"},
+                           @{@"leftTitle":@"月薪",@"rightTitle":@"请选择",@"text":@"面议",@"key":@"pay"}
                            ],
                          @[@{@"leftTitle":@"性别要求",@"rightTitle":@"请选择",@"text":@"不限",@"key":@"gender"},
                            @{@"leftTitle":@"年龄要求",@"rightTitle":@"请填写(选填)",@"text":@"不限",@"key":@"ages"},
-                           @{@"leftTitle":@"住房要求",@"rightTitle":@"请选择",@"text":@"",@"key":@"house"}
+                           @{@"leftTitle":@"住房要求",@"rightTitle":@"请选择",@"text":@"面议",@"key":@"house"}
                            ],
-                         @[@{@"leftTitle":@"应聘方式",@"rightTitle":@"请选择",@"text":@"",@"key":@"tele"},
+                         @[@{@"leftTitle":@"应聘方式",@"rightTitle":@"请选择",@"text":@"先投简历再电话联系",@"key":@"tele"},
                            @{@"leftTitle":@"招聘人数",@"rightTitle":@"若干",@"text":@"0",@"key":@"nums"}
                            ],
                          @[@{@"leftTitle":@"岗位要求",@"rightTitle":@"请填写(选填)",@"text":@"",@"key":@"info"}
@@ -121,11 +155,9 @@
         self.dataArr = arrM;
         [_tableView reloadData];
         
-
-
-    }
-    
-
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)get_position_detail
@@ -285,14 +317,12 @@
         }
         else {
             
-            
-            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            [[UIApplication sharedApplication].keyWindow makeToast:@"发布成功"];
+            [self.navigationController dismissViewControllerAnimated:NO completion:nil];
             
             if (self.mark == 1) {
                 
-                AppDelegate *delegate = (AppDelegate *)[AppDelegate share];
-                delegate.tabVC.selectedIndex = 0;
-                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"jobJanagerNotification" object:nil];
             }
         }
         

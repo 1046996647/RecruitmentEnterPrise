@@ -81,7 +81,26 @@
     
     [paraDic setValue:self.model.workerId forKey:@"workerId"];
     
-    [AFNetworking_RequestData requestMethodPOSTUrl:View_contact dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+    [AFNetworking_RequestData requestMethodPOSTUrl:View_contact dic:paraDic showHUD:YES response:YES Succed:^(id responseObject) {
+        
+        NSNumber *code = responseObject[@"status"];
+        if (code.integerValue == 0) {
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请联系客服充值会员" message:ServerPhone preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"联系客服" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",ServerPhone];
+                UIWebView *callWebview = [[UIWebView alloc] init];
+                [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+                [[UIApplication sharedApplication].keyWindow addSubview:callWebview];
+            }];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+            [alertController addAction:okAction];
+            [alertController addAction:cancelAction];
+            [self.viewController presentViewController:alertController animated:YES completion:nil];
+            
+            return ;
+        }
         
         self.model.permit = @"1";
 

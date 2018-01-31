@@ -289,6 +289,12 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    ReceiveMsgModel *model = self.modelArr[indexPath.section][indexPath.row];
+    MsgDetailVC *vc = [[MsgDetailVC alloc] init];
+    vc.title = @"短信内容";
+    vc.model = model;
+    [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -299,9 +305,12 @@
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    
+    ReceiveMsgModel *model = self.modelArr[section][0];
+
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
     //    view.backgroundColor = [UIColor colorWithHexString:@"#FAE5E8"];
-    UILabel *label = [UILabel labelWithframe:CGRectMake(19, 7, kScreenWidth-19, 17) text:@"2017-08-24" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
+    UILabel *label = [UILabel labelWithframe:CGRectMake(19, 7, kScreenWidth-19, 17) text:model.addTime1 font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
     [view addSubview:label];
     
     return view;

@@ -105,7 +105,7 @@
     
     EditResumeVC *vc = [[EditResumeVC alloc] init];
     vc.title = @"详情";
-    vc.model = model;
+    vc.model1 = model;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -62,6 +62,7 @@
 @property(nonatomic,strong) NSString *userChatId;
 @property(nonatomic,strong) NSString *lastTime;//
 @property(nonatomic,strong) NSString *addTime;//
+@property(nonatomic,strong) NSString *addTime1;//
 @property(nonatomic,strong) NSString *sendresumeId;//
 @property(nonatomic,strong) NSString *permit;// permit：true 可查看联系人  false 不可查看
 @property(nonatomic,strong) NSString *favId;

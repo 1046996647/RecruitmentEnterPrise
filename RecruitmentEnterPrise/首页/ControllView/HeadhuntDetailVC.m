@@ -36,8 +36,8 @@
         self.text = @"1、服务费总额：通过乙方推荐，甲方每成功录用一名候选人的委托服务费为其年薪（针对销售经理/总监、外贸经理/总监等基本工资加提成方式计算薪酬的按固定年薪15万计算费用，固定年薪超过15万的按实际薪资计算，普通销售及业务员等按年薪6万计算）的20%作为服务费用。推荐成功一人，收取一人的费用。\n2、支付方式：客户方需在合同签订后一个工作日内支付人民币 6000元整作为合同启动资金。（用于保证客户委托职位的真实性及防止以招聘为名窃取被推荐人的知识产权及信息，同时也用于支付寻访费用），甲方一经成功录用乙方所推荐的人选，应在二日内书面通知乙方，并在人员上岗后的一个月内支付乙方全部委托服务费。\n3、所有付款将以支票或银行转账或现金方式支付；";
     }
     if ([self.title isEqualToString:@"联系方式"]) {
-        self.text = @"客户服务电话：0579-83840599\n手机：13858924279\n传真：0579-86874216\n邮箱：wang1978223@126.com\nfhlzfx@163.com\n地址：永康市丽州南路136-138号3楼   邮编：321300";
-        
+//        self.text = @"客户服务电话：0579-83840599\n手机：13858924279\n传真：0579-86874216\n邮箱：wang1978223@126.com\nfhlzfx@163.com\n地址：永康市丽州南路136-138号3楼\n邮编：321300";
+        self.text = [NSString stringWithFormat:@"客户服务电话：%@\n手机：13858924279\n传真：0579-86874216\n邮箱：wang1978223@126.com\nfhlzfx@163.com\n地址：永康市丽州南路136-138号3楼\n邮编：321300",ServerPhone];
     }
     
     UILabel *label = [UILabel labelWithframe:CGRectMake(20, 10, kScreenWidth-40, 0) text:self.text font:[UIFont systemFontOfSize:16] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
@@ -56,16 +56,16 @@
 
     
     if ([self.title isEqualToString:@"联系方式"]) {
-        self.text = @"客户服务电话：0579-83840599\n手机：13858924279\n传真：0579-86874216\n邮箱：wang1978223@126.com\nfhlzfx@163.com\n地址：永康市丽州南路136-138号3楼\n邮编：321300";
         
         // 行间距设置为30
         [paragraphStyle  setLineSpacing:10];
         
-        [label wl_changeExpansionsWithTextSize:16 changeText:@"客户服务电话：0579-83840599"];
+        [label wl_changeExpansionsWithTextSize:16 changeText:[NSString stringWithFormat:@"客户服务电话：%@",ServerPhone]];
+
         [label wl_changeExpansionsWithTextSize:16 changeText:@"手机：13858924279"];
 
         
-        UIButton *btn1 = [UIButton buttonWithframe:CGRectMake(0, 13, label.width, 20) text:@"" font:nil textColor:nil backgroundColor:nil normal:@"" selected:@""];
+        UIButton *btn1 = [UIButton buttonWithframe:CGRectMake(0, 15, label.width, 30) text:@"" font:nil textColor:nil backgroundColor:nil normal:@"" selected:@""];
         [self.view addSubview:btn1];
         [btn1 addTarget:self action:@selector(callAction1) forControlEvents:UIControlEventTouchUpInside];
 //        btn1.backgroundColor = [UIColor redColor];
@@ -73,12 +73,12 @@
         UIButton *btn2 = [UIButton buttonWithframe:CGRectMake(0, btn1.bottom, label.width, btn1.height) text:@"" font:nil textColor:nil backgroundColor:nil normal:@"" selected:@""];
         [self.view addSubview:btn2];
         [btn2 addTarget:self action:@selector(callAction2) forControlEvents:UIControlEventTouchUpInside];
-//        btn1.backgroundColor = [UIColor redColor];
+//        btn2.backgroundColor = [UIColor redColor];
         
     }
     
     CGSize size = [NSString textHeight:self.text font:label.font width:label.width];
-    label.height = size.height+10;
+    label.height = size.height+80;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -88,7 +88,7 @@
 
 - (void)callAction1
 {
-    NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"0579-83840599"];
+    NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",ServerPhone];
     UIWebView *callWebview = [[UIWebView alloc] init];
     [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
     [[UIApplication sharedApplication].keyWindow addSubview:callWebview];

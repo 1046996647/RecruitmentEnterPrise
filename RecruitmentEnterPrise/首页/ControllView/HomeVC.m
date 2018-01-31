@@ -203,7 +203,16 @@
     
 //    [self isComplete];
 
-    [self.view makeToast:@"记得刷新你的职位~" duration:1.5 position:@"12"];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jobJanagerAction) name:@"jobJanagerNotification" object:nil];
+}
+
+- (void)jobJanagerAction
+{
+    JobManageVC *vc = [[JobManageVC alloc] init];
+    vc.title = @"职位管理";
+    vc.vipLevel = self.model.vipLevel;
+    [self.navigationController pushViewController:vc animated:NO];
 }
 
 - (void)logoAction
@@ -260,11 +269,19 @@
         PersonModel *model = [PersonModel yy_modelWithJSON:responseObject[@"data"]];
         self.model = model;
         
+        if (self.model.postJobs.integerValue == 1) {
+            [self.view makeToast:@"记得刷新你的职位~" duration:1.5 position:@"12"];
+
+        }
+        
         // 剩余约聊岗位发布次数
         [InfoCache archiveObject:model.chatLast toFile:@"chatLast"];
 
         // 地址
         [InfoCache archiveObject:model.address toFile:@"address"];
+        
+        // 会员
+        [InfoCache archiveObject:model.vipLevel toFile:@"vipLevel"];
 
         [self updateInfo];
         
@@ -347,10 +364,22 @@
     
     [AFNetworking_RequestData requestMethodPOSTUrl:Company_upgrade dic:paramDic showHUD:NO response:NO Succed:^(id responseObject) {
         
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"您已成功通知客服" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:nil];
-        [okAction setValue:[UIColor colorWithHexString:@"#D0021B"] forKey:@"_titleTextColor"];
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"您已成功通知客服" message:nil preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:nil];
+//        [okAction setValue:[UIColor colorWithHexString:@"#D0021B"] forKey:@"_titleTextColor"];
+//        [alertController addAction:okAction];
+//        [self presentViewController:alertController animated:YES completion:nil];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请联系客服充值会员" message:ServerPhone preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"联系客服" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",ServerPhone];
+            UIWebView *callWebview = [[UIWebView alloc] init];
+            [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+            [[UIApplication sharedApplication].keyWindow addSubview:callWebview];
+        }];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
         [alertController addAction:okAction];
+        [alertController addAction:cancelAction];
         [self presentViewController:alertController animated:YES completion:nil];
         
     } failure:^(NSError *error) {
@@ -427,11 +456,31 @@
 // 2.7    刷新职位
 - (void)refreshAction
 {
+    
+    
     NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
     
     [AFNetworking_RequestData requestMethodPOSTUrl:Refresh_position dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
         
+        if (self.model.vipLevel.integerValue == 0) {
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请联系客服充值会员" message:ServerPhone preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"联系客服" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",ServerPhone];
+                UIWebView *callWebview = [[UIWebView alloc] init];
+                [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+                [[UIApplication sharedApplication].keyWindow addSubview:callWebview];
+            }];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+            [alertController addAction:okAction];
+            [alertController addAction:cancelAction];
+            [self presentViewController:alertController animated:YES completion:nil];
+            return ;
+        }
+        
         [self.view makeToast:@"刷新成功"];
+
         
     } failure:^(NSError *error) {
         

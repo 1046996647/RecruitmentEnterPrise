@@ -39,6 +39,7 @@
 #define SelectItemJob @"SelectItemJob"
 #define SelectItemJob1 @"SelectItemJob1"
 
+#define ServerPhone @"0579-83830000"
 
 #import "UIViewExt.h"                   //视图位置工具
 #import "NSStringExt.h"                   //视图位置工具

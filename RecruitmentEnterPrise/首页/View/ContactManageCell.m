@@ -105,6 +105,15 @@
 {
     _model = model;
     
+    if (model.is_lock.integerValue == 0) {
+        _delBtn.hidden = NO;
+        _modifyBtn.hidden = NO;
+
+    }
+    else {
+        _delBtn.hidden = YES;
+        _modifyBtn.hidden = YES;
+    }
     [_bodyBtn setTitle:model.name forState:UIControlStateNormal];
     [_eduBtn setTitle:model.email forState:UIControlStateNormal];
     [_chatBtn setTitle:model.tele forState:UIControlStateNormal];

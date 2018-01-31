@@ -53,6 +53,7 @@
 @property(nonatomic,strong) NSString *vipTime;
 @property(nonatomic,strong) NSString *viewResume;
 @property(nonatomic,strong) NSString *favs;
+@property(nonatomic,strong) NSString *postJobs;// 1是已有发布职位  0是不存在
 
 /*
 "address": "浙江省缙云县洋山工业区四号地块",//公司地址

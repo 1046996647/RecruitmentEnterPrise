@@ -318,7 +318,8 @@
     vc.searchText = text;
     vc.searchType = searchType;
     vc.dic = dic;
-    vc.title = @"简历搜索";
+//    vc.title = @"简历搜索";
+    vc.title = [NSString stringWithFormat:@"简历搜索—%@",text];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

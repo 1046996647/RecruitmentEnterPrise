@@ -32,6 +32,7 @@
         
         self.scrollView.backgroundColor = [UIColor colorWithHexString:@"#FAE5E8"];
         self.cellContentView.backgroundColor = [UIColor clearColor];
+        self.scrollView.scrollEnabled = NO;
         
         _selectBtn = [UIButton buttonWithframe:CGRectMake(0, 0, 35, 60) text:@"" font:nil textColor:nil backgroundColor:nil normal:@"Rectangle 11" selected:@"Rectangle 12"];
         [self.cellContentView addSubview:_selectBtn];
@@ -55,7 +56,12 @@
         _imgView = [UIImageView imgViewWithframe:CGRectMake(_viewBtn.right, _viewBtn.center.y-6, _viewBtn.height, _viewBtn.height) icon:@"聊天 (1)"];
         [baseView addSubview:_imgView];
         
-        _stateLab = [UILabel labelWithframe:CGRectMake(baseView.width-11-61, 19, 61, 22) text:@"招聘中" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentCenter textColor:@"#FFFFFF"];
+        _editBtn = [UIButton buttonWithframe:CGRectMake(baseView.width-12-30, (baseView.height-30)/2, 30, 30) text:@"" font:SystemFont(12) textColor:@"#999999" backgroundColor:nil normal:@"102" selected:nil];
+        _editBtn.tag = 2;
+        [baseView addSubview:_editBtn];
+        [_editBtn addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
+        
+        _stateLab = [UILabel labelWithframe:CGRectMake(_editBtn.left-11-61, 19, 61, 22) text:@"招聘中" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentCenter textColor:@"#FFFFFF"];
         _stateLab.layer.cornerRadius = _stateLab.height/2;
         _stateLab.layer.masksToBounds = YES;
         _stateLab.backgroundColor = colorWithHexStr(@"#D0021B");
@@ -74,6 +80,8 @@
         UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gesAction:)];
         [_orderLab addGestureRecognizer:tap2];
         
+
+
 //        _refreshLab = [UILabel labelWithframe:CGRectMake(_orderLab.left-12-42, 19, 42, 22) text:@"刷新" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentCenter textColor:@"#FFFFFF"];
 //        _refreshLab.layer.cornerRadius = _stateLab.height/2;
 //        _refreshLab.layer.masksToBounds = YES;
@@ -88,6 +96,13 @@
     
     return self;
     
+}
+
+-(void)onButton:(UIButton *)btn {
+    
+    if (self.block) {
+        self.block(_model,btn.tag);
+    }
 }
 
 - (void)selectAction:(UIButton *)btn
@@ -105,8 +120,21 @@
     if (tag == 0) {
         
         if (self.vipLevel.integerValue == 0) {
-            [self.viewController.view makeToast:@"请联系客服充会员"];
-            return;
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请联系客服充值会员" message:ServerPhone preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"联系客服" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",ServerPhone];
+                UIWebView *callWebview = [[UIWebView alloc] init];
+                [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+                [[UIApplication sharedApplication].keyWindow addSubview:callWebview];
+            }];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+            [alertController addAction:okAction];
+            [alertController addAction:cancelAction];
+            [self.viewController presentViewController:alertController animated:YES completion:nil];
+            
+            return ;
         }
         
         NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
@@ -183,14 +211,14 @@
     _selectBtn.selected = _model.isSelected;
 
     
-    if (model.status.integerValue == 0) {
-        _stateLab.text = @"已关闭";
-        _stateLab.backgroundColor = [UIColor colorWithHexString:@"#999999"];
-        
-    }
-    else {
+    if (model.status.integerValue == 1) {
+
         _stateLab.text = @"招聘中";
         _stateLab.backgroundColor = [UIColor colorWithHexString:@"#D0021B"];
+    }
+    else {
+        _stateLab.text = @"已关闭";
+        _stateLab.backgroundColor = [UIColor colorWithHexString:@"#999999"];
     }
     
     if (model.chatStatus.integerValue == 1) {

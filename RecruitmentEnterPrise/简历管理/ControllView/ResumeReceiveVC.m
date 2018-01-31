@@ -211,19 +211,40 @@
 
 - (void)inviteAction
 {
+    
+    NSString *vipLevel = [InfoCache unarchiveObjectWithFile:@"vipLevel"];
+    if (vipLevel.integerValue == 0) {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请联系客服充值会员" message:ServerPhone preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"联系客服" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",ServerPhone];
+            UIWebView *callWebview = [[UIWebView alloc] init];
+            [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+            [[UIApplication sharedApplication].keyWindow addSubview:callWebview];
+        }];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:okAction];
+        [alertController addAction:cancelAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+        return ;
+    }
+    
     if (self.selectedArr.count == 0) {
         [self.view makeToast:@"请先选择简历"];
         
         return;
     }
     
-    for (ResumeModel *model in self.selectedArr) {
-        if (model.is_hide.boolValue) {
-            [self.view makeToast:@"选择的简历中存在隐藏简历"];
-            return;
-        }
-        
-    }
+//    for (ResumeModel *model in self.selectedArr) {
+//        if (model.is_hide.boolValue) {
+//            [self.view makeToast:@"选择的简历中存在隐藏简历"];
+//            return;
+//        }
+//
+//    }
+    
     InviteInterviewVC *vc = [[InviteInterviewVC alloc] init];
     vc.title = @"邀请面试";
     vc.selectedArr = self.selectedArr;
@@ -325,7 +346,7 @@
     }
     EditResumeVC *vc = [[EditResumeVC alloc] init];
     vc.title = @"详情";
-    vc.model = model;
+    vc.model1 = model;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -341,7 +362,7 @@
 
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
     //    view.backgroundColor = [UIColor colorWithHexString:@"#FAE5E8"];
-    UILabel *label = [UILabel labelWithframe:CGRectMake(19, 7, kScreenWidth-19, 17) text:model.addTime font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
+    UILabel *label = [UILabel labelWithframe:CGRectMake(19, 7, kScreenWidth-19, 17) text:model.addTime1 font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
     [view addSubview:label];
     
     return view;

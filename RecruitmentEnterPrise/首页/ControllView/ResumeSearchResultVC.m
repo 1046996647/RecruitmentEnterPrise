@@ -80,21 +80,41 @@
 
 - (void)inviteAction
 {
+    
+    NSString *vipLevel = [InfoCache unarchiveObjectWithFile:@"vipLevel"];
+    if (vipLevel.integerValue == 0) {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请联系客服充值会员" message:ServerPhone preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"联系客服" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",ServerPhone];
+            UIWebView *callWebview = [[UIWebView alloc] init];
+            [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+            [[UIApplication sharedApplication].keyWindow addSubview:callWebview];
+        }];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:okAction];
+        [alertController addAction:cancelAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+        return ;
+    }
+    
     if (self.selectedArr.count == 0) {
         [self.view makeToast:@"请先选择简历"];
         
         return;
     }
     
-    for (ResumeModel *model in self.selectedArr) {
-        
-        if (model.invite.integerValue == 0) {
-            [self.view makeToast:@"选择的简历中有未查看过的简历"];
-            
-            return;
-        }
-        
-    }
+//    for (ResumeModel *model in self.selectedArr) {
+//
+//        if (model.invite.integerValue == 0) {
+//            [self.view makeToast:@"选择的简历中有未查看过的简历"];
+//
+//            return;
+//        }
+//
+//    }
     
     InviteInterviewVC *vc = [[InviteInterviewVC alloc] init];
     vc.title = @"邀请面试";

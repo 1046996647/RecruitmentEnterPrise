@@ -17,6 +17,7 @@ typedef void(^JobSendModelBlock)(ReleaseJobModel *model, NSInteger type);
 
 @property(nonatomic,strong) UIButton *selectBtn;
 @property(nonatomic,strong) UIButton *viewBtn;
+@property(nonatomic,strong) UIButton *editBtn;
 @property(nonatomic,strong) UIImageView *imgView;
 @property(nonatomic,strong) UILabel *nameLab;
 @property(nonatomic,strong) UILabel *orderLab;
