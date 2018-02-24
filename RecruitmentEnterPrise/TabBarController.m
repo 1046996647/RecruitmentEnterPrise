@@ -21,6 +21,8 @@
 
 @interface TabBarController ()<UITabBarControllerDelegate,UINavigationControllerDelegate>
 
+@property(nonatomic,strong) ResumeManageVC *vc3;
+
 
 @end
 
@@ -57,7 +59,10 @@
     [self setChildViewController:[[HomeVC alloc]init] Title:@"首页" Image:@"56" SelectedImage:@"50"];
     [self setChildViewController:[[ReleaseJobVC alloc]init] Title:@"发布职位" Image:@"51" SelectedImage:@""];
 
-    [self setChildViewController:[[ResumeManageVC alloc]init] Title:@"简历管理" Image:@"52" SelectedImage:@"55"];
+    ResumeManageVC *vc3 = [[ResumeManageVC alloc] init];
+    self.vc3 = vc3;
+    
+    [self setChildViewController:vc3 Title:@"简历管理" Image:@"52" SelectedImage:@"55"];
     
     [self setChildViewController:[[SessionListViewController alloc]init] Title:@"约聊" Image:@"53" SelectedImage:@"54"];
     
@@ -81,11 +86,51 @@
         
     }];
 
+    // 收到简历
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(is_new) name:@"kResumeNotification" object:nil];
     
 //    [self selectController:2];
-    
+    [self is_new];
+
 
     
+}
+
+- (void)is_new
+{
+    
+    NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Is_resume_new dic:paraDic showHUD:NO response:YES Succed:^(id responseObject) {
+
+        NSNumber *code = [responseObject objectForKey:@"status"];
+        
+        if (code.integerValue == 0) {
+            self.vc3.tabBarItem.badgeValue = nil;
+        }
+        else {
+            NSNumber *countInvite = [responseObject objectForKey:@"count"];
+            self.vc3.tabBarItem.badgeValue = [NSString stringWithFormat:@"%@",countInvite];
+
+        }
+
+
+        
+//        if (countInvite.integerValue > 0) {
+//
+//            //显示
+//            self.vc3.tabBarItem.badgeValue = [NSString stringWithFormat:@"%@",countInvite];
+//
+//        }
+//        else {
+//            //隐藏
+//        }
+        
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
 }
 
 

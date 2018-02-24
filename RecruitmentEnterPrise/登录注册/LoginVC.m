@@ -196,6 +196,8 @@
     [paramDic  setValue:self.phone.text forKey:@"phone"];
     [paramDic  setValue:self.password.text forKey:@"passwd"];
     [paramDic  setValue:self.validate.text forKey:@"verify"];
+    [paramDic  setValue:[InfoCache unarchiveObjectWithFile:@"pushToken"] forKey:@"deviceToken"];
+    [paramDic  setValue:@"ios" forKey:@"deviceType"];
 
     [AFNetworking_RequestData requestMethodPOSTUrl:Login dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         

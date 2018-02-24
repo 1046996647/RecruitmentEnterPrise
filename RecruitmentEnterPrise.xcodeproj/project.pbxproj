@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E7763AB2025895700E97A71 /* libUMessage_Sdk_1.5.0a.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E7763A92025895700E97A71 /* libUMessage_Sdk_1.5.0a.a */; };
+		9E7763AE20258BB400E97A71 /* UITabBar+badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7763AD20258BB300E97A71 /* UITabBar+badge.m */; };
 		E6C4AE24808BB0AEA37EEDC3 /* libPods-RecruitmentEnterPrise.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 081C55AF243CD84220CE9F5D /* libPods-RecruitmentEnterPrise.a */; };
 		F705A7DA1F9488C500298D57 /* ReleaseJobVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F705A7D91F9488C500298D57 /* ReleaseJobVC.m */; };
 		F705A7DD1F9488EE00298D57 /* ReleaseJobCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F705A7DC1F9488EE00298D57 /* ReleaseJobCell.m */; };
@@ -185,6 +187,10 @@
 
 /* Begin PBXFileReference section */
 		081C55AF243CD84220CE9F5D /* libPods-RecruitmentEnterPrise.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RecruitmentEnterPrise.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E7763A92025895700E97A71 /* libUMessage_Sdk_1.5.0a.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.5.0a.a; sourceTree = "<group>"; };
+		9E7763AA2025895700E97A71 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
+		9E7763AC20258BB300E97A71 /* UITabBar+badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+badge.h"; sourceTree = "<group>"; };
+		9E7763AD20258BB300E97A71 /* UITabBar+badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+badge.m"; sourceTree = "<group>"; };
 		ED42DDDA9E94D49555C9D932 /* Pods-RecruitmentEnterPrise.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecruitmentEnterPrise.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RecruitmentEnterPrise/Pods-RecruitmentEnterPrise.debug.xcconfig"; sourceTree = "<group>"; };
 		EED2D2ECB8E0F197D3396C4F /* Pods-RecruitmentEnterPrise.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecruitmentEnterPrise.release.xcconfig"; path = "Pods/Target Support Files/Pods-RecruitmentEnterPrise/Pods-RecruitmentEnterPrise.release.xcconfig"; sourceTree = "<group>"; };
 		F705A7D81F9488C500298D57 /* ReleaseJobVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReleaseJobVC.h; sourceTree = "<group>"; };
@@ -511,6 +517,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6C4AE24808BB0AEA37EEDC3 /* libPods-RecruitmentEnterPrise.a in Frameworks */,
+				9E7763AB2025895700E97A71 /* libUMessage_Sdk_1.5.0a.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +545,15 @@
 				EED2D2ECB8E0F197D3396C4F /* Pods-RecruitmentEnterPrise.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		9E7763A82025895700E97A71 /* UMessage_Sdk_1.5.0a */ = {
+			isa = PBXGroup;
+			children = (
+				9E7763A92025895700E97A71 /* libUMessage_Sdk_1.5.0a.a */,
+				9E7763AA2025895700E97A71 /* UMessage.h */,
+			);
+			path = UMessage_Sdk_1.5.0a;
 			sourceTree = "<group>";
 		};
 		B638EB48DCBB3E9862D02E62 /* Frameworks */ = {
@@ -625,6 +641,7 @@
 		F74820461F91FCCA00F072CD /* RecruitmentEnterPrise */ = {
 			isa = PBXGroup;
 			children = (
+				9E7763A82025895700E97A71 /* UMessage_Sdk_1.5.0a */,
 				F75E83F81FC2C92700043A11 /* RecruitmentEnterPrise.entitlements */,
 				F75E84021FC2D06D00043A11 /* Classes */,
 				F74820791F91FE8A00F072CD /* Thirdparty */,
@@ -1243,6 +1260,8 @@
 				F7931B5A1FB2E4BA00DD5CE2 /* NSStringExt.m */,
 				F7931B6D1FB2E55700DD5CE2 /* UILabel+WLAttributedString.h */,
 				F7931B6C1FB2E55700DD5CE2 /* UILabel+WLAttributedString.m */,
+				9E7763AC20258BB300E97A71 /* UITabBar+badge.h */,
+				9E7763AD20258BB300E97A71 /* UITabBar+badge.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1534,6 +1553,7 @@
 				F75E84681FC2D06E00043A11 /* NTESCellLayoutConfig.m in Sources */,
 				F75E84671FC2D06E00043A11 /* NTESContentView.m in Sources */,
 				F75E846D1FC2D06E00043A11 /* NTESDemoConfig.m in Sources */,
+				9E7763AE20258BB400E97A71 /* UITabBar+badge.m in Sources */,
 				F75E84621FC2D06E00043A11 /* NTESGalleryViewController.m in Sources */,
 				F75BD65C1F947F2B00433133 /* CDTabBar.m in Sources */,
 				F705A7DA1F9488C500298D57 /* ReleaseJobVC.m in Sources */,
@@ -1790,11 +1810,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/RecruitmentEnterPrise/Classes/Vendors/WXChatSDK/SPaySDK",
 					"$(PROJECT_DIR)/RecruitmentEnterPrise/Classes/Vendors/WXChatSDK/WXSDK",
+					"$(PROJECT_DIR)/RecruitmentEnterPrise/UMessage_Sdk_1.5.0a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.HongHu.RecruitmentEnterPrise;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HongHu.RecruitmentEnterPrise1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0da2309c-51fe-4830-9b46-51508eafdf59";
-				PROVISIONING_PROFILE_SPECIFIER = RecruitmentEnterPrise;
+				PROVISIONING_PROFILE = "14f5ab07-d5cc-457f-bf59-cf9000b6fb17";
+				PROVISIONING_PROFILE_SPECIFIER = com.HongHu.RecruitmentEnterPrise1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1823,8 +1844,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/RecruitmentEnterPrise/Classes/Vendors/WXChatSDK/SPaySDK",
 					"$(PROJECT_DIR)/RecruitmentEnterPrise/Classes/Vendors/WXChatSDK/WXSDK",
+					"$(PROJECT_DIR)/RecruitmentEnterPrise/UMessage_Sdk_1.5.0a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.HongHu.RecruitmentEnterPrise;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HongHu.RecruitmentEnterPrise1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

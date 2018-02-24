@@ -125,6 +125,7 @@
     }
 
     [AFNetworking_RequestData requestMethodPOSTUrl:urlStr dic:paramDic showHUD:NO response:YES Succed:^(id responseObject) {
+
         
         self.isRefresh = YES;
         [SVProgressHUD dismiss];

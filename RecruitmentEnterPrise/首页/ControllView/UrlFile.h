@@ -33,6 +33,9 @@
 // 1.8    确认修改手机
 #define Alter_phone  [NSString stringWithFormat:@"%@/User/alter_phone",BaseUrl]
 
+// 1.8    收到的新简历
+#define Is_resume_new  [NSString stringWithFormat:@"%@/User/is_resume_new",BaseUrl]
+
 // 2.2    选择项获取分站信息
 #define Get_sites  [NSString stringWithFormat:@"%@/QuickGet/get_sites",BaseUrl]
 

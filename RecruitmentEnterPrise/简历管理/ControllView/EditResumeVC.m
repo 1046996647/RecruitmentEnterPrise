@@ -244,6 +244,9 @@
 
     [AFNetworking_RequestData requestMethodPOSTUrl:Resume_detail dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
+        //收到简历
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"kResumeNotification" object:nil];
+        
         ResumeModel *model = [ResumeModel yy_modelWithJSON:responseObject[@"data"]];
         self.model = model;
         
